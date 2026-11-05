@@ -8,7 +8,7 @@
 .wiki-learning .wiki-section-head h4 { letter-spacing:-.025em; font-size:calc(28px * var(--study-type-scale,1)); }
 .wiki-learning h5[data-wiki-section] { margin-top:42px; padding-top:6px; font-size:calc(25px * var(--study-type-scale,1)); line-height:1.5; }
 .wiki-learning .wiki-article p { max-width:100%; color:var(--ink,#30272a); }
-.wiki-learning .wiki-article { max-width:1100px; width:100%; margin-inline:auto; }
+.wiki-learning .wiki-article { max-width:var(--wiki-reading-width,1100px); width:100%; margin-inline:auto; }
 .wiki-learning .wiki-grid.single>.wiki-figure,.wiki-learning .wiki-grid:not(.single)>.wiki-figure:last-child:nth-child(odd) { max-width:min(100%,780px)!important; width:100%; }
 .wiki-learning .wiki-grid { gap:16px; margin:24px 0; }
 .wiki-learning .wiki-figure { background:var(--paper,#fff); border:1px solid var(--line); border-radius:16px; padding:14px; }
@@ -232,4 +232,38 @@ html[data-theme="dark"] .learning-co { --co-heart:#edb6c5; --co-vein:#8cc9d5; }
   .learning-co-legend { gap:10px; font-size:.65em; }
   .learning-co [data-co-axis] { font-size:.65em; padding:8px; }
   .learning-co svg text { font-size:28px; }
+}
+
+
+.learning-integration { --integration-accent:#852d4c; --integration-soft:rgba(133,45,76,.06); }
+.learning-integration-cases,.learning-integration-steps { display:flex; gap:7px; flex-wrap:wrap; }
+.learning-integration-cases { margin:8px 0 18px; }
+.learning-integration button { color:inherit; font:inherit; font-size:.76em; border:1px solid var(--line,#e8d9df); background:transparent; border-radius:10px; padding:10px 14px; min-height:44px; cursor:pointer; line-height:1.4; }
+.learning-integration button[aria-pressed="true"] { color:var(--integration-accent); border-color:var(--integration-accent); background:var(--integration-soft); font-weight:750; }
+.learning-integration button:focus-visible { outline:2px solid var(--integration-accent); outline-offset:3px; }
+.learning-integration-steps { padding-bottom:17px; border-bottom:1px solid var(--line,#e8d9df); }
+.learning-integration-steps button { display:flex; align-items:center; gap:8px; flex:1; justify-content:center; }
+.learning-integration-steps button>span { display:inline-grid; place-items:center; border:1px solid currentColor; border-radius:50%; width:1.5em; height:1.5em; font-size:.8em; flex-shrink:0; }
+.learning-integration .learning-integration-basis { font-size:.76em; line-height:1.7; margin:18px 0 9px; color:var(--integration-accent); }
+.learning-integration h6 { font-size:1.08em; line-height:1.6; margin:0 0 16px; letter-spacing:-.025em; }
+.learning-integration-chain { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none!important; padding:0!important; gap:10px; margin:0 0 20px!important; }
+.learning-integration-chain li { position:relative; margin:0!important; padding:12px 10px; background:var(--integration-soft); border-radius:10px; font-size:.77em; line-height:1.7; }
+.learning-integration-chain li>span { display:block; color:var(--integration-accent); font-size:.8em; font-weight:750; margin-bottom:4px; }
+.learning-integration-facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin:0 0 16px; }
+.learning-integration-facts>div { border-bottom:2px solid var(--line,#e8d9df); padding:10px 5px 14px; text-align:center; }
+.learning-integration-facts span { display:block; font-size:.7em; line-height:1.6; margin-bottom:7px; }
+.learning-integration-facts strong { display:block; color:var(--integration-accent); font-size:1.05em; line-height:1.55; word-break:keep-all; }
+.learning-integration .learning-integration-text { font-size:.87em; line-height:1.85; margin:0 0 10px; }
+html[data-theme="dark"] .learning-integration { --integration-accent:#edb6c5; --integration-soft:rgba(237,182,197,.08); }
+@media(max-width:700px){
+ .learning-integration-cases { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .learning-integration button { font-size:.73em; padding:9px 6px; }
+ .learning-integration-steps { gap:4px; }
+ .learning-integration-steps button { flex-direction:column; gap:4px; }
+ .learning-integration-chain { grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+ .learning-integration-chain li { padding:10px; font-size:.75em; }
+ .learning-integration-facts { gap:4px; }
+ .learning-integration-facts>div { padding:9px 2px 11px; }
+ .learning-integration-facts strong { font-size:.88em; }
+ .learning-integration-facts span { font-size:.66em; }
 }

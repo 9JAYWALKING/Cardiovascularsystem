@@ -255,21 +255,23 @@ html[data-theme="dark"] .study-ui .bookmark-category.clinical { background:#2114
 .lecture-chapter-label { min-width:0; flex:1; }
 .lecture-chapter-label select { width:100%; max-width:100%; font:inherit; font-size:calc((14px) * var(--study-type-scale,1)); font-weight:650; color:inherit; background:var(--study-surface); border:0; padding:5px 20px 5px 0; text-overflow:ellipsis; }
 .lecture-chapter-label .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
-.lecture-workspace .wiki-note { border:0; border-radius:0; box-shadow:none; overflow:visible; }
+.lecture-workspace .wiki-note { --wiki-reading-width:1100px; border:0; border-radius:0; box-shadow:none; overflow:visible; }
 .lecture-workspace .wiki-hero { padding:22px 24px; background:var(--brand-soft); }
 .lecture-workspace .wiki-hero h3 { font-size:calc((27px) * var(--study-type-scale,1)); }
 .lecture-workspace .wiki-hero-actions { gap:5px; }
 .lecture-workspace .wiki-hero-actions button { padding:7px 10px; font-size:calc((12px) * var(--study-type-scale,1)); }
 .lecture-workspace .wiki-stat-row:empty { display:none; }
 .lecture-workspace .wiki-layout,.lecture-workspace .wiki-layout.is-toc-collapsed { display:block; padding:20px 24px 6px; }
-.lecture-workspace .wiki-toc,.lecture-workspace .wiki-layout.is-toc-collapsed .wiki-toc { position:static; width:auto; max-height:none; margin-bottom:24px; padding:10px 14px; border-radius:12px; box-shadow:none; }
+.lecture-workspace .wiki-toc,.lecture-workspace .wiki-layout.is-toc-collapsed .wiki-toc { position:static; width:100%; max-width:var(--wiki-reading-width); max-height:none; margin:0 auto 24px; padding:14px 16px; border-radius:12px; box-shadow:none; }
 .lecture-workspace .wiki-layout.is-toc-collapsed .wiki-toc-head { justify-content:space-between; }
 .lecture-workspace .wiki-layout.is-toc-collapsed .wiki-toc-title { display:block; }
-.lecture-workspace .wiki-toc-links { max-height:180px; }
+.lecture-workspace .wiki-toc-links { display:block; max-height:none; overflow:visible; }
+.lecture-workspace .wiki-toc strong { font-size:calc(14px * var(--study-type-scale,1)); }
+.lecture-workspace .wiki-toc-link { padding:8px 10px; font-size:calc(15px * var(--study-type-scale,1)); line-height:1.65; }
 .lecture-workspace .wiki-section-head h4 { font-size:calc((24px) * var(--study-type-scale,1)); line-height:1.5; }
 .lecture-workspace .wiki-article h5 { font-size:calc((21px) * var(--study-type-scale,1)); line-height:1.55; scroll-margin-top:16px; }
 .lecture-workspace .wiki-section { scroll-margin-top:16px; }
-.lecture-workspace .wiki-article { line-height:1.85; }
+.lecture-workspace .wiki-article { width:100%; max-width:var(--wiki-reading-width); margin-inline:auto; line-height:1.85; }
 .lecture-workspace .wiki-grid.single>.wiki-figure,.lecture-workspace .wiki-grid:not(.single)>.wiki-figure:last-child:nth-child(odd) { width:100%; max-width:min(100%,50vw); }
 .lecture-workspace .wiki-grid img { max-height:580px; object-fit:contain; }
 .lecture-workspace .jbl-embed { padding:12px; min-width:0; }

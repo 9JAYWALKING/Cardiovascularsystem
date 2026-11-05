@@ -128,7 +128,7 @@ html[data-theme="dark"] .study-answer-status.is-wrong { color:#ffaabe; }
 .study-ui .bookmark-section-buttons button[aria-pressed="true"] { border-color:var(--study-accent); box-shadow:inset 0 0 0 1px var(--study-accent); }
 .study-ui .bookmark-section-buttons span { margin-left:7px; font-size:calc((12px) * var(--study-type-scale,1)); color:var(--study-muted); }
 .study-ui .bookmark-collection-title { margin:18px 0 14px; font-size:calc((18px) * var(--study-type-scale,1)); line-height:1.5; overflow-wrap:anywhere; }
-html[data-theme="dark"] .study-ui .bookmark-category.basic { background:#101820; color:#b6d9fa; }
+html[data-theme="dark"] .study-ui .bookmark-category.basic { background:var(--brand-soft); color:var(--study-accent); }
 html[data-theme="dark"] .study-ui .bookmark-category.clinical { background:#211416; color:#f4bec4; }
 .study-ui .schedule-toolbar { margin-bottom:20px; }
 .study-ui .schedule-toolbar h2 { font-size:calc((24px) * var(--study-type-scale,1)); }
@@ -789,6 +789,9 @@ body.study-ui {
 }
 html[data-theme="dark"]:has(body.study-ui) { --study-header-background:#341b24; background-color:#000; }
 html[data-theme="dark"] body.study-ui { --study-surface:#000; --study-muted:#fff; --study-border:#483039; --study-accent:#edb6c5; background:#000; color:#fff; }
+/* Dark interface accents always inherit wine, including native controls. */
+html[data-theme="dark"] .study-ui { accent-color:var(--study-accent); }
+html[data-theme="dark"] .study-ui .kmle-question-links a.is-right { border-color:var(--study-accent); }
 html[data-theme="dark"] .study-ui .masthead { background:#341b24; color:#fff; }
 html[data-theme="dark"] .study-ui #quick-start-root .study-app-icon { background:#1a1014; border-color:#483039; color:#edb6c5; }
 html[data-theme="dark"] .study-ui .detail-bar { --study-lecture-bg:#442331; }

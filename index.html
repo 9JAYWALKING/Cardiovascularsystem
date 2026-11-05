@@ -1981,7 +1981,7 @@
   :root[data-theme="dark"] .quick-preview {background:#160f10;color:#ddb7bf;}
   :root[data-theme="dark"] .quick-final-heading,:root[data-theme="dark"] .quick-heading h2 {color:#ddb7bf;}
 </style>
-<link rel="stylesheet" href="./study-ui.css?v=j-shared-gray-20261105">
+<link rel="stylesheet" href="./study-ui.css?v=j-explanation-source-20261105">
   <link rel="stylesheet" href="./wiki-image-overlays.css?v=typography-v1-20261105">
   <link rel="stylesheet" href="./cardiovascular-atlas.css?v=typography-v1-20261105">
   <link rel="stylesheet" href="./kmle.css?v=typography-v1-20261105">
@@ -3806,11 +3806,11 @@ SOFTWARE.
     function questionExplanationMarkup(question) {
       const course = byId(question.lectureIds?.[0]) || emptyRenderCourse;
       const images = (question.explanationImages || []).map(item => typeof item === 'string' ? {src:item} : item).filter(item => item?.src);
-      const lecturePills = questionLectureIds(question).map(id => `<span class="jbl-lecture-map">${escapeHtml(questionLectureLabel(id))}</span>`).join('');
+      const lecturePills = questionLectureIds(question).map(id => `<span class="jbl-lecture-map">${escapeHtml(questionLectureLabel(id))}</span>`).join('')
+        || `<span class="jbl-lecture-map">${question.category === '과거 강의 기출' ? '과거 강의 기출' : '강의 미배정'}</span>`;
       const learning = questionChoiceLearning(question);
-      const answerHeader = learning
-        ? (learning.title ? `<h2 class="jbl-learning-title">${escapeHtml(learning.title)}</h2>` : '')
-        : `<div class="jbl-answer-box">${renderJblWikiFragment(question.answerLabel, question, 'answer')}</div><div class="jbl-lecture-row">${lecturePills}<span class="jbl-professor-name">${escapeHtml(questionExaminerLabel(question))}</span></div>`;
+      const sourceHeader = `<header class="jbl-explanation-heading"><div class="jbl-explanation-source" aria-label="출처 강의와 교수">${lecturePills}<span class="jbl-professor-name">${escapeHtml(questionExaminerLabel(question))}</span></div>${learning?.title ? `<h2 class="jbl-learning-title">${escapeHtml(learning.title)}</h2>` : ''}</header>`;
+      const answerHeader = sourceHeader + (learning ? '' : `<div class="jbl-answer-box">${renderJblWikiFragment(question.answerLabel, question, 'answer')}</div>`);
       return `<section class="jbl-explanation${learning ? ' jbl-learning-explanation' : ''}" data-explanation-number="${question.globalNumber}">${answerHeader}${images.length ? `<div class="jbl-page-block">${images.map(item => `<figure><img class="jbl-page-img" data-jbl-image src="${escapeHtml(encodeURI(item.src))}" alt="${escapeHtml(item.caption || question.displayId+' 해설 그림')}" />${item.caption ? `<figcaption>${renderWikiInline(item.caption,course,{items:[],named:new Map()},false)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}<div class="jbl-explanation-text">${question.explanation?.trim() ? renderJblWikiFragment(questionLearningExplanationText(question,learning), question, 'explanation') : '<p class="jbl-explanation-empty">아직 작성된 해설이 없습니다.</p>'}</div>${recoveryMarkup(question)}</section>`;
     }
 

@@ -935,6 +935,11 @@ html[data-theme="dark"] .study-ui :is(.wiki-note,.jbl-wiki-text) ::selection { b
 /* Explanation text follows the question's content scale, not large Wiki headings. */
 .study-ui .jbl-explanation :is(.jbl-explanation-text,.jbl-wiki-text){font-size:calc(17px * var(--study-content-scale,1));line-height:1.75}
 .study-ui .jbl-explanation .jbl-learning-title{font-size:calc(20px * var(--study-content-scale,1));margin-bottom:16px}
+/* Source badges and the concept title form one compact, wrapping heading. */
+.study-ui .jbl-explanation-heading{display:flex;align-items:center;flex-wrap:wrap;gap:9px 14px;margin:0 0 18px;min-width:0}
+.study-ui .jbl-explanation-source{display:flex;align-items:center;flex-wrap:wrap;gap:6px;flex:0 1 auto;min-width:0;max-width:100%}
+.study-ui .jbl-explanation-source :is(.jbl-lecture-map,.jbl-professor-name){max-width:100%;padding:5px 9px;border-radius:10px;font-size:calc(13px * var(--study-ui-scale,1));line-height:1.45;font-weight:750;word-break:keep-all;overflow-wrap:anywhere;cursor:default}
+.study-ui .jbl-explanation .jbl-explanation-heading .jbl-learning-title{flex:1 1 15rem;min-width:0;margin:0;word-break:keep-all;overflow-wrap:anywhere}
 .study-ui .jbl-explanation .jbl-wiki-text h3{font-size:calc(18px * var(--study-content-scale,1));line-height:1.45;margin:22px 0 12px;padding-bottom:7px}
 .study-ui .jbl-explanation .jbl-wiki-text h4{font-size:calc(17px * var(--study-content-scale,1));line-height:1.5;margin:20px 0 7px;font-weight:750}
 .study-ui .jbl-explanation .jbl-wiki-text>:first-child{margin-top:0}

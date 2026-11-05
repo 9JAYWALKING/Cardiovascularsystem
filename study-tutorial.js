@@ -6,6 +6,10 @@
   const dialog=document.createElement('dialog');dialog.id='study-tutorial';dialog.setAttribute('aria-labelledby','t-title');
   dialog.innerHTML=`<header class="t-head"><button class="t-icon-button" data-t="hub" aria-label="사용법 목록으로">${icon('back')}</button><div><div class="t-eyebrow">STUDY GUIDE</div><h2 id="t-title">사이트 사용법</h2></div><button class="t-icon-button" data-t="close" aria-label="사용법 닫기">${icon('close')}</button></header><div class="t-body"></div><footer class="t-foot" hidden></footer>`;
   document.body.append(dialog);
+  const photoDialog=document.createElement('dialog');photoDialog.className='t-photo-dialog';photoDialog.setAttribute('aria-labelledby','t-photo-title');
+  photoDialog.innerHTML=`<header class="t-photo-head"><h3 id="t-photo-title"></h3><button class="t-icon-button" data-t="photo-close" aria-label="사진 확대 닫기">${icon('close')}</button></header><div class="t-photo-content"><img alt=""></div>`;
+  dialog.append(photoDialog);
+  photoDialog.addEventListener('click',e=>{if(e.target===photoDialog)photoDialog.close();});
   const body=dialog.querySelector('.t-body'),foot=dialog.querySelector('.t-foot'),title=dialog.querySelector('#t-title');
   let mode='hub',step=0,done=false,selected=null,revealed=false,explained=false,status=0,star=false,statusTried=false,starTried=false,filter='all',jblNext=false,gesturePage=1,gestureExplanation=false,gestureSelection=true,faqCategory='전체',returnFocus=null,returnScroll=0,oldOverflow='',gestureCleanup=()=>{};
   // Keep the controls reachable after pinch zoom or when the mobile keyboard opens.
@@ -37,7 +41,7 @@
     body.querySelector('button')?.focus({preventScroll:true});
   }
   function close(){dialog.close();}
-  dialog.addEventListener('close',()=>{gestureCleanup();document.documentElement.style.overflow=oldOverflow;window.scrollTo({top:returnScroll,behavior:'instant'});returnFocus?.isConnected&&returnFocus.focus({preventScroll:true});});
+  dialog.addEventListener('close',e=>{if(e.target!==dialog)return;if(photoDialog.open)photoDialog.close();gestureCleanup();document.documentElement.style.overflow=oldOverflow;window.scrollTo({top:returnScroll,behavior:'instant'});returnFocus?.isConnected&&returnFocus.focus({preventScroll:true});});
   document.addEventListener('click',e=>{if(e.target.closest('[data-study-tutorial-open]')){e.preventDefault();open();}});
   function resetStep(){done=false;selected=null;revealed=false;explained=false;status=0;star=false;statusTried=starTried=false;filter='all';jblNext=false;gestureExplanation=mode==='gesture'&&step===3;gestureSelection=true;gesturePage=step===1?2:1;}
   function enter(next){mode=next;step=0;resetStep();render();}
@@ -82,7 +86,14 @@
     pad.addEventListener('pointerup',e=>{if(!down||e.pointerId!==down.id)return;const g=down;down=null;const dx=e.clientX-g.x,dy=e.clientY-g.y;pad.querySelector('.t-gesture-card').style.transform='';if(g.horizontal){lastTap=null;if(policy.accepts(dx,dy))gestureAction(dx<0?'left':'right');else feedback('옆으로 조금 더 밀어보세요. 빠르게 움직일 필요는 없어요.');return;}if(g.distance>policy.tapDistance||Math.hypot(dx,dy)>policy.tapDistance||Date.now()-g.t>400){lastTap=null;return;}const now=Date.now();if(lastTap&&now-lastTap.t<=policy.doubleTapMs&&Math.hypot(e.clientX-lastTap.x,e.clientY-lastTap.y)<=policy.doubleTapDistance){lastTap=null;clearTimeout(timer);gestureAction('double');}else{lastTap={x:e.clientX,y:e.clientY,t:now};timer=setTimeout(()=>{lastTap=null;if(step===4)gestureAction('single');},policy.doubleTapMs+20);}});
     pad.addEventListener('pointercancel',reset);gestureCleanup=reset;
   }
+  const webAppSteps=[
+    {image:'webapp-share.png',width:2732,height:2048,title:'공유 → 홈 화면에 추가',description:'Safari에서 사이트를 열고 공유 버튼을 누른 뒤, <b>홈 화면에 추가</b>를 선택하세요.',alt:'Safari 공유 메뉴에서 홈 화면에 추가를 선택하는 화면'},
+    {image:'webapp-add.png',width:2732,height:2048,title:'웹 앱으로 열고, 추가',description:'<b>웹 앱으로 열기</b>를 켜고, 오른쪽 위 <b>추가</b>를 누르세요.',alt:'순환기계 이름과 심장 아이콘을 확인하고 웹 앱으로 열기를 켠 홈 화면에 추가 창'},
+    {image:'webapp-home.png',width:776,height:836,title:'심장 아이콘으로 바로 시작',description:'홈 화면의 <b>순환기계</b> 아이콘을 누르면 앱처럼 열려요.',alt:'홈 화면에 추가된 순환기계 심장 아이콘'}
+  ];
+  function webAppGuide(){return `<section class="t-webapp-guide" aria-label="홈 화면에 추가하는 방법"><div class="t-webapp-heading"><img src="./assets/app-icons/apple-touch-icon.png" alt="" width="48" height="48"><div><small>iPhone · iPad / Safari</small><h3>홈 화면에서 앱처럼 열기</h3></div></div><p class="t-webapp-intro">심장 아이콘을 홈 화면에 두면, 주소를 찾을 필요 없이 바로 공부를 시작할 수 있어요.</p><ol class="t-webapp-steps">${webAppSteps.map((s,i)=>`<li><div class="t-webapp-step-title"><span>${i+1}</span><h4>${s.title}</h4></div><p>${s.description}</p><button class="t-webapp-photo" data-t="webapp-photo" data-photo="${i}" aria-label="${i+1}단계 사진 크게 보기: ${s.title}" aria-haspopup="dialog"><img src="./assets/tutorial/${s.image}" alt="${s.alt}" width="${s.width}" height="${s.height}" loading="lazy"><span>${icon('search')} 사진 크게 보기</span></button></li>`).join('')}</ol><p class="t-webapp-hint">사진을 누르면 크게 볼 수 있어요. 기기와 Safari 버전에 따라 메뉴 위치가 조금 다를 수 있어요.</p></section>`;}
   const faqs=[
+    ['설정','홈 화면에 앱처럼 추가할 수 있나요?',webAppGuide(),'웹앱 웹 앱 설치 아이폰 아이패드 iPhone iPad Safari 사파리 공유 홈화면 바로가기 아이콘 북마크'],
     ['Wiki','Wiki, J, JBL은 어떻게 다른가요?','<b>Wiki</b>는 강의 내용을 이해하는 문서, <b>J</b>는 기출문제와 해설, <b>JBL</b>은 핵심 개념과 관련 문제를 이어 보는 복습 화면이에요. 강의를 열고 위쪽 탭에서 바꿔보세요.','시작 강의 공부'],
     ['Wiki','Wiki를 읽다가 관련 문제를 풀고 싶어요.','문단 아래 <b>J 링크</b>를 누르면 연결된 문제가 옆에 열려요. 문서를 계속 보면서 풀 수 있고, 문제 창을 닫으면 읽던 곳으로 돌아가요.','링크 분할 화면'],
     ['Wiki','내용을 외웠는지 확인하고 싶어요.','개념 끝의 <b>백지복습</b>을 펼쳐 질문에 답해보세요. 문단 제목 옆 <b>출제 횟수</b>를 누르면 연결 문항을 확인할 수 있어요. 아래 J 링크로 바로 풀어봐도 좋아요.','회상 암기 횟수'],
@@ -107,18 +118,20 @@
   function renderFinish(){
     const quickIcon='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8L20 9h-7l1-7Z"/></svg>';
     const timerIcon='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="14" r="8"/><path d="M9 2h6m-3 0v4m6 1 2 2m-8 1v5l3 2"/></svg>';
-    body.innerHTML=`<div class="t-extras-intro"><span class="t-complete-label">${icon('check')} 연습 마무리</span><h3>이런 기능도 있어요</h3><p>공부하는 방식에 맞춰 골라 써보세요.<br>모두 <b>오른쪽 위 설정</b>에서 찾을 수 있어요.</p></div>
+    body.innerHTML=`<div class="t-extras-intro"><span class="t-complete-label">${icon('check')} 연습 마무리</span><h3>이런 기능도 있어요</h3><p>공부하는 방식에 맞춰 골라 써보세요.<br>빠른 모드·타이머·글꼴 변경은 <b>오른쪽 위 설정</b>에서 찾을 수 있어요.</p></div>
       <div class="t-extras-grid">
         <article class="t-extra-card"><div class="t-extra-title"><span class="t-extra-icon">${quickIcon}</span><div><h4>빠른 모드</h4><small>문제를 쭉 이어서 풀고 싶을 때</small></div></div><p>선지를 고르면 <b>자동으로 다음 문항</b>으로 넘어가요.</p><div class="t-extra-detail">정답은 <b>0.5초</b>, 오답은 <b>1초</b> 뒤 이동<br>문항별 제한 시간 조절 · <b>∞</b>로 제한 끄기</div><span class="t-extra-location">문제 화면 → 설정 → 빠른 모드</span></article>
         <article class="t-extra-card"><div class="t-extra-title"><span class="t-extra-icon">${timerIcon}</span><div><h4>타이머</h4><small>공부할 시간을 정해두고 싶을 때</small></div></div><p><b>이름과 시간</b>을 입력하고 시작하면 상단 바에 남은 시간이 보여요.</p><div class="t-extra-detail">진행선으로 흐른 시간 확인<br>시간이 끝나면 타이머 글자가 깜빡여요.</div><span class="t-extra-location">설정 → 타이머 → 시작</span></article>
         <article class="t-extra-card"><div class="t-extra-title"><span class="t-extra-icon t-extra-font" aria-hidden="true">Aa</span><div><h4>글꼴 변경</h4><small>내 눈에 편하게 읽고 싶을 때</small></div></div><p><b>글꼴과 글자 크기</b>를 영역별로 따로 맞출 수 있어요.</p><div class="t-extra-detail">메뉴 등 시스템 글씨<br>Wiki·발문·선지 본문 · 선지 아래 해설</div><span class="t-extra-location">설정 → 글꼴 변경</span></article>
-      </div><p class="t-record-note">더 자세한 사용법은 ‘기능 찾아보기’에서 언제든 확인할 수 있어요.</p><div class="t-extras-links"><button class="t-text-button" data-t="find">기능 찾아보기</button><button class="t-text-button" data-t="${mode==='finish-gesture'?'basic':'gesture'}">${mode==='finish-gesture'?'기본 사용 연습':'제스처 연습'}</button></div>`;
+      </div>${webAppGuide()}<p class="t-record-note">더 자세한 사용법은 ‘기능 찾아보기’에서 언제든 확인할 수 있어요.</p><div class="t-extras-links"><button class="t-text-button" data-t="find">기능 찾아보기</button><button class="t-text-button" data-t="${mode==='finish-gesture'?'basic':'gesture'}">${mode==='finish-gesture'?'기본 사용 연습':'제스처 연습'}</button></div>`;
     foot.hidden=false;foot.innerHTML=`<button class="t-button" data-t="hub">사용법 목록</button><button class="t-button t-primary" data-t="close">홈으로 돌아가기 ${icon('arrow')}</button>`;
   }
   function advance(){const count=mode==='basic'?basic.length:gestures.length;if(step<count-1){step++;resetStep();render();}else{mode=mode==='basic'?'finish-basic':'finish-gesture';render();}body.querySelector('button')?.focus({preventScroll:true});}
   dialog.addEventListener('input',e=>{if(e.target.matches('.t-search'))renderFaq();});
   dialog.addEventListener('click',e=>{
     const button=e.target.closest('[data-t]');if(!button||button.disabled)return;const action=button.dataset.t;
+    if(action==='webapp-photo'){e.stopPropagation();const s=webAppSteps[Number(button.dataset.photo)];if(!s)return;photoDialog.querySelector('h3').textContent=s.title;const img=photoDialog.querySelector('img');img.src=`./assets/tutorial/${s.image}`;img.alt=s.alt;photoDialog.showModal();return;}
+    if(action==='photo-close'){e.stopPropagation();photoDialog.close();return;}
     if(action==='close'){close();return;}if(action==='hub'){mode='hub';render();return;}if(['basic','gesture','find'].includes(action)){enter(action);return;}
     if(action==='next'||action==='skip'){advance();return;}if(action==='previous'){step=Math.max(0,step-1);resetStep();render();return;}
     if(action==='lecture'){body.querySelector('[data-t-lecture-detail]').hidden=false;feedback('강의를 열었어요. Wiki → J → JBL, 이 세 가지만 기억하면 돼요.',true);}

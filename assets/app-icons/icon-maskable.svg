@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>CARDIOVASCULAR SYSTEM · adaptive icon</title>
+  <defs>
+    <linearGradient id="wine" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#87374f"/>
+      <stop offset=".6" stop-color="#70283e"/>
+      <stop offset="1" stop-color="#5e2135"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#wine)"/>
+  <!-- All foreground strokes remain within the central maskable safe circle. -->
+  <g fill="none" stroke="#fff8f3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 380C230 360 110 283 110 206c0-55 64-82 105-48l41 35 41-35c41-34 105-7 105 48 0 77-120 154-146 174Z" stroke-width="26"/>
+    <path d="M155 257h36l24-42 31 84 30-62 21 20h60" stroke-width="20"/>
+  </g>
+</svg>

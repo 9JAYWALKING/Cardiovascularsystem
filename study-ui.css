@@ -139,6 +139,32 @@ html[data-theme="dark"] .study-ui .bookmark-category.clinical { background:#2114
 .study-ui .schedule-op-toggle { display:inline-flex; align-items:center; color:var(--study-muted); border-color:var(--study-border); background:var(--study-surface); }
 .study-ui .schedule-op-toggle[aria-pressed="true"] { color:var(--study-accent); border-color:var(--study-accent); background:var(--brand-soft); }
 .study-ui .schedule-op-toggle:focus-visible { outline:2px solid var(--study-accent); outline-offset:3px; }
+/* Fit all five weekdays on phones, while letting long course titles wrap in full. */
+@media(max-width:760px) {
+  .study-ui .schedule-toolbar { gap:10px; margin-bottom:14px; }
+  .study-ui .schedule-toolbar h2 { font-size:calc(22px * var(--study-type-scale,1)); }
+  .study-ui .schedule-toolbar .legend { gap:6px; }
+  .study-ui .schedule-toolbar .legend span,.study-ui .schedule-op-toggle { padding:4px 8px; font-size:10px; }
+  .study-ui .week-stack { gap:18px; }
+  .study-ui .week-card { border-radius:13px; }
+  .study-ui .week-title { padding:9px 11px; gap:8px; }
+  .study-ui .week-title strong { font-size:15px; }
+  .study-ui .week-title span { font-size:10px; }
+  .study-ui .timetable-scroll { overflow-x:visible; }
+  .study-ui .timetable { width:100%; min-width:0; grid-template-columns:32px repeat(5,minmax(0,1fr)); grid-template-rows:32px repeat(var(--schedule-hour-count,9),minmax(44px,auto)); }
+  .study-ui .timetable .grid-cell { padding:3px 1px; }
+  .study-ui .timetable .day-head { font-size:11px; line-height:1.2; }
+  .study-ui .timetable .day-head small { font-size:8px; white-space:nowrap; }
+  .study-ui .timetable .time-cell { font-size:8px; letter-spacing:-.03em; }
+  .study-ui .timetable .course-slot { margin:2px; }
+  .study-ui .timetable .course-card { height:100%; min-height:0; padding:3px 2px; gap:2px; border-radius:5px; }
+  .study-ui .timetable .course-card .number { font-size:8px; line-height:1.15; }
+  .study-ui .timetable .course-card .name { display:block; overflow:visible; -webkit-line-clamp:unset; font-size:clamp(8.5px,2.35vw,10px); line-height:1.25; overflow-wrap:anywhere; word-break:keep-all; }
+  .study-ui .timetable .course-card .teacher { font-size:8px; line-height:1.2; letter-spacing:-.04em; overflow-wrap:anywhere; }
+  .study-ui .timetable .course-tooltip { display:none; }
+  .study-ui .timetable .exam-column { min-width:0; padding:8px 4px; font-size:12px; overflow-wrap:anywhere; }
+  .study-ui .timetable .holiday-column { font-size:12px; }
+}
 /* Size and anchor against the same visible viewport, including mobile browser chrome. */
 #study-control-center { --study-center-safe-top:env(safe-area-inset-top,0px); --study-center-safe-right:env(safe-area-inset-right,0px); --study-center-safe-bottom:env(safe-area-inset-bottom,0px); --study-center-safe-left:env(safe-area-inset-left,0px); position:fixed; inset:var(--study-center-top,56px) var(--study-center-right,12px) auto auto; margin:0; width:var(--study-center-width,min(460px,calc(100vw - 24px))); max-width:calc(100vw - 24px); min-width:0; min-height:0; max-height:var(--study-center-max-height,calc(100vh - var(--study-center-top,56px) - 12px)); max-height:var(--study-center-max-height,calc(100dvh - var(--study-center-top,56px) - 12px)); padding:12px 22px 24px; box-sizing:border-box; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; scroll-padding-block:12px 24px; border:1px solid var(--study-border); border-radius:24px; background:var(--study-surface); color:inherit; box-shadow:0 16px 70px #00000025; transform-origin:top right; }
 #study-control-center :is(.study-center-section,.study-center-controls,.study-center-filters,.study-center-filters label,.study-edit-tools,.study-edit-tools button,.study-random-toggle) { min-width:0; max-width:100%; }

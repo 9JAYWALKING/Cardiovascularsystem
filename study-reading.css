@@ -1,0 +1,87 @@
+/* Shared reading roles. Font preferences remain three independent settings.
+   Content never becomes smaller merely because it moves into a table or pane. */
+:root {
+  --reading-title:calc(24px * var(--study-content-scale,1));
+  --reading-section:calc(21px * var(--study-content-scale,1));
+  --reading-subsection:calc(20px * var(--study-content-scale,1));
+  --reading-body:calc(18px * var(--study-content-scale,1));
+  --reading-small:calc(15px * var(--study-content-scale,1));
+  --reading-meta:calc(14px * var(--study-content-scale,1));
+  --reading-note:calc(18px * var(--study-note-scale,1));
+  --reading-ui-body:calc(16px * var(--study-ui-scale,1));
+  --reading-ui-title:calc(24px * var(--study-ui-scale,1));
+  --reading-ui-section:calc(20px * var(--study-ui-scale,1));
+  --reading-ui-small:calc(14px * var(--study-ui-scale,1));
+  --reading-ui-meta:calc(13px * var(--study-ui-scale,1));
+  --reading-width:880px;
+  --reading-card-width:800px;
+  --reading-line:1.75;
+  --reading-table-line:1.5;
+}
+
+.study-ui :is(.wiki-article,.wiki-hero>p,.jbl-wiki-text,.jbl-wiki-content,
+  .jbl-explanation-text,.kmle-explanation-body,.path-explanation-body,
+  .ra-content,.information-text,.wiki-callout) {
+  font-size:var(--reading-body);
+  line-height:var(--reading-line);
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+}
+.study-ui :is(.wiki-hero>p,.wiki-article,.jbl-wiki-text,.kmle-explanation-body,.path-explanation-body) {
+  min-width:0;
+}
+.study-ui :is(.jbl-wiki-text,.wiki-section-content,.kmle-explanation-body,.path-explanation-body) :is(p,ul,ol) {
+  margin-block:.65em;
+}
+.study-ui :is(.jbl-wiki-text,.wiki-section-content,.kmle-explanation-body,.path-explanation-body) :is(p,ul,ol):first-child {
+  margin-top:0;
+}
+.study-ui :is(.wiki-article,.jbl-wiki-text,.kmle-explanation-body,.path-explanation-body) :is(h3,h4,h5,h6) {
+  line-height:1.45;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+}
+.study-ui .jbl-title { word-break:keep-all; overflow-wrap:anywhere; }
+.study-ui :is(.wiki-article,.jbl-wiki-text) blockquote {
+  font-size:var(--reading-body);
+  line-height:var(--reading-line);
+}
+.study-ui :is(.jbl-prof,.jbl-source,.jbl-wiki-source,.wiki-figure figcaption,.jbl-page-block figcaption) {
+  font-size:var(--reading-meta);
+  line-height:1.5;
+}
+.study-ui .jbl-compact-card {
+  width:100%;
+  max-width:var(--reading-card-width);
+  margin-inline:auto;
+  box-sizing:border-box;
+}
+.study-ui .jbl-compact-card :is(.jbl-card-head,.jbl-card-body) {
+  padding-inline:clamp(16px,2.4vw,24px);
+}
+.study-ui .jbl-compact-card .jbl-wiki-content { padding:0; }
+.study-ui .jbl-compact-card .jbl-wiki-text { line-height:1.65; }
+.study-ui .jbl-compact-card .jbl-wiki-text li { margin-block:.3em; }
+.study-ui .jbl-concept-links { font-weight:650; }
+.study-ui .jbl-concept-links a { display:inline-flex; align-items:center; min-height:40px; }
+.study-ui .wiki-hero>p { max-width:var(--reading-width); }
+.study-ui .wiki-toc { --wiki-reading-width:var(--reading-width); }
+.study-ui .wiki-formula-equation { font-size:var(--reading-section); }
+.study-ui .wiki-formula-note { font-size:var(--reading-body); }
+.study-ui .wiki-formula-label { font-size:var(--reading-meta); }
+
+/* Real-exam view is a separate document, but uses the same text hierarchy. */
+.study-exam-reading :is(.question-body,.review-answer,.quizinfo,.dialog-content) {
+  font-size:var(--reading-body);
+  line-height:var(--reading-line);
+  overflow-wrap:anywhere;
+}
+.study-exam-reading .question-body { max-width:var(--reading-width); }
+.study-exam-reading .answers legend { font-size:var(--reading-small); }
+.study-exam-reading .choice { padding-block:8px; line-height:1.6; }
+.study-exam-reading .choice input { margin-top:.45em; }
+.study-exam-reading .question-text { font-weight:650; }
+.study-exam-reading .attempt-table { width:auto; max-width:100%; }
+.study-exam-reading .attempt-table :is(th,td) { height:auto; width:auto; }
+.study-exam-reading .attempt-table { margin-inline:auto; }
+.study-exam-reading .quizinfo p { line-height:inherit; }

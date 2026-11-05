@@ -1,24 +1,29 @@
 /* Reading layouts follow the available pane width, including split views. */
 .study-ui :is(.wiki-table-wrap,.ra-table-wrap) {
+  box-sizing:border-box;
+  width:fit-content;
   min-width:0;
   max-width:100%;
   overflow:visible;
 }
 .study-ui .jbl-wiki-content .wiki-table-wrap { overflow:visible; }
-.study-ui :is(.wiki-table,.study-fit-table,.ra-root table,.kmle-explanation-body table) {
-  width:100%;
+:is(.study-ui,.study-exam-reading) :is(.wiki-table,.study-fit-table,.ra-root table,.kmle-explanation-body table) {
+  width:auto;
   min-width:0;
   max-width:100%;
-  table-layout:fixed;
-  line-height:1.55;
+  table-layout:auto;
+  font-size:var(--reading-body);
+  line-height:var(--reading-table-line,1.5);
   border-radius:inherit;
 }
 .study-ui .wiki-table thead tr:first-child>th:first-child { border-top-left-radius:14px; }
 .study-ui .wiki-table thead tr:first-child>th:last-child { border-top-right-radius:14px; }
-.study-ui :is(.wiki-table,.study-fit-table) :is(th,td) {
+:is(.study-ui,.study-exam-reading) :is(.wiki-table,.study-fit-table) :is(th,td) {
   box-sizing:border-box;
   min-width:0;
-  padding:clamp(8px,.65em,11px) clamp(7px,.75em,13px);
+  width:auto;
+  padding:clamp(7px,.45em,10px) clamp(10px,.75em,16px);
+  font-size:inherit;
   white-space:normal;
   word-break:keep-all;
   overflow-wrap:anywhere;
@@ -29,14 +34,15 @@
 .study-ui :is(.wiki-table,.study-fit-table) :is(p,ul,ol):last-child { margin-bottom:0; }
 .study-ui :is(.wiki-table,.study-fit-table) :is(img,svg,video) { max-width:100%; height:auto; }
 .study-ui :is(.wiki-table,.study-fit-table) :is(pre,code) { white-space:pre-wrap; overflow-wrap:anywhere; }
-.study-ui .study-fit-table.is-table-compact :is(th,td) {
-  padding:clamp(7px,.55em,10px) clamp(6px,.55em,10px);
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-compact :is(th,td) {
+  padding:clamp(6px,.4em,9px) clamp(8px,.6em,13px);
 }
 
 /* Keep column labels with their values when columns no longer have reading room.
    The original header remains accessible, and the table returns on widening. */
-.study-ui .study-fit-table.is-table-stacked { display:block; position:relative; }
-.study-ui .study-fit-table.is-table-stacked thead {
+.study-ui :is(.wiki-table-wrap,.ra-table-wrap):has(>.is-table-stacked) { width:100%; }
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked { display:block; position:relative; width:100%; }
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked thead {
   position:absolute;
   width:1px;
   height:1px;
@@ -46,16 +52,16 @@
   clip-path:inset(50%);
   white-space:nowrap;
 }
-.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot) { display:block; width:100%; }
-.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr {
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot) { display:block; width:100%; }
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr {
   display:block;
   width:100%;
   padding:3px 0;
   border:0;
   border-bottom:1px solid var(--study-border,var(--line,#eedbdf));
 }
-.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr:last-child { border-bottom:0; }
-.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td) {
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr:last-child { border-bottom:0; }
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td) {
   display:block;
   width:100%;
   min-width:0;
@@ -63,20 +69,20 @@
   padding:clamp(5px,.4em,8px) clamp(9px,.7em,13px);
   text-align:left;
 }
-.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td):first-child {
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td):first-child {
   background:var(--brand-soft,#f8f1f2);
   font-weight:700;
 }
-.study-ui .study-fit-table.is-table-stacked [data-column-label]::before {
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked [data-column-label]::before {
   content:attr(data-column-label);
   display:block;
   margin:0 0 .12em;
   color:var(--study-accent,var(--brand-ink,#70283e));
-  font-size:.82em;
+  font-size:var(--reading-meta);
   font-weight:650;
   line-height:1.4;
 }
-.study-ui .study-fit-table.is-table-stacked [data-column-label=""]::before { content:none; }
+:is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked [data-column-label=""]::before { content:none; }
 
 /* The existing phone timetable also needs to fit intermediate tablet widths. */
 @media(min-width:761px) {
@@ -104,13 +110,13 @@
 .study-ui .global-search-tab { min-width:0; white-space:normal; }
 
 @media print {
-  .study-ui .study-fit-table.is-table-stacked { display:table; }
-  .study-ui .study-fit-table.is-table-stacked thead {
+  :is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked { display:table; }
+  :is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked thead {
     display:table-header-group; position:static; width:auto; height:auto;
     margin:0; overflow:visible; clip-path:none; white-space:normal;
   }
-  .study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot) { display:table-row-group; }
-  .study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr { display:table-row; }
-  .study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td) { display:table-cell; width:auto; }
-  .study-ui .study-fit-table.is-table-stacked [data-column-label]::before { content:none; }
+  :is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot) { display:table-row-group; }
+  :is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr { display:table-row; }
+  :is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td) { display:table-cell; width:auto; }
+  :is(.study-ui,.study-exam-reading) .study-fit-table.is-table-stacked [data-column-label]::before { content:none; }
 }

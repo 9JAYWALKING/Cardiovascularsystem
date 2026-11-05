@@ -1,0 +1,20 @@
+/* Content-width responsive layouts and the shared wine/reading tokens. */
+.study-ui .arr-map .pharm-map-preview{max-width:680px;margin-inline:auto}
+.study-ui .arr-map [data-arr-panel][hidden]{display:none!important}
+.study-ui .arr-widget{container-type:inline-size;container-name:arr-lesson}
+.study-ui .arr-widget p{font-size:var(--reading-body);margin:.6em 0;overflow-wrap:anywhere}
+.study-ui .arr-widget h4{font-size:var(--reading-subsection);line-height:1.5;margin:.7em 0 .4em;overflow-wrap:anywhere}
+.study-ui .arr-widget p.pharm-map-help{font-size:var(--reading-small)}
+.study-ui .arr-compare{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:center}
+@container arr-lesson (min-width:38em){.study-ui .arr-compare{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.study-ui .arr-wave{min-width:0;max-width:460px;width:100%;margin-inline:auto}
+.study-ui .arr-wave svg{display:block;width:100%;height:auto;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.study-ui .arr-axis{stroke:var(--study-border);stroke-width:1}
+.study-ui .arr-baseline{stroke:var(--study-muted);stroke-width:2;stroke-dasharray:5 6;opacity:.65}
+.study-ui .arr-selected{stroke:var(--study-accent);stroke-width:3}
+.study-ui .arr-compare dl{margin:0;font-size:var(--reading-body);line-height:1.6}
+.study-ui .arr-compare dl>div{padding:8px 0;border-bottom:1px solid var(--study-border);overflow-wrap:anywhere}
+.study-ui .arr-compare dt{font-size:var(--reading-small);font-weight:650;color:var(--study-muted)}
+.study-ui .arr-compare dd{margin:2px 0 0;font-weight:650}
+.study-ui .arr-memory{font-weight:750;border-left:3px solid var(--study-accent);padding:8px 12px}
+.study-ui .arr-recall .pharm-recall-cell,:root[data-theme="dark"] .study-ui .arr-recall .pharm-recall-cell{border-top-color:var(--study-accent)}

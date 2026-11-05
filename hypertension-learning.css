@@ -1,0 +1,18 @@
+/* Use shared reading roles and wine accents at every panel width. */
+.study-ui .htn-map .pharm-map-preview { max-width:680px; margin-inline:auto; }
+.study-ui .htn-map [data-htn-panel][hidden] { display:none!important; }
+.study-ui .htn-widget p { font-size:var(--reading-body); margin:.6em 0; overflow-wrap:anywhere; }
+.study-ui .htn-widget h4 { font-size:var(--reading-subsection); line-height:1.5; margin:.8em 0 .4em; }
+.study-ui .htn-widget { container-type:inline-size; container-name:htn-lesson; }
+.study-ui .htn-widget p.pharm-map-help { font-size:var(--reading-small); }
+.study-ui .htn-path,.study-ui .htn-branches { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); gap:10px; margin:1em 0; }
+.study-ui .htn-path { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@container htn-lesson (min-width:44em) { .study-ui .htn-path { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@container htn-lesson (max-width:28em) { .study-ui .htn-path { grid-template-columns:minmax(0,1fr); } }
+.study-ui .htn-path>div,.study-ui .htn-branches>div,.study-ui .htn-kinin { min-width:0; padding:12px; border:1px solid var(--study-border); border-radius:10px; background:var(--study-surface); overflow-wrap:anywhere; }
+.study-ui .htn-path span,.study-ui .htn-branches span,.study-ui .htn-kinin span { display:block; color:var(--study-muted); font-size:var(--reading-small); font-weight:650; margin-bottom:5px; }
+.study-ui .htn-path strong,.study-ui .htn-branches strong,.study-ui .htn-kinin strong { display:block; font-size:var(--reading-body); line-height:1.6; }
+.study-ui .htn-path .is-blocked,.study-ui .htn-branches .is-treated { border-color:var(--study-accent); box-shadow:inset 3px 0 0 var(--study-accent); }
+.study-ui .htn-path em { display:inline-block; color:var(--study-accent); font-size:var(--reading-small); font-weight:750; font-style:normal; margin-top:7px; }
+.study-ui .htn-memory,.study-ui .htn-start { font-weight:750; border-left:3px solid var(--study-accent); padding:8px 12px; }
+.study-ui .htn-recall .pharm-recall-cell { border-top-color:var(--study-accent); }

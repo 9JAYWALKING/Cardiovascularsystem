@@ -1,6 +1,18 @@
 /* 위키 본문 안에서 사용하는 학습 블록. 글과 각주·문항 링크는 기존 편집 문법을 공유한다. */
 function renderWikiLearningBlock(line, course, footnotes) {
   const inline = value => renderWikiInline(value, course, footnotes);
+  const pharmacology = renderPharmacologyBlock(line, course, footnotes);
+  if (pharmacology) return pharmacology;
+  const lipid = renderLipidLearningBlock(line, course, footnotes);
+  if (lipid) return lipid;
+  const angina = renderAnginaLearningBlock(line, course, footnotes);
+  if (angina) return angina;
+  const hypertension = renderHypertensionLearningBlock(line, course, footnotes);
+  if (hypertension) return hypertension;
+  const heartFailure = renderHeartFailureLearningBlock(line, course, footnotes);
+  if (heartFailure) return heartFailure;
+  const arrhythmia = renderArrhythmiaLearningBlock(line, course, footnotes);
+  if (arrhythmia) return arrhythmia;
   if (line.startsWith('@flow ')) {
     const links=[];
     const protectedText=line.slice(6).replace(/\[\[[^\]]+\]\]/g,link=>`\u0001${links.push(link)-1}\u0002`);
@@ -53,6 +65,12 @@ function learningRateMarkup(){return `<div class="learning-interactive" data-lea
 
 let learningExamHistorySerial=0;
 function bindWikiLearning(container,course){
+  bindPharmacologyLearning(container);
+  bindLipidLearning(container);
+  bindAnginaLearning(container);
+  bindHypertensionLearning(container);
+  bindHeartFailureLearning(container);
+  bindArrhythmiaLearning(container);
   bindLearningPV(container);
   bindLearningFlowLab(container);
   bindLearningStarling(container);

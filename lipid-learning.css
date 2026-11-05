@@ -1,0 +1,12 @@
+/* Use the shared reading scale and original lipid accent; no independent font sizes. */
+.study-ui .lipid-map .pharm-map-preview { max-width:680px; margin-inline:auto; }
+.study-ui .lipid-map [data-lipid-panel][hidden] { display:none!important; }
+.study-ui .lipid-effects { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:1em 0; }
+.study-ui .lipid-effects>div { min-width:0; border:1px solid var(--study-border); border-radius:10px; padding:10px 5px; text-align:center; }
+.study-ui .lipid-effects span { display:block; font-size:var(--reading-small); font-weight:650; color:var(--study-muted); }
+.study-ui .lipid-effects strong { display:block; font-size:var(--reading-body); color:var(--study-accent); letter-spacing:0; overflow-wrap:anywhere; }
+.study-ui .lipid-mechanism { font-size:var(--reading-body); font-weight:700; margin:.6em 0; overflow-wrap:anywhere; }
+.study-ui .lipid-remember { font-size:var(--reading-body); margin:.6em 0; overflow-wrap:anywhere; }
+.study-ui .lipid-recall .pharm-recall-cell { border-top-color:#886518; }
+.study-ui .lipid-recall .pharm-recall-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); }
+:root[data-theme="dark"] .study-ui .lipid-recall .pharm-recall-cell { border-top-color:#d9c38c; }

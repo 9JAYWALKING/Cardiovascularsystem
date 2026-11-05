@@ -1,0 +1,50 @@
+/* Neutral reading surfaces; classification accents preserve the one-page map. */
+.study-ui .pharm-map { margin:1.1em 0; padding:clamp(12px,2vw,20px); border:1px solid var(--study-border); border-radius:16px; background:var(--study-surface); min-width:0; }
+.study-ui .pharm-map-label { font-size:var(--reading-subsection); font-weight:750; margin:0 0 .7em; color:var(--brand-ink,#70283e); }
+.study-ui .pharm-map-buttons { display:flex; flex-wrap:wrap; gap:7px; margin:0 0 12px; }
+.study-ui .pharm-map-buttons button { flex:1 1 auto; min-height:44px; padding:7px 12px; border:1px solid var(--study-border); border-radius:10px; background:var(--study-surface); color:inherit; font:inherit; font-size:var(--reading-body); line-height:1.5; cursor:pointer; }
+.study-ui .pharm-map-buttons button[aria-pressed="true"] { background:var(--brand-ink,#70283e); color:#fff; border-color:var(--brand-ink,#70283e); }
+.study-ui .pharm-map-buttons button:focus-visible { outline:2px solid var(--study-accent); outline-offset:3px; }
+.study-ui .pharm-map-preview { position:relative; border:1px solid var(--study-border); border-radius:8px; overflow:hidden; background:white; }
+.study-ui .pharm-map-preview img { display:block; width:100%; height:auto; margin:0; cursor:zoom-in; }
+.study-ui .pharm-map-focus { position:absolute; box-sizing:border-box; border:3px solid #a93557; background:#a9355710; box-shadow:0 0 0 2000px #ffffffb3; pointer-events:none; }
+.study-ui .pharm-map-copy { padding-top:12px; min-width:0; }
+.study-ui .pharm-map-copy[hidden] { display:none!important; }
+.study-ui .pharm-map-range { font-size:var(--reading-meta); color:var(--study-accent); font-weight:650; }
+.study-ui .pharm-map-copy p { font-size:var(--reading-body); margin:.35em 0; }
+.study-ui .pharm-map-copy a { display:inline-flex; align-items:center; min-height:44px; font-weight:700; }
+.study-ui .pharm-map-help { font-size:var(--reading-small); color:var(--study-muted); line-height:1.6; margin:.65em 0 0; }
+.study-ui .pharm-memory { --pharm-accent:#70283e; border:1px solid var(--study-border); border-left:4px solid var(--pharm-accent); border-radius:0 12px 12px 0; padding:11px 16px; margin:.9em 0; min-width:0; background:var(--study-surface); overflow-wrap:anywhere; }
+.study-ui .pharm-memory-label { color:var(--pharm-accent); font-size:var(--reading-small); line-height:1.5; font-weight:750; margin-bottom:5px; }
+.study-ui .pharm-memory-text { font-size:var(--reading-body); line-height:1.65; color:inherit; }
+.study-ui .pharm-diuretic { --pharm-accent:#176c69; }
+.study-ui .pharm-raas { --pharm-accent:#32588b; }
+.study-ui .pharm-sympathetic { --pharm-accent:#74458d; }
+.study-ui .pharm-vasodilator { --pharm-accent:#9a5425; }
+.study-ui .pharm-ccb { --pharm-accent:#347448; }
+.study-ui .pharm-lipid { --pharm-accent:#886518; }
+.study-ui .pharm-nitrate,.study-ui .pharm-digoxin { --pharm-accent:#a43543; }
+.study-ui .pharm-failure { --pharm-accent:#176c69; }
+.study-ui .pharm-arrhythmia { --pharm-accent:#74458d; }
+:root[data-theme="dark"] .study-ui .pharm-map-label { color:var(--study-accent); }
+:root[data-theme="dark"] .study-ui .pharm-map-buttons button[aria-pressed="true"] { color:#291c1f; }
+.study-ui .pharm-recall { margin:1em 0; padding:16px; border:1px solid var(--study-border); border-radius:14px; background:var(--study-surface); }
+.study-ui .pharm-recall-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:12px; }
+.study-ui .pharm-recall-cell { min-width:0; border:1px solid var(--study-border); border-top:3px solid #176c69; border-radius:10px; padding:12px; font-size:var(--reading-body); }
+.study-ui .pharm-recall-slot { display:grid; align-items:center; min-height:4em; margin:.5em 0; }
+.study-ui .pharm-recall-slot>span { grid-area:1/1; overflow-wrap:anywhere; }
+.study-ui .pharm-recall-answer { visibility:hidden; font-weight:700; }
+.study-ui .pharm-recall-prompt { color:var(--study-muted); }
+.study-ui .is-revealed .pharm-recall-answer { visibility:visible; }
+.study-ui .is-revealed .pharm-recall-prompt { visibility:hidden; }
+.study-ui .pharm-recall-cell button { font:inherit; font-size:var(--reading-small); background:transparent; color:var(--study-accent); border:1px solid var(--study-border); border-radius:9px; min-height:40px; padding:7px 12px; cursor:pointer; }
+.study-ui .pharm-recall-cell button:focus-visible { outline:2px solid var(--study-accent); outline-offset:3px; }
+:root[data-theme="dark"] .study-ui .pharm-recall-cell { border-top-color:#8bccc2; }
+:root[data-theme="dark"] .study-ui .pharm-memory { background:#141113; }
+:root[data-theme="dark"] .study-ui .pharm-diuretic,:root[data-theme="dark"] .study-ui .pharm-failure { --pharm-accent:#8bccc2; }
+:root[data-theme="dark"] .study-ui .pharm-raas { --pharm-accent:#a6b9df; }
+:root[data-theme="dark"] .study-ui .pharm-sympathetic,:root[data-theme="dark"] .study-ui .pharm-arrhythmia { --pharm-accent:#cfacde; }
+:root[data-theme="dark"] .study-ui .pharm-vasodilator { --pharm-accent:#e1b186; }
+:root[data-theme="dark"] .study-ui .pharm-ccb { --pharm-accent:#a0caa7; }
+:root[data-theme="dark"] .study-ui .pharm-lipid { --pharm-accent:#d9c38c; }
+:root[data-theme="dark"] .study-ui .pharm-nitrate,:root[data-theme="dark"] .study-ui .pharm-digoxin { --pharm-accent:#e8a4af; }

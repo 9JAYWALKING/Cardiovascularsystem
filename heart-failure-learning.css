@@ -1,0 +1,18 @@
+/* Follow panel width, shared type scale and wine theme in light and dark views. */
+.study-ui .hf-map .pharm-map-preview { max-width:680px; margin-inline:auto; }
+.study-ui .hf-map [data-hf-panel][hidden] { display:none!important; }
+.study-ui .hf-widget { container-type:inline-size; container-name:hf-lesson; }
+.study-ui .hf-widget p { font-size:var(--reading-body); margin:.6em 0; overflow-wrap:anywhere; }
+.study-ui .hf-widget h4 { font-size:var(--reading-subsection); line-height:1.5; margin:.7em 0 .4em; overflow-wrap:anywhere; }
+.study-ui .hf-widget p.pharm-map-help { font-size:var(--reading-small); }
+.study-ui .hf-path { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:1em 0; }
+@container hf-lesson (min-width:44em) { .study-ui .hf-path { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@container hf-lesson (max-width:28em) { .study-ui .hf-path { grid-template-columns:minmax(0,1fr); } }
+.study-ui .hf-path>div { min-width:0; padding:12px; border:1px solid var(--study-border); border-radius:10px; background:var(--study-surface); overflow-wrap:anywhere; }
+.study-ui .hf-path span { display:block; color:var(--study-muted); font-size:var(--reading-small); font-weight:650; margin-bottom:5px; }
+.study-ui .hf-path strong { display:block; font-size:var(--reading-body); line-height:1.6; }
+.study-ui .hf-path .is-target { border-color:var(--study-accent); box-shadow:inset 3px 0 0 var(--study-accent); }
+.study-ui .hf-path em { display:inline-block; color:var(--study-accent); font-size:var(--reading-small); font-weight:750; font-style:normal; margin-top:7px; }
+.study-ui .hf-memory { font-weight:750; border-left:3px solid var(--study-accent); padding:8px 12px; }
+.study-ui .hf-category { display:inline-block; color:var(--study-accent); font-size:var(--reading-small); font-weight:750; padding:4px 10px; border:1px solid var(--study-border); border-radius:999px; }
+.study-ui .hf-recall .pharm-recall-cell,:root[data-theme="dark"] .study-ui .hf-recall .pharm-recall-cell { border-top-color:var(--study-accent); }

@@ -1,0 +1,17 @@
+/* Shared typography; wine UI, with nitrate classification accents from the map. */
+.study-ui .angina-map .pharm-map-preview { max-width:680px; margin-inline:auto; }
+.study-ui .angina-map [data-angina-panel][hidden] { display:none!important; }
+.study-ui .angina-cgmp-routes { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px; margin:1em 0; }
+.study-ui .angina-cgmp-routes>div { min-width:0; border:1px solid var(--study-border); border-radius:10px; padding:12px; }
+.study-ui .angina-cgmp-routes span,.study-ui .angina-effects span { display:block; font-size:var(--reading-small); color:var(--study-muted); font-weight:650; }
+.study-ui .angina-cgmp-routes strong { display:block; font-size:var(--reading-body); margin-top:6px; overflow-wrap:anywhere; }
+.study-ui .angina-result { border-left:3px solid var(--study-accent); padding:9px 12px; background:var(--study-surface); font-weight:750; }
+.study-ui .angina-result.is-contraindicated { color:var(--study-accent); }
+.study-ui .angina-effects { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr)); gap:8px; margin:1em 0; }
+.study-ui .angina-effects>div { min-width:0; border:1px solid var(--study-border); border-radius:10px; padding:10px 8px; text-align:center; }
+.study-ui .angina-effects strong { display:block; font-size:var(--reading-body); color:var(--study-accent); overflow-wrap:anywhere; }
+.study-ui .angina-target { font-weight:700; }
+.study-ui .angina-compare p,.study-ui .angina-cgmp p { font-size:var(--reading-body); margin:.6em 0; overflow-wrap:anywhere; }
+.study-ui .angina-compare p.pharm-map-help,.study-ui .angina-cgmp p.pharm-map-help { font-size:var(--reading-small); }
+.study-ui .angina-recall .pharm-recall-cell { border-top-color:#a43543; }
+:root[data-theme="dark"] .study-ui .angina-recall .pharm-recall-cell { border-top-color:#e8a4af; }

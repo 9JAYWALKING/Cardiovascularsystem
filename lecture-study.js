@@ -17,6 +17,15 @@ window.CardiovascularGestures = (() => {
   return {isEnabled:()=>enabled,setEnabled};
 })();
 
+// Shared by the question surfaces and the record-free tutorial. No speed limit:
+// detect intent early, tolerate a diagonal start, and require a real final travel.
+window.CardiovascularSwipe = Object.freeze({
+  horizontal:(dx,dy)=>Math.abs(dx)>=10 && Math.abs(dx)>Math.abs(dy)*1.15,
+  vertical:(dx,dy)=>Math.abs(dy)>=18 && Math.abs(dy)>Math.abs(dx)*1.25,
+  accepts:(dx,dy,width=window.innerWidth)=>Math.abs(dx)>=Math.max(32,Math.min(40,width*.08)) && Math.abs(dx)>Math.abs(dy)*1.1,
+  doubleTapMs:400, doubleTapDistance:36, tapDistance:12
+});
+
 /* Keep both reading states mounted, but show only the selected lecture tab. */
 const lectureStudyStates = new Map();
 function scrollLectureStudyQuestion(pane) {
@@ -70,6 +79,29 @@ function lectureJblSectionSource(source, full, courseId) {
     return content ? `[*${name} ${content}]` : whole;
   }).replace(/\[\[#([^\]]+)\]\]/g, `[[${courseId}강#$1]]`);
 }
+// Authored memory cards are independent of the full Wiki paragraphs.
+// Keep the primary Wiki slug for existing card status and paragraph bookmarks.
+function lectureJblCompactGroups(course, sections, available) {
+  const config = window.JBL_CONCEPTS?.courses?.[String(course.id)];
+  if (config?.mode !== 'compact' || !Array.isArray(config.groups) || !config.groups.length) return null;
+  const used = new Set();
+  return config.groups.flatMap(item => {
+    if (!item || typeof item.source !== 'string' || !Array.isArray(item.questions)) return [];
+    const references = (item.wikiSections || []).map(name => sections.find(section =>
+      section.slug === name || normalizeWikiKey(section.heading) === normalizeWikiKey(name))).filter(Boolean);
+    const primary = references[0];
+    const numbers = [...new Set(item.questions.map(canonicalJblNumber))].filter(number => {
+      const question = available.get(number);
+      return question && questionBelongsToCourse(question,course.id) && !used.has(number);
+    }).sort(compareJblNumbers);
+    if (!numbers.length) return [];
+    numbers.forEach(number => used.add(number));
+    return [{slug:primary?.slug || `compact-${item.key}`,bookmarkSlug:primary?.slug || '',
+      bookmarkHeading:primary?.heading || item.heading,heading:item.heading,
+      parent:`${course.id}강 · 관련 ${numbers.length}문항`,source:item.source.trim(),sourceCourse:Number(course.id),
+      numbers,unlinked:false,compact:true,wikiSections:references.map(section=>({slug:section.slug,heading:section.heading}))}];
+  });
+}
 function lectureJblGroups(course) {
   const full = String(lectureNoteSources[course.id] || '').replace(/\r\n?/g,'\n');
   if (!full.trim()) return [];
@@ -81,6 +113,9 @@ function lectureJblGroups(course) {
     const numbers = [...new Set([...source.matchAll(/\{\{((?:\d{2}(?:오|종|미)\d+|\d+)(?:-\d+)?)\}\}/g)].map(match=>canonicalJblNumber(match[1])))].filter(number=>available.has(number));
     groups.push({slug,bookmarkSlug:slug,heading,parent,source:lectureJblSectionSource(source,sourceFull,sourceCourse),sourceCourse:Number(sourceCourse),numbers,unlinked});
   };
+  const compact = lectureJblCompactGroups(course,sections,available);
+  if (compact) groups.push(...compact);
+  else {
   const first = sections.find(section=>section.level>=2);
   const lead = full.slice(0,first?.start ?? full.length).split('\n').filter(line=>!/^=\s+.*\s+=$/.test(line)&&!/^@(summary|tag)\s/.test(line)).join('\n').trim();
   if (lead) add('lecture-introduction','강의 요약',lead);
@@ -93,6 +128,7 @@ function lectureJblGroups(course) {
       const body = source.split('\n').slice(1).join('\n').trim();
       if (body) add(section.slug,section.heading,source);
     } else if (section.level === 3) add(section.slug,section.heading,section.source,parent);
+  }
   }
   const linked = new Set(groups.flatMap(group=>group.numbers));
   const unlinked = jblQuestions.filter(question=>questionBelongsToCourse(question,course.id)&&!linked.has(canonicalJblNumber(question.globalNumber))).sort((a,b)=>compareJblNumbers(a.globalNumber,b.globalNumber));
@@ -111,15 +147,18 @@ function lectureJblGroups(course) {
   }
   for (const [slug,{origin,questions}] of supplements) {
     const heading = origin?.section.heading || 'Wiki 유형 미연결 문항';
-    const source = origin?.section.source || '앞선 Wiki 문단에 문항 링크가 없는 강의 문항이다. 각 문제를 풀고 해설에서 필요한 개념을 확인한다.';
+    const source = compact
+      ? '앞선 암기카드와 별도로 묶인 문항이다. 문제와 해설에서 핵심을 확인한다.'
+      : origin?.section.source || '앞선 Wiki 문단에 문항 링크가 없는 강의 문항이다. 각 문제를 풀고 해설에서 필요한 개념을 확인한다.';
     add(slug,heading,source,origin ? `${origin.sourceCourse}강 · 해설에 연결된 문단` : '',origin?.sourceCourse || course.id,true);
     groups.at(-1).numbers = questions.map(question=>canonicalJblNumber(question.globalNumber));
     groups.at(-1).bookmarkSlug = origin?.section.slug || '';
+    if (compact) Object.assign(groups.at(-1),{compact:true,bookmarkHeading:heading,wikiSections:origin?[{slug:origin.section.slug,heading}]:[]});
   }
   return groups;
 }
 function lectureJblWikiCard(course,group) {
-  return {studyKind:'wiki',id:`jbl-wiki:${course.id}:${group.slug}`,displayId:'Wiki',globalNumber:null,
+  return {studyKind:'wiki',id:`jbl-wiki:${course.id}:${group.slug}`,displayId:group.compact?'개념':'Wiki',globalNumber:null,
     question:group.heading,passage:'',choices:[],images:[],answerIndices:[],answerIndex:null,answerLabel:'',explanation:'',
     lectureIds:[group.sourceCourse],group,source:group.parent || `${course.id}강`,professor:course.professor};
 }
@@ -154,7 +193,9 @@ function lectureJblWikiCardMarkup(card) {
   const source=card.group.source.split('\n').filter((line,index)=>index!==0||!parseWikiHeading(line)).join('\n');
   const bookmarked=wikiBookmarks.some(bookmark=>bookmark.courseId===card.group.sourceCourse&&bookmark.slug===card.group.bookmarkSlug);
   const favorite=card.group.bookmarkSlug ? `<button class="jbl-favorite ${bookmarked?'active':''}" type="button" data-jbl-wiki-favorite aria-pressed="${bookmarked}" aria-label="문단 즐겨찾기 ${bookmarked?'해제':'추가'}">${bookmarked?'★':'☆'}</button>` : '';
-  return `<article class="jbl-card jbl-wiki-card" data-jbl-wiki-card="${escapeHtml(card.id)}"><header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">${card.group.unlinked?'Wiki 유형 미연결':'Wiki'}</span><div class="jbl-source">${escapeHtml(card.source)}</div></div><div class="jbl-meta-right">${questionStudyStatusMarkup(card.id)}<span class="jbl-qid jbl-wiki-label">Wiki</span>${favorite}</div></div><h2 class="jbl-title">${renderWikiInline(card.question,course,{items:[],named:new Map()},false)}</h2></header><div class="jbl-card-body"><div class="jbl-wiki-content">${renderJblWikiFragment(source,card,'type')}</div></div></article>`;
+  const links = card.group.compact && card.group.wikiSections?.length
+    ? `<div class="jbl-concept-links">${card.group.wikiSections.map((section,index)=>renderWikiInline(`[[${card.group.sourceCourse}강#${section.slug}|${index===0?'Wiki에서 자세히':'관련 개념'}]]`,course,{items:[],named:new Map()},false)).join('')}</div>` : '';
+  return `<article class="jbl-card jbl-wiki-card${card.group.compact?' jbl-compact-card':''}" data-jbl-wiki-card="${escapeHtml(card.id)}"><header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">${card.group.unlinked?'별도 연결 문항':card.group.compact?'핵심 암기':'Wiki'}</span><div class="jbl-source">${escapeHtml(card.source)}</div></div><div class="jbl-meta-right">${questionStudyStatusMarkup(card.id)}<span class="jbl-qid jbl-wiki-label">${card.group.compact?'개념':'Wiki'}</span>${favorite}</div></div><h2 class="jbl-title">${renderWikiInline(card.question,course,{items:[],named:new Map()},false)}</h2></header><div class="jbl-card-body"><div class="jbl-wiki-content">${renderJblWikiFragment(source,card,'type')}${links}</div></div></article>`;
 }
 function bindLectureJblWikiCard(container,card) {
   const content=container.querySelector('.jbl-wiki-content');
@@ -163,8 +204,9 @@ function bindLectureJblWikiCard(container,card) {
   bindQuestionStudyStatus(container,card.id);
   container.querySelector('[data-jbl-wiki-favorite]')?.addEventListener('click',()=>{
     const group=card.group,key=`${group.sourceCourse}#${group.bookmarkSlug}`;
-    const next=wikiBookmarks.filter(bookmark=>bookmark.key!==key);
-    if (next.length===wikiBookmarks.length) next.push({key,courseId:group.sourceCourse,slug:group.bookmarkSlug,heading:group.heading,link:`[[${group.sourceCourse}강#${group.bookmarkSlug}|${group.heading}]]`});
+      const next=wikiBookmarks.filter(bookmark=>bookmark.key!==key);
+      const heading=group.bookmarkHeading||group.heading;
+      if (next.length===wikiBookmarks.length) next.push({key,courseId:group.sourceCourse,slug:group.bookmarkSlug,heading,link:`[[${group.sourceCourse}강#${group.bookmarkSlug}|${heading}]]`});
     if (!writeStudyStorage(wikiBookmarkKey,next)) return;
     wikiBookmarks=next;
     document.querySelectorAll('[data-course-wiki] [data-wiki-section]').forEach(heading=>{
@@ -309,7 +351,7 @@ function bindLectureTabSwipe(bar, course) {
   bar._lectureSwipeCleanup?.();
   let start = null, suppressClickUntil = 0;
   let previewPane = null;
-  const minDistance = 48, horizontalRatio = 1.15, verticalDistance = 24;
+  const swipe = window.CardiovascularSwipe;
   const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const resetPreview = () => {
     if (previewPane) { previewPane.style.removeProperty('transform');previewPane.style.removeProperty('filter'); }
@@ -343,8 +385,8 @@ function bindLectureTabSwipe(bar, course) {
     const dx = Math.abs(event.clientX-start.x), dy = Math.abs(event.clientY-start.y);
     // Keep a small undecided zone for natural diagonal starts. Clear vertical
     // gestures still belong to the browser's native scroll/pinch handling.
-    if (!start.horizontal && dy >= verticalDistance && dy > dx*1.35) { cancel(); return; }
-    if (!start.horizontal && dx >= 14 && dx > dy*horizontalRatio) {
+    if (!start.horizontal && swipe.vertical(dx,dy)) { cancel(); return; }
+    if (!start.horizontal && swipe.horizontal(dx,dy)) {
       start.horizontal = true;
       try { bar.setPointerCapture?.(event.pointerId); } catch (_) {}
     }
@@ -372,8 +414,7 @@ function bindLectureTabSwipe(bar, course) {
     if (gesture.horizontal || dx >= 10) suppressClickUntil = Date.now()+500;
     release(event.pointerId);
     // No speed or duration limit: a deliberate slow drag is also a swipe.
-    // Once intent is established, do not reject it just for the release angle.
-    if (dx < minDistance || (gesture.horizontal ? dy > Math.max(64,dx*1.6) : dx <= dy*horizontalRatio)) return;
+    if (!swipe.accepts(dx,dy)) return;
     const state = lectureStudyState(course);
     const views = ['wiki','j'];
     if (String(lectureNoteSources[course.id]||'').trim()) views.push('jbl');
@@ -457,6 +498,8 @@ function renderLectureStudy(course, target) {
 }
 function handleLectureStudyLink(link, target) {
   if (contextLinkState.active || !link.closest('.lecture-workspace')) return false;
+  // Read the full Wiki alongside a compact card without leaving its JBL sequence.
+  if (link.closest('.jbl-concept-links')) return false;
   const workspace = link.closest('.lecture-workspace');
   const course = byId(Number(workspace.dataset.lectureCourse));
   if (!course) return false;
@@ -626,6 +669,7 @@ function handleQuestionExplanationShortcut(event) {
 // Touch Events let us cancel only an intentional horizontal drag, without
 // disabling native vertical scrolling, pinch zoom, or scrollable tables.
 (function bindQuestionGestures() {
+  const swipe = window.CardiovascularSwipe;
   const excluded = 'button,a,input,select,textarea,label,summary,[role="button"],[contenteditable],img,video,canvas,iframe,table,pre,nav,.jbl-editor,.wiki-section-editor,.context-link-head,.lecture-pane-head,.jbl-topbar';
   const surfaces = '[data-jbl-choice-viewer],.jbl-card,.jbl-card-head,.jbl-card-body,.jbl-choices,.jbl-meta,.jbl-meta-right,.jbl-author-source,.jbl-page-block,.jbl-passage,.jbl-passage-text,.jbl-wrap,#jbl-standalone,#jbl-view,[data-course-j-host],.lecture-j-pane,.context-link-body,.context-link-target,.jbl-explanation-question,[data-explanation-body]';
   const scopes = '[data-jbl-choice-viewer],.jbl-wrap,#jbl-standalone,#jbl-view,[data-course-j-host],.lecture-j-pane,.context-link-body,.context-link-target,.jbl-explanation-question';
@@ -635,7 +679,11 @@ function handleQuestionExplanationShortcut(event) {
 
   function contextFor(target, blankOnly = false) {
     if (!(target instanceof Element) || blocked() || selectedText()) return null;
-    if (target.closest(excluded+', [hidden], [inert], [aria-hidden="true"], .is-closing')) return null;
+    if (target.closest('[hidden], [inert], [aria-hidden="true"], .is-closing')) return null;
+    const control = target.closest(excluded);
+    // A tap still answers; a deliberate swipe may start on a choice. Other
+    // controls and images retain their own gestures, and double taps stay blank-only.
+    if (control && (blankOnly || !control.matches('button.jbl-choice'))) return null;
     if (blankOnly && !target.matches(surfaces)) return null;
     let root = target.closest('[data-jbl-choice-viewer]');
     if (!root && target.closest('[data-explanation-body]') && questionExplanationState.active) root = questionExplanationState.root;
@@ -706,8 +754,8 @@ function handleQuestionExplanationShortcut(event) {
     if (point.identifier !== gesture.touchId) { cancel(); return; }
     const dx = Math.abs(point.clientX-gesture.x), dy = Math.abs(point.clientY-gesture.y);
     gesture.maxDistance = Math.max(gesture.maxDistance,dx,dy);
-    if (!gesture.horizontal && dy >= 12 && dy >= dx) { cancel(); return; }
-    if (!gesture.horizontal && dx >= 14 && dx > dy*1.5) { gesture.horizontal = true; lastTap = null; }
+    if (!gesture.horizontal && swipe.vertical(dx,dy)) { cancel(); return; }
+    if (!gesture.horizontal && swipe.horizontal(dx,dy)) { gesture.horizontal = true; lastTap = null; }
     if (gesture.horizontal) {
       if (dy > Math.max(64,dx)) { cancel(); return; }
       if (!event.cancelable) { cancel(); return; }
@@ -729,12 +777,12 @@ function handleQuestionExplanationShortcut(event) {
       if (event.cancelable) event.preventDefault();
       suppressCompatibilityClick(point);
       // Deliberate slow swipes count too; speed is not a requirement.
-      if (Math.abs(dx) >= 48 && Math.abs(dx) > Math.abs(dy)*1.35) perform(context,dx < 0 ? 1 : -1);
+      if (swipe.accepts(dx,dy)) perform(context,dx < 0 ? 1 : -1);
       return;
     }
-    if (!finished.blank || distance > 10 || Date.now()-finished.time > 350) { lastTap = null; return; }
+    if (!finished.blank || distance > swipe.tapDistance || Date.now()-finished.time > 400) { lastTap = null; return; }
     const now = Date.now();
-    if (lastTap && lastTap.id === context.id && now-lastTap.time <= 340 && Math.hypot(point.clientX-lastTap.x,point.clientY-lastTap.y) <= 28) {
+    if (lastTap && lastTap.id === context.id && now-lastTap.time <= swipe.doubleTapMs && Math.hypot(point.clientX-lastTap.x,point.clientY-lastTap.y) <= swipe.doubleTapDistance) {
       lastTap = null; touchDoubleUntil = now+650;
       if (event.cancelable) event.preventDefault();
       suppressCompatibilityClick(point);

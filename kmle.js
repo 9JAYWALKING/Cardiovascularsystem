@@ -176,6 +176,7 @@
   // Delegate once: the question is rerendered on selection, while the reading
   // surface includes the empty page below it. Keep explanation/UI controls out.
   (()=>{
+    const swipe=window.CardiovascularSwipe;
     const excluded='button,a,input,img,select,textarea,label,summary,[role="button"],[contenteditable],nav,table,pre,video,canvas,iframe,.kmle-bank-heading,.kmle-explanation,.masthead';
     let clearTimer=null,gesture=null,lastTap=null,suppressUntil=0,touchDoubleUntil=0,mouseDown=null;
     const cancelClear=()=>{clearTimeout(clearTimer);clearTimer=null;};
@@ -183,7 +184,9 @@
     function surface(target,x,y,blank=false){
       if(!current||!root?.isConnected||!location.hash.startsWith('#kmle-K')||expanded||selectedText())return false;
       if(root.closest('[hidden],[inert]')||document.querySelector('dialog[open],#jbl-image-modal.show,.wiki-section-editor-overlay'))return false;
-      if(!(target instanceof Element)||target.closest(excluded+', [hidden], [inert]'))return false;
+      if(!(target instanceof Element)||target.closest('[hidden],[inert]'))return false;
+      const control=target.closest(excluded);
+      if(control&&(blank||!control.matches('.kmle-choice')))return false;
       const card=root.querySelector('.kmle-question'),rect=card?.getBoundingClientRect();
       const bottom=root.querySelector('.kmle-bottom')?.getBoundingClientRect().top??innerHeight;
       if(!rect||x<rect.left||x>rect.right||y<Math.max(rect.top,document.querySelector('.masthead')?.getBoundingClientRect().bottom||0)||y>=bottom)return false;
@@ -229,8 +232,8 @@
       if(e.touches.length!==1||!gesturesEnabled()||selectedText()){gesture=null;lastTap=null;return;}
       const p=e.touches[0],dx=Math.abs(p.clientX-gesture.x),dy=Math.abs(p.clientY-gesture.y);
       gesture.distance=Math.max(gesture.distance,dx,dy);
-      if(!gesture.horizontal&&dy>=12&&dy>=dx){gesture=null;lastTap=null;suppressUntil=Date.now()+650;return;}
-      if(dx>=14&&dx>dy*1.5){gesture.horizontal=true;lastTap=null;}
+      if(!gesture.horizontal&&swipe.vertical(dx,dy)){gesture=null;lastTap=null;suppressUntil=Date.now()+650;return;}
+      if(swipe.horizontal(dx,dy)){gesture.horizontal=true;lastTap=null;}
       if(gesture.horizontal&&e.cancelable)e.preventDefault();
     },{passive:false});
     document.addEventListener('touchend',e=>{
@@ -240,12 +243,12 @@
       const dx=p.clientX-g.x,dy=p.clientY-g.y;
       if(g.horizontal){
         if(e.cancelable)e.preventDefault();suppressUntil=Date.now()+650;lastTap=null;cancelClear();
-        if(Math.abs(dx)>=48&&Math.abs(dx)>Math.abs(dy)*1.35)move(dx<0?1:-1);
+        if(swipe.accepts(dx,dy))move(dx<0?1:-1);
         return;
       }
-      if(!g.blank||Math.max(g.distance,Math.hypot(dx,dy))>10||Date.now()-g.t>350){lastTap=null;suppressUntil=Date.now()+650;return;}
+      if(!g.blank||Math.max(g.distance,Math.hypot(dx,dy))>swipe.tapDistance||Date.now()-g.t>400){lastTap=null;suppressUntil=Date.now()+650;return;}
       const now=Date.now();
-      if(lastTap&&lastTap.question===current&&now-lastTap.time<=340&&Math.hypot(p.clientX-lastTap.x,p.clientY-lastTap.y)<=28){
+      if(lastTap&&lastTap.question===current&&now-lastTap.time<=swipe.doubleTapMs&&Math.hypot(p.clientX-lastTap.x,p.clientY-lastTap.y)<=swipe.doubleTapDistance){
         lastTap=null;cancelClear();suppressUntil=touchDoubleUntil=now+700;
         if(e.cancelable)e.preventDefault();toggleExplanation();
       }else lastTap={question:current,time:now,x:p.clientX,y:p.clientY};

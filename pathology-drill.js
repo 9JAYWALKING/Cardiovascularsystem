@@ -129,15 +129,20 @@
     dialog.querySelector('[data-path-restart]').onclick=()=>{attempts={};apply();};
   }
   function render(el,cfg,id){root=el;config=cfg;if(!sequence.length)rebuildSequence();load(id||sequence[0]?.id);}
-  const interactive=e=>e.target.closest('button,a,input,select,textarea,summary,details,.path-explanation,dialog');
+  const interactive=e=>e.target.closest('button,a,input,select,textarea,summary,details,img,.path-explanation,dialog');
   const gestures=()=>window.CardiovascularGestures?.isEnabled?.()!==false;
-  let down=null,lastTap=0,suppressClickUntil=0;
-  document.addEventListener('pointerdown',e=>{if(!active()||!root?.contains(e.target)||interactive(e)||e.isPrimary===false){down=null;return;}down={x:e.clientX,y:e.clientY,t:Date.now(),type:e.pointerType};},{passive:true});
+  const swipe=window.CardiovascularSwipe;
+  let down=null,lastTap=null,suppressClickUntil=0;
+  document.addEventListener('pointerdown',e=>{if(!active()||!root?.contains(e.target)||interactive(e)||e.isPrimary===false||document.querySelector('dialog[open]')){down=null;lastTap=null;return;}down={id:e.pointerId,x:e.clientX,y:e.clientY,t:Date.now(),type:e.pointerType};},{passive:true});
   document.addEventListener('pointerup',e=>{
-    if(!down||!active())return;const start=down;down=null;const dx=e.clientX-start.x,dy=e.clientY-start.y,dt=Date.now()-start.t;
-    if(gestures()&&Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.6&&dt<1400){suppressClickUntil=Date.now()+400;move(dx<0?1:-1);return;}
-    if(start.type==='touch'&&Math.hypot(dx,dy)<12&&dt<500){const now=Date.now();if(gestures()&&now-lastTap<330){suppressClickUntil=now+400;lastTap=0;toggleExplanation();}else lastTap=now;}
+    if(!down||!active()||e.pointerId!==down.id)return;const start=down;down=null;const dx=e.clientX-start.x,dy=e.clientY-start.y,dt=Date.now()-start.t;
+    if(gestures()&&swipe.accepts(dx,dy)){suppressClickUntil=Date.now()+400;lastTap=null;move(dx<0?1:-1);return;}
+    if(start.type==='touch'&&Math.hypot(dx,dy)<swipe.tapDistance&&dt<400){const now=Date.now();if(gestures()&&lastTap&&now-lastTap.t<swipe.doubleTapMs&&Math.hypot(e.clientX-lastTap.x,e.clientY-lastTap.y)<=swipe.doubleTapDistance){suppressClickUntil=now+400;lastTap=null;toggleExplanation();}else lastTap={t:now,x:e.clientX,y:e.clientY};}
   },{passive:true});
+  const cancelGesture=()=>{down=null;lastTap=null;};
+  document.addEventListener('pointercancel',cancelGesture);
+  document.addEventListener('study-gestures-change',cancelGesture);
+  addEventListener('hashchange',cancelGesture);
   document.addEventListener('click',e=>{if(!active()||!root?.contains(e.target)||interactive(e)||Date.now()<suppressClickUntil)return;if(selectionVisible&&attempt(current).selected){selectionVisible=false;root.querySelectorAll('.path-choices .selected').forEach(b=>b.classList.remove('selected'));}});
   document.addEventListener('dblclick',e=>{if(!active()||!root?.contains(e.target)||interactive(e)||!gestures()||Date.now()<suppressClickUntil)return;e.preventDefault();toggleExplanation();});
   document.addEventListener('keydown',e=>{

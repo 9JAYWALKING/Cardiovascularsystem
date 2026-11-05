@@ -23,6 +23,7 @@ function renderWikiLearningBlock(line, course, footnotes) {
   if (line==='@starling') return learningStarlingMarkup();
   if (line==='@bplab') return learningBPLabMarkup();
   if (line==='@cardiacoutput') return learningCOMarkup();
+  if (line==='@integration') return learningIntegrationMarkup();
   return '';
 }
 
@@ -50,12 +51,14 @@ function learningRatePlot(state=0){
 }
 function learningRateMarkup(){return `<div class="learning-interactive" data-learning-rate><div class="learning-eyebrow">SA NODE · 역치까지 얼마나 걸릴까?</div><div class="learning-rate-buttons" role="group" aria-label="SA node 변화 선택">${learningRateStates.map((s,i)=>`<button type="button" data-rate-state="${i}" aria-pressed="${i===0}">${s.name}</button>`).join('')}</div><div class="learning-rate-plot">${learningRatePlot()}</div><p class="learning-rate-copy" aria-live="polite">${learningRateStates[0].text}</p><small class="learning-graph-note">원리 비교를 위한 개념도 · 회색 점선은 기본 상태이며, 선택한 변수 하나만 바꿉니다.</small></div>`;}
 
+let learningExamHistorySerial=0;
 function bindWikiLearning(container,course){
   bindLearningPV(container);
   bindLearningFlowLab(container);
   bindLearningStarling(container);
   bindLearningBPLab(container);
   bindLearningCO(container);
+  bindLearningIntegration(container);
   const note=container.querySelector('.wiki-note');
   if(note && /@(flow|recall|ap|rate)\b/.test(lectureNoteSources[course.id]||'')) note.classList.add('wiki-learning');
   container.querySelectorAll('[data-learning-ap]:not([data-learning-bound])').forEach(block=>{
@@ -87,12 +90,15 @@ function bindWikiLearning(container,course){
     qs.forEach(q=>occurrences.set(`${q.year}:${q.originalNumber||q.globalNumber}`,q));
     if(!occurrences.size)return;
     const button=document.createElement('button');button.type='button';button.className='learning-exam-toggle';button.setAttribute('aria-expanded','false');
-    button.textContent=`${occurrences.size}회 출제 ⌄`;
+    button.innerHTML=`<span><strong>${occurrences.size}</strong>회 출제</span><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>`;
+    button.setAttribute('aria-label',`${occurrences.size}회 출제 · 연결 문항 펼치기`);
     const panel=document.createElement('div');panel.className='learning-exam-history';panel.hidden=true;
+    panel.id=`learning-exam-history-${++learningExamHistorySerial}`;
+    button.setAttribute('aria-controls',panel.id);
     const years=[...new Set([...occurrences.values()].map(q=>q.year))].sort((a,b)=>b-a);
     panel.innerHTML=years.map(year=>`<div><strong>${year}</strong><span>${[...occurrences.values()].filter(q=>q.year===year).sort((a,b)=>compareJblNumbers(a.globalNumber,b.globalNumber)).map(q=>`<a class="jbl-question-link" href="#jbl-q-${escapeHtml(q.globalNumber)}" data-jbl-question-link="${escapeHtml(q.globalNumber)}">${escapeHtml(q.globalNumber)}</a>`).join(' ')}</span></div>`).join('');
     heading.append(button);heading.after(panel);
-    button.addEventListener('click',()=>{panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));button.textContent=`${occurrences.size}회 출제 ${panel.hidden?'⌄':'⌃'}`;});
+    button.addEventListener('click',()=>{panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));button.setAttribute('aria-label',`${occurrences.size}회 출제 · 연결 문항 ${panel.hidden?'펼치기':'접기'}`);});
   });
 }
 
@@ -330,4 +336,54 @@ function bindLearningCO(container){
     block.querySelectorAll('[data-co-state]').forEach(b=>b.addEventListener('click',()=>{index=Number(b.dataset.coState);update();}));
     block.querySelector('[data-co-axis]').addEventListener('click',()=>{flipped=!flipped;update();});
   });
+}
+
+
+// Lecture 7: distinguish the initiating disturbance, compensation and net state.
+// Qualitative course scenarios; arrows are tied to the comparison stated below.
+const learningIntegrationCases = [
+ {name:'기립',steps:[
+  {name:'첫 변화',basis:'Supine position에서 일어선 직후를 비교한다.',title:'혈액이 다리에 고여 심장으로 덜 돌아온다',chain:['하체 정맥 pooling','흉곽 혈액량·VR ↓','Preload·SV ↓','CO·동맥압 일시 ↓'],facts:[['전체 혈액량','유지'],['중앙 혈액량','↓'],['발목 정맥압','↑']],text:'정맥의 순응도가 커서 혈액이 아래쪽에 모인다. 발목 정맥압은 높아져도 중심정맥압은 낮아질 수 있다.'},
+  {name:'보상',basis:'기립 직후 낮아진 동맥압을 회복시키는 방향이다.',title:'심장은 가속하고 세동맥과 정맥은 수축한다',chain:['Baroreceptor firing ↓','교감 ↑·미주 ↓','HR·수축력·TPR ↑','정맥 동원·압력 회복'],facts:[['HR·수축력','↑'],['TPR','↑'],['정맥 저장 공간','↓']],text:'수축력 증가는 보상이고, preload 감소는 그 보상을 일으킨 첫 변화다.'},
+  {name:'남는 상태',basis:'보상 뒤 standing 상태를 supine 상태와 비교한다.',title:'혈압은 회복되어도 충만량은 낮게 남을 수 있다',chain:['HR·TPR로 압력 지지','MAP 정상 가까이','CVP·SV는 낮을 수 있음','걷기 → 근육 펌프 도움'],facts:[['동맥압','회복'],['SV','낮을 수 있음'],['다리 정맥압','걷기 때 ↓']],text:'혈압이 회복되었다는 말이 모든 값이 원래대로 돌아왔다는 뜻은 아니다.'}
+ ]},
+ {name:'동적 운동',steps:[
+  {name:'첫 변화',basis:'안정 상태에서 운동을 시작한다.',title:'더 많은 산소가 필요한 근육에 순환을 맞춘다',chain:['Central command','미주 억제 효과 ↓','교감신경 ↑','근육 수축·대사 ↑'],facts:[['산소 요구','↑'],['심장 자극','↑'],['국소 대사 신호','↑']],text:'대뇌의 준비 신호와 수축 근육의 감각 신호가 함께 작동한다.'},
+  {name:'조절',basis:'안정 때보다 혈류를 늘리는 여러 경로가 동시에 작동한다.',title:'심장은 더 내보내고 활동 근육의 혈관은 열린다',chain:['HR·수축력 ↑','정맥·근육·호흡 펌프','활동 근육 혈관확장','비활동 조직은 수축'],facts:[['활동 근육 혈류','↑'],['신장·내장 혈류','↓'],['TPR','↓']],text:'교감신경의 혈관수축과 활동 근육의 대사성 혈관확장은 함께 일어난다. 넓은 근육 혈관 영역이 열리며 전신 TPR이 낮아진다.'},
+  {name:'합쳐진 결과',basis:'운동 중의 상태를 안정 상태와 비교한다.',title:'CO는 크게, 평균압은 조금 증가한다',chain:['HR ↑↑·SV ↑','CO ↑↑','TPR ↓','MAP 소폭 ↑'],facts:[['CO','↑↑'],['MAP','소폭 ↑'],['동정맥 O₂ 차이','↑']],text:'많이 보내는 것에 더해, 근육은 한 번 지나가는 혈액에서 산소를 더 많이 추출한다.'}
+ ]},
+ {name:'출혈',steps:[
+  {name:'첫 변화',basis:'출혈 전과 출혈 직후를 비교한다.',title:'혈액량이 줄어 받아들일 양부터 부족해진다',chain:['혈액량 ↓','VR·preload ↓','SV·CO ↓','동맥압·맥압 ↓'],facts:[['혈액량','↓'],['Preload·SV','↓'],['CO','↓']],text:'일차 변화는 혈액량 감소다. 심장이 빨라지는 것은 이 변화에 뒤따르는 보상이다.'},
+  {name:'보상',basis:'출혈 직후 낮아진 상태에서 회복시키는 방향이다.',title:'압력을 지키고 Na⁺·물을 보존한다',chain:['교감신경·RAAS·ADH ↑','심장 자극·혈관수축','조직액 유입·신장 보존','CO·혈액량 회복 방향'],facts:[['HR·수축력·TPR','↑'],['신장 재흡수','↑'],['모세혈관압 Pc','↓']],text:'표의 CO ↑는 출혈 직후에 비해 올라간다는 뜻이다. 출혈 전보다 높은 CO를 의미하지는 않는다.'},
+  {name:'남는 상태',basis:'보상이 지속되는지에 따라 이후 경과가 갈린다.',title:'회복하거나, 저관류가 악순환을 만든다',chain:['보상 지속 → 압력 회복','보상 실패 → 저관류','심장·중추·혈관 손상','CO·VR 추가 감소'],facts:[['회복 경로','음성 되먹임'],['쇼크 경로','양성 되먹임'],['비교 기준','시점 확인']],text:'HR·수축력이 올라가도 SV가 충분히 회복되지 않을 수 있다. 심한 쇼크에서는 수축력과 중추 기능 자체도 낮아진다.'}
+ ]},
+ {name:'수축기 심부전',steps:[
+  {name:'첫 변화',basis:'혈액량이 같아도 펌프 기능이 먼저 떨어진 상황이다.',title:'같은 충만압에서 내보내는 양이 줄어든다',chain:['수축 기능 ↓','심장곡선 하강','CO ↓','정맥 쪽 혈액·압력 ↑'],facts:[['심장곡선','↓'],['CO','↓'],['정맥압','↑']],text:'출혈에서는 충만량이 먼저 줄지만, 이 경우에는 펌프가 약해져 혈액이 정맥 쪽에 남는다.'},
+  {name:'만성 보상',basis:'급성 펌프 저하 뒤 체액저류가 더해지는 단계다.',title:'Na⁺·물을 붙잡아 충만압을 올린다',chain:['신장 Na⁺·물 보존','혈액량·Pmc ↑','환류곡선 오른쪽','CO 일부 회복'],facts:[['혈액량','↑'],['Pmc','↑'],['충만압','↑']],text:'높아진 preload로 약해진 펌프의 박출을 보완한다. 심장곡선이 회복되었는지와 체액량이 늘었는지는 따로 읽는다.'},
+  {name:'남는 상태',basis:'체액저류로 만들어진 새 평형을 본다.',title:'회복된 유량과 높은 정맥압이 함께 남을 수 있다',chain:['낮은 펌프 성능','높은 충만압으로 보완','CO 일부 회복','정맥 울혈 부담'],facts:[['CO','회복 정도 다양'],['정맥압','높음'],['울혈','가능']],text:'유량의 회복만으로 전체 상태를 판단하기보다, 그 유량을 만들기 위해 필요한 충만압도 함께 본다.'}
+ ]}
+];
+function learningIntegrationCopy(caseIndex,stepIndex){
+ const s=learningIntegrationCases[caseIndex].steps[stepIndex];
+ return `<p class="learning-integration-basis">${escapeHtml(s.basis)}</p><h6>${escapeHtml(s.title)}</h6><ol class="learning-integration-chain">${s.chain.map((v,i)=>`<li><span>${i+1}</span>${escapeHtml(v)}</li>`).join('')}</ol><div class="learning-integration-facts">${s.facts.map(([a,b])=>`<div><span>${escapeHtml(a)}</span><strong>${escapeHtml(b)}</strong></div>`).join('')}</div><p class="learning-integration-text">${escapeHtml(s.text)}</p>`;
+}
+function learningIntegrationMarkup(){
+ return `<div class="learning-interactive learning-integration" data-learning-integration><div class="learning-eyebrow">첫 변화 → 반응 → 결과</div><div class="learning-integration-cases" role="group" aria-label="비교할 순환 상황">${learningIntegrationCases.map((s,i)=>`<button type="button" data-integration-case="${i}" aria-pressed="${i===0}">${s.name}</button>`).join('')}</div><div class="learning-integration-steps" role="group" aria-label="변화의 단계"></div><div data-integration-copy aria-live="polite">${learningIntegrationCopy(0,0)}</div><small class="learning-graph-note">상황과 단계를 눌러 비교해 보세요. 화살표의 비교 기준을 함께 읽으면 처음 변화와 보상이 구분됩니다.</small></div>`;
+}
+function bindLearningIntegration(container){
+ container.querySelectorAll('[data-learning-integration]:not([data-learning-bound])').forEach(block=>{
+  block.dataset.learningBound='1';let c=0,s=0;
+  const draw=()=>{
+   block.querySelectorAll('[data-integration-case]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.integrationCase)===c)));
+   block.querySelector('.learning-integration-steps').innerHTML=learningIntegrationCases[c].steps.map((v,i)=>`<button type="button" data-integration-step="${i}" aria-pressed="${i===s}"><span>${i+1}</span>${escapeHtml(v.name)}</button>`).join('');
+   block.querySelector('[data-integration-copy]').innerHTML=learningIntegrationCopy(c,s);
+   block.dataset.caseIndex=String(c);block.dataset.stepIndex=String(s);
+  };
+  block.addEventListener('click',event=>{
+   const b=event.target.closest('[data-integration-case],[data-integration-step]');if(!b||!block.contains(b))return;
+   const caseButton=b.hasAttribute('data-integration-case');
+   if(caseButton){c=Number(b.dataset.integrationCase);s=0;}else{s=Number(b.dataset.integrationStep);}
+   draw();if(!caseButton)block.querySelector(`[data-integration-step="${s}"]`).focus({preventScroll:true});
+  });draw();
+ });
 }

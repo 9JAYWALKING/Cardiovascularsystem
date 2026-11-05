@@ -7,7 +7,7 @@
 .wiki-learning .wiki-section-head { border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:24px; }
 .wiki-learning .wiki-section-head h4 { letter-spacing:-.025em; }
 .wiki-learning h5[data-wiki-section] { margin-top:42px; padding-top:6px; }
-.wiki-learning .wiki-article p { max-width:100%; }
+.wiki-learning .wiki-article p { max-width:100%; color:var(--ink,#30272a); }
 .wiki-learning .wiki-article { max-width:1100px; width:100%; margin-inline:auto; }
 .wiki-learning .wiki-grid.single>.wiki-figure,.wiki-learning .wiki-grid:not(.single)>.wiki-figure:last-child:nth-child(odd) { max-width:min(100%,780px)!important; width:100%; }
 .wiki-learning .wiki-grid { gap:16px; margin:24px 0; }
@@ -67,7 +67,14 @@
 .learning-rate-copy { font-weight:600; min-height:3.6em; }
 html[data-theme="dark"] .learning-interactive,html[data-theme="dark"] .learning-recall,html[data-theme="dark"] .wiki-learning .wiki-figure { background:#110d0f; }
 html[data-theme="dark"] .wiki-learning .wiki-figure figcaption,html[data-theme="dark"] .learning-recall>summary,html[data-theme="dark"] .learning-interactive { color:#eee; }
+html[data-theme="dark"] :is(.learning-eyebrow,.learning-ap-copy strong,.learning-exam-toggle,.learning-answer>summary) { color:#edb6c5; }
+html[data-theme="dark"] :is(.learning-ap-segment,.learning-rate-active,.learning-rate-time) { stroke:#edb6c5; }
+html[data-theme="dark"] .learning-dot { fill:#edb6c5; }
 @media(max-width:700px) {
+  .study-ui:has(.lecture-workspace[data-view="wiki"] .wiki-learning) .detail-topline { grid-template-columns:minmax(0,1fr) auto; gap:14px; }
+  .study-ui:has(.lecture-workspace[data-view="wiki"] .wiki-learning) .detail-topline>div:first-child { grid-column:1 / -1; }
+  .study-ui:has(.lecture-workspace[data-view="wiki"] .wiki-learning) .detail-course-controls { width:auto; justify-content:flex-end; }
+  .study-ui:has(.lecture-workspace[data-view="wiki"] .wiki-learning) .detail-topline :is(h2,.detail-info) { white-space:normal; overflow:visible; text-overflow:clip; }
   .wiki-learning .wiki-hero { padding:24px 18px!important; }
   .wiki-learning .wiki-hero h3 { font-size:calc(28px * var(--study-type-scale,1))!important; }
   .learning-graph-layout { grid-template-columns:minmax(0,1fr); gap:10px; }

@@ -789,6 +789,18 @@ html[data-theme="dark"] body.study-ui { --study-surface:#000; --study-muted:#fff
 html[data-theme="dark"] .study-ui .masthead { background:#341b24; color:#fff; }
 html[data-theme="dark"] .study-ui #quick-start-root .study-app-icon { background:#1a1014; border-color:#483039; color:#edb6c5; }
 html[data-theme="dark"] .study-ui .detail-bar { --study-lecture-bg:#442331; }
+/* Shared Wiki/JBL links use the wine palette in dark mode. */
+html[data-theme="dark"] .study-ui :is(.wiki-note,.jbl-wiki-text) a:not(.wiki-link-missing):not(.jbl-question-link-missing),
+html[data-theme="dark"] .study-ui :is(.wiki-link,.wiki-footnote-ref,.wiki-footnote-back,.jbl-question-link) {
+  color:var(--study-accent); border-bottom-color:#986071;
+}
+html[data-theme="dark"] .study-ui :is(.wiki-note,.jbl-wiki-text) a:not(.wiki-link-missing):not(.jbl-question-link-missing):is(:hover,:focus-visible),
+html[data-theme="dark"] .study-ui :is(.wiki-link,.wiki-footnote-ref,.wiki-footnote-back,.jbl-question-link):is(:hover,:focus-visible) {
+  color:#f8d7e1; border-bottom-color:currentColor;
+}
+html[data-theme="dark"] .study-ui .jbl-wiki-text h3 { color:var(--study-accent); }
+html[data-theme="dark"] .study-ui .learning-flow { --brand:var(--study-accent); }
+html[data-theme="dark"] .study-ui :is(.wiki-note,.jbl-wiki-text) ::selection { background:#65283b; color:#fff; }
 /* Keep the existing Wiki emphasis syntax, now rendered in the subject color. */
 .study-ui .wiki-strong-purple,.study-ui .wiki-strong-purple :is(a,strong,em) { color:#8b2848!important; }
 .study-ui .wiki-strong-purple :is(.wiki-link,.wiki-link-strong) { border-bottom-color:#bc7d90; }

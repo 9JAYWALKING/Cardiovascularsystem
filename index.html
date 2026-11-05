@@ -100,7 +100,7 @@
     h1 {
       margin: 0;
       font-family: inherit;
-      font-size: clamp(21px, 3.2vw, 30px);
+      font-size: calc((clamp(21px, 3.2vw, 30px)) * var(--study-type-scale,1));
       font-weight: 900;
       line-height: 1;
       letter-spacing: .12em;
@@ -126,7 +126,7 @@
     .top-actions { display:flex; align-items:center; gap:9px; justify-content:flex-end; }
 
     .global-search-form { position:relative; display:flex; align-items:center; width:clamp(210px,25vw,360px); height:40px; margin:0; }
-    .global-search-input { width:100%; height:40px; box-sizing:border-box; padding:0 43px 0 14px; border:1px solid #e6cbd1; border-radius:12px; outline:0; background:#fff; color:#431f27; font:inherit; font-size:14px; font-weight:650; box-shadow:0 2px 8px rgba(53,25,31,.08); transition:border-color .18s ease, box-shadow .18s ease; }
+    .global-search-input { width:100%; height:40px; box-sizing:border-box; padding:0 43px 0 14px; border:1px solid #e6cbd1; border-radius:12px; outline:0; background:#fff; color:#431f27; font:inherit; font-size:calc((14px) * var(--study-type-scale,1)); font-weight:650; box-shadow:0 2px 8px rgba(53,25,31,.08); transition:border-color .18s ease, box-shadow .18s ease; }
     .global-search-input::placeholder { color:#a87a84; font-weight:600; }
     .global-search-input:hover { border-color:#d29faa; }
     .global-search-input:focus { border-color:#be7685; box-shadow:0 0 0 3px rgba(200,137,151,.3); }
@@ -139,34 +139,34 @@
     .global-search-dialog[open] { display:flex; flex-direction:column; }
     .global-search-dialog::backdrop { background:rgba(46,22,27,.48); backdrop-filter:blur(2px); }
     .global-search-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; background:#f7f0f1; border-bottom:1px solid #edd7dc; flex:none; }
-    .global-search-head h2 { margin:0; color:#713542; font-size:20px; font-weight:900; letter-spacing:-.02em; }
-    .global-search-close { display:grid; width:36px; height:36px; flex:0 0 36px; place-items:center; padding:0; border:0; border-radius:50%; color:#713542; background:transparent; font:inherit; font-size:27px; line-height:1; cursor:pointer; }
+    .global-search-head h2 { margin:0; color:#713542; font-size:calc((20px) * var(--study-type-scale,1)); font-weight:900; letter-spacing:-.02em; }
+    .global-search-close { display:grid; width:36px; height:36px; flex:0 0 36px; place-items:center; padding:0; border:0; border-radius:50%; color:#713542; background:transparent; font:inherit; font-size:calc((27px) * var(--study-type-scale,1)); line-height:1; cursor:pointer; }
     .global-search-close:hover { background:#f0dfe3; }
     .global-search-close:focus-visible { outline:3px solid #c88997; outline-offset:2px; }
     .global-search-dialog-form { display:flex; gap:9px; padding:16px 22px 12px; background:#fff; flex:none; }
-    .global-search-dialog-input { min-width:0; flex:1; height:44px; box-sizing:border-box; padding:0 14px; border:1px solid #e0bdc5; border-radius:11px; outline:0; background:#fff; color:#2c161b; font:inherit; font-size:16px; }
+    .global-search-dialog-input { min-width:0; flex:1; height:44px; box-sizing:border-box; padding:0 14px; border:1px solid #e0bdc5; border-radius:11px; outline:0; background:#fff; color:#2c161b; font:inherit; font-size:calc((16px) * var(--study-type-scale,1)); }
     .global-search-dialog-input:focus { border-color:#be7685; box-shadow:0 0 0 3px rgba(200,137,151,.25); }
     .global-search-dialog-run { min-width:76px; padding:0 18px; border:1px solid #713542; border-radius:11px; background:#713542; color:#fff; font:inherit; font-weight:850; cursor:pointer; }
     .global-search-dialog-run:hover { background:#5c2b35; }
     .global-search-tabs { display:flex; gap:7px; padding:0 22px 13px; background:#fff; border-bottom:1px solid #efdfe3; flex:none; }
-    .global-search-tab { padding:8px 13px; border:1px solid #ead4d9; border-radius:999px; background:#fff; color:#785059; font:inherit; font-size:13px; font-weight:800; cursor:pointer; }
+    .global-search-tab { padding:8px 13px; border:1px solid #ead4d9; border-radius:999px; background:#fff; color:#785059; font:inherit; font-size:calc((13px) * var(--study-type-scale,1)); font-weight:800; cursor:pointer; }
     .global-search-tab:hover { background:#f9f2f3; }
     .global-search-tab[aria-selected="true"] { border-color:#ca8e9b; background:#f3e4e7; color:#562933; }
-    .global-search-summary { margin:0; padding:13px 23px 9px; color:#826369; font-size:13px; line-height:1.6; background:#fbf8f9; flex:none; }
+    .global-search-summary { margin:0; padding:13px 23px 9px; color:#826369; font-size:calc((13px) * var(--study-type-scale,1)); line-height:1.6; background:#fbf8f9; flex:none; }
     .global-search-results { min-height:0; overflow:auto; overscroll-behavior:contain; padding:0 16px 22px; }
     .global-search-group + .global-search-group { margin-top:20px; }
-    .global-search-group-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0; padding:10px 7px 8px; color:#713542; font-size:15px; font-weight:900; }
-    .global-search-group-head small { color:#83939c; font-size:12px; font-weight:700; }
+    .global-search-group-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0; padding:10px 7px 8px; color:#713542; font-size:calc((15px) * var(--study-type-scale,1)); font-weight:900; }
+    .global-search-group-head small { color:#83939c; font-size:calc((12px) * var(--study-type-scale,1)); font-weight:700; }
     .global-search-list { display:grid; gap:8px; }
     .global-search-result { display:grid; grid-template-columns:auto minmax(0,1fr); gap:11px; width:100%; padding:14px 15px; border:1px solid #eddade; border-radius:14px; background:#fff; color:inherit; text-align:left; font:inherit; cursor:pointer; box-shadow:0 2px 8px rgba(79,37,46,.04); }
     .global-search-result:hover { border-color:#d6a7b1; background:#fdfcfc; transform:translateY(-1px); box-shadow:0 7px 18px rgba(79,37,46,.09); }
     .global-search-result:focus-visible { outline:3px solid #c88997; outline-offset:2px; }
-    .global-search-kind { align-self:start; min-width:39px; padding:4px 7px; border-radius:7px; background:#f6e9ec; color:#6b323f; font-size:11px; font-weight:900; text-align:center; }
+    .global-search-kind { align-self:start; min-width:39px; padding:4px 7px; border-radius:7px; background:#f6e9ec; color:#6b323f; font-size:calc((11px) * var(--study-type-scale,1)); font-weight:900; text-align:center; }
     .global-search-kind.j { background:#f1eafa; color:#70449a; }
     .global-search-result-copy { min-width:0; }
-    .global-search-result-title { display:block; color:#431f27; font-size:15px; font-weight:850; line-height:1.5; overflow-wrap:anywhere; }
-    .global-search-result-meta { display:block; margin-top:3px; color:#788991; font-size:12px; line-height:1.5; }
-    .global-search-result-snippet { display:block; margin-top:7px; color:#573e43; font-size:13px; line-height:1.65; overflow-wrap:anywhere; }
+    .global-search-result-title { display:block; color:#431f27; font-size:calc((15px) * var(--study-type-scale,1)); font-weight:850; line-height:1.5; overflow-wrap:anywhere; }
+    .global-search-result-meta { display:block; margin-top:3px; color:#788991; font-size:calc((12px) * var(--study-type-scale,1)); line-height:1.5; }
+    .global-search-result-snippet { display:block; margin-top:7px; color:#573e43; font-size:calc((13px) * var(--study-type-scale,1)); line-height:1.65; overflow-wrap:anywhere; }
     .global-search-result mark { padding:0 .08em; border-radius:3px; background:#fff0a8; color:#3b252a; font-weight:850; }
     .global-search-empty { display:grid; min-height:240px; place-items:center; margin:0; padding:28px; color:#7b8c95; text-align:center; line-height:1.75; }
 
@@ -182,7 +182,7 @@
     .masthead-menu .nav-button:hover, .masthead-menu .nav-button:focus-visible { background:#f6eef0; }
     .masthead-menu .nav-button[aria-current="page"] { border-color:#d09ba6; background:#f3e4e7; color:#562933; }
 
-    .information-button { display:inline-flex; align-items:center; justify-content:center; flex:0 0 38px; width:38px; height:38px; padding:0; align-self:center; border:1px solid #e6cbd1; border-radius:50%; background:#fff; color:#713542; cursor:pointer; font:inherit; font-size:20px; font-weight:800; line-height:1; }
+    .information-button { display:inline-flex; align-items:center; justify-content:center; flex:0 0 38px; width:38px; height:38px; padding:0; align-self:center; border:1px solid #e6cbd1; border-radius:50%; background:#fff; color:#713542; cursor:pointer; font:inherit; font-size:calc((20px) * var(--study-type-scale,1)); font-weight:800; line-height:1; }
     .information-button:hover { background:#f7f0f1; border-color:#c98b99; }
     .information-button:focus-visible, .information-dialog button:focus-visible { outline:3px solid #c88997; outline-offset:3px; }
     body.information-open { overflow:hidden; }
@@ -191,19 +191,19 @@
     .information-dialog::backdrop { background:rgba(49,23,29,.42); }
     .information-dialog [hidden] { display:none !important; }
     .information-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 24px; background:#f7f0f1; border-bottom:1px solid #eedbdf; flex-shrink:0; }
-    .information-head h2 { margin:0; font-size:19px; line-height:1.4; color:#713542; font-weight:800; }
-    .information-close { width:36px; height:36px; flex:0 0 36px; padding:0; border:0; border-radius:50%; color:#713542; background:transparent; font:inherit; font-size:26px; line-height:1; cursor:pointer; }
+    .information-head h2 { margin:0; font-size:calc((19px) * var(--study-type-scale,1)); line-height:1.4; color:#713542; font-weight:800; }
+    .information-close { width:36px; height:36px; flex:0 0 36px; padding:0; border:0; border-radius:50%; color:#713542; background:transparent; font:inherit; font-size:calc((26px) * var(--study-type-scale,1)); line-height:1; cursor:pointer; }
     .information-close:hover { background:#f1e1e5; }
     .information-body { min-height:130px; overflow:auto; overscroll-behavior:contain; padding:24px; min-width:0; }
-    .information-status { margin:0; color:#6c7680; font-size:14px; line-height:1.7; white-space:pre-wrap; }
-    .information-text { margin:0; font:inherit; font-size:16px; line-height:1.85; color:#422329; white-space:pre-wrap; overflow-wrap:anywhere; word-break:normal; tab-size:4; }
+    .information-status { margin:0; color:#6c7680; font-size:calc((14px) * var(--study-type-scale,1)); line-height:1.7; white-space:pre-wrap; }
+    .information-text { margin:0; font:inherit; font-size:calc((16px) * var(--study-type-scale,1)); line-height:1.85; color:#422329; white-space:pre-wrap; overflow-wrap:anywhere; word-break:normal; tab-size:4; }
     .information-fallback { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-    .information-file-button { border:1px solid #e6cbd1; border-radius:10px; background:#faf6f7; color:#713542; padding:9px 13px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .information-file-button { border:1px solid #e6cbd1; border-radius:10px; background:#faf6f7; color:#713542; padding:9px 13px; font:inherit; font-size:calc((14px) * var(--study-type-scale,1)); font-weight:700; cursor:pointer; }
     @media (max-width:600px) {
       .information-dialog { width:calc(100vw - 24px); max-width:calc(100vw - 24px); border-radius:16px; }
       .information-head { padding:16px 18px; }
       .information-body { padding:18px; }
-      .information-text { font-size:15px; }
+      .information-text { font-size:calc((15px) * var(--study-type-scale,1)); }
     }
 
     .nav-button,
@@ -254,7 +254,7 @@
 
     .domain-tab::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--tab-color); }
     .domain-tab.active { border-color: var(--tab-color); background: var(--tab-soft); box-shadow: 0 10px 30px rgba(49,35,38, .06); }
-    .domain-tab strong { display: block; font-family: inherit; font-size: 20px; }
+    .domain-tab strong { display: block; font-family: inherit; font-size: calc((20px) * var(--study-type-scale,1)); }
 
     .discipline-grid { display: grid; gap: 18px; }
 
@@ -281,16 +281,16 @@
       place-items: center;
       border-radius: 13px;
       background: var(--soft);
-      font-size: 21px;
+      font-size: calc((21px) * var(--study-type-scale,1));
     }
 
-    .discipline-head h3 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
-    .discipline-head p { margin: 1px 0 0; color: var(--muted); font-size: 12px; }
-    .discipline-count { margin-left: auto; padding: 4px 9px; border-radius: 999px; color: var(--accent); background: var(--soft); font-size: 12px; font-weight: 800; }
+    .discipline-head h3 { margin: 0; font-size: calc((20px) * var(--study-type-scale,1)); letter-spacing: -.02em; }
+    .discipline-head p { margin: 1px 0 0; color: var(--muted); font-size: calc((12px) * var(--study-type-scale,1)); }
+    .discipline-count { margin-left: auto; padding: 4px 9px; border-radius: 999px; color: var(--accent); background: var(--soft); font-size: calc((12px) * var(--study-type-scale,1)); font-weight: 800; }
 
     .section-block { padding: 17px 24px 22px; }
     .section-block + .section-block { border-top: 1px dashed #edd9dd; }
-    .section-title { display: flex; align-items: center; gap: 9px; margin: 0 0 10px; color: var(--muted); font-size: 12px; font-weight: 900; letter-spacing: .04em; }
+    .section-title { display: flex; align-items: center; gap: 9px; margin: 0 0 10px; color: var(--muted); font-size: calc((12px) * var(--study-type-scale,1)); font-weight: 900; letter-spacing: .04em; }
     .section-title::before { content: ""; width: 18px; height: 2px; background: var(--accent); }
 
     .professor-list { display: grid; gap: 8px; }
@@ -317,7 +317,7 @@
 
     .professor-toggle:hover { background: #fbf8f9; }
     .professor-name { font-weight: 850; }
-    .professor-meta { margin-left: auto; color: var(--muted); font-size: 12px; }
+    .professor-meta { margin-left: auto; color: var(--muted); font-size: calc((12px) * var(--study-type-scale,1)); }
     .chevron { color: var(--accent); transition: transform .2s ease; }
     .professor.open .chevron { transform: rotate(180deg); }
 
@@ -341,17 +341,17 @@
 
     .lecture-link:hover,
     .lecture-link:focus-visible { background: var(--soft); outline: 2px solid color-mix(in srgb, var(--accent) 25%, transparent); }
-    .lecture-no { color: var(--accent); font-family: inherit; font-size: 16px; font-weight: 800; }
+    .lecture-no { color: var(--accent); font-family: inherit; font-size: calc((16px) * var(--study-type-scale,1)); font-weight: 800; }
     .lecture-link small { color: var(--muted); }
     .lecture-arrow { color: var(--accent); }
 
     .schedule-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
-    .schedule-toolbar h2 { margin: 0; font-family: inherit; font-size: clamp(24px, 4vw, 32px); }
+    .schedule-toolbar h2 { margin: 0; font-family: inherit; font-size: calc((clamp(24px, 4vw, 32px)) * var(--study-type-scale,1)); }
 
     .legend { display: flex; gap: 8px; flex-wrap: wrap; }
-    .legend span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 11px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: calc((11px) * var(--study-type-scale,1)); }
     .legend i { width: 9px; height: 9px; border-radius: 3px; }
-    .schedule-op-toggle { align-self: center; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--topbar-ink); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .schedule-op-toggle { align-self: center; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--topbar-ink); font-size: calc((11px) * var(--study-type-scale,1)); font-weight: 800; cursor: pointer; }
     .schedule-op-toggle[aria-pressed="true"] { background: #fff4c9; border-color: #dec568; color: #75551c; }
     .schedule-op-toggle:focus-visible { outline: 3px solid #c88997; outline-offset: 2px; }
     #schedule-view .course-op-image { display: none; position: absolute; top: 4px; right: 4px; width: 22%; height: auto; max-height: calc(100% - 8px); object-fit: contain; object-position: top right; z-index: 2; pointer-events: none; user-select: none; }
@@ -363,8 +363,8 @@
     .week-stack { display: grid; gap: 22px; }
     .week-card { border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: var(--shadow); overflow: hidden; }
     .week-title { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 16px; color: #fff; background: var(--deep); }
-    .week-title strong { font-family: inherit; font-size: 18px; }
-    .week-title span { color: #eed9de; font-size: 12px; }
+    .week-title strong { font-family: inherit; font-size: calc((18px) * var(--study-type-scale,1)); }
+    .week-title span { color: #eed9de; font-size: calc((12px) * var(--study-type-scale,1)); }
     .timetable-scroll { overflow-x: auto; }
 
     .timetable {
@@ -378,7 +378,7 @@
     .grid-cell { min-width: 0; padding: 8px; border-right: 1px solid #ddd9d0; border-bottom: 1px solid #ddd9d0; background: #fff; }
     .day-head { display: grid; place-items: center; color: #4a3036; background: #eceae5; text-align: center; font-weight: 850; }
     .day-head small { display: block; margin-top: 1px; color: var(--muted); font-weight: 500; }
-    .time-cell { display: grid; place-items: center; color: var(--muted); background: #fbf6f7; font-size: 12px; font-weight: 800; }
+    .time-cell { display: grid; place-items: center; color: var(--muted); background: #fbf6f7; font-size: calc((12px) * var(--study-type-scale,1)); font-weight: 800; }
     .lunch-cell { background: repeating-linear-gradient(135deg, #faf6f7, #faf6f7 8px, #f6eef0 8px, #f6eef0 16px); }
 
     .holiday-column {
@@ -389,7 +389,7 @@
       border-bottom: 1px solid #d1d7da;
       color: #dc858c;
       background: repeating-linear-gradient(135deg, #faf6f7, #faf6f7 8px, #f6eef0 8px, #f6eef0 16px);
-      font-size: 16px;
+      font-size: calc((16px) * var(--study-type-scale,1));
       font-weight: 900;
       letter-spacing: .12em;
       pointer-events: none;
@@ -404,7 +404,7 @@
       border-bottom: 1px solid var(--line);
       color: var(--topbar-ink);
       background: var(--clinical-soft);
-      font-size: 20px;
+      font-size: calc((20px) * var(--study-type-scale,1));
       font-weight: 850;
       text-align: center;
       word-break: keep-all;
@@ -432,9 +432,9 @@
 
     .course-card:hover,
     .course-card:focus-visible { z-index: 8; transform: translateY(-2px); box-shadow: 0 10px 23px rgba(41,19,24, .16); border-color: var(--course-color); outline: none; }
-    .course-card .number { color: var(--course-color); font-family: inherit; font-size: 12px; font-weight: 900; }
-    .course-card .name { display: -webkit-box; overflow: hidden; font-size: 12px; font-weight: 800; line-height: 1.35; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-    .course-card .teacher { color: var(--muted); font-size: 10px; }
+    .course-card .number { color: var(--course-color); font-family: inherit; font-size: calc((12px) * var(--study-type-scale,1)); font-weight: 900; }
+    .course-card .name { display: -webkit-box; overflow: hidden; font-size: calc((12px) * var(--study-type-scale,1)); font-weight: 800; line-height: 1.35; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+    .course-card .teacher { color: var(--muted); font-size: calc((10px) * var(--study-type-scale,1)); }
 
     .course-tooltip {
       position: absolute;
@@ -448,7 +448,7 @@
       color: #fff;
       background: #2e151a;
       box-shadow: 0 10px 25px rgba(0,0,0,.22);
-      font-size: 11px;
+      font-size: calc((11px) * var(--study-type-scale,1));
       line-height: 1.4;
       opacity: 0;
       pointer-events: none;
@@ -470,15 +470,15 @@
     }
 
     .detail-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
-    .detail-breadcrumb { margin: 0 0 8px; color: #d4b8be; font-size: 12px; }
-    .detail-bar h2 { margin: 0; font-family: inherit; font-size: clamp(27px, 5vw, 42px); line-height: 1.18; letter-spacing: -.04em; }
-    .detail-info { margin: 12px 0 0; color: #e6d6da; font-size: 13px; }
+    .detail-breadcrumb { margin: 0 0 8px; color: #d4b8be; font-size: calc((12px) * var(--study-type-scale,1)); }
+    .detail-bar h2 { margin: 0; font-family: inherit; font-size: calc((clamp(27px, 5vw, 42px)) * var(--study-type-scale,1)); line-height: 1.18; letter-spacing: -.04em; }
+    .detail-info { margin: 12px 0 0; color: #e6d6da; font-size: calc((13px) * var(--study-type-scale,1)); }
     .detail-course-controls { display: flex; align-items: stretch; gap: 8px; flex-shrink: 0; }
     .detail-course-nav { min-width: 112px; height: 58px; margin: 0; }
     .detail-course-nav:disabled { opacity: .38; cursor: default; }
     .detail-number-form { width: 58px; height: 58px; margin: 0; }
     .detail-number,
-    .detail-number-input { box-sizing: border-box; width: 58px; min-width: 58px; height: 58px; border-radius: 18px; font-family: inherit; font-size: 25px; font-weight: 900; text-align: center; }
+    .detail-number-input { box-sizing: border-box; width: 58px; min-width: 58px; height: 58px; border-radius: 18px; font-family: inherit; font-size: calc((25px) * var(--study-type-scale,1)); font-weight: 900; text-align: center; }
     .detail-number { display: grid; padding: 0; border: 0; place-items: center; color: var(--deep); background: #f2d492; cursor: pointer; transition: transform .16s ease, box-shadow .16s ease; }
     .detail-number:hover, .detail-number:focus-visible { transform: translateY(-1px); box-shadow: 0 0 0 3px rgba(242,212,146,.28); outline: none; }
     .detail-number-input { padding: 0 5px; border: 2px solid #f2d492; color: var(--deep); background: #fff; outline: none; }
@@ -489,12 +489,12 @@
     .content-tab.active { color: var(--deep); background: #fff; }
 
     .content-panel { margin-top: 20px; padding: clamp(24px, 5vw, 48px); min-height: 440px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
-    .panel-label { display: inline-block; margin-bottom: 18px; padding: 5px 10px; border-radius: 999px; color: var(--clinical); background: var(--clinical-soft); font-size: 11px; font-weight: 900; }
-    .content-panel h3 { margin: 0 0 10px; font-family: inherit; font-size: 28px; }
+    .panel-label { display: inline-block; margin-bottom: 18px; padding: 5px 10px; border-radius: 999px; color: var(--clinical); background: var(--clinical-soft); font-size: calc((11px) * var(--study-type-scale,1)); font-weight: 900; }
+    .content-panel h3 { margin: 0 0 10px; font-family: inherit; font-size: calc((28px) * var(--study-type-scale,1)); }
     .content-panel p { color: var(--muted); }
     .empty-state { display: grid; min-height: 270px; place-items: center; border: 1px dashed #e6cbd1; border-radius: 17px; background: #fcf8f9; text-align: center; }
-    .empty-state strong { display: block; color: var(--ink); font-size: 17px; }
-    .empty-state span { display: block; max-width: 440px; margin-top: 7px; color: var(--muted); font-size: 13px; }
+    .empty-state strong { display: block; color: var(--ink); font-size: calc((17px) * var(--study-type-scale,1)); }
+    .empty-state span { display: block; max-width: 440px; margin-top: 7px; color: var(--muted); font-size: calc((13px) * var(--study-type-scale,1)); }
 
     /* Wiki-style lecture notes */
     .content-panel.notes-mode { padding: 0; overflow: visible; }
@@ -503,45 +503,45 @@
     .wiki-hero-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
     .wiki-hero-title { min-width: 0; }
     .wiki-hero-actions { display: grid; flex: 0 0 auto; gap: 7px; }
-    .wiki-hero-edit { flex: 0 0 auto; padding: 10px 15px; font-size: 14px; }
-    .wiki-toggle-all { padding: 9px 15px; font-size: 13px; }
-    .wiki-kicker { margin: 0 0 8px; color: #853e4d; font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
-    .wiki-hero h3 { margin: 0; color: #3f1c24; font-size: clamp(30px,5vw,46px); line-height: 1.2; }
-    .wiki-hero > p { max-width: 720px; margin: 14px 0 0; color: #7f505a; font-size: 16px; }
+    .wiki-hero-edit { flex: 0 0 auto; padding: 10px 15px; font-size: calc((14px) * var(--study-type-scale,1)); }
+    .wiki-toggle-all { padding: 9px 15px; font-size: calc((13px) * var(--study-type-scale,1)); }
+    .wiki-kicker { margin: 0 0 8px; color: #853e4d; font-size: calc((12px) * var(--study-type-scale,1)); font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .wiki-hero h3 { margin: 0; color: #3f1c24; font-size: calc((clamp(30px,5vw,46px)) * var(--study-type-scale,1)); line-height: 1.2; }
+    .wiki-hero > p { max-width: 720px; margin: 14px 0 0; color: #7f505a; font-size: calc((16px) * var(--study-type-scale,1)); }
     .wiki-stat-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
-    .wiki-stat { padding: 9px 13px; border: 1px solid #ebd4d9; border-radius: 999px; background: rgba(255,255,255,.82); color: #602e39; font-size: 13px; font-weight: 850; }
+    .wiki-stat { padding: 9px 13px; border: 1px solid #ebd4d9; border-radius: 999px; background: rgba(255,255,255,.82); color: #602e39; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 850; }
     .wiki-layout { display: grid; grid-template-columns: 210px minmax(0,1fr); gap: 34px; padding: clamp(24px,5vw,48px); transition: grid-template-columns .24s ease, gap .24s ease; }
     .wiki-layout.is-toc-collapsed { grid-template-columns: 44px minmax(0,1fr); gap: 18px; }
     .wiki-toc { align-self: start; position: sticky; top: 14px; z-index: 80; display: flex; max-height: calc(100vh - 28px); flex-direction: column; padding: 16px; border: 1px solid #eedbdf; border-radius: 18px; background: rgba(252,248,249,.97); box-shadow: 0 8px 24px rgba(71,33,41,.05); backdrop-filter: blur(8px); transition: width .24s ease, padding .24s ease, border-radius .24s ease; }
     .wiki-toc-head { display: flex; min-height: 28px; align-items: center; justify-content: space-between; gap: 8px; flex: 0 0 auto; }
-    .wiki-toc strong { color: #66303b; font-size: 13px; }
-    .wiki-toc-toggle { display: inline-grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; padding: 0; border: 0; border-radius: 8px; background: transparent; color: #66303b; font-family: inherit; font-size: 20px; font-weight: 900; line-height: 1; cursor: pointer; }
+    .wiki-toc strong { color: #66303b; font-size: calc((13px) * var(--study-type-scale,1)); }
+    .wiki-toc-toggle { display: inline-grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; padding: 0; border: 0; border-radius: 8px; background: transparent; color: #66303b; font-family: inherit; font-size: calc((20px) * var(--study-type-scale,1)); font-weight: 900; line-height: 1; cursor: pointer; }
     .wiki-toc-toggle:hover, .wiki-toc-toggle:focus-visible { background: #f7ebee; color: #723542; outline: none; }
     .wiki-toc-links { min-height: 0; margin-top: 7px; overflow-x: hidden; overflow-y: auto; scrollbar-width: thin; }
     .wiki-layout.is-toc-collapsed .wiki-toc { width: 44px; padding: 7px; border-radius: 14px; }
     .wiki-layout.is-toc-collapsed .wiki-toc-head { justify-content: center; }
     .wiki-layout.is-toc-collapsed .wiki-toc-title,
     .wiki-layout.is-toc-collapsed .wiki-toc-links { display: none; }
-    .wiki-toc-link { width: 100%; padding: 8px 9px; border: 0; border-radius: 10px; background: transparent; color: #855d66; text-align: left; font: inherit; font-size: 13px; font-weight: 750; cursor: pointer; }
+    .wiki-toc-link { width: 100%; padding: 8px 9px; border: 0; border-radius: 10px; background: transparent; color: #855d66; text-align: left; font: inherit; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 750; cursor: pointer; }
     .wiki-toc-link:hover { background: #f7ebee; color: #723542; }
     .wiki-article { min-width: 0; }
     .wiki-section { scroll-margin-top: 24px; padding: 0 0 38px; margin: 0 0 38px; border-bottom: 1px solid #f3e6e9; }
     .wiki-section:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
-    .wiki-section h4 { margin: 0 0 16px; color: #462129; font-size: 25px; line-height: 1.35; }
+    .wiki-section h4 { margin: 0 0 16px; color: #462129; font-size: calc((25px) * var(--study-type-scale,1)); line-height: 1.35; }
     .wiki-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin: 0 0 16px; }
     .wiki-section-head h4 { min-width: 0; margin: 0; }
     .wiki-section-actions { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 5px; }
-    .wiki-section-action { min-height: 30px; padding: 5px 9px; border: 1px solid #ebd5da; border-radius: 9px; background: #fcf8f9; color: #825962; font: inherit; font-size: 11px; font-weight: 850; cursor: pointer; }
+    .wiki-section-action { min-height: 30px; padding: 5px 9px; border: 1px solid #ebd5da; border-radius: 9px; background: #fcf8f9; color: #825962; font: inherit; font-size: calc((11px) * var(--study-type-scale,1)); font-weight: 850; cursor: pointer; }
     .wiki-section-action:hover, .wiki-section-action:focus-visible { border-color: #cf9aa5; background: #f8f1f2; color: #723542; outline: none; }
     .wiki-section-content { display: block; }
     .wiki-section.is-collapsed { padding-bottom: 18px; margin-bottom: 18px; }
     .wiki-section.is-collapsed .wiki-section-head { margin-bottom: 0; }
     .wiki-section.is-collapsed .wiki-section-content { display: none; }
-    .wiki-subsection-edit { float: right; margin: 0 0 4px 12px; padding: 3px 7px; min-height: 27px; font-size: 11px; white-space: nowrap; }
+    .wiki-subsection-edit { float: right; margin: 0 0 4px 12px; padding: 3px 7px; min-height: 27px; font-size: calc((11px) * var(--study-type-scale,1)); white-space: nowrap; }
     .wiki-note h5[data-wiki-level], .wiki-note h6[data-wiki-level] { display: flow-root; }
-    .wiki-section h5 { margin: 24px 0 9px; color: #642f3a; font-size: calc(18px + 2pt); }
-    .wiki-note [data-wiki-level="3"], .jbl-wiki-text [data-wiki-level="3"] { font-size: calc(18px + 2pt); }
-    .wiki-note [data-wiki-level="4"], .jbl-wiki-text [data-wiki-level="4"] { margin: 20px 0 9px; color: #642f3a; font-size: calc(18px - 1pt); font-weight: 700; }
+    .wiki-section h5 { margin: 24px 0 9px; color: #642f3a; font-size: calc((calc(18px + 2pt)) * var(--study-type-scale,1)); }
+    .wiki-note [data-wiki-level="3"], .jbl-wiki-text [data-wiki-level="3"] { font-size: calc((calc(18px + 2pt)) * var(--study-type-scale,1)); }
+    .wiki-note [data-wiki-level="4"], .jbl-wiki-text [data-wiki-level="4"] { margin: 20px 0 9px; color: #642f3a; font-size: calc((calc(18px - 1pt)) * var(--study-type-scale,1)); font-weight: 700; }
     .wiki-subsubsection { margin-inline-start: 1em; min-width: 0; display: flow-root; }
     .wiki-section p { margin: 0 0 14px; color: #764b54; }
     .wiki-section ul { margin: 10px 0 18px; padding-left: 22px; color: #6b3f49; }
@@ -558,7 +558,7 @@
     .wiki-figure { min-width: 0; max-width: 50vw; }
     .jbl-wiki-text > .wiki-figure { width: 50%; margin: 18px auto; }
     .wiki-muted, .wiki-muted a, .wiki-muted strong, .wiki-muted em { color: #909090 !important; }
-    .wiki-bookmark { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; margin-left:8px; padding:0; border:1px solid #f1e1e5; border-radius:999px; background:#fff; color:#ba929b; font-size:16px; line-height:1; vertical-align:middle; cursor:pointer; }
+    .wiki-bookmark { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; margin-left:8px; padding:0; border:1px solid #f1e1e5; border-radius:999px; background:#fff; color:#ba929b; font-size:calc((16px) * var(--study-type-scale,1)); line-height:1; vertical-align:middle; cursor:pointer; }
     .wiki-bookmark:hover { border-color:#fbbf24; color:#f59e0b; }
     .wiki-bookmark[aria-pressed="true"] { border-color:#fbbf24; background:#fffbeb; color:#f59e0b; }
     .anki-shell { width:100%; text-align:left; }
@@ -567,7 +567,7 @@
     .anki-toolbar { justify-content:flex-end; margin-bottom:18px; }
     .anki-toolbar h3 { margin:0 auto 0 0; }
     .anki-card { padding:clamp(18px,3vw,40px); background:#fff; border:1px solid #eedbdf; border-radius:18px; min-height:280px; }
-    .anki-side-label { color:#8d626b; font-size:13px; margin-bottom:14px; }
+    .anki-side-label { color:#8d626b; font-size:calc((13px) * var(--study-type-scale,1)); margin-bottom:14px; }
     .anki-actions { justify-content:space-between; margin-top:20px; }
     .anki-actions > button { min-width:90px; }
     .anki-dialog { box-sizing:border-box; width:min(1100px,94vw); max-height:92dvh; padding:22px; border:1px solid #eedbdf; border-radius:16px; color:#4f252e; background:white; overflow:auto; font:inherit; }
@@ -577,11 +577,11 @@
     .anki-image-dialog img { display:block; max-width:100%; max-height:75dvh; margin:auto; object-fit:contain; }
     .anki-dialog-head { justify-content:space-between; margin-bottom:18px; }
     .anki-dialog-head h3 { margin:0; }
-    .anki-close { flex:none; border:1px solid #eedbdf; background:white; border-radius:5px; width:30px; height:30px; font-size:20px; cursor:pointer; }
+    .anki-close { flex:none; border:1px solid #eedbdf; background:white; border-radius:5px; width:30px; height:30px; font-size:calc((20px) * var(--study-type-scale,1)); cursor:pointer; }
     .anki-fields { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
     .anki-fields label { display:block; font-weight:700; margin-bottom:8px; }
     .anki-fields textarea { box-sizing:border-box; width:100%; min-height:300px; resize:vertical; padding:14px; font:inherit; line-height:1.65; border:1px solid #e2cacf; border-radius:8px; }
-    .anki-status { color:#8d626b; font-size:13px; min-height:22px; }
+    .anki-status { color:#8d626b; font-size:calc((13px) * var(--study-type-scale,1)); min-height:22px; }
     .anki-fav-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:18px; }
     .anki-fav-layout.with-preview { grid-template-columns:minmax(220px,1fr) minmax(0,3fr); }
     .anki-fav-list { max-height:65dvh; overflow:auto; min-width:0; }
@@ -606,7 +606,7 @@
     .anki-study-stage { min-height:0; min-width:0; display:grid; place-items:center; padding:clamp(12px,2.5vw,32px); }
     .anki-card[data-anki-study-card] [data-anki-face] { box-sizing:border-box; width:min(1060px,100%); height:100%; max-height:780px; min-height:0; min-width:0; overflow:auto; overscroll-behavior:contain; padding:clamp(18px,3vw,40px); scrollbar-gutter:stable; background:#fff; border:1px solid #eddade; border-radius:20px; box-shadow:0 10px 32px rgba(93,44,54,.08); display:flex; flex-direction:column; }
     .anki-card[data-anki-study-card] [data-anki-face] > .jbl-wiki-text { flex:none; width:100%; margin-block:auto; }
-    .anki-card[data-anki-study-card] .jbl-wiki-text { color:#111; font-size:clamp(22px,1.8vw,27px); line-height:1.75; }
+    .anki-card[data-anki-study-card] .jbl-wiki-text { color:#111; font-size:calc((clamp(22px,1.8vw,27px)) * var(--study-type-scale,1)); line-height:1.75; }
     .anki-card[data-anki-study-card] .jbl-wiki-text p,
     .anki-card[data-anki-study-card] .jbl-wiki-text li { color:inherit; }
     .anki-card[data-anki-study-card] .jbl-wiki-text h3,
@@ -614,9 +614,9 @@
     .anki-card[data-anki-study-card] .wiki-grid { margin:12px 0; }
     .anki-card[data-anki-study-card] .wiki-figure { max-width:100%; padding:8px; }
     .anki-card[data-anki-study-card] .wiki-figure img { width:auto; max-width:100%; height:auto; max-height:var(--anki-image-height,45dvh); margin:auto; object-fit:contain; }
-    .anki-card[data-anki-study-card] .wiki-figure figcaption { font-size:16px; color:#222; }
+    .anki-card[data-anki-study-card] .wiki-figure figcaption { font-size:calc((16px) * var(--study-type-scale,1)); color:#222; }
     .anki-study-footer { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; padding:12px max(12px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left)); border-top:1px solid #eedbdf; background:#fff; }
-    .anki-study-footer .jbl-btn { width:100%; min-width:0; min-height:54px; padding:12px 6px; font-size:18px; }
+    .anki-study-footer .jbl-btn { width:100%; min-width:0; min-height:54px; padding:12px 6px; font-size:calc((18px) * var(--study-type-scale,1)); }
     .anki-study-footer [data-anki-action="know"] { color:#fff; background:var(--deep); border-color:var(--deep); }
     .anki-study-footer [data-anki-action="know"]:hover { background:var(--deep-2); border-color:var(--deep-2); }
     @media (max-width:700px) {
@@ -632,18 +632,18 @@
     /* 나만의 정리: 브라우저 안에 저장되는 개인 Wiki 문서 */
     .personal-notes-shell { width:min(1420px,100%); margin:0 auto; text-align:left; }
     .personal-notes-toolbar { position:sticky; top:10px; z-index:30; display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:18px; padding:13px 15px; border:1px solid #eedbdf; border-radius:17px; background:rgba(255,255,255,.96); box-shadow:0 10px 28px rgba(93,44,54,.08); backdrop-filter:blur(12px); }
-    .personal-notes-toolbar h2 { margin:0 auto 0 0; color:#5c2b35; font-size:clamp(20px,2.5vw,27px); }
+    .personal-notes-toolbar h2 { margin:0 auto 0 0; color:#5c2b35; font-size:calc((clamp(20px,2.5vw,27px)) * var(--study-type-scale,1)); }
     :is(#personal-notes-view, #theme-wiki-view, #bookmarks-view) .personal-notes-toolbar { position:static; top:auto; }
     .personal-notes-toolbar .jbl-btn[disabled] { opacity:.42; cursor:not-allowed; transform:none; }
     .personal-notes-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr)); gap:14px; }
     .personal-note-card { position:relative; min-height:150px; padding:0; overflow:hidden; border:1px solid #eedbdf; border-radius:18px; background:#fff; box-shadow:0 8px 24px rgba(93,44,54,.055); }
     .personal-note-open { width:100%; height:100%; min-height:150px; padding:22px 20px 54px; border:0; background:transparent; color:#4e242d; text-align:left; cursor:pointer; font:inherit; }
     .personal-note-open:hover, .personal-note-open:focus-visible { background:#faf6f7; outline:none; }
-    .personal-note-open strong { display:block; margin-bottom:9px; color:#49222b; font-size:19px; line-height:1.45; overflow-wrap:anywhere; }
-    .personal-note-open span { color:#73838c; font-size:13px; }
-    .personal-note-delete { position:absolute; right:13px; bottom:13px; padding:7px 11px; border:1px solid #efd2d2; border-radius:999px; background:#fff; color:#a54343; cursor:pointer; font:inherit; font-size:12px; font-weight:750; }
+    .personal-note-open strong { display:block; margin-bottom:9px; color:#49222b; font-size:calc((19px) * var(--study-type-scale,1)); line-height:1.45; overflow-wrap:anywhere; }
+    .personal-note-open span { color:#73838c; font-size:calc((13px) * var(--study-type-scale,1)); }
+    .personal-note-delete { position:absolute; right:13px; bottom:13px; padding:7px 11px; border:1px solid #efd2d2; border-radius:999px; background:#fff; color:#a54343; cursor:pointer; font:inherit; font-size:calc((12px) * var(--study-type-scale,1)); font-weight:750; }
     .personal-note-empty { grid-column:1/-1; padding:64px 24px; border:1px dashed #ddbec4; border-radius:20px; background:#fff; color:#86676d; text-align:center; }
-    .personal-note-empty strong { display:block; margin-bottom:7px; color:#713542; font-size:19px; }
+    .personal-note-empty strong { display:block; margin-bottom:7px; color:#713542; font-size:calc((19px) * var(--study-type-scale,1)); }
     .personal-document-stage { min-width:0; }
     .personal-document-render > .wiki-note { margin:0; }
     .personal-document-render .wiki-layout.personal-without-toc { grid-template-columns:minmax(0,1fr); }
@@ -654,10 +654,10 @@
     .personal-document-editor { padding:clamp(17px,3vw,28px); border:1px solid #eedbdf; border-radius:20px; background:#fff; }
     .personal-document-title-field { margin-bottom:15px; }
     .personal-document-title-field label { display:block; margin-bottom:7px; color:#713542; font-weight:850; }
-    .personal-document-title-field input { box-sizing:border-box; width:100%; padding:13px 14px; border:1px solid #e1cacf; border-radius:10px; color:#2c161b; background:#fff; font:inherit; font-size:18px; font-weight:800; }
+    .personal-document-title-field input { box-sizing:border-box; width:100%; padding:13px 14px; border:1px solid #e1cacf; border-radius:10px; color:#2c161b; background:#fff; font:inherit; font-size:calc((18px) * var(--study-type-scale,1)); font-weight:800; }
     .personal-document-editor .wiki-source-editor { min-height:58vh; }
     .personal-document-editor-actions { display:flex; justify-content:flex-end; gap:9px; flex-wrap:wrap; margin-top:17px; }
-    .personal-document-meta { margin:0 0 14px; color:#6d808a; font-size:13px; }
+    .personal-document-meta { margin:0 0 14px; color:#6d808a; font-size:calc((13px) * var(--study-type-scale,1)); }
     .personal-export-tools { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; padding:11px 13px; border-radius:12px; background:#f9f4f5; color:#713542; }
     .personal-export-tools label { display:flex; align-items:center; gap:8px; font-weight:800; cursor:pointer; }
     .personal-export-list { display:grid; gap:8px; max-height:min(52vh,520px); overflow:auto; padding:2px; }
@@ -724,12 +724,12 @@
     .wiki-strong-purple, .wiki-strong-purple a, .wiki-strong-purple strong, .wiki-strong-purple em { color: #5b21b6 !important; }
     .wiki-figure { margin: 0; padding: 14px; border: 1px solid #eedbdf; border-radius: 18px; background: #fff; box-shadow: 0 8px 22px rgba(71,33,41,.06); }
     .wiki-figure img { width: 100%; max-height: 560px; display: block; object-fit: contain; border-radius: 12px; background: #fff; cursor: zoom-in; }
-    .wiki-figure figcaption { margin-top: 10px; color: #8d6870; font-size: 12px; line-height: 1.55; }
+    .wiki-figure figcaption { margin-top: 10px; color: #8d6870; font-size: calc((12px) * var(--study-type-scale,1)); line-height: 1.55; }
     .wiki-image-controls { display: flex; justify-content: flex-end; margin-bottom: 10px; }
-    .wiki-image-toggle { border: 1px solid #eedbdf; background: #faf5f6; color: #542731; padding: 7px 12px; border-radius: 9px; font: inherit; font-size: 12px; cursor: pointer; }
+    .wiki-image-toggle { border: 1px solid #eedbdf; background: #faf5f6; color: #542731; padding: 7px 12px; border-radius: 9px; font: inherit; font-size: calc((12px) * var(--study-type-scale,1)); cursor: pointer; }
     .wiki-image-toggle:focus-visible { outline: 2px solid #aa4f63; outline-offset: 2px; }
     .wiki-table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #eedbdf; border-radius: 16px; }
-    .wiki-table { width: 100%; border-collapse: collapse; min-width: 620px; background: #fff; font-size: 14px; }
+    .wiki-table { width: 100%; border-collapse: collapse; min-width: 620px; background: #fff; font-size: calc((14px) * var(--study-type-scale,1)); }
     .wiki-table th, .wiki-table td { padding: 13px 14px; border-bottom: 1px solid #f3e6e9; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
     .wiki-table th { background: #f8f1f2; color: #642f3a; font-weight: 900; }
     .wiki-table tr:last-child td { border-bottom: 0; }
@@ -740,13 +740,13 @@
     .wiki-link:hover, .wiki-link:focus-visible { color: #5f2d38; border-bottom-style: solid; outline: none; }
     .wiki-link-missing { color: #b91c1c; border-bottom: 1px dotted #ef4444; cursor: help; }
     .wiki-footnote-ref { position: relative; display: inline-block; margin-left: 2px; color: #853e4d; font-size: .75em; font-weight: 900; text-decoration: none; vertical-align: super; }
-    .wiki-footnote-preview-box { position: fixed; left: 0; top: 0; z-index: 10000; box-sizing: border-box; width: max-content; min-width: min(150px, calc(100vw - 24px)); max-width: min(340px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow: auto; padding: 10px 12px; border-radius: 10px; color: #fff; background: #3a1b21; box-shadow: 0 10px 28px rgba(39,18,23,.22); font-size: 13px; font-weight: 650; line-height: 1.55; text-align: left; white-space: normal; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .12s ease; }
+    .wiki-footnote-preview-box { position: fixed; left: 0; top: 0; z-index: 10000; box-sizing: border-box; width: max-content; min-width: min(150px, calc(100vw - 24px)); max-width: min(340px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow: auto; padding: 10px 12px; border-radius: 10px; color: #fff; background: #3a1b21; box-shadow: 0 10px 28px rgba(39,18,23,.22); font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 650; line-height: 1.55; text-align: left; white-space: normal; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .12s ease; }
     .wiki-footnote-preview-box.is-visible { opacity: 1; visibility: visible; }
     .wiki-footnote-preview-arrow { position: absolute; left: var(--wiki-footnote-arrow-left, 50%); width: 0; height: 0; border: 6px solid transparent; transform: translateX(-50%); }
     .wiki-footnote-preview-box[data-placement="above"] .wiki-footnote-preview-arrow { top: 100%; border-top-color: #3a1b21; }
     .wiki-footnote-preview-box[data-placement="below"] .wiki-footnote-preview-arrow { bottom: 100%; border-bottom-color: #3a1b21; }
     .wiki-footnotes { margin-top: 38px; padding-top: 22px; border-top: 2px solid #eedbdf; }
-    .wiki-footnotes h4 { margin: 0 0 12px; color: #66303b; font-size: 18px; }
+    .wiki-footnotes h4 { margin: 0 0 12px; color: #66303b; font-size: calc((18px) * var(--study-type-scale,1)); }
     .wiki-footnotes ol { margin: 0; padding-left: 26px; color: #795059; }
     .wiki-footnotes li { margin: 8px 0; padding: 5px 8px; border-radius: 8px; scroll-margin-top: 24px; cursor: pointer; transition: background .18s ease, box-shadow .18s ease; }
     .wiki-footnotes li:hover, .wiki-footnotes li:focus-visible { background: #f8f1f2; box-shadow: 0 0 0 2px rgba(133,62,77,.18); outline: none; }
@@ -755,11 +755,11 @@
     .wiki-footnote-back:hover { text-decoration: underline; }
     .wiki-footnote-flash { animation: wiki-footnote-flash 1.15s ease; }
     @keyframes wiki-footnote-flash { 0%, 42% { background: #fff2a8; box-shadow: 0 0 0 4px rgba(244,190,54,.24); } 100% { background: transparent; box-shadow: none; } }
-    .wiki-source-page { color: #8d6870; font-size: 12px; }
+    .wiki-source-page { color: #8d6870; font-size: calc((12px) * var(--study-type-scale,1)); }
     .wiki-editor-shell { padding: clamp(18px,4vw,34px); background: #fcf8f9; }
     .wiki-editor-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 14px; }
-    .wiki-editor-head h3 { margin: 0; color: #3f1c24; font-size: 24px; }
-    .wiki-editor-head p { margin: 5px 0 0; color: #876069; font-size: 13px; }
+    .wiki-editor-head h3 { margin: 0; color: #3f1c24; font-size: calc((24px) * var(--study-type-scale,1)); }
+    .wiki-editor-head p { margin: 5px 0 0; color: #876069; font-size: calc((13px) * var(--study-type-scale,1)); }
     .wiki-source-editor { width: 100%; min-height: 680px; padding: 18px; border: 1px solid #e1bec6; border-radius: 16px; background: #fff; color: #2c161b; font: 15px/1.7 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; resize: vertical; outline: none; tab-size: 2; }
     .wiki-source-editor:focus { border-color: #b0576a; box-shadow: 0 0 0 4px rgba(176,87,106,.13); }
     .wiki-editor-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 14px; flex-wrap: wrap; }
@@ -773,8 +773,8 @@
     .wiki-section-editor-overlay { position: fixed; inset: 0; z-index: 6000; display: grid; place-items: center; padding: 18px; background: rgba(39,18,23,.48); backdrop-filter: blur(3px); }
     .wiki-section-editor-dialog { width: min(880px,100%); max-height: min(86vh,900px); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #e6cbd1; border-radius: 20px; background: #fcf8f9; box-shadow: 0 24px 70px rgba(39,18,23,.28); }
     .wiki-section-editor-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 18px 20px 12px; }
-    .wiki-section-editor-head h3 { margin: 0; color: #3f1c24; font-size: 21px; }
-    .wiki-section-editor-head p { margin: 4px 0 0; color: #876069; font-size: 12px; }
+    .wiki-section-editor-head h3 { margin: 0; color: #3f1c24; font-size: calc((21px) * var(--study-type-scale,1)); }
+    .wiki-section-editor-head p { margin: 4px 0 0; color: #876069; font-size: calc((12px) * var(--study-type-scale,1)); }
     .wiki-section-editor-body { min-height: 0; overflow-y: auto; padding: 0 20px 20px; }
     .wiki-section-editor-body .wiki-source-editor { min-height: 420px; }
     .wiki-section-editor-body .wiki-editor-actions { position: sticky; bottom: -20px; margin: 14px -20px -20px; padding: 13px 20px; border-top: 1px solid #eedbdf; background: rgba(252,248,249,.96); }
@@ -811,16 +811,16 @@
     .jbl-jump-box,
     .jbl-filter-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .jbl-filter-panel { margin-bottom: 18px; padding: 18px; }
-    .jbl-filter-title { margin: 0 0 14px; color: #271217; font-size: 17px; font-weight: 900; }
+    .jbl-filter-title { margin: 0 0 14px; color: #271217; font-size: calc((17px) * var(--study-type-scale,1)); font-weight: 900; }
     .jbl-filter-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 10px 14px; }
     .jbl-filter-item { display: grid; gap: 7px; background: #fcf8f9; border-radius: 14px; padding: 10px 12px; }
-    .jbl-filter-item label { color: #6b454d; font-size: 13px; font-weight: 900; }
+    .jbl-filter-item label { color: #6b454d; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 900; }
     .jbl-select,
-    .jbl-jump-box input { border: 1px solid #e2cacf; background: #fff; border-radius: 14px; padding: 11px 12px; font-size: 15px; font-weight: 700; color: #271217; outline: none; }
+    .jbl-jump-box input { border: 1px solid #e2cacf; background: #fff; border-radius: 14px; padding: 11px 12px; font-size: calc((15px) * var(--study-type-scale,1)); font-weight: 700; color: #271217; outline: none; }
     .jbl-select { width: 100%; }
     .jbl-favorite-filter { min-height: 45px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .jbl-favorite-filter input { width: 18px; height: 18px; accent-color: #f59e0b; }
-    .jbl-filter-summary { margin: 14px 2px 0; color: #8d626b; font-size: 13px; font-weight: 800; }
+    .jbl-filter-summary { margin: 14px 2px 0; color: #8d626b; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 800; }
     .jbl-settings-actions { display: grid; gap: 10px; }
     .jbl-settings-actions .jbl-btn { width: 100%; text-align: left; }
     .jbl-jump-box input { width: 120px; }
@@ -831,7 +831,7 @@
       border-radius: 16px;
       padding: 12px 18px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: calc((15px) * var(--study-type-scale,1));
       font-weight: 800;
       transition: transform .15s ease, opacity .15s ease, background .15s ease;
     }
@@ -843,55 +843,55 @@
     .jbl-card-head { padding: 24px 28px 18px; border-bottom: 1px solid #f8f2f3; }
     .jbl-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
     .jbl-meta-right { display: flex; align-items: center; gap: 8px; }
-    .jbl-prof { font-size: 14px; color: #8d626b; }
-    .jbl-qid { background: #fcf8f9; border: 1px solid #f1e1e5; color: #6b454d; border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 800; }
-    .jbl-favorite { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid #f1e1e5; border-radius: 999px; background: #fff; color: #ba929b; font-size: 23px; line-height: 1; cursor: pointer; }
+    .jbl-prof { font-size: calc((14px) * var(--study-type-scale,1)); color: #8d626b; }
+    .jbl-qid { background: #fcf8f9; border: 1px solid #f1e1e5; color: #6b454d; border-radius: 999px; padding: 6px 12px; font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 800; }
+    .jbl-favorite { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid #f1e1e5; border-radius: 999px; background: #fff; color: #ba929b; font-size: calc((23px) * var(--study-type-scale,1)); line-height: 1; cursor: pointer; }
     .jbl-favorite:hover { border-color: #fbbf24; color: #f59e0b; }
     .jbl-favorite.active { border-color: #fbbf24; background: #fffbeb; color: #f59e0b; }
-    .jbl-title { font-size: clamp(22px, 1.7vw, 27px); line-height: 1.5; font-weight: 800; margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
-    .jbl-source { margin-top: 8px; color: #ba929b; font-size: 12px; }
+    .jbl-title { font-size: calc((clamp(22px, 1.7vw, 27px)) * var(--study-type-scale,1)); line-height: 1.5; font-weight: 800; margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+    .jbl-source { margin-top: 8px; color: #ba929b; font-size: calc((12px) * var(--study-type-scale,1)); }
     .jbl-card-body { padding: 26px 28px 28px; }
     .jbl-passage { margin-bottom: 20px; border: 1px solid #f4e5e8; border-radius: 22px; background: #fdfafb; overflow: hidden; }
-    .jbl-passage-title { padding: 10px 16px; background: #faf4f5; color: #b35d70; font-size: 13px; font-weight: 900; letter-spacing: .02em; }
-    .jbl-passage-text { padding: 17px 18px 18px; color: #3c1d23; font-size: clamp(17px, 1.25vw, 19px); font-weight: 650; line-height: 1.8; white-space: pre-line; overflow-wrap: anywhere; }
+    .jbl-passage-title { padding: 10px 16px; background: #faf4f5; color: #b35d70; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 900; letter-spacing: .02em; }
+    .jbl-passage-text { padding: 17px 18px 18px; color: #3c1d23; font-size: calc((clamp(17px, 1.25vw, 19px)) * var(--study-type-scale,1)); font-weight: 650; line-height: 1.8; white-space: pre-line; overflow-wrap: anywhere; }
     .jbl-choices { background: #fcf8f9; border-radius: 24px; padding: 18px; }
-    .jbl-choice { display: flex; width: 100%; gap: 14px; align-items: flex-start; appearance: none; background: #fff; box-shadow: none; border: 1px solid transparent; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; color: inherit; text-align: left; transition: border-color .2s ease; font-size: clamp(18px, 1.35vw, 21px); overflow-wrap: anywhere; cursor: pointer; }
+    .jbl-choice { display: flex; width: 100%; gap: 14px; align-items: flex-start; appearance: none; background: #fff; box-shadow: none; border: 1px solid transparent; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; color: inherit; text-align: left; transition: border-color .2s ease; font-size: calc((clamp(18px, 1.35vw, 21px)) * var(--study-type-scale,1)); overflow-wrap: anywhere; cursor: pointer; }
     .jbl-choice:last-child { margin-bottom: 0; }
     .jbl-choice:hover { border-color: #e2cacf; }
-    .jbl-choice-num { width: 30px; height: 30px; border-radius: 999px; background: #f1e1e5; color: #573139; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+    .jbl-choice-num { width: 30px; height: 30px; border-radius: 999px; background: #f1e1e5; color: #573139; display: inline-flex; align-items: center; justify-content: center; font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
     .jbl-choice.selected { background: #f8f2f3; border-color: #e2cacf; color: #573139; }
     .jbl-choice.selected .jbl-choice-num { background: #e2cacf; color: #3c1d23; }
     .jbl-choice.correct { background: #faf4f5; border-color: #dcb4bd; color: #a74e61; }
     .jbl-choice.correct .jbl-choice-num { background: #f4e5e8; color: #a74e61; }
     .jbl-choice.wrong { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
     .jbl-choice.wrong .jbl-choice-num { background: #fee2e2; color: #b91c1c; }
-    .jbl-answer-box { margin-top: 18px; background: #faf4f5; border: 1px solid #ead3d8; border-radius: 18px; padding: 14px 16px; font-size: 17px; font-weight: 800; color: #a74e61; }
+    .jbl-answer-box { margin-top: 18px; background: #faf4f5; border: 1px solid #ead3d8; border-radius: 18px; padding: 14px 16px; font-size: calc((17px) * var(--study-type-scale,1)); font-weight: 800; color: #a74e61; }
     .jbl-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
     .jbl-course-toolbar { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 14px; }
     .jbl-editor { margin-top: 18px; padding: 20px; border: 1px solid #e8cfd4; border-radius: 22px; background: #faf5f6; }
     .jbl-editor-grid { display: grid; grid-template-columns: minmax(150px,.45fr) minmax(240px,1fr); gap: 14px; }
     .jbl-editor-field { display: grid; gap: 7px; }
     .jbl-editor-field.full { grid-column: 1 / -1; }
-    .jbl-editor-field label { color: #573139; font-size: 13px; font-weight: 900; }
+    .jbl-editor-field label { color: #573139; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 900; }
     .jbl-editor input,
     .jbl-editor select,
-    .jbl-editor textarea { width: 100%; box-sizing: border-box; border: 1px solid #e2cacf; border-radius: 14px; background: #fff; color: #271217; font: inherit; font-size: 15px; padding: 11px 12px; outline: none; }
+    .jbl-editor textarea { width: 100%; box-sizing: border-box; border: 1px solid #e2cacf; border-radius: 14px; background: #fff; color: #271217; font: inherit; font-size: calc((15px) * var(--study-type-scale,1)); padding: 11px 12px; outline: none; }
     .jbl-editor textarea { min-height: 230px; resize: vertical; line-height: 1.65; }
     .jbl-question-editor textarea { min-height: 130px; }
     .jbl-lecture-picker { border: 1px solid #e2cacf; border-radius: 14px; background: #fff; overflow: hidden; }
-    .jbl-lecture-picker summary { padding: 11px 12px; color: #271217; font-size: 14px; font-weight: 800; cursor: pointer; }
+    .jbl-lecture-picker summary { padding: 11px 12px; color: #271217; font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 800; cursor: pointer; }
     .jbl-lecture-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; max-height: 320px; padding: 10px; border-top: 1px solid #f1e1e5; background: #fcf8f9; overflow-y: auto; }
-    .jbl-lecture-option { display: flex !important; align-items: flex-start; gap: 8px; padding: 9px 10px; border: 1px solid #f1e1e5; border-radius: 11px; background: #fff; color: #573139; font-size: 13px; font-weight: 750; cursor: pointer; }
+    .jbl-lecture-option { display: flex !important; align-items: flex-start; gap: 8px; padding: 9px 10px; border: 1px solid #f1e1e5; border-radius: 11px; background: #fff; color: #573139; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 750; cursor: pointer; }
     .jbl-lecture-option input { flex: 0 0 auto; width: 17px; height: 17px; margin: 2px 0 0; padding: 0; accent-color: #894050; }
-    .jbl-editor-validation { margin: 6px 2px 0; color: #be123c; font-size: 13px; font-weight: 800; }
-    .jbl-editor-help { margin: 10px 0 0; color: #8d626b; font-size: 13px; line-height: 1.6; }
+    .jbl-editor-validation { margin: 6px 2px 0; color: #be123c; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 800; }
+    .jbl-editor-help { margin: 10px 0 0; color: #8d626b; font-size: calc((13px) * var(--study-type-scale,1)); line-height: 1.6; }
     .jbl-editor input:focus,
     .jbl-editor select:focus,
     .jbl-editor textarea:focus { border-color: #bd7383; box-shadow: 0 0 0 4px rgba(189,115,131,.14); }
     .jbl-editor-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
     .jbl-save-btn { background: #5a2b35; color: #fff; }
     .jbl-page-block { margin-top: 18px; background: #fcf8f9; border: 1px solid #f1e1e5; border-radius: 22px; padding: 16px; }
-    .jbl-page-title { font-size: 14px; font-weight: 900; color: #573139; margin-bottom: 10px; }
+    .jbl-page-title { font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 900; color: #573139; margin-bottom: 10px; }
     .jbl-page-block { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
     .jbl-page-block > .jbl-page-title { grid-column: 1 / -1; }
     .jbl-page-block > figure { min-width: 0; max-width: 50vw; }
@@ -899,27 +899,27 @@
     .jbl-page-img { width: 100%; max-width: 50vw; display: block; margin: 0 auto 14px; border: 1px solid #e2cacf; border-radius: 14px; background: #fff; cursor: zoom-in; }
     .jbl-page-img:last-child { margin-bottom: 0; }
     img.content-image-failed { display: none !important; }
-    .content-image-error { margin: 10px 0; padding: 16px; border: 1px solid #e7d6da; border-radius: 12px; background: #fcf8f9; color: #6b454d; font-size: 14px; line-height: 1.6; text-align: left; overflow-wrap: anywhere; }
+    .content-image-error { margin: 10px 0; padding: 16px; border: 1px solid #e7d6da; border-radius: 12px; background: #fcf8f9; color: #6b454d; font-size: calc((14px) * var(--study-type-scale,1)); line-height: 1.6; text-align: left; overflow-wrap: anywhere; }
     .content-image-error[hidden] { display: none !important; }
-    .content-image-error-path { display: block; margin: 6px 0 10px; font-size: 12px; white-space: normal; overflow-wrap: anywhere; }
+    .content-image-error-path { display: block; margin: 6px 0 10px; font-size: calc((12px) * var(--study-type-scale,1)); white-space: normal; overflow-wrap: anywhere; }
     .jbl-explanation { margin-top: 18px; background: #fcf8f9; border: 1px solid #f1e1e5; border-radius: 22px; padding: 18px 20px; }
-    .jbl-explanation-title { font-size: 14px; font-weight: 900; color: #573139; margin-bottom: 10px; }
+    .jbl-explanation-title { font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 900; color: #573139; margin-bottom: 10px; }
     .jbl-lecture-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-    .jbl-lecture-map { display: inline-block; padding: 8px 12px; border: 0; border-radius: 12px; background: #f5e9ec; color: #5f2d38; font-size: 14px; font-weight: 800; cursor: pointer; }
-    .jbl-professor-name { display: inline-block; padding: 8px 12px; border-radius: 12px; background: #f8f2f3; color: #6b454d; font-size: 14px; font-weight: 800; }
-    .jbl-explanation-text { margin: 0; font-size: clamp(16px, 1.2vw, 18px); color: #6b454d; white-space: pre-line; overflow-wrap: anywhere; }
-    .jbl-wiki-text { color: #6b454d; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.78; white-space: normal; overflow-wrap: anywhere; }
+    .jbl-lecture-map { display: inline-block; padding: 8px 12px; border: 0; border-radius: 12px; background: #f5e9ec; color: #5f2d38; font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 800; cursor: pointer; }
+    .jbl-professor-name { display: inline-block; padding: 8px 12px; border-radius: 12px; background: #f8f2f3; color: #6b454d; font-size: calc((14px) * var(--study-type-scale,1)); font-weight: 800; }
+    .jbl-explanation-text { margin: 0; font-size: calc((clamp(16px, 1.2vw, 18px)) * var(--study-type-scale,1)); color: #6b454d; white-space: pre-line; overflow-wrap: anywhere; }
+    .jbl-wiki-text { color: #6b454d; font-size: calc((clamp(16px, 1.2vw, 18px)) * var(--study-type-scale,1)); line-height: 1.78; white-space: normal; overflow-wrap: anywhere; }
     .jbl-wiki-text > :first-child { margin-top: 0; }
     .jbl-wiki-text > :last-child { margin-bottom: 0; }
     .jbl-wiki-text p { margin: 10px 0; }
     /* 동일한 Wiki 제목 문법은 문서·J·Anki·미리보기 어디서나 같은 위계로 보인다. */
-    .jbl-wiki-text h3 { margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #eedbdf; color: #462129; font-size: 25px; line-height: 1.35; }
-    .jbl-wiki-text h4 { margin: 21px 0 8px; color: #642f3a; font-size: 18px; line-height: 1.4; }
+    .jbl-wiki-text h3 { margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #eedbdf; color: #462129; font-size: calc((25px) * var(--study-type-scale,1)); line-height: 1.35; }
+    .jbl-wiki-text h4 { margin: 21px 0 8px; color: #642f3a; font-size: calc((18px) * var(--study-type-scale,1)); line-height: 1.4; }
     .jbl-wiki-text ul { margin: 8px 0 13px; padding-left: 23px; }
     .jbl-wiki-text li { margin: 5px 0; }
     .jbl-wiki-text blockquote { margin: 13px 0; padding: 12px 15px; border-left: 4px solid #c4808f; border-radius: 0 10px 10px 0; background: #f9f4f5; }
     .jbl-question-link { display: inline-flex; align-items: center; gap: 3px; color: #7d3a48; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-    .jbl-question-link::before { content: 'J'; display: inline-grid; width: 18px; height: 18px; place-items: center; border-radius: 5px; background: #f3e4e7; font-size: 11px; text-decoration: none; }
+    .jbl-question-link::before { content: 'J'; display: inline-grid; width: 18px; height: 18px; place-items: center; border-radius: 5px; background: #f3e4e7; font-size: calc((11px) * var(--study-type-scale,1)); text-decoration: none; }
     .jbl-question-link-missing { color: #8e233a; text-decoration: line-through; }
     .jbl-empty { padding: 56px 24px; border: 1px dashed #e2cacf; border-radius: 22px; background: #fff; text-align: center; color: #8d626b; }
     .jbl-inline-nav { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
@@ -929,7 +929,7 @@
     .jbl-image-modal { position: fixed; inset: 0; background: rgba(39,18,23,.88); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 24px; }
     .jbl-image-modal.show { display: flex; }
     .jbl-image-modal img { max-width: 94vw; max-height: 94vh; display: block; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.35); background: #fff; }
-    .jbl-image-close { position: fixed; top: 18px; right: 18px; width: 64px; height: 64px; border-radius: 999px; background: #ef4444; border: 4px solid #fff; color: #fff; font-size: 42px; font-weight: 900; line-height: 1; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10000; box-shadow: 0 0 0 4px rgba(239,68,68,.35),0 14px 34px rgba(0,0,0,.45); cursor: pointer; }
+    .jbl-image-close { position: fixed; top: 18px; right: 18px; width: 64px; height: 64px; border-radius: 999px; background: #ef4444; border: 4px solid #fff; color: #fff; font-size: calc((42px) * var(--study-type-scale,1)); font-weight: 900; line-height: 1; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10000; box-shadow: 0 0 0 4px rgba(239,68,68,.35),0 14px 34px rgba(0,0,0,.45); cursor: pointer; }
     .detail-return { margin-bottom: 14px; }
 
     @media (min-width: 1100px) {
@@ -939,10 +939,10 @@
     @media (max-width: 760px) {
       .masthead { padding: 14px 12px; }
       .masthead-inner { flex-direction:row; align-items:center; gap:12px; }
-      .masthead h1 { min-width:0; text-align:left; font-size:clamp(18px,5.7vw,24px); }
+      .masthead h1 { min-width:0; text-align:left; font-size:calc((clamp(18px,5.7vw,24px)) * var(--study-type-scale,1)); }
       .top-actions { display:grid; grid-template-columns:minmax(0,1fr) 38px 38px; flex:1 0 100%; gap:7px; }
       .global-search-form { width:auto; min-width:0; }
-      .global-search-input { padding-left:12px; font-size:13px; }
+      .global-search-input { padding-left:12px; font-size:calc((13px) * var(--study-type-scale,1)); }
       .main-menu-button { width:38px; height:38px; flex-basis:38px; padding:8px; }
       .global-search-dialog { width:calc(100vw - 16px); max-width:calc(100vw - 16px); height:calc(100dvh - 16px); max-height:calc(100dvh - 16px); border-radius:17px; }
       .global-search-head { padding:15px 16px; }
@@ -955,8 +955,8 @@
       .top-actions .information-button { grid-column:auto; justify-self:auto; }
       .masthead-menu { margin-top:11px; padding:8px; border-radius:13px; }
       .masthead-menu-inner { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
-      .masthead-menu .nav-button { padding:10px 6px; font-size:13px; }
-      .nav-button { min-width: 0; padding: 10px 7px; font-size: 13px; white-space: nowrap; }
+      .masthead-menu .nav-button { padding:10px 6px; font-size:calc((13px) * var(--study-type-scale,1)); }
+      .nav-button { min-width: 0; padding: 10px 7px; font-size: calc((13px) * var(--study-type-scale,1)); white-space: nowrap; }
       main { padding: 18px 12px 64px; }
       .schedule-toolbar { align-items: flex-start; flex-direction: column; }
       .domain-tabs { grid-template-columns: 1fr; }
@@ -970,42 +970,42 @@
       .grid-cell { padding: 6px; }
       .detail-topline { flex-direction: column-reverse; }
       .detail-bar { padding: 20px 17px; border-radius: 18px; }
-      .detail-bar h2 { font-size: clamp(23px, 7vw, 32px); }
+      .detail-bar h2 { font-size: calc((clamp(23px, 7vw, 32px)) * var(--study-type-scale,1)); }
       .detail-course-controls { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr) 50px; width: 100%; }
-      .detail-course-nav { min-width: 0; height: 50px; padding: 9px 5px; font-size: 12px; }
+      .detail-course-nav { min-width: 0; height: 50px; padding: 9px 5px; font-size: calc((12px) * var(--study-type-scale,1)); }
       .detail-number-form, .detail-number, .detail-number-input { width: 50px; min-width: 50px; height: 50px; border-radius: 15px; }
-      .detail-number, .detail-number-input { font-size: 22px; }
+      .detail-number, .detail-number-input { font-size: calc((22px) * var(--study-type-scale,1)); }
       .content-tabs { gap: 5px; }
-      .content-tab { padding: 10px 6px; font-size: 13px; }
+      .content-tab { padding: 10px 6px; font-size: calc((13px) * var(--study-type-scale,1)); }
       .content-panel { margin-top: 14px; padding: 20px 16px; min-height: 360px; border-radius: 18px; }
       .jbl-wrap { padding: 10px 8px 92px; }
       .jbl-panel, .jbl-card, .jbl-filter-panel { border-radius: 17px; }
       .jbl-topbar { border-radius: 0 0 17px 17px; }
       .jbl-topbar.is-hidden { transform: translateY(calc(-100% - 12px)); opacity: 0; pointer-events: none; }
-      .jbl-title { font-size: clamp(19px, 5.4vw, 23px); line-height: 1.55; }
-      .jbl-passage-text { padding: 15px; font-size: clamp(16px, 4.5vw, 18px); line-height: 1.75; }
+      .jbl-title { font-size: calc((clamp(19px, 5.4vw, 23px)) * var(--study-type-scale,1)); line-height: 1.55; }
+      .jbl-passage-text { padding: 15px; font-size: calc((clamp(16px, 4.5vw, 18px)) * var(--study-type-scale,1)); line-height: 1.75; }
       .jbl-choices { padding: 10px; border-radius: 17px; }
-      .jbl-choice { gap: 10px; padding: 13px 12px; margin-bottom: 9px; border-radius: 14px; font-size: clamp(16px, 4.4vw, 18px); line-height: 1.6; }
+      .jbl-choice { gap: 10px; padding: 13px 12px; margin-bottom: 9px; border-radius: 14px; font-size: calc((clamp(16px, 4.4vw, 18px)) * var(--study-type-scale,1)); line-height: 1.6; }
       .jbl-choice-num { width: 28px; height: 28px; }
       .jbl-card-head { padding: 18px 15px 15px; }
       .jbl-card-body { padding: 18px 15px 22px; }
       .jbl-panel { display: grid; grid-template-columns: minmax(0, 1fr); padding: 11px; gap: 9px; }
       .jbl-top-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: 7px; }
-      .jbl-top-actions .jbl-btn { min-width: 0; padding: 10px 5px; font-size: 13px; white-space: nowrap; }
+      .jbl-top-actions .jbl-btn { min-width: 0; padding: 10px 5px; font-size: calc((13px) * var(--study-type-scale,1)); white-space: nowrap; }
       .jbl-jump-box { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) auto; gap: 7px; }
-      .jbl-jump-box label { grid-column: 1 / -1; font-size: 12px !important; }
+      .jbl-jump-box label { grid-column: 1 / -1; font-size: calc((12px) * var(--study-type-scale,1)) !important; }
       .jbl-jump-box input { width: 100%; min-width: 0; padding: 10px 11px; }
       .jbl-jump-box .jbl-btn { padding: 10px 15px; }
       .jbl-filter-panel { padding: 14px 11px; }
       .jbl-filter-grid { grid-template-columns: minmax(0, 1fr); }
       .jbl-btns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
-      .jbl-btns .jbl-btn { min-width: 0; padding: 11px 5px; font-size: 13px; }
+      .jbl-btns .jbl-btn { min-width: 0; padding: 11px 5px; font-size: calc((13px) * var(--study-type-scale,1)); }
       .jbl-page-block, .jbl-explanation, .jbl-editor { padding: 14px 12px; border-radius: 17px; }
-      .jbl-explanation-text { font-size: clamp(15px, 4.2vw, 17px); line-height: 1.75; }
+      .jbl-explanation-text { font-size: calc((clamp(15px, 4.2vw, 17px)) * var(--study-type-scale,1)); line-height: 1.75; }
       .jbl-counter { min-width: auto; }
       .jbl-bottom-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); padding: 9px 8px calc(9px + env(safe-area-inset-bottom)); gap: 7px; }
-      .jbl-bottom-inner .jbl-btn { min-width: 0; padding: 11px 7px; font-size: 13px; white-space: nowrap; }
-      .jbl-bottom-inner .jbl-counter { font-size: 13px; }
+      .jbl-bottom-inner .jbl-btn { min-width: 0; padding: 11px 7px; font-size: calc((13px) * var(--study-type-scale,1)); white-space: nowrap; }
+      .jbl-bottom-inner .jbl-counter { font-size: calc((13px) * var(--study-type-scale,1)); }
       .jbl-editor-grid { grid-template-columns: 1fr; }
       .jbl-editor-field.full { grid-column: auto; }
       .jbl-lecture-options { grid-template-columns: 1fr; max-height: 280px; }
@@ -1018,18 +1018,18 @@
       .wiki-figure { padding: 6px; border-radius: 10px; }
       .wiki-hero-title-row { gap: 10px; }
       .wiki-hero-actions { gap: 5px; }
-      .wiki-hero-edit { padding: 9px 11px; font-size: 12px; }
-      .wiki-toggle-all { padding: 8px 11px; font-size: 11px; }
+      .wiki-hero-edit { padding: 9px 11px; font-size: calc((12px) * var(--study-type-scale,1)); }
+      .wiki-toggle-all { padding: 8px 11px; font-size: calc((11px) * var(--study-type-scale,1)); }
       .wiki-section-head { gap: 8px; }
-      .wiki-section-head h4 { font-size: 21px; }
-      .jbl-wiki-text h3 { font-size: 21px; }
+      .wiki-section-head h4 { font-size: calc((21px) * var(--study-type-scale,1)); }
+      .jbl-wiki-text h3 { font-size: calc((21px) * var(--study-type-scale,1)); }
       .wiki-section-actions { gap: 4px; }
-      .wiki-section-action { min-height: 28px; padding: 4px 7px; font-size: 10px; }
+      .wiki-section-action { min-height: 28px; padding: 4px 7px; font-size: calc((10px) * var(--study-type-scale,1)); }
       .wiki-editor-shell { padding: 16px 12px; }
       .wiki-editor-head { display: block; }
-      .wiki-source-editor { min-height: 560px; padding: 13px; font-size: 13px; }
+      .wiki-source-editor { min-height: 560px; padding: 13px; font-size: calc((13px) * var(--study-type-scale,1)); }
       .wiki-editor-actions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
-      .wiki-editor-actions .jbl-btn { min-width: 0; padding: 11px 6px; font-size: 13px; }
+      .wiki-editor-actions .jbl-btn { min-width: 0; padding: 11px 6px; font-size: calc((13px) * var(--study-type-scale,1)); }
       .wiki-syntax-grid { grid-template-columns: 1fr; }
       .wiki-syntax-grid code { border-bottom: 0; }
       .wiki-section-editor-overlay { padding: 8px; }
@@ -1041,12 +1041,12 @@
     }
 
     @media (max-width: 390px) {
-      .nav-button { font-size: 12px; padding-left: 4px; padding-right: 4px; }
+      .nav-button { font-size: calc((12px) * var(--study-type-scale,1)); padding-left: 4px; padding-right: 4px; }
       .professor-meta { display: none; }
-      .jbl-top-actions .jbl-btn, .jbl-btns .jbl-btn, .jbl-bottom-inner .jbl-btn { font-size: 12px; }
+      .jbl-top-actions .jbl-btn, .jbl-btns .jbl-btn, .jbl-bottom-inner .jbl-btn { font-size: calc((12px) * var(--study-type-scale,1)); }
       .jbl-meta { align-items: flex-start; }
-      .jbl-qid { padding: 5px 9px; font-size: 12px; }
-      .jbl-favorite { width: 34px; height: 34px; font-size: 20px; }
+      .jbl-qid { padding: 5px 9px; font-size: calc((12px) * var(--study-type-scale,1)); }
+      .jbl-favorite { width: 34px; height: 34px; font-size: calc((20px) * var(--study-type-scale,1)); }
     }
 
     /* Wiki/J 문서 링크를 현재 화면과 나란히 여는 1:1 탐색 패널 */
@@ -1097,8 +1097,8 @@
       border-bottom: 1px solid #e6cbd1;
     }
     .context-link-heading { min-width: 0; }
-    .context-link-eyebrow { display: block; margin-bottom: 1px; color: #8e5c67; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
-    .context-link-title { display: block; overflow: hidden; color: #5b2b35; font-size: clamp(14px, 1.8vw, 18px); font-weight: 900; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+    .context-link-eyebrow { display: block; margin-bottom: 1px; color: #8e5c67; font-size: calc((11px) * var(--study-type-scale,1)); font-weight: 800; letter-spacing: .08em; }
+    .context-link-title { display: block; overflow: hidden; color: #5b2b35; font-size: calc((clamp(14px, 1.8vw, 18px)) * var(--study-type-scale,1)); font-weight: 900; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
     .context-link-controls { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
     .context-link-control {
       display: inline-flex;
@@ -1112,14 +1112,14 @@
       color: #713542;
       background: #fff;
       font: inherit;
-      font-size: 15px;
+      font-size: calc((15px) * var(--study-type-scale,1));
       font-weight: 850;
       cursor: pointer;
     }
     .context-link-control:hover, .context-link-control:focus-visible { background: #fbf8f9; border-color: #c88997; outline: 3px solid rgba(200,137,151,.24); outline-offset: 1px; }
     .context-link-control:disabled { opacity: .35; cursor: default; outline: none; }
-    .context-link-close { width: 38px; padding: 0; font-size: 24px; line-height: 1; }
-    .context-link-expand { width: 38px; padding: 0; font-size: 24px; line-height: 1; }
+    .context-link-close { width: 38px; padding: 0; font-size: calc((24px) * var(--study-type-scale,1)); line-height: 1; }
+    .context-link-expand { width: 38px; padding: 0; font-size: calc((24px) * var(--study-type-scale,1)); line-height: 1; }
     .context-link-split.is-expanded { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
     .context-link-split.is-expanded .context-link-source { display: none; }
     .context-link-split.is-expanded .context-link-target { box-shadow: none; }
@@ -1139,9 +1139,9 @@
     .context-link-empty { display: grid; min-height: 220px; place-items: center; padding: 28px; border: 1px solid #eedbdf; border-radius: 18px; color: #6c7680; background: #fff; text-align: center; }
     .context-question-nav { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 8px; padding: 10px clamp(10px, 2vw, 24px); padding-bottom: max(10px, env(safe-area-inset-bottom)); border-top: 1px solid #e6cbd1; background: #fff; }
     .context-question-nav[hidden] { display: none; }
-    .context-question-nav .jbl-btn { min-width: 0; padding: 9px 8px; font-size: clamp(12px, 1.2vw, 14px); white-space: nowrap; }
-    .context-question-counter { color: #7d4451; font-size: 13px; font-weight: 800; text-align: center; white-space: nowrap; }
-    .context-question-counter small { display: block; font-size: 10px; font-weight: 600; }
+    .context-question-nav .jbl-btn { min-width: 0; padding: 9px 8px; font-size: calc((clamp(12px, 1.2vw, 14px)) * var(--study-type-scale,1)); white-space: nowrap; }
+    .context-question-counter { color: #7d4451; font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 800; text-align: center; white-space: nowrap; }
+    .context-question-counter small { display: block; font-size: calc((10px) * var(--study-type-scale,1)); font-weight: 600; }
 
     @media (orientation: portrait), (max-width: 700px) {
       .context-link-split { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
@@ -1157,8 +1157,8 @@
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
     }
     .quick-heading { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:6px 0 26px; }
-    .quick-heading h2 { margin:0; color:var(--ink,#3a1b21); font-size:30px; }
-    .quick-heading>span { font-size:12px; color:#7c8d96; }
+    .quick-heading h2 { margin:0; color:var(--ink,#3a1b21); font-size:calc((30px) * var(--study-type-scale,1)); }
+    .quick-heading>span { font-size:calc((12px) * var(--study-type-scale,1)); color:#7c8d96; }
     .quick-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; max-width:1440px; margin:auto; }
     .quick-card { min-width:0; display:flex; flex-direction:column; padding:0; border:1px solid #ecdbdf; border-radius:20px; background:white; color:#3a1b21; text-align:left; font-family:inherit; overflow:hidden; box-shadow:0 5px 20px #18323d07; transition:border-color .16s,box-shadow .16s; }
     button.quick-card,.quick-schedule-main { cursor:pointer; }
@@ -1168,40 +1168,40 @@
     .quick-preview { display:block; width:100%; height:clamp(150px,17vw,250px); overflow:hidden; background:#f8f2f3; border-bottom:1px solid #f2e5e8; }
     .quick-preview img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
     .quick-card-copy { position:relative; display:flex; flex-direction:column; gap:9px; padding:23px 56px 23px 25px; width:100%; box-sizing:border-box; }
-    .quick-card-copy strong { font-size:clamp(18px,1.65vw,24px); line-height:1.45; overflow-wrap:anywhere; }
-    .quick-card-copy>span { font-size:13px; color:#8f6971; line-height:1.6; }
-    .quick-card-copy b { position:absolute; right:25px; top:24px; font-size:24px; font-weight:400; color:#914f5d; }
+    .quick-card-copy strong { font-size:calc((clamp(18px,1.65vw,24px)) * var(--study-type-scale,1)); line-height:1.45; overflow-wrap:anywhere; }
+    .quick-card-copy>span { font-size:calc((13px) * var(--study-type-scale,1)); color:#8f6971; line-height:1.6; }
+    .quick-card-copy b { position:absolute; right:25px; top:24px; font-size:calc((24px) * var(--study-type-scale,1)); font-weight:400; color:#914f5d; }
     .quick-schedule-main { border:0; background:none; padding:0; color:inherit; font:inherit; text-align:inherit; }
     .quick-week-buttons { display:flex; gap:7px; padding:0 25px 22px; margin-top:auto; }
-    .quick-week-buttons button { flex:1; padding:9px 3px; background:#f7eff1; color:#5c2b35; border:1px solid #efdce0; border-radius:8px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .quick-week-buttons button { flex:1; padding:9px 3px; background:#f7eff1; color:#5c2b35; border:1px solid #efdce0; border-radius:8px; font:inherit; font-size:calc((14px) * var(--study-type-scale,1)); font-weight:700; cursor:pointer; }
     .quick-week-buttons button:hover { background:#f1dfe3; }
     .bookmark-category-buttons { display:flex; flex-wrap:wrap; gap:9px; margin:0 0 24px; }
     .bookmark-category { border:1px solid transparent; border-radius:10px; padding:11px 15px; font:inherit; font-weight:750; cursor:pointer; display:flex; gap:10px; align-items:center; }
     .bookmark-category.basic { background:var(--basic-soft); color:var(--basic); }
     .bookmark-category.clinical { background:var(--clinical-soft); color:var(--clinical); }
     .bookmark-category[aria-pressed=true] { border-color:currentColor; box-shadow:inset 0 0 0 1px currentColor; }
-    .bookmark-category span { font-size:12px; opacity:.8; }
+    .bookmark-category span { font-size:calc((12px) * var(--study-type-scale,1)); opacity:.8; }
     .bookmark-collection { border:1px solid #ecdbdf; border-radius:16px; overflow:hidden; }
     .bookmark-collection-body { padding:clamp(18px,3vw,40px); }
     .bookmark-collected-section { border-bottom:1px solid #f0e2e5; padding-bottom:26px; margin-bottom:28px; min-width:0; }
     .bookmark-collected-section:last-child { border:0; margin-bottom:0; padding-bottom:0; }
-    .bookmark-origin { font-size:13px; margin-bottom:14px; }
+    .bookmark-origin { font-size:calc((13px) * var(--study-type-scale,1)); margin-bottom:14px; }
     .bookmark-missing { color:#91735f; }
-    .bookmark-collection .jbl-wiki-text { font-size:17px; line-height:1.85; }
-    .bookmark-collection h4 { font-size:22px; color:#5c2b35; }
-    .jbl-wrong-session { display:flex; gap:12px; flex-wrap:wrap; align-items:center; color:#8b676f; font-size:13px; margin:12px 0 0; }
+    .bookmark-collection .jbl-wiki-text { font-size:calc((17px) * var(--study-type-scale,1)); line-height:1.85; }
+    .bookmark-collection h4 { font-size:calc((22px) * var(--study-type-scale,1)); color:#5c2b35; }
+    .jbl-wrong-session { display:flex; gap:12px; flex-wrap:wrap; align-items:center; color:#8b676f; font-size:calc((13px) * var(--study-type-scale,1)); margin:12px 0 0; }
     .jbl-wrong-session button { border:1px solid #ebdbdf; background:white; color:#5c2b35; border-radius:7px; padding:5px 9px; font:inherit; cursor:pointer; }
     .week-card[data-schedule-week] { scroll-margin-top:12px; }
     @media(max-width:700px) {
       .quick-heading { align-items:flex-start; flex-direction:column; gap:6px; margin-bottom:18px; }
-      .quick-heading h2 { font-size:26px; }
+      .quick-heading h2 { font-size:calc((26px) * var(--study-type-scale,1)); }
       .quick-grid { grid-template-columns:1fr; gap:18px; }
       .quick-preview { height:175px; }
       .quick-card-copy { padding:18px 45px 18px 18px; }
-      .quick-card-copy strong { font-size:21px; }
+      .quick-card-copy strong { font-size:calc((21px) * var(--study-type-scale,1)); }
       .quick-card-copy b { right:18px; top:18px; }
       .quick-week-buttons { padding:0 18px 18px; }
-      .bookmark-category { padding:9px 11px; font-size:14px; }
+      .bookmark-category { padding:9px 11px; font-size:calc((14px) * var(--study-type-scale,1)); }
       .bookmark-category-buttons { gap:7px; }
     }
 
@@ -1213,7 +1213,7 @@
 .quick-map-preview svg {display:block;width:100%;max-width:480px;height:auto;}
 .quick-map-card {border-color:#f1e1e5;box-shadow:0 8px 24px rgba(39,18,23,.05);}
 .quick-map-content {padding:30px;display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0;color:#271217;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;}
-.quick-map-content h3 {margin:0;font-size:24px;font-weight:800;line-height:1.4;letter-spacing:-.04em;color:#271217;}
+.quick-map-content h3 {margin:0;font-size:calc((24px) * var(--study-type-scale,1));font-weight:800;line-height:1.4;letter-spacing:-.04em;color:#271217;}
 .quick-map-content .map-quick-nav {width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));}
 .quick-map-content .map-quick-nav button {min-width:0;padding:9px 4px;}
 .quick-exam-card .map-quick-nav button:disabled {background:#f1e1e5;color:#ba929b;cursor:not-allowed;box-shadow:none;}
@@ -1224,20 +1224,20 @@
 .map-category-buttons button:hover:not(:disabled),.map-home-button:hover {background:#f7eef0;border-color:#c28895;}
 .map-category-buttons button[aria-current="page"] {background:#48222a;border-color:#48222a;color:white;}
 .map-category-buttons button:disabled {color:#8999a2;background:#faf7f8;cursor:default;}
-.map-category-buttons small {display:block;font-size:10px;margin-top:4px;font-weight:400;}
+.map-category-buttons small {display:block;font-size:calc((10px) * var(--study-type-scale,1));margin-top:4px;font-weight:400;}
 .map-category-buttons button:focus-visible,.map-home-button:focus-visible {outline:3px solid #984658;outline-offset:3px;}
 #disease-map-root {container-type:inline-size;min-width:0;}
 .map-page-heading {display:flex;align-items:center;flex-wrap:wrap;gap:18px 32px;margin:0 0 18px;padding:18px 24px;border:1px solid #f1e1e5;border-radius:22px;background:#fff;box-shadow:0 8px 24px rgba(39,18,23,.05);color:#271217;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;}
-.map-page-heading h2 {flex:none;margin:0;font-family:inherit;font-size:24px;font-weight:800;line-height:1.4;letter-spacing:-.04em;color:#271217;}
+.map-page-heading h2 {flex:none;margin:0;font-family:inherit;font-size:calc((24px) * var(--study-type-scale,1));font-weight:800;line-height:1.4;letter-spacing:-.04em;color:#271217;}
 .map-page-nav {display:flex;align-items:center;gap:4px;min-width:0;padding:5px;border-radius:16px;background:#f8f2f3;}
-.map-page-nav button {flex:1 0 auto;min-width:62px;min-height:42px;padding:9px 18px;border:0;border-radius:12px;background:transparent;color:#6b454d;font:inherit;font-size:15px;font-weight:700;line-height:1.4;cursor:pointer;transition:background .15s ease,color .15s ease;}
+.map-page-nav button {flex:1 0 auto;min-width:62px;min-height:42px;padding:9px 18px;border:0;border-radius:12px;background:transparent;color:#6b454d;font:inherit;font-size:calc((15px) * var(--study-type-scale,1));font-weight:700;line-height:1.4;cursor:pointer;transition:background .15s ease,color .15s ease;}
 .map-page-nav button:hover:not(:disabled):not([aria-current="page"]) {background:#f1e1e5;color:#271217;}
 .map-page-nav button[aria-current="page"] {background:#271217;color:#fff;box-shadow:0 2px 5px rgba(39,18,23,.12);}
 .map-page-nav button:disabled {color:#ba929b;cursor:default;}
 .map-page-nav button:focus-visible {outline:3px solid #cb8f9c;outline-offset:2px;}
 @container(max-width:620px){
  .map-page-heading {gap:14px;padding:16px;border-radius:18px;}
- .map-page-heading h2 {width:100%;font-size:22px;}
+ .map-page-heading h2 {width:100%;font-size:calc((22px) * var(--study-type-scale,1));}
  .map-page-nav {width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));}
  .map-page-nav button {min-width:0;padding:9px 4px;}
 }
@@ -1247,30 +1247,30 @@
  .quick-map-preview {border-right:0;border-bottom:1px solid #f2e5e8;padding:16px;}
  .quick-map-preview svg {max-width:350px;}
  .quick-map-content {padding:20px;gap:17px;}
- .quick-map-content h3 {font-size:22px;}
+ .quick-map-content h3 {font-size:calc((22px) * var(--study-type-scale,1));}
  .map-page-heading {gap:14px;padding:16px;border-radius:18px;}
- .map-page-heading h2 {width:100%;font-size:22px;}
+ .map-page-heading h2 {width:100%;font-size:calc((22px) * var(--study-type-scale,1));}
  .map-page-nav {width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));}
  .map-page-nav button {min-width:0;padding:9px 4px;}
  .map-category-buttons {gap:7px;}
- .map-category-buttons button,.map-home-button {padding:9px 12px;font-size:13px;}
+ .map-category-buttons button,.map-home-button {padding:9px 12px;font-size:calc((13px) * var(--study-type-scale,1));}
  .map-page-panel {padding:12px;}
 }
 
 /* Esophagus classification mode; does not affect the stomach quiz. */
 .em-shell {--em-line:#e5c9cf;color:#572933;min-width:0;}
 .em-toolbar {display:flex;justify-content:flex-end;margin:0 0 10px;}
-.em-shell .em-collapse {font:inherit;font-size:12px;background:#fff;color:#80565f;border:1px solid #ecdbdf;border-radius:7px;padding:6px 10px;cursor:pointer;}
+.em-shell .em-collapse {font:inherit;font-size:calc((12px) * var(--study-type-scale,1));background:#fff;color:#80565f;border:1px solid #ecdbdf;border-radius:7px;padding:6px 10px;cursor:pointer;}
 .em-viewport {width:100%;height:clamp(340px,66dvh,760px);overflow:auto;overscroll-behavior:contain;overflow-anchor:none;scrollbar-width:thin;scrollbar-color:#d8bcc2 #fbf7f8;border-radius:9px;background:#fff;}
 .em-tree {display:flex;align-items:center;box-sizing:border-box;width:max-content;min-width:100%;min-height:100%;padding:24px 18px;}
 .em-node {display:flex;align-items:center;position:relative;flex:none;}
-.em-shell .em-label {font:inherit;font-size:14px;line-height:1.45;box-sizing:border-box;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;width:154px;padding:8px 11px;border:1px solid #ecdbdf;border-radius:7px;color:#66303b;background:#fff;text-align:left;overflow-wrap:anywhere;}
+.em-shell .em-label {font:inherit;font-size:calc((14px) * var(--study-type-scale,1));line-height:1.45;box-sizing:border-box;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;width:154px;padding:8px 11px;border:1px solid #ecdbdf;border-radius:7px;color:#66303b;background:#fff;text-align:left;overflow-wrap:anywhere;}
 .em-shell button.em-label {cursor:pointer;font-weight:650;background:#faf6f7;}
 .em-shell button.em-label:hover {border-color:#cca0aa;background:#f7eff1;}
 .em-shell button.em-label[aria-expanded="true"] {border-color:#d4a7b1;color:#5c2c36;background:#f7ebee;}
 .em-shell .em-root>.em-node-head>.em-label {width:66px;justify-content:center;font-weight:750;background:#462129;border-color:#462129;color:#fff;}
-.em-shell .em-leaf {font-size:13px;font-weight:400;width:166px;}
-.em-symbol {font-size:16px;line-height:1;color:#a77983;flex:none;}
+.em-shell .em-leaf {font-size:calc((13px) * var(--study-type-scale,1));font-weight:400;width:166px;}
+.em-symbol {font-size:calc((16px) * var(--study-type-scale,1));line-height:1;color:#a77983;flex:none;}
 .em-children {position:relative;display:flex;flex-direction:column;margin-left:34px;}
 .em-children[hidden] {display:none;}
 .em-children::before {content:'';position:absolute;left:-34px;width:17px;top:50%;border-top:1px solid var(--em-line);}
@@ -1283,8 +1283,8 @@
 @media(max-width:700px){
  .em-viewport {height:68dvh;min-height:320px;}
  .em-tree {padding:18px 10px;}
- .em-shell .em-label {width:142px;font-size:13px;padding:9px 10px;gap:8px;}
- .em-shell .em-leaf {width:152px;font-size:12px;}
+ .em-shell .em-label {width:142px;font-size:calc((13px) * var(--study-type-scale,1));padding:9px 10px;gap:8px;}
+ .em-shell .em-leaf {width:152px;font-size:calc((12px) * var(--study-type-scale,1));}
  .em-children {margin-left:26px;}
  .em-children::before {left:-26px;width:13px;}
  .em-children>.em-node::before {left:-13px;width:13px;}
@@ -1295,31 +1295,31 @@
 .em-shell button.em-leaf {background:#fff;font-weight:400;cursor:pointer;}
 .em-viewport {container-type:inline-size;}
 .em-node-head {display:flex;align-items:center;gap:4px;flex:none;}
-.em-shell .em-info {font:inherit;font-size:12px;font-weight:650;flex:none;width:26px;height:28px;border:0;border-radius:50%;background:transparent;color:#a57b84;cursor:pointer;padding:0;}
+.em-shell .em-info {font:inherit;font-size:calc((12px) * var(--study-type-scale,1));font-weight:650;flex:none;width:26px;height:28px;border:0;border-radius:50%;background:transparent;color:#a57b84;cursor:pointer;padding:0;}
 .em-shell .em-info:hover,.em-shell .em-info[aria-expanded="true"] {background:#f7ebee;color:#5c2c36;}
 .em-shell button.em-leaf[aria-expanded="true"] {background:#f7f0f1;border-color:#ca8e9b;}
 .em-wiki-panel {box-sizing:border-box;position:relative;flex:none;width:min(300px,calc(100cqw - 24px));margin-left:24px;border:1px solid #e6cbd1;border-radius:9px;background:#fff;box-shadow:0 3px 12px #173f500b;}
 .em-wiki-panel::before {content:'';position:absolute;left:-25px;top:50%;width:24px;border-top:1px solid var(--em-line);}
-.em-wiki-head {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-bottom:1px solid #f4e7ea;font-size:12px;color:#80565f;}
+.em-wiki-head {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-bottom:1px solid #f4e7ea;font-size:calc((12px) * var(--study-type-scale,1));color:#80565f;}
 .em-wiki-head strong {min-width:0;overflow-wrap:anywhere;}
 .em-wiki-head button {flex:none;}
-.em-wiki-head button {font:inherit;font-size:20px;line-height:1;width:28px;height:28px;padding:0;border:0;background:transparent;color:#80565f;cursor:pointer;border-radius:5px;}
+.em-wiki-head button {font:inherit;font-size:calc((20px) * var(--study-type-scale,1));line-height:1;width:28px;height:28px;padding:0;border:0;background:transparent;color:#80565f;cursor:pointer;border-radius:5px;}
 .em-wiki-head button:hover {background:#f7eff1;}
 .em-wiki-list {max-height:min(360px,43dvh);overflow:auto;padding:4px 10px;overscroll-behavior:contain;}
-.em-wiki-list .em-wiki-link,.em-wiki-unavailable {display:flex;flex-direction:column;gap:3px;padding:10px 2px;font-size:13px;line-height:1.5;text-decoration:none;border:0;font-weight:600;overflow-wrap:anywhere;}
+.em-wiki-list .em-wiki-link,.em-wiki-unavailable {display:flex;flex-direction:column;gap:3px;padding:10px 2px;font-size:calc((13px) * var(--study-type-scale,1));line-height:1.5;text-decoration:none;border:0;font-weight:600;overflow-wrap:anywhere;}
 .em-wiki-list>*+* {border-top:1px solid #f5edef;}
 .em-wiki-list .em-wiki-link:hover {background:#faf6f7;color:#5f2d38;}
 .em-wiki-list .em-wiki-link:focus-visible {outline:2px solid #a04b5e;outline-offset:0;border-radius:4px;}
-.em-wiki-meta {font-size:11px;color:#98737b;font-weight:400;}
+.em-wiki-meta {font-size:calc((11px) * var(--study-type-scale,1));color:#98737b;font-weight:400;}
 .em-wiki-unavailable {color:#98737b;}
-.em-wiki-unavailable small {font-weight:400;font-size:11px;}
-.em-wiki-list p {margin:12px 0;font-size:12px;}
-.em-wiki-list .em-clue {font-size:13px;line-height:1.75;color:#572933;margin:12px 2px;}
+.em-wiki-unavailable small {font-weight:400;font-size:calc((11px) * var(--study-type-scale,1));}
+.em-wiki-list p {margin:12px 0;font-size:calc((12px) * var(--study-type-scale,1));}
+.em-wiki-list .em-clue {font-size:calc((13px) * var(--study-type-scale,1));line-height:1.75;color:#572933;margin:12px 2px;}
 .em-ref-group {padding:10px 2px;}
-.em-ref-group h3 {font:inherit;font-size:11px;font-weight:700;color:#98737b;margin:0 0 5px;line-height:1.5;}
+.em-ref-group h3 {font:inherit;font-size:calc((11px) * var(--study-type-scale,1));font-weight:700;color:#98737b;margin:0 0 5px;line-height:1.5;}
 .em-ref-group .em-wiki-link,.em-ref-group .em-wiki-unavailable {padding:7px 2px;gap:2px;font-weight:550;}
 .em-j-links {display:flex;gap:6px;flex-wrap:wrap;padding:4px 0;}
-.em-j-links a {font-size:12px;line-height:1.5;padding:4px 8px;border-radius:5px;background:#f8f1f2;text-decoration:none;color:#723542;}
+.em-j-links a {font-size:calc((12px) * var(--study-type-scale,1));line-height:1.5;padding:4px 8px;border-radius:5px;background:#f8f1f2;text-decoration:none;color:#723542;}
 .em-j-links a:hover {background:#f3e3e7;}
 .em-j-links a:focus-visible {outline:2px solid #a04b5e;outline-offset:2px;}
 @media(max-width:700px){.em-wiki-panel {margin-left:20px;}.em-wiki-panel::before {left:-21px;width:20px;}}
@@ -1327,17 +1327,17 @@
 
 .pm-shell { color:#4d242d; --pm-line:#e6cdd2; container-type:inline-size; }
 .pm-header { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:24px; background:#f8f0f2; border:1px solid #f0dfe3; border-radius:18px; }
-.pm-kicker { color:#86525d; font-size:12px; letter-spacing:.07em; }
-.pm-header h3 { font-size:28px; margin:6px 0; color:#462129; }
-.pm-header p { margin:0; color:#7d565f; font-size:15px; }
-.pm-progress { white-space:nowrap; padding:10px 14px; background:#fff; border-radius:12px; font-size:14px; font-weight:700; }
+.pm-kicker { color:#86525d; font-size:calc((12px) * var(--study-type-scale,1)); letter-spacing:.07em; }
+.pm-header h3 { font-size:calc((28px) * var(--study-type-scale,1)); margin:6px 0; color:#462129; }
+.pm-header p { margin:0; color:#7d565f; font-size:calc((15px) * var(--study-type-scale,1)); }
+.pm-progress { white-space:nowrap; padding:10px 14px; background:#fff; border-radius:12px; font-size:calc((14px) * var(--study-type-scale,1)); font-weight:700; }
 .pm-toolbar { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:20px 0 8px; }
-.pm-shell button,.pm-shell select { font:inherit; font-size:14px; border:1px solid #e9d4d9; background:#fff; color:#6a313e; border-radius:9px; padding:9px 12px; cursor:pointer; }
+.pm-shell button,.pm-shell select { font:inherit; font-size:calc((14px) * var(--study-type-scale,1)); border:1px solid #e9d4d9; background:#fff; color:#6a313e; border-radius:9px; padding:9px 12px; cursor:pointer; }
 .pm-shell button:hover { background:#f7f0f1; }
 .pm-shell button[aria-pressed="true"] { background:#462129; color:#fff; border-color:#462129; }
 .pm-modes { display:flex; gap:5px; flex-wrap:wrap; }
-.pm-group-select { display:flex; align-items:center; gap:6px; font-size:13px; color:#7d565f; }
-.pm-note,.pm-secondary { font-size:13px; color:#876069; }
+.pm-group-select { display:flex; align-items:center; gap:6px; font-size:calc((13px) * var(--study-type-scale,1)); color:#7d565f; }
+.pm-note,.pm-secondary { font-size:calc((13px) * var(--study-type-scale,1)); color:#876069; }
 .pm-note { margin:8px 0 25px; }
 .pm-map { display:grid; grid-template-columns:100px minmax(0,1fr); gap:28px; align-items:start; }
 .pm-root { background:#462129; color:#fff; padding:14px 10px; border-radius:12px; text-align:center; font-weight:800; position:relative; margin-top:10px; }
@@ -1347,37 +1347,37 @@
 .pm-group::before { content:''; position:absolute; width:22px; height:1px; background:var(--pm-line); left:-22px; top:32px; }
 .pm-group-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
 .pm-group-head button { display:flex; justify-content:space-between; gap:20px; min-width:200px; font-weight:800; background:#f5ecee; color:#5a2a34; padding:13px 15px; }
-.pm-group-head > span { font-size:12px; color:#8e6770; }
+.pm-group-head > span { font-size:calc((12px) * var(--study-type-scale,1)); color:#8e6770; }
 .pm-nodes { display:grid; gap:10px; }
 .pm-nodes[hidden] { display:none; }
 .pm-node { display:grid; grid-template-columns:minmax(150px,210px) minmax(0,1fr); border:1px solid #eedfe2; border-radius:13px; background:#fff; overflow:hidden; }
 .pm-disease { padding:17px; background:#fbf7f8; border-right:1px solid #eedfe2; }
-.pm-disease h4 { font-size:17px; line-height:1.5; margin:0 0 9px; color:#5c2b35; overflow-wrap:anywhere; }
+.pm-disease h4 { font-size:calc((17px) * var(--study-type-scale,1)); line-height:1.5; margin:0 0 9px; color:#5c2b35; overflow-wrap:anywhere; }
 .pm-links { display:flex; flex-wrap:wrap; gap:7px 10px; margin:9px 0; }
-.pm-links a { font-size:12px; }
-.pm-shell .pm-photo-toggle { font-size:12px; padding:6px 9px; margin-top:8px; }
+.pm-links a { font-size:calc((12px) * var(--study-type-scale,1)); }
+.pm-shell .pm-photo-toggle { font-size:calc((12px) * var(--study-type-scale,1)); padding:6px 9px; margin-top:8px; }
 .pm-features { padding:16px 20px; min-width:0; }
-.pm-clue { font-size:15px; line-height:1.7; margin:0 0 12px; }
+.pm-clue { font-size:calc((15px) * var(--study-type-scale,1)); line-height:1.7; margin:0 0 12px; }
 .pm-features dl { display:grid; gap:7px; margin:0; }
-.pm-features dl > div { display:grid; grid-template-columns:minmax(115px,.8fr) minmax(0,1fr); gap:14px; font-size:14px; line-height:1.6; }
+.pm-features dl > div { display:grid; grid-template-columns:minmax(115px,.8fr) minmax(0,1fr); gap:14px; font-size:calc((14px) * var(--study-type-scale,1)); line-height:1.6; }
 .pm-features dt { color:#876069; }
 .pm-features dd { margin:0; color:#462129; font-weight:700; }
 .pm-field { border-top:1px solid #f2e7e9; margin-top:12px; padding-top:12px; }
-.pm-field label { display:block; margin-bottom:7px; font-size:14px; font-weight:700; }
+.pm-field label { display:block; margin-bottom:7px; font-size:calc((14px) * var(--study-type-scale,1)); font-weight:700; }
 .pm-answer-form { display:flex; gap:7px; }
-.pm-answer-form input { min-width:0; flex:1; width:100%; font:inherit; font-size:16px; border:1px solid #d8bec4; border-radius:8px; padding:9px 11px; background:#fff; color:#4d242d; }
+.pm-answer-form input { min-width:0; flex:1; width:100%; font:inherit; font-size:calc((16px) * var(--study-type-scale,1)); border:1px solid #d8bec4; border-radius:8px; padding:9px 11px; background:#fff; color:#4d242d; }
 .pm-answer-form input[readonly] { background:#f0f7f5; }
 .pm-shell button:disabled { opacity:.6; cursor:default; }
 .pm-field-actions { display:flex; gap:6px; margin-top:6px; }
-.pm-field-actions button { padding:5px 8px; font-size:12px; border-color:transparent; }
-.pm-result,.pm-hint { font-size:13px; line-height:1.6; margin-top:7px; color:#795721; }
+.pm-field-actions button { padding:5px 8px; font-size:calc((12px) * var(--study-type-scale,1)); border-color:transparent; }
+.pm-result,.pm-hint { font-size:calc((13px) * var(--study-type-scale,1)); line-height:1.6; margin-top:7px; color:#795721; }
 .pm-result.is-correct { color:#21624e; }
 .pm-result:empty { display:none; }
-.pm-solution { font-weight:800; font-size:16px; color:#462129; margin:5px 0; }
-.pm-result button { font-size:12px; margin-top:5px; }
+.pm-solution { font-weight:800; font-size:calc((16px) * var(--study-type-scale,1)); color:#462129; margin:5px 0; }
+.pm-result button { font-size:calc((12px) * var(--study-type-scale,1)); margin-top:5px; }
 .pm-figure { margin:15px 0 0; text-align:center; }
 .pm-figure img { max-width:min(100%,420px); max-height:300px; object-fit:contain; cursor:zoom-in; }
-.pm-figure figcaption { font-size:12px; color:#876069; margin:8px 0; }
+.pm-figure figcaption { font-size:calc((12px) * var(--study-type-scale,1)); color:#876069; margin:8px 0; }
 .pm-image-dialog { width:min(95vw,1100px); max-height:95dvh; padding:15px; border:0; border-radius:12px; }
 .pm-image-dialog::backdrop { background:rgba(38,17,22,.7); }
 .pm-image-dialog button { display:block; margin:0 0 12px auto; padding:8px 18px; font:inherit; cursor:pointer; }
@@ -1394,7 +1394,7 @@
   .pm-disease h4 { margin-bottom:4px; }
   .pm-features { padding:14px; }
   .pm-header { align-items:flex-start; flex-direction:column; padding:18px; }
-  .pm-header h3 { font-size:24px; }
+  .pm-header h3 { font-size:calc((24px) * var(--study-type-scale,1)); }
   .pm-group-head { flex-wrap:wrap; gap:5px; }
   .pm-group-head button { min-width:0; flex:1; }
   .pm-group-head > span { display:none; }
@@ -1424,8 +1424,8 @@
 
 /* A compact review shortcut below the existing quick-start apps. */
 #quick-start-root .quick-updated-row{max-width:920px;margin:24px auto 0;padding:0 8px}
-#quick-start-root .quick-updated-button{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:15px 18px;border:1px solid var(--study-border,#e6dcde);border-radius:14px;background:var(--study-surface,#fff);color:var(--study-accent,#7a535c);font:inherit;font-size:15px;font-weight:650;cursor:pointer}
-#quick-start-root .quick-updated-button small{font-size:12px;font-weight:500;color:var(--study-muted,#7e6a6e)}
+#quick-start-root .quick-updated-button{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:15px 18px;border:1px solid var(--study-border,#e6dcde);border-radius:14px;background:var(--study-surface,#fff);color:var(--study-accent,#7a535c);font:inherit;font-size:calc((15px) * var(--study-type-scale,1));font-weight:650;cursor:pointer}
+#quick-start-root .quick-updated-button small{font-size:calc((12px) * var(--study-type-scale,1));font-weight:500;color:var(--study-muted,#7e6a6e)}
 #quick-start-root .quick-updated-button:hover{border-color:currentColor}
 #quick-start-root .quick-updated-button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 :root[data-theme="dark"] #quick-start-root .quick-updated-button{background:#000;color:#fff;border-color:#303030}
@@ -1433,20 +1433,20 @@
 #quick-start-root .quick-grid { gap:18px; }
 #quick-start-root .quick-preview { height:clamp(82px,8vw,112px); }
 #quick-start-root .quick-card-copy { gap:6px; padding:15px 48px 15px 18px; }
-#quick-start-root .quick-card-copy strong { font-size:clamp(18px,1.5vw,22px); }
+#quick-start-root .quick-card-copy strong { font-size:calc((clamp(18px,1.5vw,22px)) * var(--study-type-scale,1)); }
 #quick-start-root .quick-card-copy b { right:18px; top:15px; }
 #quick-start-root .quick-week-buttons { padding:0 18px 14px; }
 #quick-start-root .quick-week-buttons button { padding:7px 3px; }
 .quick-final-card { grid-column:1/-1; }
-.quick-final-heading { margin:0; padding:17px 22px 0; color:#5c2b35; font-size:30px; font-weight:800; letter-spacing:.02em; }
+.quick-final-heading { margin:0; padding:17px 22px 0; color:#5c2b35; font-size:calc((30px) * var(--study-type-scale,1)); font-weight:800; letter-spacing:.02em; }
 .quick-final-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:15px 20px 20px; }
 .quick-final-tile { min-width:0; display:flex; flex-direction:column; align-items:stretch; justify-content:space-between; gap:14px; padding:20px; border:1px solid #ecdbdf; border-radius:14px; background:#fff; color:#3a1b21; font:inherit; text-align:left; }
-.quick-final-tile h3,.quick-final-title { display:block; margin:0; color:#3a1b21; font-size:20px; font-weight:800; line-height:1.45; word-break:keep-all; overflow-wrap:anywhere; }
+.quick-final-tile h3,.quick-final-title { display:block; margin:0; color:#3a1b21; font-size:calc((20px) * var(--study-type-scale,1)); font-weight:800; line-height:1.45; word-break:keep-all; overflow-wrap:anywhere; }
 .quick-final-tile .map-quick-nav { width:100%; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); }
 .quick-final-tile .map-quick-nav button { min-width:0; min-height:38px; padding:7px 4px; }
 .quick-final-tile.quick-final-mock .map-quick-nav { grid-template-columns:minmax(64px,100px); align-self:flex-start; width:auto; }
 .quick-theme-card { position:relative; justify-content:center; cursor:pointer; padding-right:50px; }
-.quick-theme-card .quick-final-arrow { position:absolute; right:22px; top:50%; transform:translateY(-50%); color:#914f5d; font-size:24px; font-weight:400; }
+.quick-theme-card .quick-final-arrow { position:absolute; right:22px; top:50%; transform:translateY(-50%); color:#914f5d; font-size:calc((24px) * var(--study-type-scale,1)); font-weight:400; }
 .quick-theme-card:hover { border-color:#ce9da7; background:#faf6f7; }
 .quick-theme-card:focus-visible { outline:3px solid #984658; outline-offset:3px; }
 .theme-wiki-list .personal-note-card,.theme-wiki-list .personal-note-open { min-height:100px; }
@@ -1461,17 +1461,17 @@
   #quick-start-root .quick-grid { gap:14px; }
   #quick-start-root .quick-preview { height:92px; }
   #quick-start-root .quick-card-copy { padding:13px 42px 13px 16px; }
-  #quick-start-root .quick-card-copy strong { font-size:20px; }
+  #quick-start-root .quick-card-copy strong { font-size:calc((20px) * var(--study-type-scale,1)); }
   #quick-start-root .quick-card-copy b { right:16px; top:13px; }
   #quick-start-root .quick-week-buttons { padding:0 16px 13px; }
-  .quick-final-heading { padding:15px 16px 0; font-size:26px; }
+  .quick-final-heading { padding:15px 16px 0; font-size:calc((26px) * var(--study-type-scale,1)); }
   .quick-final-grid { gap:10px; padding:12px 14px 14px; }
   .quick-final-tile { gap:12px; padding:14px; }
-  .quick-final-tile h3,.quick-final-title { font-size:18px; }
+  .quick-final-tile h3,.quick-final-title { font-size:calc((18px) * var(--study-type-scale,1)); }
   .quick-theme-card { padding-right:35px; }
-  .quick-theme-card .quick-final-arrow { right:12px; font-size:21px; }
+  .quick-theme-card .quick-final-arrow { right:12px; font-size:calc((21px) * var(--study-type-scale,1)); }
   .quick-final-tile .map-quick-nav { gap:2px; padding:3px; }
-  .quick-final-tile .map-quick-nav button { font-size:13px; min-height:34px; padding:6px 2px; }
+  .quick-final-tile .map-quick-nav button { font-size:calc((13px) * var(--study-type-scale,1)); min-height:34px; padding:6px 2px; }
 }
 @media(max-width:500px) {
   .quick-final-map .map-quick-nav { grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -1481,12 +1481,12 @@
 
   
 /* Quick-start AI credit */
-#quick-start-root .quick-ai-credit{max-width:920px;margin:38px auto 0;padding:24px 12px 16px;text-align:center;color:var(--study-muted,#7e6a6e);font-size:12px;line-height:1.7;border-top:1px solid var(--study-border,#e6dcde)}
+#quick-start-root .quick-ai-credit{max-width:920px;margin:38px auto 0;padding:24px 12px 16px;text-align:center;color:var(--study-muted,#7e6a6e);font-size:calc((12px) * var(--study-type-scale,1));line-height:1.7;border-top:1px solid var(--study-border,#e6dcde)}
 #quick-start-root .quick-ai-brands{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:10px}
-#quick-start-root .quick-ai-brand{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--study-accent,#7a535c)}
+#quick-start-root .quick-ai-brand{display:inline-flex;align-items:center;gap:7px;font-size:calc((13px) * var(--study-type-scale,1));font-weight:600;color:var(--study-accent,#7a535c)}
 #quick-start-root .quick-ai-brand svg{display:block;width:25px;height:25px;fill:currentColor;flex:none}
 #quick-start-root .quick-ai-credit p{margin:2px 0}
-#quick-start-root .quick-ai-caution{font-size:11px}
+#quick-start-root .quick-ai-caution{font-size:calc((11px) * var(--study-type-scale,1))}
 @media(max-width:600px){#quick-start-root .quick-ai-credit{margin-top:28px;padding-top:20px}}
 </style>
 <style id="site-dark-theme">
@@ -1498,8 +1498,8 @@
 .theme-button:hover{background:#edf6fa;}
 .theme-button:focus-visible{outline:3px solid #7fb9d2;outline-offset:3px;}
 .quick-clock-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0;}
-.quick-clock-actions [data-quick-clock]{font-size:12px;color:#7c8d96;}
-.quick-clock-actions .information-button{width:28px;height:28px;flex-basis:28px;font-size:16px;}
+.quick-clock-actions [data-quick-clock]{font-size:calc((12px) * var(--study-type-scale,1));color:#7c8d96;}
+.quick-clock-actions .information-button{width:28px;height:28px;flex-basis:28px;font-size:calc((16px) * var(--study-type-scale,1));}
 @media(max-width:600px){.quick-heading{flex-wrap:wrap;gap:12px;}.quick-clock-actions{flex-wrap:wrap;justify-content:flex-start;gap:8px;}}
 @media print{.theme-button,.quick-clock-actions .information-button{display:none!important;}html{color-scheme:light;}}
 @media screen{
@@ -1970,11 +1970,11 @@
   :root[data-theme="dark"] .quick-preview {background:#160f10;color:#ddb7bf;}
   :root[data-theme="dark"] .quick-final-heading,:root[data-theme="dark"] .quick-heading h2 {color:#ddb7bf;}
 </style>
-  <link rel="stylesheet" href="./study-ui.css?v=jbl-image-fit-v3">
-  <link rel="stylesheet" href="./wiki-image-overlays.css">
-  <link rel="stylesheet" href="./cardiovascular-atlas.css">
-  <link rel="stylesheet" href="./kmle.css">
-  <link rel="stylesheet" href="./pathology-drill.css?v=stable-random-v3">
+<link rel="stylesheet" href="./study-ui.css?v=timer-start-align-20261105">
+  <link rel="stylesheet" href="./wiki-image-overlays.css?v=typography-v1-20261105">
+  <link rel="stylesheet" href="./cardiovascular-atlas.css?v=typography-v1-20261105">
+  <link rel="stylesheet" href="./kmle.css?v=typography-v1-20261105">
+  <link rel="stylesheet" href="./pathology-drill.css?v=typography-v1-20261105">
 <!-- AI brand icon SVGs: Lobe Icons, https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/openai.svg ; https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/claude.svg
 MIT License
 
@@ -2000,8 +2000,15 @@ SOFTWARE.
 
 -->
 <style>.jbl-recovery-record{margin-top:18px;padding:12px;border:1px solid var(--line,#ddd);border-radius:10px;font-size:.9em;line-height:1.65}.jbl-recovery-record summary{cursor:pointer;font-weight:600}.jbl-recovery-record li{margin:.4em 0}.jbl-related-questions{margin-top:18px;line-height:1.9}.jbl-related-questions a{color:var(--accent,#773d52);font-weight:600}</style>
+<link rel="stylesheet" href="./wiki-learning.css?v=lecture01-20261105">
 </head>
-<body class=""><div class="site-shell">
+<body class="">
+<script id="study-shell-first-paint">
+  // Apply the already-loaded shell CSS before any page content can be painted.
+  // Exam detail previews intentionally retain their separate layout.
+  if (new URLSearchParams(location.search).get('examPreview') !== '1') document.body.classList.add('study-ui');
+</script>
+<div class="site-shell">
     <header class="masthead">
       <div class="masthead-inner">
         <h1><button class="site-logo" type="button" data-go="home" aria-label="빠른 시작으로 이동">CARDIOVASCULAR SYSTEM</button></h1>
@@ -2044,12 +2051,13 @@ SOFTWARE.
   <section id="jbl-view" class="view" hidden aria-label="J 전체 문항"><div id="jbl-standalone" class="jbl-standalone"></div></section>
 </main></div>
 <div id="jbl-image-modal" class="jbl-image-modal" role="dialog" aria-modal="true" aria-label="문항 이미지 확대"><button class="jbl-image-close" type="button" aria-label="이미지 닫기">×</button><img alt="확대된 문항 이미지"></div>
-<script id="lecture-note-data" src="./lecture-notes.js?v=stable-random-v3"></script>
+<script src="./wiki-learning.js?v=lecture01-20261105"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=lecture01-20261105"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js"></script>
 <script src="./course-data.js"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=cardio-restored-20261104"></script>
-<script src="./lecture-study.js"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=answer-only-learning-20261105"></script>
+<script src="./lecture-study.js?v=inplace-version-20261105"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
   <script src="./cardiovascular-atlas.js"></script>
@@ -2119,7 +2127,7 @@ SOFTWARE.
       refreshQuestionStudyStatus(id);
       return true;
     }
-    const wrongQuestionIds = () => jblQuestions.filter(q => questionStudyStatus(q.id) === 'wrong').map(q => q.id);
+    const wrongQuestionIds = () => jblQuestions.filter(q => questionListStudyStatus(q) === 'wrong').map(q => q.id);
     function freshQuestionAttempt(state) {
       state.selected = {}; state.answerShown = {}; state.explanationShown = {};
       state.attempts = {}; state.editing = null;
@@ -2273,7 +2281,7 @@ SOFTWARE.
           <p>본 사이트는 6.0 Astra, Opus 5.5로 제작되었습니다. AI는 실수를 할 수 있습니다.</p>
         </footer>`;
       Object.entries(homeIcons).forEach(([name,paths])=>{
-        root.querySelectorAll('.app-'+name).forEach(icon=>{icon.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+paths+'</svg>';});
+        root.querySelectorAll('.app-'+name).forEach(icon=>{icon.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+paths+'</svg>';});
       });
       updateQuickReviewLabel(); refreshQuickClock().then(updateQuickReviewLabel);
       root.querySelector('[data-quick-review]').onclick=()=>{const recent=latestStudyCourse(quickClockDate());if(recent)quickNavigate('#lecture-'+recent.course.id);};
@@ -2326,7 +2334,7 @@ SOFTWARE.
     function renderBookmarkCollection(tab = '') {
       const root = document.querySelector('#bookmark-collection-root');
       const isJ = tab === 'j';
-      const questions = jblQuestions.filter(q=>jblFavorites.has(q.id));
+      const questions = jblQuestions.filter(q=>questionIsFavorite(q));
       root.innerHTML = `<div class="study-page-heading"><h2>즐겨찾기</h2><div class="study-bookmark-tabs"><button type="button" data-saved-tab="wiki" aria-pressed="${!isJ}">Wiki <span>${wikiBookmarks.length}</span></button><button type="button" data-saved-tab="j" aria-pressed="${isJ}">J <span>${questions.length}</span></button></div></div><div data-saved-body></div>`;
       root.querySelectorAll('[data-saved-tab]').forEach(b=>b.onclick=()=>quickNavigate('#bookmarks-'+b.dataset.savedTab));
       const body = root.querySelector('[data-saved-body]');
@@ -2434,6 +2442,71 @@ SOFTWARE.
         jblInferredViews.set(snapshot,view);
       }
       return jblInferredViews.get(snapshot);
+    }
+    // Keep the bank/order canonical; choose a version only for its displayed card.
+    function questionVersionBase(question) {
+      const parentId = question?.inferredOfId || question?.originalOfId;
+      return parentId ? jblQuestions.find(item => item.id === parentId) || question : question;
+    }
+    function questionForViewer(question, state) {
+      if (!question || question.studyKind === 'wiki') return question;
+      const base = questionVersionBase(question);
+      const selected = state?.questionVersions?.[base.id];
+      if (selected === 'base') return base;
+      if (selected === 'original') return questionOriginalView(base) || base;
+      if (selected === 'inferred') return questionInferredView(base) || base;
+      // Explicit archived targets stay archived; normal entry prefers supplementation.
+      if (question.isOriginalVersion || question.isInferredVersion) return question;
+      return questionInferredView(base) || base;
+    }
+    function viewerWithQuestionVersions(viewer) {
+      const state = viewerState(viewer.key);
+      return {...viewer, questions:viewer.questions.map(question => questionForViewer(question,state))};
+    }
+    function questionListStudyStatus(question) {
+      return questionStudyStatus(questionForViewer(question).id);
+    }
+    function questionIsFavorite(question) {
+      const base = questionVersionBase(question);
+      return jblFavorites.has(base.id) || Boolean(base.inferredVersion?.question && jblFavorites.has(base.id+'::inferred'));
+    }
+    function questionVersionButton(question) {
+      const base = questionVersionBase(question);
+      const hasInferred = Boolean(base.inferredVersion?.question);
+      if (!hasInferred && !base.originalVersion?.question) return '';
+      const showsOriginal = hasInferred ? !question.isInferredVersion : Boolean(question.isOriginalVersion);
+      const label = showsOriginal ? 'GPT 보강 문항 보기' : '원본 문항 보기';
+      return `<button class="jbl-original-link" type="button" data-jbl-version-toggle aria-label="${label}" title="${label}" aria-pressed="${showsOriginal}"><svg aria-hidden="true" focusable="false" fill="currentColor" fill-rule="evenodd" height="1em" style="flex:none;line-height:1" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z"></path></svg></button> `;
+    }
+    function toggleQuestionVersion(container, question, state, rerender) {
+      if (state.editing) return;
+      const base = questionVersionBase(question);
+      if (!base.inferredVersion?.question && !base.originalVersion?.question) return;
+      const scroll = [];
+      for (let element=container; element; element=element.parentElement) {
+        if (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth)
+          scroll.push({element,top:element.scrollTop,left:element.scrollLeft});
+      }
+      const windowScroll = {left:window.scrollX,top:window.scrollY};
+      window.CardiovascularQuickMode?.cancel();
+      (state.questionVersions ||= {})[base.id] = base.inferredVersion?.question
+        ? question.isInferredVersion ? 'base' : 'inferred'
+        : question.isOriginalVersion ? 'base' : 'original';
+      const next = questionForViewer(base,state);
+      // An already-open explanation stays in its existing pane and follows the version.
+      if (questionExplanationState.active && questionExplanationState.state === state) {
+        state.explanationShown[question.id] = false;
+        state.answerShown[next.id] = true;
+        state.explanationShown[next.id] = true;
+        questionExplanationState.question = next;
+        questionExplanationState.split.querySelector('.context-link-title').textContent = next.displayId+' 해설';
+      }
+      rerender();
+      for (const {element,top,left} of scroll) if (element.isConnected) element.scrollTo({top,left,behavior:'instant'});
+      window.scrollTo({...windowScroll,behavior:'instant'});
+      const root = questionExplanationState.active && questionExplanationState.state === state
+        ? questionExplanationState.root : questionExplanationViewers.get(state)?.container;
+      root?.querySelector('[data-jbl-version-toggle]')?.focus({preventScroll:true});
     }
     const jblViewerStates = {};
     let jblHasUnsavedChanges = false;
@@ -2583,8 +2656,8 @@ SOFTWARE.
         if (professors.size && !professors.has(questionExamProfessor(question))) return false;
         const statuses = filters.statuses || [];
         if (statuses.length || filters.favoritesOnly || filters.wrongOnly) {
-          const matches = statuses.includes(questionStudyStatus(question.id))
-            || (filters.favoritesOnly && jblFavorites.has(question.id))
+          const matches = statuses.includes(questionListStudyStatus(question))
+            || (filters.favoritesOnly && questionIsFavorite(question))
             || (filters.wrongOnly && (standaloneState().wrongBatch || wrongQuestionIds()).includes(question.id));
           if (!matches) return false;
         }
@@ -2965,6 +3038,8 @@ SOFTWARE.
       for (let index = 0; index < contentLines.length; index += 1) {
         const line = contentLines[index].trim();
         if (!line) { flushText(); continue; }
+        const learning = renderWikiLearningBlock(line, course, footnotes);
+        if (learning) { flushText(); body.push(learning); continue; }
         const formula = renderWikiFormula(line, course, footnotes);
         if (formula) { flushText(); body.push(formula); continue; }
         if (parseWikiTableRow(line)) {
@@ -3078,6 +3153,8 @@ SOFTWARE.
         const rawLine = lines[lineIndex];
         const line = rawLine.trim();
         if (!line) { flushText(); continue; }
+        const learning = renderWikiLearningBlock(line, course, footnotes);
+        if (learning) { flushText(); output.push(learning); continue; }
         const formula = renderWikiFormula(line, course, footnotes);
         if (formula) { flushText(); output.push(formula); continue; }
         if (parseWikiTableRow(line)) {
@@ -3505,6 +3582,7 @@ SOFTWARE.
     }
 
     function bindWikiDocument(container, course) {
+      bindWikiLearning(container, course);
       container.querySelector('.wiki-note')?.setAttribute('data-wiki-document-course', String(course.id));
       container.querySelectorAll('.wiki-note h5[data-wiki-level], .wiki-note h6[data-wiki-level]').forEach(heading => {
         if (heading.querySelector('[data-wiki-heading-edit]')) return;
@@ -3629,7 +3707,7 @@ SOFTWARE.
 
     function wikiSyntaxHelpMarkup() {
       const rows = [
-        ['= 문서 제목 =', '문서 제목'], ['== 문단 제목 ==', '목차에 표시되는 상위 문단'], ['=== 하위 제목 ===', '문단 내부의 하위 제목'], ['==== 세부 제목 ====', '한 단계 작은 제목. 다음 제목 전까지 본문 전체를 한 칸 들여쓰기'],
+        ['@recall 질문 => 답 ;; 질문 => 답', '접이식 백지복습 질문과 따로 여는 답'], ['@flow 내용 | 내용 | 내용', '순서가 있는 흐름 도식'], ['@detail 제목 ... @enddetail', '더 자세히 보는 접이식 자료'], ['@questions {{25001}}', '문단 아래 연결 문항'], ['@source 강의록 p.1–3', '문단의 참고 범위'], ['= 문서 제목 =', '문서 제목'], ['== 문단 제목 ==', '목차에 표시되는 상위 문단'], ['=== 하위 제목 ===', '문단 내부의 하위 제목'], ['==== 세부 제목 ====', '한 단계 작은 제목. 다음 제목 전까지 본문 전체를 한 칸 들여쓰기'],
         ["'''굵은 글자'''", '굵게 표시'], ['""내용""', '짙은 보라색 굵은 글자로 표시'], ['* 목록', '글머리표 목록'], ['# 목록', '번호 목록'], ['> 강조 문장', '강조 상자'],
         ['[[문서]]', '해당 강의 문서로 이동'], ['[[문서|출력글자]]', '표시 문구를 다르게 지정'],
         ['[[#문단]]', '현재 문서의 특정 문단으로 이동'], ['[[#문단|출력글자]]', '현재 문서 문단 링크의 표시 문구 지정'],
@@ -3676,20 +3754,61 @@ SOFTWARE.
       const history=repeat ? `<p class="jbl-source">반복 유형 · ${escapeHtml(repeat.label)} · ${repeat.years.join(', ')} (${repeat.yearCount}개년)</p>` : '';
       return past+history+links+record;
     }
+    // Learning notes are reviewed separately from the immutable exam choices.
+    function questionChoiceLearning(question) {
+      const learning = question.choiceLearning;
+      if (!learning || learning.version !== 1 || !Array.isArray(learning.entries) || learning.entries.length !== question.choices?.length) return null;
+      const basis = learning.basis;
+      if (!basis) return null;
+      for (const key of ['question','passage','choices','images','answerIndices']) {
+        const fallback = ['choices','images','answerIndices'].includes(key) ? [] : '';
+        if (JSON.stringify(basis[key] ?? fallback) !== JSON.stringify(question[key] ?? fallback)) return null;
+      }
+      return learning;
+    }
+    function renderChoiceLearningNote(entry, renderInline) {
+      return `<span class="jbl-learning-copy">${renderInline(entry.text)}</span>`;
+    }
+    function questionLearningExplanationText(question, learning) {
+      let source = question.explanation || '';
+      for (const entry of learning?.entries || []) {
+        const layout = entry?.layout;
+        if (!layout?.heading || !Array.isArray(layout.lines)) continue;
+        const lead = ['""'+layout.heading+'""', ...layout.lines, ...(layout.examples?.length ? [layout.examples.join(' · ')] : [])].join('\n');
+        // The reviewed lead stays a single paragraph, matching the choice note.
+        source = source.replace(lead, "'''"+entry.text+"'''");
+      }
+      return source;
+    }
+    function renderChoiceLearningText(choice, entry, renderInline) {
+      // Work on raw strings, never replace tokens inside generated HTML.
+      const terms = (entry?.strike || []).filter(term => typeof term === 'string' && term.length && choice.includes(term));
+      if (!terms.length) return renderInline(choice);
+      const ranges = terms.map(term => ({start:choice.indexOf(term),end:choice.indexOf(term)+term.length})).sort((a,b)=>a.start-b.start);
+      let cursor=0,markup='';
+      for (const range of ranges) {
+        if (range.start < cursor) continue;
+        markup += renderInline(choice.slice(cursor,range.start));
+        markup += `<s class="jbl-choice-reconsider">${renderInline(choice.slice(range.start,range.end))}</s>`;
+        cursor=range.end;
+      }
+      return markup+renderInline(choice.slice(cursor));
+    }
     function questionExplanationMarkup(question) {
       const course = byId(question.lectureIds?.[0]) || emptyRenderCourse;
       const images = (question.explanationImages || []).map(item => typeof item === 'string' ? {src:item} : item).filter(item => item?.src);
       const lecturePills = questionLectureIds(question).map(id => `<span class="jbl-lecture-map">${escapeHtml(questionLectureLabel(id))}</span>`).join('');
-      return `<section class="jbl-explanation" data-explanation-number="${question.globalNumber}"><div class="jbl-answer-box">${renderJblWikiFragment(question.answerLabel, question, 'answer')}</div><div class="jbl-lecture-row">${lecturePills}<span class="jbl-professor-name">${escapeHtml(questionExaminerLabel(question))}</span></div>${images.length ? `<div class="jbl-page-block">${images.map(item => `<figure><img class="jbl-page-img" data-jbl-image src="${escapeHtml(encodeURI(item.src))}" alt="${escapeHtml(item.caption || question.displayId+' 해설 그림')}" />${item.caption ? `<figcaption>${renderWikiInline(item.caption,course,{items:[],named:new Map()},false)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}<div class="jbl-explanation-text">${question.explanation?.trim() ? renderJblWikiFragment(question.explanation, question, 'explanation') : '<p class="jbl-explanation-empty">아직 작성된 해설이 없습니다.</p>'}</div>${recoveryMarkup(question)}</section>`;
+      const learning = questionChoiceLearning(question);
+      const answerHeader = learning
+        ? `${learning.title ? `<h2 class="jbl-learning-title">${escapeHtml(learning.title)}</h2>` : ''}<p class="jbl-learning-answer">${escapeHtml(question.answerLabel || '')}</p>`
+        : `<div class="jbl-answer-box">${renderJblWikiFragment(question.answerLabel, question, 'answer')}</div><div class="jbl-lecture-row">${lecturePills}<span class="jbl-professor-name">${escapeHtml(questionExaminerLabel(question))}</span></div>`;
+      return `<section class="jbl-explanation${learning ? ' jbl-learning-explanation' : ''}" data-explanation-number="${question.globalNumber}">${answerHeader}${images.length ? `<div class="jbl-page-block">${images.map(item => `<figure><img class="jbl-page-img" data-jbl-image src="${escapeHtml(encodeURI(item.src))}" alt="${escapeHtml(item.caption || question.displayId+' 해설 그림')}" />${item.caption ? `<figcaption>${renderWikiInline(item.caption,course,{items:[],named:new Map()},false)}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}<div class="jbl-explanation-text">${question.explanation?.trim() ? renderJblWikiFragment(questionLearningExplanationText(question,learning), question, 'explanation') : '<p class="jbl-explanation-empty">아직 작성된 해설이 없습니다.</p>'}</div>${recoveryMarkup(question)}</section>`;
     }
 
     function questionCardMarkup(question, state) {
       if (question.studyKind==='wiki') return lectureJblWikiCardMarkup(question);
       const original = Boolean(question.isOriginalVersion);
-      const originalButton = question.inferredVersion?.question
-        ? '<button class="jbl-original-link" type="button" data-jbl-inferred aria-label="추정 보강 문항 보기" title="원문을 바탕으로 보강한 문항 보기">!</button> '
-        : !original && question.originalVersion?.question
-        ? '<button class="jbl-original-link" type="button" data-jbl-original aria-label="수정 전 원본 문항 보기" title="수정 전 원본 문항 보기">!</button> ' : '';
+      const originalButton = questionVersionButton(question);
       const statusMarkup = original
         ? '<span class="study-answer-status is-unanswered" title="수정 전 원본 · 풀이 기록 저장 안 함"><span data-study-status-symbol aria-hidden="true"></span></span>'
         : questionStudyStatusMarkup(question.id);
@@ -3697,6 +3816,8 @@ SOFTWARE.
       const renderJblInline = value => renderWikiInline(value, wikiCourse, { items:[], named:new Map() }, false);
       const selected = state.selected[question.id];
       const revealAnswer = Boolean(state.answerShown[question.id]);
+      const learning = questionChoiceLearning(question);
+      const showLearning = revealAnswer && learning && state.editing !== question.id;
       const answerIndices = Array.isArray(question.answerIndices) && question.answerIndices.length ? question.answerIndices : (question.answerIndex ? [question.answerIndex] : []);
       const selectedIndices = Array.isArray(selected) ? selected : (selected ? [selected] : []);
       const isMultipleAnswer = answerIndices.length > 1;
@@ -3715,8 +3836,13 @@ SOFTWARE.
           if (answerIndices.includes(number)) status = ' correct';
           if (selectedIndices.includes(number) && answerIndices.length && !answerIndices.includes(number)) status = ' wrong';
         }
-        return `<button class="jbl-choice${status}" type="button" data-jbl-choice="${number}"><span class="jbl-choice-num">${number}</span><span>${renderJblInline(choice)}</span></button>`;
+        const entry = showLearning ? learning.entries[index] : null;
+        const choiceText = entry ? renderChoiceLearningText(choice,entry,renderJblInline) : renderJblInline(choice);
+        const button = `<button class="jbl-choice${status}" type="button" data-jbl-choice="${number}"${entry?.text ? ` aria-describedby="choice-learning-${escapeHtml(question.id)}-${number}"` : ''}><span class="jbl-choice-num">${number}</span><span>${choiceText}</span></button>`;
+        if (!entry?.text) return button;
+        return `<div class="jbl-choice-learning-item">${button}<div class="jbl-choice-learning-note" id="choice-learning-${escapeHtml(question.id)}-${number}" data-jbl-choice-note><span class="jbl-learning-arrow" aria-hidden="true">↳</span>${renderChoiceLearningNote(entry,renderJblInline)}</div></div>`;
       }).join('')}</div>` : '';
+      const learningSummary = showLearning && learning.summary ? `<div class="jbl-choice-learning-summary" data-jbl-learning-summary>${renderJblInline(learning.summary)}</div>` : '';
       const passageText = (question.passage || '').trim();
       const passage = passageText ? `<section class="jbl-passage" aria-label="제시문"><div class="jbl-passage-title">제시문</div><div class="jbl-passage-text">${renderJblWikiFragment(passageText, question, 'passage')}</div></section>` : '';
       const imageCount = question.images.length;
@@ -3727,8 +3853,8 @@ SOFTWARE.
       const lectureEditor = isEditing ? `<div class="jbl-editor-field full"><label>강의 분류 · 여러 강의를 함께 선택할 수 있습니다.</label><details class="jbl-lecture-picker" data-jbl-edit-lecture-picker><summary>${escapeHtml(questionCourseText(question) || '강의를 선택하세요')}</summary><div class="jbl-lecture-options">${questionEditableCourses().map(course => `<label class="jbl-lecture-option"><input type="checkbox" value="${course.id}" data-jbl-edit-lecture ${questionBelongsToCourse(question, course.id) ? 'checked' : ''} /><span>${escapeHtml(contentCourseText(course))} · ${escapeHtml(course.professor)} 교수</span></label>`).join('')}</div></details><p class="jbl-editor-validation" data-jbl-edit-lecture-error hidden>강의를 하나 이상 선택하세요.</p></div>` : '';
       const editor = isEditing ? `<section class="jbl-editor jbl-question-editor" aria-label="문제 수정"><div class="jbl-editor-grid">${lectureEditor}<div class="jbl-editor-field full"><label for="jbl-edit-question-${escapeHtml(question.id)}">문제 발문</label><textarea id="jbl-edit-question-${escapeHtml(question.id)}" data-jbl-edit-question>${escapeHtml(question.question)}</textarea></div><div class="jbl-editor-field full"><label for="jbl-edit-passage-${escapeHtml(question.id)}">제시문 · ㄱ/ㄴ/ㄷ/ㄹ, I/II/III 등</label><textarea id="jbl-edit-passage-${escapeHtml(question.id)}" data-jbl-edit-passage>${escapeHtml(question.passage || '')}</textarea></div><div class="jbl-editor-field full"><label for="jbl-edit-choices-${escapeHtml(question.id)}">선지 · 한 줄에 하나씩 입력</label><textarea id="jbl-edit-choices-${escapeHtml(question.id)}" data-jbl-edit-choices>${escapeHtml(question.choices.join('\n'))}</textarea></div><div class="jbl-editor-field"><label for="jbl-edit-indices-${escapeHtml(question.id)}">정답 번호 · 복수 정답은 쉼표로 구분</label><input id="jbl-edit-indices-${escapeHtml(question.id)}" data-jbl-edit-indices type="text" inputmode="numeric" value="${escapeHtml(answerIndices.join(', '))}" placeholder="예: 2 또는 2, 4" /></div><div class="jbl-editor-field"><label for="jbl-edit-label-${escapeHtml(question.id)}">정답 표시</label><input id="jbl-edit-label-${escapeHtml(question.id)}" data-jbl-edit-label type="text" value="${escapeHtml(question.answerLabel)}" /></div><div class="jbl-editor-field full"><label for="jbl-edit-explanation-${escapeHtml(question.id)}">해설</label><textarea id="jbl-edit-explanation-${escapeHtml(question.id)}" data-jbl-edit-explanation>${escapeHtml(question.explanation)}</textarea></div></div><p class="jbl-editor-help">강의 분류·발문·제시문·선지·정답·해설을 한 번에 수정합니다. Wiki와 같은 문법 및 {{123}} 형식의 문항 링크를 사용할 수 있습니다.</p>${wikiSyntaxHelpMarkup()}<div class="jbl-editor-actions"><button class="jbl-btn jbl-btn-sub" type="button" data-jbl-edit-cancel>취소</button><button class="jbl-btn jbl-btn-primary" type="button" data-jbl-edit-apply>수정 반영</button></div></section>` : '';
       return `<article class="jbl-card" data-jbl-question="${escapeHtml(question.id)}">
-        <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">${escapeHtml(questionExaminerLabel(question))}</span><div class="jbl-source">${escapeHtml(question.source)}</div></div><div class="jbl-meta-right">${statusMarkup}<button class="jbl-qid" type="button" data-jbl-number-button aria-label="${escapeHtml(question.displayId)} · 번호 입력하여 이동" title="번호를 입력하여 이동" ${state.editing ? 'disabled' : ''}>${escapeHtml(question.displayId)}</button><input class="jbl-number-input" data-jbl-number-input type="text" inputmode="text" enterkeyhint="go" autocomplete="off" aria-label="이동할 J 고유번호" value="${question.globalNumber}" hidden /><button class="jbl-favorite ${jblFavorites.has(question.id) ? 'active' : ''}" type="button" data-jbl-favorite ${original ? 'disabled title="즐겨찾기는 변형 문항에서 관리합니다"' : ''} aria-label="${jblFavorites.has(question.id) ? '즐겨찾기 해제' : '즐겨찾기 추가'}" aria-pressed="${jblFavorites.has(question.id)}">${jblFavorites.has(question.id) ? '★' : '☆'}</button></div></div><h2 class="jbl-title">${originalButton}${renderJblInline(question.question)}</h2></header>
-        <div class="jbl-card-body">${passage}${images}${choices}${revealAnswer && !question.choices.length && !state.explanationShown[question.id] ? `<div class="jbl-answer-box" data-jbl-answer-only role="status">${renderJblWikiFragment(question.answerLabel?.trim() || (answerIndices.length ? '정답: '+answerIndices.join(', ')+'번' : '등록된 정답이 없습니다.'), question, 'answer-only')}</div>` : ''}${editor}</div>
+        <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">${escapeHtml(questionExaminerLabel(question))}</span><div class="jbl-source">${escapeHtml(question.source)}</div></div><div class="jbl-meta-right">${statusMarkup}<button class="jbl-qid" type="button" data-jbl-number-button aria-label="${escapeHtml(question.displayId)} · 번호 입력하여 이동" title="번호를 입력하여 이동" ${state.editing ? 'disabled' : ''}>${escapeHtml(question.displayId)}</button><input class="jbl-number-input" data-jbl-number-input type="text" inputmode="text" enterkeyhint="go" autocomplete="off" aria-label="이동할 J 고유번호" value="${question.globalNumber}" hidden /><button class="jbl-favorite ${questionIsFavorite(question) ? 'active' : ''}" type="button" data-jbl-favorite ${original ? 'disabled title="즐겨찾기는 변형 문항에서 관리합니다"' : ''} aria-label="${questionIsFavorite(question) ? '즐겨찾기 해제' : '즐겨찾기 추가'}" aria-pressed="${questionIsFavorite(question)}">${questionIsFavorite(question) ? '★' : '☆'}</button></div></div><h2 class="jbl-title">${originalButton}${renderJblInline(question.question)}</h2></header>
+        <div class="jbl-card-body">${passage}${images}${choices}${learningSummary}${revealAnswer && !question.choices.length && !state.explanationShown[question.id] ? `<div class="jbl-answer-box" data-jbl-answer-only role="status">${renderJblWikiFragment(question.answerLabel?.trim() || (answerIndices.length ? '정답: '+answerIndices.join(', ')+'번' : '등록된 정답이 없습니다.'), question, 'answer-only')}</div>` : ''}${editor}</div>
       </article>`;
     }
 
@@ -3737,16 +3863,9 @@ SOFTWARE.
       const question = questions[state.index];
       if (!question) return;
       if (question.studyKind==='wiki') { bindLectureJblWikiCard(container,question);return; }
-      container.querySelector('[data-jbl-original]')?.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (questionExplanationState.active) closeQuestionExplanationSplit(false);
-        openContextLinkSplit({type:'j', questionNumber:canonicalJblNumber(question.globalNumber), version:'original'}, event.currentTarget);
-      });
-      container.querySelector('[data-jbl-inferred]')?.addEventListener('click',event=>{
+      container.querySelector('[data-jbl-version-toggle]')?.addEventListener('click', event => {
         event.preventDefault();event.stopPropagation();
-        if(questionExplanationState.active)closeQuestionExplanationSplit(false);
-        openContextLinkSplit({type:'j',questionNumber:canonicalJblNumber(question.globalNumber),version:'inferred'},event.currentTarget);
+        toggleQuestionVersion(container,question,state,rerender);
       });
       const numberButton = container.querySelector('[data-jbl-number-button]');
       const numberInput = container.querySelector('[data-jbl-number-input]');
@@ -3763,9 +3882,10 @@ SOFTWARE.
         numberInput.hidden = true;
         numberButton.hidden = false;
         numberInput.value = String(question.globalNumber);
-        if (!container.isConnected || cancel || !value || (!question.isOriginalVersion && !question.isInferredVersion && canonicalJblNumber(value) === canonicalJblNumber(question.globalNumber))) return;
+        if (!container.isConnected || cancel || !value || (questionForViewer(questionVersionBase(question))?.id === question.id && canonicalJblNumber(value) === canonicalJblNumber(question.globalNumber))) return;
         const destination = QuestionId.valid(value) && jblQuestions.find(item => canonicalJblNumber(item.globalNumber) === canonicalJblNumber(value));
         if (!destination) { alert('해당 고유번호의 문항이 없습니다.'); return; }
+        if (state.questionVersions) delete state.questionVersions[destination.id];
         if (!container.isConnected) return;
         if (container.closest('[data-explanation-question-root]')) closeQuestionExplanationSplit(false);
         if (key.startsWith('context-link-question-')) {
@@ -3847,8 +3967,9 @@ SOFTWARE.
       bindQuestionStudyStatus(container,question.id);
       container.querySelector('[data-jbl-favorite]')?.addEventListener('click', () => {
         if (question.isOriginalVersion) return;
-        if (jblFavorites.has(question.id)) jblFavorites.delete(question.id);
-        else jblFavorites.add(question.id);
+        const base = questionVersionBase(question);
+        if (questionIsFavorite(question)) {jblFavorites.delete(base.id);jblFavorites.delete(base.id+'::inferred');}
+        else jblFavorites.add(base.id);
         saveJblFavorites();
         rerender();
       });
@@ -3910,8 +4031,9 @@ SOFTWARE.
 
     function renderQuestionCard(container, questions, key, rerender) {
       container.setAttribute('data-jbl-choice-viewer', key);
-      container.questionViewer = { questions, key, rerender };
       const state = viewerState(key);
+      const displayedQuestions = questions.map(question => questionForViewer(question,state));
+      container.questionViewer = { questions:displayedQuestions, key, rerender };
       if (!container.hasAttribute('data-explanation-question-root')) questionExplanationViewers.set(state, {...container.questionViewer, container});
       state.index = Math.max(0, Math.min(state.index, Math.max(questions.length - 1, 0)));
       if (!questions.length) {
@@ -3922,8 +4044,8 @@ SOFTWARE.
       if(!container.hasAttribute('data-explanation-question-root') &&
         (key==='jbl-all' || (key.startsWith('course-') && lectureStudyState(lectureStudyCourseForKey(key)).view!=='wiki')))
         rememberRandomView(state,questions);
-      container.innerHTML = questionCardMarkup(questions[state.index], state);
-      bindQuestionCard(container, questions, key, rerender);
+      container.innerHTML = questionCardMarkup(displayedQuestions[state.index], state);
+      bindQuestionCard(container, displayedQuestions, key, rerender);
       if (questionExplanationState?.active && questionExplanationState.state === state && !container.hasAttribute('data-explanation-question-root')) syncQuestionExplanationSplit();
     }
 
@@ -3956,6 +4078,7 @@ SOFTWARE.
     document.addEventListener('click', dismissQuestionChoiceEffects);
 
     function toggleQuestionAnswer(state, question, rerender) {
+      question = questionForViewer(question,state);
       if (!question || question.studyKind==='wiki' || state.editing) return;
       const restoreFocus = document.activeElement?.hasAttribute('data-jbl-answer');
       const shown = !state.answerShown[question.id];
@@ -3971,6 +4094,7 @@ SOFTWARE.
     }
 
     function toggleQuestionExplanation(state, question, rerender) {
+      question = questionForViewer(question,state);
       if (!question || question.studyKind==='wiki') return;
       const restoreFocus = document.activeElement?.hasAttribute('data-jbl-explanation');
       const shown = !state.explanationShown[question.id];
@@ -4004,13 +4128,13 @@ SOFTWARE.
       if (!viewer) return;
       if (questionExplanationState.active) closeQuestionExplanationSplit(false);
       const state = viewerState(viewer.key), question = viewer.questions[state.index];
-      if (!question || question.studyKind==='wiki' || question.isOriginalVersion) return;
+      if (!question || question.studyKind==='wiki' || question.isOriginalVersion || question.isInferredVersion) return;
       state.editing = state.editing === question.id ? null : question.id;
       viewer.rerender();
     }
 
     function navMarkup(state, questions, context = false) {
-      const question = questions[state.index], editing = question && state.editing === question.id;
+      const question = questionForViewer(questions[state.index],state), editing = question && state.editing === question.id;
       const wikiCard=question?.studyKind==='wiki';
       const previous = context ? 'data-context-question-prev' : 'data-jbl-prev';
       const next = context ? 'data-context-question-next' : 'data-jbl-next';
@@ -4256,6 +4380,7 @@ SOFTWARE.
         history.replaceState({ ...(history.state || {}), detailTab:activeDetailTab }, '', location.href);
       }
       const state = standaloneState();
+      if (state.questionVersions) delete state.questionVersions[question.id];
       state.linkedQuestionNumber = canonicalJblNumber(globalNumber);
       state.panel = null;
       state.index = jblQuestionsByNumber().findIndex(item => item.id === question.id);
@@ -4821,7 +4946,7 @@ SOFTWARE.
       function draw() {
         const entries = tab === 'wiki'
           ? wikiBookmarks.map(item => ({ label:`${item.courseId}강 · ${item.heading}`, href:`#lecture-${item.courseId}`, source:() => wikiBookmarkSource(item), course:byId(item.courseId) || course }))
-          : jblQuestions.filter(question => jblFavorites.has(question.id)).map(question => ({ label:`${question.globalNumber}번`, href:`#jbl-q-${question.globalNumber}`, source:() => ankiQuestionSource(question), course:byId(question.lectureIds?.[0]) || course, question }));
+          : jblQuestions.filter(question => questionIsFavorite(question)).map(question => ({ label:`${question.globalNumber}번`, href:`#jbl-q-${question.globalNumber}`, source:() => ankiQuestionSource(question), course:byId(question.lectureIds?.[0]) || course, question }));
         dialog.innerHTML = `<div class="anki-dialog-head"><div role="tablist" aria-label="즐겨찾기 종류"><button type="button" class="content-tab ${tab==='wiki'?'active':''}" role="tab" aria-selected="${tab==='wiki'}" data-fav-tab="wiki">Wiki</button><button type="button" class="content-tab ${tab==='j'?'active':''}" role="tab" aria-selected="${tab==='j'}" data-fav-tab="j">J</button></div><button class="anki-close" type="button" data-close-favs aria-label="즐겨찾기 닫기">×</button></div><div class="anki-fav-layout"><div class="anki-fav-list">${entries.map((entry,index) => `<div class="anki-fav-row"><a href="${entry.href}" data-fav-preview="${index}">${escapeHtml(entry.label)}</a><button class="jbl-btn jbl-btn-sub" type="button" data-fav-add="${index}">추가</button></div>`).join('') || '<p>즐겨찾기한 항목이 없습니다.</p>'}</div><aside class="anki-preview" hidden></aside></div>`;
         dialog.querySelector('[data-close-favs]').onclick = () => dialog.close();
         dialog.querySelectorAll('[data-fav-tab]').forEach(button => button.onclick = () => { tab = button.dataset.favTab; draw(); });
@@ -5466,6 +5591,8 @@ SOFTWARE.
         body.innerHTML = '<div data-context-question-root></div>';
         const root = body.querySelector('[data-context-question-root]');
         const key = `context-link-question-${question.id}`;
+        const state = viewerState(key);
+        if (!target.version && state.questionVersions) delete state.questionVersions[question.id];
         let questionRender = 0;
         const rerender = () => {
           if (!contextLinkState.active || token !== contextLinkState.renderToken || contextLinkTargetKey(contextLinkState.stack.at(-1)) !== contextLinkTargetKey(target)) return;
@@ -6058,6 +6185,8 @@ SOFTWARE.
       if (linkedQuestion) {
         const state = standaloneState();
         state.linkedQuestionNumber = canonicalJblNumber(linkedQuestion[1]);
+        const linkedBase = jblQuestions.find(question => canonicalJblNumber(question.globalNumber) === state.linkedQuestionNumber);
+        if (linkedBase && state.questionVersions) delete state.questionVersions[linkedBase.id];
         state.index = jblQuestionsByNumber().findIndex(question => canonicalJblNumber(question.globalNumber) === state.linkedQuestionNumber);
         renderJblStandalone();
         return showView('jbl', false);
@@ -6089,18 +6218,18 @@ SOFTWARE.
 
     function activeQuestionViewer() {
       if (!document.querySelector('#jbl-view').hidden) {
-        return { questions:currentStandaloneQuestions(), key:'jbl-all', rerender:renderJblStandalone };
+        return viewerWithQuestionVersions({ questions:currentStandaloneQuestions(), key:'jbl-all', rerender:renderJblStandalone });
       }
       if (!document.querySelector('#detail-view').hidden && document.querySelector('[data-course-j-host]')) {
         if (document.querySelector('[data-course-j-host]').closest('[hidden]')) return null;
         const match = location.hash.match(/^#lecture-(\d+)$/);
         const course = match ? byId(match[1]) : null;
         if (!course) return null;
-        return {
+        return viewerWithQuestionVersions({
           questions:lectureStudyViewerQuestions(course),
           key:lectureStudyViewerKey(course),
           rerender:() => renderCourseJ(course)
-        };
+        });
       }
       return null;
     }
@@ -6337,7 +6466,7 @@ SOFTWARE.
     };
     routeFromHash();
 </script>
-<script src="./study-ui.js?v=timed-quick-v1"></script>
+<script src="./study-ui.js?v=quick-no-limit-20261105"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>
 <script src="./resp-exam-bridge.js"></script>
 </body></html>

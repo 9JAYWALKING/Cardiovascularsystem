@@ -128,8 +128,8 @@ function lectureJblEntries(course) {
   const statuses = filters.statuses||[], filtering=Boolean(statuses.length||filters.favoritesOnly);
   const favorites = question => question.studyKind==='wiki'
     ? wikiBookmarks.some(bookmark=>bookmark.courseId===question.group.sourceCourse&&bookmark.slug===question.group.bookmarkSlug)
-    : jblFavorites.has(question.id);
-  const matches = item => !filtering || statuses.includes(questionStudyStatus(item.id)) || Boolean(filters.favoritesOnly&&favorites(item));
+    : questionIsFavorite(question);
+  const matches = item => !filtering || statuses.includes(questionListStudyStatus(item)) || Boolean(filters.favoritesOnly&&favorites(item));
   const byNumber = new Map(jblQuestions.map(question=>[canonicalJblNumber(question.globalNumber),question]));
   const result=[];
   for (const group of lectureJblGroups(course).filter(group=>!view.jblChapter||group.slug===view.jblChapter)) {
@@ -208,8 +208,8 @@ function lectureStudyQuestions(course) {
   const filters = state.filters || {};
   const statuses = filters.statuses || [];
   const questions = lectureStudyBaseQuestions(course).filter(question =>
-    (!statuses.length && !filters.favoritesOnly) || statuses.includes(questionStudyStatus(question.id)) ||
-    (filters.favoritesOnly && jblFavorites.has(question.id)));
+    (!statuses.length && !filters.favoritesOnly) || statuses.includes(questionListStudyStatus(question)) ||
+    (filters.favoritesOnly && questionIsFavorite(question)));
   if (!state.randomEnabled) return questions;
   return stableRandomQuestions(state,questions,jblQuestions.filter(q=>questionBelongsToCourse(q,course.id)),
     JSON.stringify([filters,lectureStudyState(course).chapter]));

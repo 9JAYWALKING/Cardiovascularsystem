@@ -17,7 +17,9 @@ html[data-theme="dark"] body.study-ui { --study-surface:#000; --study-muted:#fff
 .study-ui .masthead-inner { display:grid; align-items:center; grid-template-columns:minmax(0,1fr) auto; min-height:48px; width:100%; max-width:none; margin:auto; padding:7px calc(var(--study-edge-right) + 6px) 7px calc(var(--study-edge-left) + 6px); gap:12px; touch-action:pan-x; }
 .study-ui .masthead h1 { min-width:0; margin:0; font-size:calc((20px) * var(--study-type-scale,1)); letter-spacing:.09em; white-space:nowrap; }
 .study-ui .site-logo { font:inherit; text-transform:uppercase; }
-.study-ui .top-actions { gap:8px; }
+/* Replace the legacy mobile three-column grid so hidden controls leave no empty slot. */
+.study-ui .top-actions { display:flex; align-items:center; justify-content:flex-end; justify-self:end; flex-wrap:nowrap; gap:8px; }
+.study-ui .top-actions > .study-icon-button { flex:none; }
 .study-ui .study-exam-dday { display:inline-flex; align-items:center; justify-content:center; flex:none; min-width:40px; height:30px; font-size:calc((20px) * var(--study-type-scale,1)); font-weight:800; line-height:1; letter-spacing:.01em; font-variant-numeric:tabular-nums; white-space:nowrap; color:inherit; }
 .study-ui .study-exam-dday[hidden] { display:none; }
 .study-ui .study-exam-dday { margin-right:4px; }

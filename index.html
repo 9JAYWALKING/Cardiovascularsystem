@@ -1981,7 +1981,7 @@
   :root[data-theme="dark"] .quick-preview {background:#160f10;color:#ddb7bf;}
   :root[data-theme="dark"] .quick-final-heading,:root[data-theme="dark"] .quick-heading h2 {color:#ddb7bf;}
 </style>
-<link rel="stylesheet" href="./study-ui.css?v=dark-wine-complete-20261105">
+<link rel="stylesheet" href="./study-ui.css?v=pane-controls-20261105">
   <link rel="stylesheet" href="./wiki-image-overlays.css?v=typography-v1-20261105">
   <link rel="stylesheet" href="./cardiovascular-atlas.css?v=typography-v1-20261105">
   <link rel="stylesheet" href="./kmle.css?v=typography-v1-20261105">
@@ -2011,8 +2011,9 @@ SOFTWARE.
 
 -->
 <style>.jbl-recovery-record{margin-top:18px;padding:12px;border:1px solid var(--line,#ddd);border-radius:10px;font-size:.9em;line-height:1.65}.jbl-recovery-record summary{cursor:pointer;font-weight:600}.jbl-recovery-record li{margin:.4em 0}.jbl-related-questions{margin-top:18px;line-height:1.9}.jbl-related-questions a{color:var(--accent,#773d52);font-weight:600}</style>
-<link rel="stylesheet" href="./wiki-learning.css?v=exam-badge-20261105">
+<link rel="stylesheet" href="./wiki-learning.css?v=history-size-20261105">
 <link rel="stylesheet" href="./study-tutorial.css?v=20261105-webapp">
+<link rel="stylesheet" href="./study-responsive.css?v=20261105-fit-tables-v2">
 </head>
 <body class="">
 <script id="study-shell-first-paint">
@@ -2063,14 +2064,14 @@ SOFTWARE.
   <section id="jbl-view" class="view" hidden aria-label="J 전체 문항"><div id="jbl-standalone" class="jbl-standalone"></div></section>
 </main></div>
 <div id="jbl-image-modal" class="jbl-image-modal" role="dialog" aria-modal="true" aria-label="문항 이미지 확대"><button class="jbl-image-close" type="button" aria-label="이미지 닫기">×</button><img alt="확대된 문항 이미지"></div>
-<script src="./wiki-learning.js?v=exam-badge-20261105"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=lecture07-20261105"></script>
+<script src="./wiki-learning.js?v=batch-ui-20261105"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=batch-ui-20261105"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js"></script>
 <script src="./course-data.js"></script>
 <script id="jbl-data-script" src="./jbl-data.js?v=25020-labels-20261105"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=lecture01-20261105"></script>
-<script src="./lecture-study.js?v=gesture-tutorial-20261105"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=batch-ui-20261105"></script>
+<script src="./lecture-study.js?v=pane-controls-20261105"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
   <script src="./cardiovascular-atlas.js"></script>
@@ -3757,7 +3758,7 @@ SOFTWARE.
       const notes=question.recoveryNotes || [];
       const refs=question.relatedQuestions || [];
       const record=notes.length ? `<details class="jbl-recovery-record"><summary>복원 기록</summary><ul>${notes.map(n=>`<li>${escapeHtml(n)}</li>`).join('')}</ul></details>` : '';
-      const links=refs.length ? `<div class="jbl-related-questions">반복·관련 문항 ${refs.map(n=>`<a href="#jbl-q-${encodeURIComponent(n)}" data-jbl-question-link="${escapeHtml(n)}">${escapeHtml(n)}</a>`).join(' · ')}</div>` : '';
+      const links=refs.length ? `<section class="jbl-related-questions" aria-label="반복·관련 문항"><h3 class="jbl-related-title">반복·관련 문항</h3><div class="jbl-related-links">${refs.map(n=>`<a href="#jbl-q-${encodeURIComponent(n)}" data-jbl-question-link="${escapeHtml(n)}" aria-label="${escapeHtml(n)}번 문항 보기">${escapeHtml(n)}</a>`).join('')}</div></section>` : '';
       const past=question.category==='과거 강의 기출' ? '<p class="jbl-source">과거 강의 기출 · 현재 시간표에 없는 독립 강의</p>' : '';
       const repeat=question.repeatHistory;
       const history=repeat ? `<p class="jbl-source">반복 유형 · ${escapeHtml(repeat.label)} · ${repeat.years.join(', ')} (${repeat.yearCount}개년)</p>` : '';
@@ -4118,6 +4119,7 @@ SOFTWARE.
       state.answerShown[question.id] = shown;
       state.explanationShown[question.id] = shown;
       (state.feedbackHidden ||= {})[question.id] = !shown;
+      if (!shown) (state.choiceEffectsHidden ||= {})[question.id] = true;
       rerender();
       if (shown) openQuestionExplanationSplit(state, question, rerender);
       if (restoreFocus) {
@@ -5655,6 +5657,7 @@ SOFTWARE.
       const label = expanding ? '분할 화면으로 돌아가기' : '연결된 내용 전체화면으로 확대';
       state.expand.setAttribute('aria-label', label);
       state.expand.title = label;
+      state.expand.innerHTML = studyPaneControlIcon(expanding ? "collapse" : "expand");
       state.split.setAttribute('aria-label', expanding ? '연결된 내용 전체화면' : '현재 화면과 연결된 내용을 함께 보기');
       if (expanding && state.source.contains(document.activeElement)) state.expand.focus({ preventScroll:true });
       if (!expanding) contextSourceScrollElement().scrollTop = state.sourcePaneScroll;
@@ -5678,7 +5681,7 @@ SOFTWARE.
       split.className = 'context-link-split';
       split.setAttribute('role', 'group');
       split.setAttribute('aria-label', '현재 화면과 연결된 내용을 함께 보기');
-      split.innerHTML = `<section class="context-link-source" data-context-link-source aria-label="현재 화면"></section><aside class="context-link-target" data-context-link-target aria-label="연결된 내용"><header class="context-link-head" title="더블클릭으로 전체화면 전환"><div class="context-link-heading"><span class="context-link-eyebrow">연결된 내용</span><strong class="context-link-title" data-context-link-title></strong></div><div class="context-link-controls"><button class="context-link-control" type="button" data-context-link-back aria-label="이전 연결 내용으로 돌아가기">←</button><button class="context-link-control context-link-expand" type="button" data-context-link-expand aria-label="연결된 내용 전체화면으로 확대" aria-pressed="false" title="연결된 내용 전체화면으로 확대">−</button><button class="context-link-control context-link-close" type="button" data-context-link-close aria-label="분할 화면 닫기">×</button></div></header><div class="context-link-body" data-context-link-body aria-live="polite"></div><nav class="context-question-nav" data-context-link-nav aria-label="이 Wiki의 연결 문항 탐색" hidden></nav></aside>`;
+      split.innerHTML = `<section class="context-link-source" data-context-link-source aria-label="현재 화면"></section><aside class="context-link-target" data-context-link-target aria-label="연결된 내용"><header class="context-link-head" title="더블클릭으로 전체화면 전환"><div class="context-link-heading"><span class="context-link-eyebrow">연결된 내용</span><strong class="context-link-title" data-context-link-title></strong></div><div class="context-link-controls"><button class="context-link-control" type="button" data-context-link-back aria-label="이전 연결 내용으로 돌아가기" title="이전 연결 내용으로 돌아가기">${studyPaneControlIcon("back")}</button><button class="context-link-control context-link-expand" type="button" data-context-link-expand aria-label="연결된 내용 전체화면으로 확대" aria-pressed="false" title="연결된 내용 전체화면으로 확대">${studyPaneControlIcon("expand")}</button><button class="context-link-control context-link-close" type="button" data-context-link-close aria-label="분할 화면 닫기" title="분할 화면 닫기">${studyPaneControlIcon("close")}</button></div></header><div class="context-link-body" data-context-link-body aria-live="polite"></div><nav class="context-question-nav" data-context-link-nav aria-label="이 Wiki의 연결 문항 탐색" hidden></nav></aside>`;
       const source = split.querySelector('[data-context-link-source]');
       source.classList.toggle('context-wiki-source', !!returnPosition);
       contextLinkState.active = true;
@@ -6479,6 +6482,7 @@ SOFTWARE.
     routeFromHash();
 </script>
 <script src="./study-ui.js?v=quick-no-limit-20261105"></script>
+<script src="./study-responsive.js?v=20261105-fit-tables"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>
 <script src="./resp-exam-bridge.js"></script>

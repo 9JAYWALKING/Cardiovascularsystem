@@ -1,0 +1,116 @@
+/* Reading layouts follow the available pane width, including split views. */
+.study-ui :is(.wiki-table-wrap,.ra-table-wrap) {
+  min-width:0;
+  max-width:100%;
+  overflow:visible;
+}
+.study-ui .jbl-wiki-content .wiki-table-wrap { overflow:visible; }
+.study-ui :is(.wiki-table,.study-fit-table,.ra-root table,.kmle-explanation-body table) {
+  width:100%;
+  min-width:0;
+  max-width:100%;
+  table-layout:fixed;
+  line-height:1.55;
+  border-radius:inherit;
+}
+.study-ui .wiki-table thead tr:first-child>th:first-child { border-top-left-radius:14px; }
+.study-ui .wiki-table thead tr:first-child>th:last-child { border-top-right-radius:14px; }
+.study-ui :is(.wiki-table,.study-fit-table) :is(th,td) {
+  box-sizing:border-box;
+  min-width:0;
+  padding:clamp(8px,.65em,11px) clamp(7px,.75em,13px);
+  white-space:normal;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+  vertical-align:top;
+}
+.study-ui :is(.wiki-table,.study-fit-table) :is(p,ul,ol) { margin:.25em 0; }
+.study-ui :is(.wiki-table,.study-fit-table) :is(p,ul,ol):first-child { margin-top:0; }
+.study-ui :is(.wiki-table,.study-fit-table) :is(p,ul,ol):last-child { margin-bottom:0; }
+.study-ui :is(.wiki-table,.study-fit-table) :is(img,svg,video) { max-width:100%; height:auto; }
+.study-ui :is(.wiki-table,.study-fit-table) :is(pre,code) { white-space:pre-wrap; overflow-wrap:anywhere; }
+.study-ui .study-fit-table.is-table-compact :is(th,td) {
+  padding:clamp(7px,.55em,10px) clamp(6px,.55em,10px);
+}
+
+/* Keep column labels with their values when columns no longer have reading room.
+   The original header remains accessible, and the table returns on widening. */
+.study-ui .study-fit-table.is-table-stacked { display:block; position:relative; }
+.study-ui .study-fit-table.is-table-stacked thead {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot) { display:block; width:100%; }
+.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr {
+  display:block;
+  width:100%;
+  padding:3px 0;
+  border:0;
+  border-bottom:1px solid var(--study-border,var(--line,#eedbdf));
+}
+.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr:last-child { border-bottom:0; }
+.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td) {
+  display:block;
+  width:100%;
+  min-width:0;
+  border:0;
+  padding:clamp(5px,.4em,8px) clamp(9px,.7em,13px);
+  text-align:left;
+}
+.study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td):first-child {
+  background:var(--brand-soft,#f8f1f2);
+  font-weight:700;
+}
+.study-ui .study-fit-table.is-table-stacked [data-column-label]::before {
+  content:attr(data-column-label);
+  display:block;
+  margin:0 0 .12em;
+  color:var(--study-accent,var(--brand-ink,#70283e));
+  font-size:.82em;
+  font-weight:650;
+  line-height:1.4;
+}
+.study-ui .study-fit-table.is-table-stacked [data-column-label=""]::before { content:none; }
+
+/* The existing phone timetable also needs to fit intermediate tablet widths. */
+@media(min-width:761px) {
+  .study-ui .timetable-scroll { overflow:visible; }
+  .study-ui .timetable {
+    width:100%;
+    min-width:0;
+    grid-template-columns:60px repeat(5,minmax(0,1fr));
+  }
+  .study-ui .timetable .course-card { min-width:0; }
+  .study-ui .timetable .course-card :is(.name,.teacher) { overflow-wrap:anywhere; }
+}
+@media(min-width:761px) and (max-width:1000px) {
+  .study-ui .timetable { grid-template-columns:44px repeat(5,minmax(0,1fr)); }
+  .study-ui .timetable .grid-cell { padding:6px 3px; }
+  .study-ui .timetable .course-slot { margin:3px; }
+  .study-ui .timetable .course-card { padding:7px 5px; gap:3px; }
+  .study-ui .timetable .course-card .name { display:block; overflow:visible; font-size:12px; line-height:1.35; }
+  .study-ui .timetable .course-card :is(.teacher,.number) { font-size:10px; line-height:1.3; }
+  .study-ui .timetable .day-head { font-size:14px; }
+  .study-ui .timetable .day-head small { font-size:11px; }
+  .study-ui .timetable .time-cell { font-size:10px; }
+}
+.study-ui .global-search-tabs { flex-wrap:wrap; overflow:visible; }
+.study-ui .global-search-tab { min-width:0; white-space:normal; }
+
+@media print {
+  .study-ui .study-fit-table.is-table-stacked { display:table; }
+  .study-ui .study-fit-table.is-table-stacked thead {
+    display:table-header-group; position:static; width:auto; height:auto;
+    margin:0; overflow:visible; clip-path:none; white-space:normal;
+  }
+  .study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot) { display:table-row-group; }
+  .study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr { display:table-row; }
+  .study-ui .study-fit-table.is-table-stacked :is(tbody,tfoot)>tr>:is(th,td) { display:table-cell; width:auto; }
+  .study-ui .study-fit-table.is-table-stacked [data-column-label]::before { content:none; }
+}

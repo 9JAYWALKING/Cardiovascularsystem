@@ -1,3 +1,14 @@
+/* Shared pane controls use the same thin line icons as the main toolbar. */
+function studyPaneControlIcon(name) {
+  const paths = {
+    expand:'M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5',
+    collapse:'M3 8h5V3M16 3v5h5M21 16h-5v5M8 21v-5H3',
+    close:'M6 6l12 12M6 18L18 6',
+    back:'M19 12H5m7-7-7 7 7 7'
+  };
+  return `<svg class="pane-control-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${paths[name] || paths.expand}"/></svg>`;
+}
+
 /* One local preference for custom swipes and question explanation double taps. */
 window.CardiovascularGestures = (() => {
   const key = 'cardiovascular-gestures-enabled-v1';
@@ -334,7 +345,7 @@ function setLectureStudyExpanded(course, pane) {
     button.setAttribute('aria-label',label);
     button.setAttribute('aria-pressed',String(active));
     button.title = label;
-    button.textContent = active ? '↙' : '−';
+    button.innerHTML = studyPaneControlIcon(active ? 'collapse' : 'expand');
   });
   syncLectureStudyView(course);
 }
@@ -536,7 +547,7 @@ function openQuestionExplanationSplit(state, question, rerender) {
   split.className = 'context-link-split jbl-explanation-split';
   split.setAttribute('role','group');
   split.setAttribute('aria-label','문제와 해설 나란히 보기');
-  split.innerHTML = `<section class="context-link-source jbl-explanation-question" aria-label="문제"><div data-explanation-question-root></div><nav class="context-question-nav" data-explanation-question-nav aria-label="문항 탐색"></nav></section><aside class="context-link-target" aria-label="해설"><header class="context-link-head" title="더블클릭으로 전체화면 전환"><strong class="context-link-title">${escapeHtml(question.displayId)} 해설</strong><div class="context-link-controls"><button class="context-link-control context-link-expand" type="button" data-explanation-expand aria-label="해설 전체화면으로 확대" aria-pressed="false">−</button><button class="context-link-control context-link-close" type="button" data-explanation-close aria-label="해설 닫기">×</button></div></header><div class="context-link-body" data-explanation-body tabindex="-1"></div></aside>`;
+  split.innerHTML = `<section class="context-link-source jbl-explanation-question" aria-label="문제"><div data-explanation-question-root></div><nav class="context-question-nav" data-explanation-question-nav aria-label="문항 탐색"></nav></section><aside class="context-link-target" aria-label="해설"><header class="context-link-head" title="더블클릭으로 전체화면 전환"><strong class="context-link-title">${escapeHtml(question.displayId)} 해설</strong><div class="context-link-controls"><button class="context-link-control context-link-expand" type="button" data-explanation-expand aria-label="해설 전체화면으로 확대" aria-pressed="false" title="해설 전체화면으로 확대">${studyPaneControlIcon("expand")}</button><button class="context-link-control context-link-close" type="button" data-explanation-close aria-label="해설 닫기" title="해설 닫기">${studyPaneControlIcon("close")}</button></div></header><div class="context-link-body" data-explanation-body tabindex="-1"></div></aside>`;
   const suspended = [document.querySelector('main'), contextLinkState.active ? contextLinkState.target : null]
     .filter(Boolean).map(element => ({element,inert:element.inert,hidden:element.getAttribute('aria-hidden')}));
   for (const {element} of suspended) {
@@ -603,6 +614,8 @@ function closeQuestionExplanationSplit(restoreFocus = true, conceal = true, rere
     state.answerShown[question.id] = false;
     state.explanationShown[question.id] = false;
     (state.feedbackHidden ||= {})[question.id] = true;
+    // Hide the selection tint while retaining the choice and attempt for reopening.
+    (state.choiceEffectsHidden ||= {})[question.id] = true;
   }
   hideWikiFootnotePreview();
   for (const {element,inert,hidden} of suspended) {
@@ -653,6 +666,8 @@ function toggleQuestionExplanationExpanded() {
   const button=panel.split.querySelector('[data-explanation-expand]');
   button.setAttribute('aria-pressed',String(panel.expanded));
   button.setAttribute('aria-label',panel.expanded ? '문제와 해설 분할 화면으로 돌아가기' : '해설 전체화면으로 확대');
+  button.title=button.getAttribute('aria-label');
+  button.innerHTML=studyPaneControlIcon(panel.expanded ? 'collapse' : 'expand');
 }
 
 function handleQuestionExplanationShortcut(event) {

@@ -448,7 +448,7 @@ html:not([data-theme="dark"]) .study-ui .jbl-choice.correct .jbl-choice-num { ba
 html:not([data-theme="dark"]) .study-ui .jbl-choice.wrong { background:#fef2f2; border-color:#fca5a5; color:#b91c1c; }
 html:not([data-theme="dark"]) .study-ui .jbl-choice.wrong .jbl-choice-num { background:#fee2e2; color:#b91c1c; }
 html:not([data-theme="dark"]) .study-ui .jbl-answer-box { background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation { background:#fcf8f9; border-color:var(--brand-line); }
+html:not([data-theme="dark"]) .study-ui .jbl-explanation { background:#f8fafc; border-color:#e2e8f0; }
 html:not([data-theme="dark"]) .study-ui .jbl-explanation-title { color:var(--brand-ink); }
 html:not([data-theme="dark"]) .study-ui .jbl-lecture-map { background:var(--brand-soft); color:var(--brand-ink); }
 html:not([data-theme="dark"]) .study-ui .jbl-professor-name { background:var(--brand-soft); color:var(--muted); }
@@ -594,6 +594,11 @@ body.study-ui.lecture-j-active:not(.context-link-open) .lecture-j-pane { min-hei
 /* The same two-pane family as linked content, never a third column inside it. */
 body.jbl-explanation-open { overflow:hidden; }
 .study-ui .jbl-explanation-split { z-index:4100; }
+/* Keep secondary popup chrome aligned with the measured main header. */
+.study-ui .context-link-head { box-sizing:border-box; height:var(--study-header-height,48px); min-height:0; max-height:var(--study-header-height,48px); padding:6px clamp(12px,1.6vw,20px); }
+.study-ui .context-link-control { flex:none; width:34px; min-width:34px; height:34px; padding:0; }
+.study-ui .context-link-title { font-size:calc(16px * var(--study-ui-scale,1)); }
+html:not([data-theme="dark"]) .study-ui .jbl-explanation-split > .context-link-target { background:#fff; }
 .study-ui .jbl-explanation-question { display:grid; grid-template-rows:minmax(0,1fr) auto; overflow:hidden; }
 .study-ui [data-explanation-question-root] { min-height:0; min-width:0; overflow:auto; overscroll-behavior:contain; padding:12px 12px 10px; }
 .study-ui .jbl-explanation-split .jbl-card { margin:0; }
@@ -927,6 +932,12 @@ html[data-theme="dark"] .study-ui :is(.wiki-note,.jbl-wiki-text) ::selection { b
 .study-ui .jbl-learning-answer{margin:0 0 12px;color:#70283f;font-size:calc(15px * var(--study-text-scale,1));font-weight:750;line-height:1.6}
 .study-ui .jbl-learning-explanation .jbl-explanation-text{word-break:keep-all;overflow-wrap:anywhere;line-height:1.8}
 .study-ui .jbl-learning-explanation .jbl-explanation-text>.wiki-document{padding-top:0}
+/* Explanation text follows the question's content scale, not large Wiki headings. */
+.study-ui .jbl-explanation :is(.jbl-explanation-text,.jbl-wiki-text){font-size:calc(17px * var(--study-content-scale,1));line-height:1.75}
+.study-ui .jbl-explanation .jbl-learning-title{font-size:calc(20px * var(--study-content-scale,1));margin-bottom:16px}
+.study-ui .jbl-explanation .jbl-wiki-text h3{font-size:calc(18px * var(--study-content-scale,1));line-height:1.45;margin:22px 0 12px;padding-bottom:7px}
+.study-ui .jbl-explanation .jbl-wiki-text h4{font-size:calc(17px * var(--study-content-scale,1));line-height:1.5;margin:20px 0 7px;font-weight:750}
+.study-ui .jbl-explanation .jbl-wiki-text>:first-child{margin-top:0}
 html[data-theme="dark"] .study-ui .jbl-choice-learning-note,
 html[data-theme="dark"] .study-ui .jbl-choice-learning-summary{color:#fff;background:transparent}
 html[data-theme="dark"] .study-ui .jbl-learning-title,

@@ -2000,7 +2000,7 @@ SOFTWARE.
 
 -->
 <style>.jbl-recovery-record{margin-top:18px;padding:12px;border:1px solid var(--line,#ddd);border-radius:10px;font-size:.9em;line-height:1.65}.jbl-recovery-record summary{cursor:pointer;font-weight:600}.jbl-recovery-record li{margin:.4em 0}.jbl-related-questions{margin-top:18px;line-height:1.9}.jbl-related-questions a{color:var(--accent,#773d52);font-weight:600}</style>
-<link rel="stylesheet" href="./wiki-learning.css?v=lecture01-20261105">
+<link rel="stylesheet" href="./wiki-learning.css?v=lecture06-20261105">
 </head>
 <body class="">
 <script id="study-shell-first-paint">
@@ -2051,13 +2051,14 @@ SOFTWARE.
   <section id="jbl-view" class="view" hidden aria-label="J 전체 문항"><div id="jbl-standalone" class="jbl-standalone"></div></section>
 </main></div>
 <div id="jbl-image-modal" class="jbl-image-modal" role="dialog" aria-modal="true" aria-label="문항 이미지 확대"><button class="jbl-image-close" type="button" aria-label="이미지 닫기">×</button><img alt="확대된 문항 이미지"></div>
-<script src="./wiki-learning.js?v=lecture01-20261105"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=lecture01-20261105"></script>
+<script src="./wiki-learning.js?v=lecture06-20261105"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=lecture06-20261105"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js"></script>
 <script src="./course-data.js"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=answer-only-learning-20261105"></script>
-<script src="./lecture-study.js?v=inplace-version-20261105"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=lecture06-explanations-20261105"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=lecture01-20261105"></script>
+<script src="./lecture-study.js?v=compact-jbl-20261105"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
   <script src="./cardiovascular-atlas.js"></script>
@@ -3707,7 +3708,7 @@ SOFTWARE.
 
     function wikiSyntaxHelpMarkup() {
       const rows = [
-        ['@recall 질문 => 답 ;; 질문 => 답', '접이식 백지복습 질문과 따로 여는 답'], ['@flow 내용 | 내용 | 내용', '순서가 있는 흐름 도식'], ['@detail 제목 ... @enddetail', '더 자세히 보는 접이식 자료'], ['@questions {{25001}}', '문단 아래 연결 문항'], ['@source 강의록 p.1–3', '문단의 참고 범위'], ['= 문서 제목 =', '문서 제목'], ['== 문단 제목 ==', '목차에 표시되는 상위 문단'], ['=== 하위 제목 ===', '문단 내부의 하위 제목'], ['==== 세부 제목 ====', '한 단계 작은 제목. 다음 제목 전까지 본문 전체를 한 칸 들여쓰기'],
+        ['@recall 질문 => 답 ;; 질문 => 답', '접이식 백지복습 질문과 따로 여는 답'], ['@flow 내용 | 내용 | 내용', '순서가 있는 흐름 도식'], ['@detail 제목 ... @enddetail', '더 자세히 보는 접이식 자료'], ['@pvloop / @pvload', '심장주기와 부하 변화 상호작용 도식'], ['@cardiacoutput', '심장·혈관 곡선과 교점 비교'], ['@bplab', 'CO·TPR·순응도로 평균압·맥압 비교'], ['@starling', '네 압력을 조절하는 고전적 Starling 모형'], ['@flowlab', '유량·압력 차이를 고정한 혈류 비교 도식'], ['@questions {{25001}}', '문단 아래 연결 문항'], ['@source 강의록 p.1–3', '문단의 참고 범위'], ['= 문서 제목 =', '문서 제목'], ['== 문단 제목 ==', '목차에 표시되는 상위 문단'], ['=== 하위 제목 ===', '문단 내부의 하위 제목'], ['==== 세부 제목 ====', '한 단계 작은 제목. 다음 제목 전까지 본문 전체를 한 칸 들여쓰기'],
         ["'''굵은 글자'''", '굵게 표시'], ['""내용""', '짙은 보라색 굵은 글자로 표시'], ['* 목록', '글머리표 목록'], ['# 목록', '번호 목록'], ['> 강조 문장', '강조 상자'],
         ['[[문서]]', '해당 강의 문서로 이동'], ['[[문서|출력글자]]', '표시 문구를 다르게 지정'],
         ['[[#문단]]', '현재 문서의 특정 문단으로 이동'], ['[[#문단|출력글자]]', '현재 문서 문단 링크의 표시 문구 지정'],
@@ -4252,10 +4253,13 @@ SOFTWARE.
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);
       downloadCurrentFile('lecture-notes.js', `window.LECTURE_NOTE_SOURCES = ${notePayload};\n`, 'text/javascript;charset=utf-8', 360);
+      if (window.JBL_CONCEPTS) downloadCurrentFile('jbl-concepts.js', `window.JBL_CONCEPTS = ${JSON.stringify(window.JBL_CONCEPTS).replace(/</g,'\\u003c')};\n`, 'text/javascript;charset=utf-8', 450);
       if (window.PATHOLOGY_MAP) downloadCurrentFile('pathology-map.js', window.PATHOLOGY_MAP.exportSource(), 'text/javascript;charset=utf-8', 540);
       jblHasUnsavedChanges = false;
     }

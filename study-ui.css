@@ -448,16 +448,14 @@ html:not([data-theme="dark"]) .study-ui .jbl-choice.correct .jbl-choice-num { ba
 html:not([data-theme="dark"]) .study-ui .jbl-choice.wrong { background:#fef2f2; border-color:#fca5a5; color:#b91c1c; }
 html:not([data-theme="dark"]) .study-ui .jbl-choice.wrong .jbl-choice-num { background:#fee2e2; color:#b91c1c; }
 html:not([data-theme="dark"]) .study-ui .jbl-answer-box { background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation { background:#f8fafc; border-color:#e2e8f0; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation-title { color:#334155; }
-html:not([data-theme="dark"]) .study-ui .jbl-lecture-map { background:#e0f2fe; color:#075985; }
-html:not([data-theme="dark"]) .study-ui .jbl-professor-name { background:#f1f5f9; color:#475569; }
+html:not([data-theme="dark"]) .study-ui .jbl-explanation { background:#fcf8f9; border-color:var(--brand-line); }
+html:not([data-theme="dark"]) .study-ui .jbl-explanation-title { color:var(--brand-ink); }
+html:not([data-theme="dark"]) .study-ui .jbl-lecture-map { background:var(--brand-soft); color:var(--brand-ink); }
+html:not([data-theme="dark"]) .study-ui .jbl-professor-name { background:var(--brand-soft); color:var(--muted); }
 html:not([data-theme="dark"]) .study-ui :is(.jbl-explanation-text,.jbl-wiki-text) { color:#475569; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation .jbl-wiki-text h3 { border-color:#dce8ed; color:#173f50; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation .jbl-wiki-text h4 { color:#28586b; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation .jbl-wiki-text blockquote { border-left-color:#76b8ce; background:#f2f9fb; }
-html:not([data-theme="dark"]) .study-ui .jbl-card:not(.jbl-wiki-card) .jbl-question-link:not(.jbl-question-link-missing) { color:#137ca4; }
-html:not([data-theme="dark"]) .study-ui .jbl-card:not(.jbl-wiki-card) .jbl-question-link::before { background:#dff2f8; }
+html:not([data-theme="dark"]) .study-ui .jbl-explanation :is(.jbl-explanation-text,.jbl-wiki-text) { color:var(--ink); }
+html:not([data-theme="dark"]) .study-ui .jbl-card:not(.jbl-wiki-card) .jbl-question-link:not(.jbl-question-link-missing) { color:var(--study-accent); }
+html:not([data-theme="dark"]) .study-ui .jbl-card:not(.jbl-wiki-card) .jbl-question-link::before { background:var(--brand-soft); }
 html:not([data-theme="dark"]) .study-ui .jbl-empty { background:#fff; border-color:#cbd5e1; color:#64748b; }
 html:not([data-theme="dark"]) .study-ui .jbl-counter { color:#334155; }
 html:not([data-theme="dark"]) .study-ui :is(.jbl-bottom-nav,.jbl-inline-nav,.context-question-nav,.lecture-j-pane>.lecture-pane-head) { background:#fff; border-color:#e2e8f0; color:#0f172a; }
@@ -789,6 +787,12 @@ html[data-theme="dark"] body.study-ui { --study-surface:#000; --study-muted:#fff
 html[data-theme="dark"] .study-ui .masthead { background:#341b24; color:#fff; }
 html[data-theme="dark"] .study-ui #quick-start-root .study-app-icon { background:#1a1014; border-color:#483039; color:#edb6c5; }
 html[data-theme="dark"] .study-ui .detail-bar { --study-lecture-bg:#442331; }
+/* Explanation headings, callouts and related links share the Wiki palette. */
+.study-ui .jbl-explanation .jbl-wiki-text :is(h3,h4) { color:var(--study-accent); border-color:var(--brand-line); }
+.study-ui .jbl-explanation .jbl-wiki-text blockquote { border-left-color:var(--study-accent); background:var(--brand-soft); }
+.study-ui .jbl-explanation .jbl-related-questions a { color:var(--study-accent); }
+.study-ui .jbl-explanation .wiki-table th { color:var(--brand-ink); background:var(--brand-soft); }
+html[data-theme="dark"] .study-ui .jbl-lecture-map { color:var(--study-accent); background:var(--brand-soft); }
 /* Shared Wiki/JBL links use the wine palette in dark mode. */
 html[data-theme="dark"] .study-ui :is(.wiki-note,.jbl-wiki-text) a:not(.wiki-link-missing):not(.jbl-question-link-missing),
 html[data-theme="dark"] .study-ui :is(.wiki-link,.wiki-footnote-ref,.wiki-footnote-back,.jbl-question-link) {

@@ -437,7 +437,8 @@ html:not([data-theme="dark"]) .study-ui .jbl-prof { color:#64748b; }
 html:not([data-theme="dark"]) .study-ui .jbl-source { color:#94a3b8; }
 html:not([data-theme="dark"]) .study-ui .jbl-qid { background:#f8fafc; border-color:#e2e8f0; color:#475569; }
 html:not([data-theme="dark"]) .study-ui .jbl-favorite:not(.active):not(:hover) { background:#fff; border-color:#e2e8f0; color:#94a3b8; }
-html:not([data-theme="dark"]) .study-ui .jbl-choices { background:#f8fafc; }
+/* One shared gray surface for answer choices and their explanation. */
+html:not([data-theme="dark"]) .study-ui :is(.jbl-choices,.jbl-explanation) { background:#f8fafc; border:0; border-radius:14px; }
 html:not([data-theme="dark"]) .study-ui .jbl-choice { background:#fff; color:#0f172a; }
 html:not([data-theme="dark"]) .study-ui .jbl-choice:hover { border-color:#cbd5e1; }
 html:not([data-theme="dark"]) .study-ui .jbl-choice-num { background:#e2e8f0; color:#334155; }
@@ -448,7 +449,6 @@ html:not([data-theme="dark"]) .study-ui .jbl-choice.correct .jbl-choice-num { ba
 html:not([data-theme="dark"]) .study-ui .jbl-choice.wrong { background:#fef2f2; border-color:#fca5a5; color:#b91c1c; }
 html:not([data-theme="dark"]) .study-ui .jbl-choice.wrong .jbl-choice-num { background:#fee2e2; color:#b91c1c; }
 html:not([data-theme="dark"]) .study-ui .jbl-answer-box { background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8; }
-html:not([data-theme="dark"]) .study-ui .jbl-explanation { background:#f8fafc; border-color:#e2e8f0; }
 html:not([data-theme="dark"]) .study-ui .jbl-explanation-title { color:var(--brand-ink); }
 html:not([data-theme="dark"]) .study-ui .jbl-lecture-map { background:var(--brand-soft); color:var(--brand-ink); }
 html:not([data-theme="dark"]) .study-ui .jbl-professor-name { background:var(--brand-soft); color:var(--muted); }

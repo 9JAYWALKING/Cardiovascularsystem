@@ -31,6 +31,7 @@ html[data-theme="dark"] body.study-ui { --study-surface:#000; --study-muted:#fff
 .study-ui .global-search-form { display:none; }
 .study-ui .masthead.search-open .global-search-form { display:flex; position:absolute; top:100%; right:24px; width:min(500px,calc(100vw - 48px)); margin-top:8px; background:var(--study-surface); border:1px solid var(--study-border); box-shadow:0 8px 30px #00000018; z-index:3; }
 .study-ui .global-search-input { min-width:0; color:inherit; }
+html:not([data-theme="dark"]) .study-ui :is(.global-search-input,.global-search-dialog-input) { color:#000; caret-color:currentColor; }
 .study-center-grip::after { content:""; display:block; margin:auto; width:34px; height:3px; border-radius:4px; background:currentColor; opacity:.45; }
 /* Share the logo/settings edge across learning views; nested shells must not re-cap it. */
 .study-ui main { width:100%; max-width:none; padding:20px var(--study-edge-right) 6px var(--study-edge-left); margin:auto; }

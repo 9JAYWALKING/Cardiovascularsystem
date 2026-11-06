@@ -1981,9 +1981,9 @@
   :root[data-theme="dark"] .quick-preview {background:#160f10;color:#ddb7bf;}
   :root[data-theme="dark"] .quick-final-heading,:root[data-theme="dark"] .quick-heading h2 {color:#ddb7bf;}
 </style>
-<link rel="stylesheet" href="./study-ui.css?v=reading-system-20261105">
+<link rel="stylesheet" href="./study-ui.css?v=search-ink-20261106">
   <link rel="stylesheet" href="./wiki-image-overlays.css?v=typography-v1-20261105">
-  <link rel="stylesheet" href="./cardiovascular-atlas.css?v=reading-system-20261105">
+  <link rel="stylesheet" href="./cardiovascular-atlas.css?v=starter-20261106">
   <link rel="stylesheet" href="./kmle.css?v=reading-system-20261105">
   <link rel="stylesheet" href="./pathology-drill.css?v=reading-system-20261105">
 <!-- AI brand icon SVGs: Lobe Icons, https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/openai.svg ; https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/claude.svg
@@ -2087,7 +2087,8 @@ SOFTWARE.
 <script src="./lecture-study.js?v=pane-controls-20261105"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
-  <script src="./cardiovascular-atlas.js"></script>
+  <script src="./cardiovascular-atlas-data.js?v=starter-20261106"></script>
+  <script src="./cardiovascular-atlas.js?v=starter-20261106"></script>
   <script src="./kmle-data.js"></script>
   <script src="./kmle.js?v=gesture-tutorial-20261105"></script>
   <script src="./pathology-drill-data.js?v=stable-random-v3"></script>
@@ -4567,7 +4568,7 @@ SOFTWARE.
       noteEditingCourseId = null;
       const slotText = course.slots.map(slot => `${slot.week}주차 · ${formatDate(slot.date)}(${slot.day}) ${slot.time} · ${slot.duration}시간`).join(' / ');
     const target = document.querySelector('#detail');
-      target.innerHTML = `<div class="detail-bar">${from === 'jbl' ? '<div class="detail-return"><button class="jbl-btn jbl-btn-sub" type="button" data-detail-back>← 돌아가기</button></div>' : ''}<div class="detail-topline"><div><p class="detail-breadcrumb">${pathText(course)} · ${course.professor} 교수</p><h2>${contentTitleText(course)}</h2><p class="detail-info">${slotText}</p></div><div class="detail-course-controls" aria-label="강의 번호 이동"><button class="content-tab detail-course-nav" type="button" data-detail-previous aria-label="이전 강의" title="이전 강의" ${previousCourse ? '' : 'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button><button class="content-tab detail-course-nav" type="button" data-detail-next aria-label="다음 강의" title="다음 강의" ${nextCourse ? '' : 'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button><form class="detail-number-form" data-detail-number-form><button class="detail-number" type="button" data-detail-number-button title="강의 번호를 입력하여 이동">${contentCourseNumber(course)}</button><input class="detail-number-input" data-detail-number-input type="text" inputmode="numeric" pattern="[0-9]*" value="${course.id}" aria-label="이동할 강의 번호" autocomplete="off" hidden /></form></div></div></div><div id="content-panel" class="content-panel"></div>`;
+      target.innerHTML = `<div class="detail-bar">${['jbl','cardiovascular-atlas'].includes(from) ? '<div class="detail-return"><button class="jbl-btn jbl-btn-sub" type="button" data-detail-back>← 돌아가기</button></div>' : ''}<div class="detail-topline"><div><p class="detail-breadcrumb">${pathText(course)} · ${course.professor} 교수</p><h2>${contentTitleText(course)}</h2><p class="detail-info">${slotText}</p></div><div class="detail-course-controls" aria-label="강의 번호 이동"><button class="content-tab detail-course-nav" type="button" data-detail-previous aria-label="이전 강의" title="이전 강의" ${previousCourse ? '' : 'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button><button class="content-tab detail-course-nav" type="button" data-detail-next aria-label="다음 강의" title="다음 강의" ${nextCourse ? '' : 'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button><form class="detail-number-form" data-detail-number-form><button class="detail-number" type="button" data-detail-number-button title="강의 번호를 입력하여 이동">${contentCourseNumber(course)}</button><input class="detail-number-input" data-detail-number-input type="text" inputmode="numeric" pattern="[0-9]*" value="${course.id}" aria-label="이동할 강의 번호" autocomplete="off" hidden /></form></div></div></div><div id="content-panel" class="content-panel"></div>`;
       target.querySelector('[data-detail-back]')?.addEventListener('click', () => history.back());
       const numberForm = target.querySelector('[data-detail-number-form]');
       const numberButton = target.querySelector('[data-detail-number-button]');
@@ -6198,9 +6199,11 @@ SOFTWARE.
         window.CardiovascularKMLE.render(document.querySelector('#kmle-root'), {courses, bindImages:bindContentImages}, kmleRoute[1]?.toUpperCase());
         return;
       }
-      if (hash === '#cardiovascular-atlas') {
-        window.CardiovascularAtlas.render(document.querySelector('#cardiovascular-atlas-root'), {notes:lectureNoteSources, courses});
-        return showView('cardiovascular-atlas', false);
+      const atlasRoute = hash.match(/^#cardiovascular-atlas(?:\/([a-z0-9-]+))?$/);
+      if (atlasRoute) {
+        showView('cardiovascular-atlas', false, false);
+        window.CardiovascularAtlas.render(document.querySelector('#cardiovascular-atlas-root'), {courses, section:atlasRoute[1] || '', onLectureNavigation:()=>{previousView='cardiovascular-atlas';}});
+        return;
       }
       const mapRoute = hash.match(/^#map(?:-([a-z]+))?$/);
       if (mapRoute) { renderDiseaseMap(mapRoute[1]); return showView('map', false); }
@@ -6495,7 +6498,7 @@ SOFTWARE.
     routeFromHash();
 </script>
 <script src="./study-ui.js?v=quick-no-limit-20261105"></script>
-<script src="./study-responsive.js?v=pharmacology-jbl-20261106"></script>
+<script src="./study-responsive.js?v=starter-20261106"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>
 <script src="./resp-exam-bridge.js"></script>

@@ -1,182 +1,182 @@
-/* Independent KMLE learning bank. Never writes to J records. */
+/* Clinical KMLE practice. J answers and progress are never read or overwritten. */
 (() => {
   'use strict';
   const data = window.CARDIOVASCULAR_KMLE_DATA;
-  const KEY = 'cardiovascular-kmle-progress-v1';
+  const KEY = 'cardiovascular-kmle2025-clinical-progress-v1';
+  const SESSION_KEY = 'cardiovascular-kmle2025-clinical-session-v1';
+  const FILTER_KEY = 'cardiovascular-kmle2025-clinical-filters-v1';
+  const qById = new Map(data.questions.map(q => [q.id, q]));
+  const categories = new Map(data.categories.map(c => [c.key,c]));
   let root, config, current = null, picked = [], revealed = false, explanation = false, expanded = false;
-  let records = {}, storageAvailable = true, explanationReturnY = 0, navObserver;
-  try { records = JSON.parse(localStorage.getItem(KEY) || '{}'); if (!records || Array.isArray(records) || typeof records !== 'object') records = {}; } catch (_) { records = {}; }
+  let records = {}, session = null, filters = {priority:'core',lecture:'',status:'all',search:''};
+  let storageAvailable = true, explanationReturnY = 0, navObserver;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const sourceLabel = q => q.source.replace(/\s*변형\s*$/u, '').trim();
-  const groups = new Map(data.categories.flatMap(c => c.groups.map(g => [g.key, {...g,category:c.title}])));
-  const qById = new Map(data.questions.map(q => [q.id,q]));
-  const state = q => records[q.key] || {};
-  function persist(q, patch) {
-    records[q.key] = {...state(q), ...patch, updatedAt:Date.now()};
-    try { localStorage.setItem(KEY, JSON.stringify(records)); storageAvailable = true; } catch (_) { storageAvailable = false; }
+  const safeObject = text => {try {const v=JSON.parse(text||'{}');return v&&typeof v==='object'&&!Array.isArray(v)?v:{};} catch {return {};}};
+  try {records=safeObject(localStorage.getItem(KEY));} catch {}
+  try {
+    const saved=safeObject(sessionStorage.getItem(SESSION_KEY));
+    if(Array.isArray(saved.ids)&&saved.ids.length)session={...saved,ids:[...new Set(saved.ids.filter(id=>qById.has(id)))]};
+    const f=safeObject(sessionStorage.getItem(FILTER_KEY));
+    if(['core','extra','all'].includes(f.priority))filters.priority=f.priority;
+    if(['all','unseen','wrong','favorite'].includes(f.status))filters.status=f.status;
+    filters.lecture=String(f.lecture||'');filters.search=String(f.search||'');
+  } catch {}
+  const state = q => records[q.key] && typeof records[q.key]==='object' ? records[q.key] : {};
+  const savedSelection = q => Array.isArray(state(q).selected) ? state(q).selected.filter(n=>Number.isInteger(n)&&n>=1&&n<=q.choices.length) : [];
+  function persist(q,patch) {
+    records[q.key]={...state(q),...patch,updatedAt:Date.now()};
+    try {localStorage.setItem(KEY,JSON.stringify(records));storageAvailable=true;} catch {storageAvailable=false;}
   }
+  function saveSession() {try {sessionStorage.setItem(SESSION_KEY,JSON.stringify(session));}catch {}}
   function navigate(id) {
-    if (location.hash === '#kmle' + (id ? '-'+id : '')) return;
-    location.hash = '#kmle' + (id ? '-'+id : '');
-  }
-  const courseName = id => config.courses.find(c => Number(c.id) === Number(id))?.title || `${id}강`;
-  const lectureLinks = ids => [...new Set(ids || [])].map(id => `<a href="#lecture-${id}" title="${esc(courseName(id))}">${id}강 · ${esc(courseName(id))}</a>`).join('');
-  function renderMap() {
-    navObserver?.disconnect();
-    current = null;
-    root.className = 'kmle-root';
-    root.innerHTML = `<header class="kmle-heading"><div><h1>국시 순환기계</h1><p>${data.questions.length}문항 · 유형별 K번호</p></div><button class="kmle-primary" data-k-start>K1부터 풀기 →</button></header>
-      <div class="kmle-map-tools"><input type="search" placeholder="질환·검사·출처 검색" aria-label="국시 문항 검색" data-k-search><span class="kmle-small">원문을 바탕으로 다듬은 학습용 변형 문항</span></div>
-      <div class="kmle-categories" data-k-blank></div>`;
-    const grid = root.querySelector('.kmle-categories');
-    function draw() {
-      const query = root.querySelector('[data-k-search]').value.trim().toLowerCase();
-      grid.innerHTML = data.categories.map((cat, i) => {
-        const parts = cat.groups.map(g => {
-          const qs = data.questions.filter(q => q.group===g.key && (!query || `${cat.title} ${g.title} ${q.id} ${q.question} ${q.source}`.toLowerCase().includes(query)));
-          if (!qs.length) return '';
-          return `<details class="kmle-group" ${query?'open':''}><summary>${esc(g.title)} <span>${qs.length}</span></summary><nav class="kmle-question-links">${qs.map(q=>`<a href="#kmle-${q.id}" title="${esc(sourceLabel(q))}" class="${state(q).status==='x'?'is-wrong':state(q).status==='o'?'is-right':''}">${q.id}${state(q).favorite?' ★':''}</a>`).join('')}</nav><div class="kmle-lecture-links">${lectureLinks(qs.flatMap(q=>q.tags || []))}</div></details>`;
-        }).join('');
-        return parts ? `<section class="kmle-category"><h2><span>${String(i+1).padStart(2,'0')}</span>${esc(cat.title)}</h2>${parts}</section>` : '';
-      }).join('') || '<p class="kmle-empty">검색 결과가 없습니다.</p>';
-    }
-    root.querySelector('[data-k-start]').onclick=()=>navigate('K1');
-    root.querySelector('[data-k-search]').oninput=draw;
-    // Only truly empty grid background starts the bank, never headings, links, or a drag.
-    let start;
-    grid.onpointerdown=e=>{start={x:e.clientX,y:e.clientY,time:Date.now()};};
-    grid.onclick=e=>{
-      if(e.target===grid && start && Date.now()-start.time<500 && Math.hypot(e.clientX-start.x,e.clientY-start.y)<8) navigate('K1');
-    };
-    draw();
-  }
-  function answerText(q) { return q.answers.map(a=>`${a}번 ${q.choices[a-1]}`).join(' / '); }
-  function resultFor(q) { return picked.length===q.answers.length && picked.every(a=>q.answers.includes(a)); }
-  function grade() {
-    if (!picked.length) return;
-    persist(current,{selected:[...picked],status:resultFor(current)?'o':'x',graded:true});
-    revealed=true;
-    renderQuestion(false);
-    const id=current.id;
-    window.CardiovascularQuickMode?.schedule(()=>{if(location.hash==='#kmle-'+id&&current?.id===id&&!explanation)move(1);},resultFor(current));
-  }
-  function choose(n) {
     window.CardiovascularQuickMode?.cancel();
-    if (current.answers.length>1) picked = picked.includes(n) ? picked.filter(v=>v!==n) : [...picked,n].sort((a,b)=>a-b);
-    else picked = picked.includes(n) ? [] : [n];
-    // A new attempt supersedes manual status only when it is actually graded.
-    persist(current,{selected:[...picked],graded:false});
-    revealed=false;
-    renderQuestion(false);
+    const hash='#kmle'+(id?'-'+id:'');
+    if(location.hash===hash){if(id)openQuestion(id);else renderMap();return;}
+    location.hash=hash;
   }
-  function explanationHTML(q) {
-    const g=groups.get(q.group);
-    return `<div class="kmle-explanation-body"><div class="kmle-answer">정답: ${esc(answerText(q))}</div>
-      <h3>핵심 풀이</h3><p>${esc(q.reasoning)}</p>
-      ${g.concepts.length?`<h3>함께 알아둘 개념</h3><table><tbody>${g.concepts.map(([a,b])=>`<tr><th>${esc(a)}</th><td>${esc(b)}</td></tr>`).join('')}</tbody></table>`:''}
-      <h3>선지별 해설</h3><ol>${q.choiceExplanations.map((text,i)=>`<li class="${q.answers.includes(i+1)?'kmle-correct-explanation':''}"><strong>${esc(q.choices[i])}</strong><p>${esc(text)}</p></li>`).join('')}</ol>
-      <h3>관련 강의</h3><div class="kmle-lecture-links">${lectureLinks(q.tags)}</div>
-      ${q.references?.length?`<details class="kmle-adaptation"><summary>보충 근거</summary><div class="kmle-lecture-links">${q.references.map(([title,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`).join('')}</div></details>`:''}
-      <details class="kmle-adaptation"><summary>학습용 변형 안내</summary><p>${esc(q.modification)}</p>${q.image?`<p>${esc(q.imageNote)}</p>`:'<p>사진 없이도 판단할 수 있도록 필요한 소견을 발문에 명시했다.</p>'}<p>이 문항의 채점 기준은 학습용 변형에 대한 기준이며 원시험의 공식 정답표를 재현한 것이 아니다.</p></details></div>`;
+  const courseName = id => config.courses.find(c=>Number(c.id)===Number(id))?.title||`${id}강`;
+  const lectureLinks = ids => [...new Set(ids||[])].map(id=>`<a href="#lecture-${id}">${id}강 · ${esc(courseName(id))}</a>`).join('');
+  const sourceLabel = q => `2025 KMLE · 순환기계 p.${q.source.page} · ${String(q.source.number).padStart(2,'0')}번`;
+  const statusLabel = q => ({o:'정답',x:'오답',triangle:'복습 필요'})[state(q).status]||'미풀이';
+  const tierLabel = q => q.priority==='core'?'핵심':'더 연습';
+  function filteredQuestions() {
+    const query=filters.search.trim().toLowerCase();
+    return data.questions.filter(q=>(filters.priority==='all'||q.priority===filters.priority)&&(!filters.lecture||q.tags.includes(Number(filters.lecture)))&&
+      (filters.status==='all'||filters.status==='unseen'&&!state(q).gradedAt||filters.status==='wrong'&&state(q).status==='x'||filters.status==='favorite'&&state(q).favorite)&&
+      (!query||`${q.id} ${q.question} ${q.title} ${q.choices.join(' ')} ${categories.get(q.category).title} ${sourceLabel(q)}`.toLowerCase().includes(query)));
   }
-  function renderQuestion(resetScroll=true) {
-    const q=current, i=data.questions.indexOf(q), saved=state(q);
-    const top = window.scrollY;
-    const oldScroll = root.querySelector('.kmle-explanation')?.scrollTop || 0;
-    root.className = `kmle-root kmle-question-view ${explanation?'has-explanation':''} ${expanded?'explanation-expanded':''}`;
-    root.innerHTML = `<header class="kmle-bank-heading"><button data-k-map>‹ 유형 분류</button><span>${esc(groups.get(q.group).category)}</span><span class="kmle-small">${data.questions.length}문항</span></header>
-      <div class="kmle-split">
-      <article class="kmle-question jbl-card" aria-label="${q.id} 문제">
-        <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><div class="kmle-source jbl-source">${esc(sourceLabel(q))}</div></div><div class="jbl-meta-right">
-          <button data-k-status class="study-answer-status is-${({o:'correct',triangle:'uncertain',x:'wrong'})[saved.status]||'unanswered'}" title="풀이 상태 변경" aria-label="풀이 상태 변경"><span data-study-status-symbol>${({o:'○',triangle:'△',x:'X'})[saved.status]||''}</span></button>
-          <button class="jbl-qid" data-k-number aria-label="국시 고유번호로 이동">${q.id}</button>
-          <input class="kmle-id jbl-number-input" value="${q.id}" aria-label="국시 고유번호 입력" inputmode="numeric" hidden>
-          <button data-k-favorite class="jbl-favorite ${saved.favorite?'active':''}" aria-label="즐겨찾기" aria-pressed="${!!saved.favorite}">${saved.favorite?'★':'☆'}</button>
-        </div></div><h2 class="kmle-stem jbl-title">${esc(q.question)}</h2></header>
-        <div class="kmle-question-body jbl-card-body">
-          ${q.image?`<div class="kmle-image jbl-page-block"><figure style="margin:0"><img class="jbl-page-img" data-jbl-image src="${esc(q.image)}" alt="문항의 진단 소견을 보여주는 학습용 대체 영상"><figcaption>학습용 대체 영상 · 원시험 사진 아님</figcaption></figure></div>`:''}
-          <div class="kmle-choices jbl-choices" role="group" aria-label="선지">${q.choices.map((choice,idx)=>{
-            const n=idx+1,selected=picked.includes(n),correct=q.answers.includes(n);
-            return `<button class="kmle-choice jbl-choice ${selected?'selected':''} ${revealed&&correct?'correct':''} ${revealed&&selected&&!correct?'wrong':''}" data-k-choice="${n}" aria-pressed="${selected}"><span class="jbl-choice-num">${n}</span><span>${esc(choice)}</span></button>`;
-          }).join('')}</div>
-          ${q.answers.length>1?`<div class="kmle-multiple"><span>복수선택 · ${picked.length}개 선택</span><button data-k-grade ${picked.length?'':'disabled'}>선택 답안 확인</button></div>`:''}
-          ${!storageAvailable?'<p role="alert">브라우저 저장 공간에 기록하지 못했습니다. 현재 화면에서는 계속 풀 수 있습니다.</p>':''}
-        </div>
-      </article>
-      <aside class="kmle-explanation ${explanation?'open':''}" aria-label="상세 해설" ${explanation?'':'hidden'}><header><strong>상세 해설 · ${q.id}</strong><button data-k-expand aria-label="${expanded?'분할화면으로':'해설 전체화면'}">−</button><button data-k-close aria-label="해설 닫기">×</button></header>${explanation?explanationHTML(q):''}</aside>
-      </div>
-      <nav class="kmle-bottom jbl-bottom-nav" aria-label="국시 문항 이동"><div class="jbl-bottom-inner"><div class="jbl-nav-actions"><button class="jbl-btn jbl-btn-primary jbl-nav-explanation" data-k-explanation aria-pressed="${explanation}">${explanation?'해설 닫기':'해설 보기'}</button><button class="jbl-btn jbl-btn-primary jbl-nav-answer" data-k-answer aria-pressed="${revealed}">${revealed?'정답 숨김':'정답 보기'}</button></div><div class="jbl-nav-pages"><button class="jbl-btn jbl-btn-primary jbl-nav-previous" data-k-prev ${i===0?'disabled':''}><span class="jbl-nav-arrow">← </span>이전<span class="jbl-nav-page-word"> 문제</span></button><span class="jbl-counter">${i+1} / ${data.questions.length}</span><button class="jbl-btn jbl-btn-primary jbl-nav-next" data-k-next ${i===data.questions.length-1?'disabled':''}>다음<span class="jbl-nav-page-word"> 문제</span><span class="jbl-nav-arrow"> →</span></button></div></div></nav>`;
-    root.querySelector('[data-k-map]').onclick=()=>navigate();
-    root.querySelectorAll('[data-k-choice]').forEach(el=>el.onclick=()=>{
-      choose(Number(el.dataset.kChoice));
-      if(picked.length&&(q.answers.length===1||(window.CardiovascularQuickMode?.isEnabled()&&picked.length===q.answers.length))) grade();
-    });
-    root.querySelector('[data-k-grade]')?.addEventListener('click',grade);
-    root.querySelector('[data-k-favorite]').onclick=()=>{persist(q,{favorite:!state(q).favorite});renderQuestion(false);};
-    root.querySelector('[data-k-status]').onclick=()=>{
-      const states=['','o','triangle','x'];persist(q,{status:states[(states.indexOf(state(q).status||'')+1)%states.length]});renderQuestion(false);
-    };
-    const idInput=root.querySelector('.kmle-id');
-    const idButton=root.querySelector('[data-k-number]');
-    idButton.onclick=()=>{idButton.hidden=true;idInput.hidden=false;idInput.focus();idInput.select();};
-    function jump() {
-      const n=Number(idInput.value.replace(/^k/i,'').trim());
-      if(Number.isInteger(n)&&qById.has('K'+n)) navigate('K'+n);else idInput.value=q.id;
-      idInput.hidden=true;idButton.hidden=false;
+  function startSession(qs,short=false,label='선택한 문항') {
+    if(!qs.length)return;
+    let list=[...qs];
+    if(short){
+      // Mix disciplines, prefer unseen questions, then the least recently graded.
+      list.sort((a,b)=>Number(!!state(a).gradedAt)-Number(!!state(b).gradedAt)||(state(a).gradedAt||0)-(state(b).gradedAt||0));
+      const mixed=[],used=new Set();
+      for(const group of [list.filter(q=>!state(q).gradedAt),list.filter(q=>state(q).gradedAt)]){
+        for(const q of group)if(!used.has(q.category)&&mixed.length<5){mixed.push(q);used.add(q.category);}
+        for(const q of group)if(!mixed.includes(q)&&mixed.length<5)mixed.push(q);
+      }
+      list=mixed;
     }
-    idInput.onkeydown=e=>{if(e.key==='Enter'){jump();idInput.blur();}if(e.key==='Escape'){idInput.value=q.id;idInput.blur();}};
-    idInput.onblur=jump;
-    root.querySelector('[data-k-answer]').onclick=()=>{
-      if(!revealed&&picked.length)grade();else{revealed=!revealed;renderQuestion(false);}
-    };
+    session={ids:list.map(q=>q.id),label:short?`${list.length}문항 연습`:label,short};saveSession();navigate(list[0].id);
+  }
+  function renderMap() {
+    navObserver?.disconnect();current=null;window.CardiovascularQuickMode?.cancel();
+    root.className='kmle-root';
+    const answered=data.questions.filter(q=>state(q).gradedAt).length;
+    const coreDone=data.questions.filter(q=>q.priority==='core'&&state(q).gradedAt).length;
+    const lectureIds=[...new Set(data.questions.flatMap(q=>q.tags))].sort((a,b)=>a-b);
+    root.innerHTML=`<header class="kmle-heading"><span class="kmle-eyebrow">짧게 풀고, 판단을 넓히기</span><h1>국시 순환기계</h1><p>족보와 이어지는 문제, 한 걸음 더 생각하게 하는 임상 증례.</p>
+      <div class="kmle-progress"><span>핵심 <b>${coreDone} / 30</b></span><span>전체 <b>${answered} / 40</b></span><progress value="${coreDone}" max="30" aria-label="핵심 문항 풀이 진행"></progress></div></header>
+      <div class="kmle-map-tools"><div class="kmle-priority" role="group" aria-label="연습 분량">${[['core','핵심 30'],['extra','더 연습 10'],['all','전체 40']].map(([v,t])=>`<button data-k-tier="${v}" aria-pressed="${filters.priority===v}">${t}</button>`).join('')}</div>
+      <div class="kmle-filters"><label>강의<select data-k-lecture><option value="">전체 임상 강의</option>${lectureIds.map(id=>`<option value="${id}" ${String(id)===filters.lecture?'selected':''}>${id}강 · ${esc(courseName(id))}</option>`).join('')}</select></label>
+      <label>풀이 상태<select data-k-filter>${[['all','전체'],['unseen','아직 안 푼 문항'],['wrong','틀린 문항'],['favorite','즐겨찾기']].map(([v,t])=>`<option value="${v}" ${filters.status===v?'selected':''}>${t}</option>`).join('')}</select></label>
+      <label>찾기<input type="search" data-k-search placeholder="증상·질환·K번호" value="${esc(filters.search)}"></label></div></div>
+      <div class="kmle-start"><button class="kmle-primary" data-k-five>5문항만 풀기 <span aria-hidden="true">→</span></button><button data-k-all>선택 범위 풀기</button><span data-k-count aria-live="polite"></span></div>
+      <div class="kmle-categories"></div>
+      <details class="kmle-policy"><summary>어떤 기준으로 골랐나요?</summary><p>핵심 30문항을 먼저, 여유가 있으면 추가 10문항을 풀어 보자. 족보와 같은 핵심 판단을 확인하는 연결 문항 11개, 다른 조건·검사·처치를 연습하는 확장 문항 29개를 골랐어.</p><ul>${data.selectionPolicy.rules.map(t=>`<li>${esc(t)}</li>`).join('')}</ul><p>해설은 교재 해당 문항의 해설을 바탕으로 짧게 정리하고 필요한 부분을 보완했어. 선정 이유와 관련 J는 해설을 열면 볼 수 있어.</p><p class="kmle-small">강의 연결은 현재 족보의 분류와 강의명을 기준으로 했어. 임상 강의록 확인 전의 주제 연결이야. KMLE 풀이 기록은 J 기록과 별도로 저장돼.</p></details>`;
+    function draw() {
+      const qs=filteredQuestions();
+      root.querySelector('[data-k-count]').textContent=`${qs.length}문항 선택됨`;
+      root.querySelector('[data-k-five]').disabled=!qs.length;root.querySelector('[data-k-all]').disabled=!qs.length;
+      root.querySelector('.kmle-categories').innerHTML=data.categories.map((cat,i)=>{
+        const items=qs.filter(q=>q.category===cat.key);if(!items.length)return '';
+        const done=items.filter(q=>state(q).gradedAt).length;
+        return `<section class="kmle-category"><div class="kmle-category-title"><span class="kmle-category-index">${String(i+1).padStart(2,'0')}</span><h2>${esc(cat.title)}</h2></div><p>${esc(cat.description)}</p><div class="kmle-category-foot"><span>${done} / ${items.length} 풀이</span><button data-k-category="${cat.key}">이 파트 풀기 →</button></div><details class="kmle-question-list"><summary>문항 번호 보기</summary><nav>${items.map(q=>`<a href="#kmle-${q.id}" data-k-direct="${q.id}" aria-label="${q.id}, ${tierLabel(q)}, ${statusLabel(q)}${state(q).favorite?', 즐겨찾기':''}" class="${state(q).gradedAt?'is-solved':''}">${q.id}<span>${state(q).favorite?'☆':({o:'○',x:'×',triangle:'△'})[state(q).status]||'·'}</span></a>`).join('')}</nav></details></section>`;
+      }).join('')||'<div class="kmle-empty"><p>조건에 맞는 문항이 없어.</p><button data-k-reset>필터 초기화</button></div>';
+      root.querySelectorAll('[data-k-category]').forEach(b=>b.onclick=()=>startSession(qs.filter(q=>q.category===b.dataset.kCategory),false,categories.get(b.dataset.kCategory).title));
+      root.querySelectorAll('[data-k-direct]').forEach(a=>a.onclick=e=>{e.preventDefault();session={ids:qs.map(q=>q.id),label:'선택한 문항',short:false};saveSession();navigate(a.dataset.kDirect);});
+      root.querySelector('[data-k-reset]')?.addEventListener('click',()=>{filters={priority:'core',lecture:'',status:'all',search:''};saveFilters();renderMap();});
+    }
+    root.querySelectorAll('[data-k-tier]').forEach(b=>b.onclick=()=>{filters.priority=b.dataset.kTier;saveFilters();renderMap();});
+    root.querySelector('[data-k-lecture]').onchange=e=>{filters.lecture=e.target.value;saveFilters();draw();};
+    root.querySelector('[data-k-filter]').onchange=e=>{filters.status=e.target.value;saveFilters();draw();};
+    root.querySelector('[data-k-search]').oninput=e=>{filters.search=e.target.value;saveFilters();draw();};
+    root.querySelector('[data-k-five]').onclick=()=>startSession(filteredQuestions(),true);
+    root.querySelector('[data-k-all]').onclick=()=>startSession(filteredQuestions(),false,'선택한 문항');draw();
+  }
+  function saveFilters(){try {sessionStorage.setItem(FILTER_KEY,JSON.stringify(filters));}catch {}}
+  function answerText(q){return q.answers.map(n=>`${n}번 · ${q.choices[n-1]}`).join(' / ');}
+  function resultFor(q){return picked.length===q.answers.length&&picked.every(n=>q.answers.includes(n));}
+  function grade(){if(picked.length)persist(current,{selected:[...picked],status:resultFor(current)?'o':'x',gradedAt:Date.now()});revealed=true;}
+  function choose(n){
+    window.CardiovascularQuickMode?.cancel();
+    picked=picked.includes(n)?[]:[n];revealed=false;explanation=false;expanded=false;
+    if(window.CardiovascularQuickMode?.isEnabled()&&picked.length){
+      grade();const id=current.id;const right=resultFor(current);renderQuestion(false);
+      window.CardiovascularQuickMode?.schedule(()=>{if(current?.id===id&&location.hash==='#kmle-'+id&&!explanation)move(1);},right);
+    }else renderQuestion(false);
+  }
+  function explanationHTML(q){
+    const last=savedSelection(q);
+    return `<div class="kmle-explanation-body"><div class="kmle-explanation-tags"><span>${tierLabel(q)}</span><span>${q.selection==='connection'?'족보 연결':'임상 확장'}</span></div><h2>${esc(q.title)}</h2><div class="kmle-answer">${esc(answerText(q))}</div>
+      ${last.length?`<p class="kmle-attempt">내 선택 ${last.join(', ')}번 · ${last.length===q.answers.length&&last.every(n=>q.answers.includes(n))?'맞혔어':'다시 확인하자'}</p>`:''}
+      <p>${esc(q.reasoning)}</p>${q.supplement?`<p class="kmle-supplement">${esc(q.supplement)}</p>`:''}
+      <section class="kmle-selection"><h3>이 문항을 고른 이유</h3><p>${esc(q.selectionReason)}</p></section>
+      <section><h3>관련 J</h3>${q.relatedJ.length?`<nav class="kmle-related-links">${q.relatedJ.map(j=>`<a href="#jbl-q-${esc(j.number)}"><strong>J${esc(j.number)}</strong><span>${esc(j.label)}</span></a>`).join('')}</nav>`:'<p class="kmle-small">직접 대응하는 임상 J를 확인하지 못했어. 아래 강의 주제로 이어서 정리하자.</p>'}</section>
+      <section><h3>관련 강의</h3><nav class="kmle-lecture-links">${lectureLinks(q.tags)}</nav></section>
+      <footer class="kmle-provenance"><p>${esc(sourceLabel(q))} 해설 기반 · 보완 정리</p>${q.references.length?`<details><summary>보완에 참고한 자료</summary><nav>${q.references.map(([t,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`).join('')}</nav></details>`:''}</footer></div>`;
+  }
+  const expandIcon = () => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${expanded?'<path d="M9 3v6H3m12-6v6h6M9 21v-6H3m12 6v-6h6"/>':'<path d="M9 3H3v6m12-6h6v6M3 15v6h6m6 0h6v-6"/>'}</svg>`;
+  const closeIcon = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
+  function activeIds(){return session?.ids?.includes(current?.id)?session.ids:data.questions.map(q=>q.id);}
+  function renderQuestion(resetScroll=true){
+    const q=current,ids=activeIds(),index=ids.indexOf(q.id),saved=state(q),top=window.scrollY;
+    const oldScroll=root.querySelector('.kmle-explanation')?.scrollTop||0;
+    root.className=`kmle-root kmle-question-view ${explanation?'has-explanation':''} ${expanded?'explanation-expanded':''}`;
+    root.innerHTML=`<header class="kmle-bank-heading"><button data-k-map>‹ 문항 목록</button><span>${esc(session?.label||'임상 증례')}</span><span class="kmle-small">${index+1} / ${ids.length}</span></header>
+      <div class="kmle-split"><article class="kmle-question jbl-card" aria-label="${q.id} 문제"><header class="jbl-card-head"><div class="jbl-meta"><span class="kmle-source">${esc(sourceLabel(q))}</span><div class="jbl-meta-right"><button data-k-status class="study-answer-status is-${({o:'correct',x:'wrong',triangle:'uncertain'})[saved.status]||'unanswered'}" aria-label="풀이 상태: ${statusLabel(q)}. 변경하기"><span data-study-status-symbol>${({o:'○',x:'×',triangle:'△'})[saved.status]||''}</span></button><span class="jbl-qid">${q.id}</span><button data-k-favorite class="jbl-favorite ${saved.favorite?'active':''}" aria-label="${saved.favorite?'즐겨찾기 해제':'즐겨찾기 추가'}" aria-pressed="${!!saved.favorite}">${saved.favorite?'★':'☆'}</button></div></div></header>
+      <div class="kmle-question-body jbl-card-body"><p class="kmle-stem">${esc(q.question)}</p>${q.findings.length?`<ul class="kmle-findings">${q.findings.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:''}
+      ${q.images.map(im=>`<figure class="kmle-image"><img data-jbl-image src="${esc(im.src)}" width="${im.width}" height="${im.height}" alt="${esc(im.alt)}"><figcaption>교재 제시 그림 · 눌러서 확대</figcaption></figure>`).join('')}
+      <div class="kmle-choices jbl-choices" role="group" aria-label="선지">${q.choices.map((t,i)=>{const n=i+1,sel=picked.includes(n),correct=q.answers.includes(n);return `<button data-k-choice="${n}" class="kmle-choice jbl-choice ${sel?'selected':''} ${revealed&&correct?'correct':''} ${revealed&&sel&&!correct?'wrong':''}" aria-pressed="${sel}"><span class="jbl-choice-num">${n}</span><span>${esc(t)}</span>${revealed&&correct?'<span class="kmle-result-word">정답</span>':''}</button>`;}).join('')}</div>
+      <details class="kmle-original"><summary>교재 원문 확인</summary><img data-jbl-image loading="lazy" src="${esc(q.sourceImage)}" alt="${q.id} 교재 원문 발문과 선지"><p>교재의 문항·그림·선지 순서를 유지했어. ${esc(sourceLabel(q))}</p></details>
+      ${!storageAvailable?'<p role="alert" class="kmle-small">현재 브라우저에 풀이 기록을 저장하지 못했어.</p>':''}</div></article>
+      <aside class="kmle-explanation" aria-label="${q.id} 해설" ${explanation?'':'hidden'}><header><strong>${q.id} 해설</strong><button data-k-expand class="kmle-icon-button" aria-label="${expanded?'해설 축소':'해설 확대'}">${expandIcon()}</button><button data-k-close class="kmle-icon-button" aria-label="해설 닫기">${closeIcon}</button></header>${explanation?explanationHTML(q):''}</aside></div>
+      <nav class="kmle-bottom" aria-label="국시 문항 이동"><div class="kmle-bottom-inner"><div><button data-k-explanation aria-pressed="${explanation}">${explanation?'해설 닫기':'해설 보기'}</button><button data-k-answer aria-pressed="${revealed}">${revealed?'정답 숨김':'정답 보기'}</button></div><div><button data-k-prev ${index===0?'disabled':''}>이전</button><span>${index+1} / ${ids.length}</span><button data-k-next>${index===ids.length-1?'마무리':'다음'}</button></div></div></nav>`;
+    root.querySelector('[data-k-map]').onclick=()=>navigate();
+    root.querySelectorAll('[data-k-choice]').forEach(b=>b.onclick=()=>choose(Number(b.dataset.kChoice)));
+    root.querySelector('[data-k-favorite]').onclick=()=>{persist(q,{favorite:!state(q).favorite});renderQuestion(false);};
+    root.querySelector('[data-k-status]').onclick=()=>{const states=['','o','triangle','x'];persist(q,{status:states[(states.indexOf(state(q).status||'')+1)%states.length]});renderQuestion(false);};
+    root.querySelector('[data-k-answer]').onclick=()=>{window.CardiovascularQuickMode?.cancel();if(revealed){if(explanation){closeExplanation();return;}revealed=false;picked=[];}else {if(picked.length)grade();else {picked=savedSelection(q);revealed=true;}}renderQuestion(false);};
     root.querySelector('[data-k-explanation]').onclick=toggleExplanation;
     root.querySelector('[data-k-close]').onclick=closeExplanation;
-    root.querySelector('[data-k-expand]').onclick=()=>{expanded=!expanded;renderQuestion(false);};
-    root.querySelector('.kmle-explanation header').ondblclick=e=>{
-      if(e.target.closest('button'))return;expanded=!expanded;renderQuestion(false);
-    };
-    root.querySelector('[data-k-prev]').onclick=()=>move(-1);
-    root.querySelector('[data-k-next]').onclick=()=>move(1);
+    root.querySelector('[data-k-expand]').onclick=()=>{expanded=!expanded;renderQuestion(false);root.querySelector('[data-k-expand]')?.focus({preventScroll:true});};
+    root.querySelector('[data-k-prev]').onclick=()=>move(-1);root.querySelector('[data-k-next]').onclick=()=>move(1);
     config.bindImages?.(root);
-    navObserver?.disconnect();
-    navObserver=new ResizeObserver(entries=>{
-      const height=entries[0].target.getBoundingClientRect().height;
-      if(height)root.style.setProperty('--k-nav-height',height+'px');
-    });
-    navObserver.observe(root.querySelector('.kmle-bottom'));
-    if(!resetScroll){
-      window.scrollTo({top,behavior:'instant'});
-      const pane=root.querySelector('.kmle-explanation');if(pane)pane.scrollTop=oldScroll;
-    }
+    navObserver?.disconnect();navObserver=new ResizeObserver(entries=>{const h=entries[0].target.getBoundingClientRect().height;if(h)root.style.setProperty('--k-nav-height',h+'px');});navObserver.observe(root.querySelector('.kmle-bottom'));
+    if(resetScroll)window.scrollTo({top:0,behavior:'instant'});else {window.scrollTo({top,behavior:'instant'});const pane=root.querySelector('.kmle-explanation');if(pane)pane.scrollTop=oldScroll;}
   }
-  function move(delta) {
-    if(!current)return;
-    const q=data.questions[data.questions.indexOf(current)+delta];if(q)navigate(q.id);
+  function move(delta){if(!current)return;const ids=activeIds(),i=ids.indexOf(current.id)+delta;if(i>=ids.length){renderSummary(ids);return;}if(i>=0)navigate(ids[i]);}
+  function renderSummary(ids){
+    window.CardiovascularQuickMode?.cancel();navObserver?.disconnect();current=null;
+    history.replaceState(history.state,'','#kmle');
+    const qs=ids.map(id=>qById.get(id)),done=qs.filter(q=>state(q).gradedAt),right=done.filter(q=>state(q).status==='o'),wrong=done.filter(q=>state(q).status==='x');
+    root.className='kmle-root';root.innerHTML=`<section class="kmle-session-end"><span class="kmle-eyebrow">이 범위의 풀이 기록</span><h1>여기까지 잘 마쳤어.</h1><p>${qs.length}문항 중 ${done.length}문항 채점 · 정답 ${right.length} · 오답 ${wrong.length}</p><p class="kmle-small">각 문항의 최근 풀이 기록이야. 선지를 고르지 않고 정답만 확인한 문항은 채점되지 않아.</p><div><button class="kmle-primary" data-k-map>문항 목록</button>${wrong.length?'<button data-k-retry>틀린 문항 다시 풀기</button>':''}<button data-k-next-five ${filteredQuestions().length?'':'disabled'}>다음 5문항</button></div></section>`;
+    root.querySelector('[data-k-map]').onclick=renderMap;
+    root.querySelector('[data-k-retry]')?.addEventListener('click',()=>startSession(wrong,false,'오답 복습'));
+    root.querySelector('[data-k-next-five]').onclick=()=>{const pool=filteredQuestions(),fresh=pool.filter(q=>!ids.includes(q.id));startSession(fresh.length?fresh:pool,true);};window.scrollTo({top:0,behavior:'instant'});
   }
-  function toggleExplanation() {
-    if(explanation)return closeExplanation();
+  function toggleExplanation(){
+    window.CardiovascularQuickMode?.cancel();if(explanation)return closeExplanation();
     explanationReturnY=window.scrollY;
-    explanation=true;
-    if(picked.length&&!revealed)persist(current,{selected:[...picked],status:resultFor(current)?'o':'x',graded:true});
-    revealed=true;renderQuestion(false);
-    if(matchMedia('(max-width:760px)').matches)root.querySelector('.kmle-explanation').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    if(picked.length&&!revealed)grade();else {picked=savedSelection(current);revealed=true;}
+    explanation=true;renderQuestion(false);
+    if(matchMedia('(max-width:900px)').matches)root.querySelector('.kmle-explanation').scrollIntoView({block:'start',behavior:'instant'});
   }
-  function closeExplanation() {
-    const pane=root.querySelector('.kmle-explanation');
-    if(!explanation)return;
-    const closingId=current?.id;
-    pane?.classList.add('closing');
-    setTimeout(()=>{
-      if(current?.id!==closingId)return;
-      explanation=false;expanded=false;renderQuestion(false);
-      if(matchMedia('(max-width:760px)').matches)window.scrollTo({top:explanationReturnY,behavior:'instant'});
-    },matchMedia('(prefers-reduced-motion: reduce)').matches?0:160);
+  function closeExplanation(){
+    if(!explanation)return;explanation=false;expanded=false;revealed=false;picked=[];renderQuestion(false);
+    window.scrollTo({top:explanationReturnY,behavior:'instant'});root.querySelector('[data-k-explanation]')?.focus({preventScroll:true});
   }
+  function openQuestion(id){
+    current=qById.get(id);if(!current){renderMap();return;}
+    explanation=false;expanded=false;revealed=false;picked=[];renderQuestion();
+  }
+  // Shared gesture handlers are appended by the integration script.
   const gesturesEnabled=()=>window.CardiovascularGestures?.isEnabled?.()!==false;
   // Delegate once: the question is rerendered on selection, while the reading
   // surface includes the empty page below it. Keep explanation/UI controls out.
   (()=>{
-    const swipe=window.CardiovascularSwipe;
+    const swipe=window.CardiovascularSwipe; if(!swipe)return;
     const excluded='button,a,input,img,select,textarea,label,summary,[role="button"],[contenteditable],nav,table,pre,video,canvas,iframe,.kmle-bank-heading,.kmle-explanation,.masthead';
     let clearTimer=null,gesture=null,lastTap=null,suppressUntil=0,touchDoubleUntil=0,mouseDown=null;
     const cancelClear=()=>{clearTimeout(clearTimer);clearTimer=null;};
@@ -202,7 +202,7 @@
         if(current!==question||root!==container||!root.isConnected||!location.hash.startsWith('#kmle-K'))return;
         picked=[];revealed=false;
         // Clear the selection, not the last graded O/X record or favorite.
-        persist(current,{selected:[],graded:false});renderQuestion(false);
+        renderQuestion(false);
       },500);
     }
     document.addEventListener('pointerdown',e=>{
@@ -264,28 +264,25 @@
     if(e.key==='ArrowRight'){e.preventDefault();move(1);}
     if(e.key==='Escape'&&explanation)closeExplanation();
   });
+
   window.addEventListener('storage',e=>{
-    if(e.key!==KEY)return;
-    try{records=JSON.parse(e.newValue||'{}');}catch(_){return;}
+    if(e.key!==KEY)return;records=safeObject(e.newValue);
     if(!root||!location.hash.startsWith('#kmle'))return;
-    if(current){picked=[...(state(current).selected||[])];renderQuestion(false);}else renderMap();
+    if(current){if(explanation)picked=savedSelection(current);renderQuestion(false);}else renderMap();
   });
   window.CardiovascularKMLE={
     timedQuestion(){
       if(!/^#kmle-K\d+$/.test(location.hash)||!current)return null;
       const q=current;
-      return {key:'kmle|'+q.id,paused:explanation,
-        reveal:()=>{if(current!==q)return;revealed=true;renderQuestion(false);},
+      return {key:'kmle2025|'+q.id,paused:explanation,
+        reveal:()=>{if(current!==q)return;grade();renderQuestion(false);},
         next:()=>{if(current===q)move(1);}};
     },
     render(container,options,id){
       root=container;config=options;
-      if(!data.questions.length){current=null;root.innerHTML='<div class="personal-note-empty">등록된 국시 문항이 없습니다.</div>';return;}
-      explanation=false;expanded=false;revealed=false;
       if(!id){renderMap();return;}
-      current=qById.get(id)||data.questions[0];
-      picked=[...(state(current).selected||[])];
-      renderQuestion();
+      if(session&&!session.ids.includes(id)){session=null;saveSession();}
+      openQuestion(id);
     }
   };
 })();

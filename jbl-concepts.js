@@ -671,7 +671,7 @@ window.JBL_CONCEPTS = {
             "교감신경 억제제의 대표 β 차단제",
             "Nitrate는 preload와 연결한다"
           ],
-          "source": "@pharmcard diuretic | 최종지도 1 · 이뇨제 | '''Spironolactone· Eplerenone / Amiloride· Triamterene → K⁺ 보존'''\n\n||= 약물 묶음 ||= 표적· K⁺ 방향 ||\n|| '''Thiazide · Furosemide(Loop)''' || Na⁺·물 배출 ↑ · '''K⁺ 소실''' ||\n|| '''Spironolactone· Eplerenone''' || Aldosterone 수용체 차단(MRA) · '''K⁺ 보존''' ||\n|| '''Amiloride· Triamterene''' || ENaC 차단 · '''K⁺ 보존''' ||\n\n'''Spironolactone → 고K⁺·여성형유방.''' 저K⁺가 생긴 이뇨제에서 바꾸는 반복 흐름이다.\n\n'''함께 나온 이름''' Esmolol = β₁ 선택·초단시간 / Propranolol = β₁·β₂ 차단 / Nitroglycerin = NO–cGMP·정맥 이완· preload ↓"
+          "source": "@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Spironolactone· Eplerenone / Amiloride· Triamterene → K⁺ 보존'''\n\n||= 약물 묶음 ||= 표적· K⁺ 방향 ||\n|| '''Thiazide · Furosemide(Loop)''' || Na⁺·물 배출 ↑ · '''K⁺ 소실''' ||\n|| '''Spironolactone· Eplerenone''' || Aldosterone 수용체 차단(MRA) · '''K⁺ 보존''' ||\n|| '''Amiloride· Triamterene''' || ENaC 차단 · '''K⁺ 보존''' ||\n\n'''Spironolactone → 고K⁺·여성형유방.''' 저K⁺가 생긴 이뇨제에서 바꾸는 반복 흐름이다.\n\n'''함께 나온 이름''' Esmolol = β₁ 선택·초단시간 / Propranolol = β₁·β₂ 차단 / Nitroglycerin = NO–cGMP·정맥 이완· preload ↓"
         }
       ]
     },
@@ -694,7 +694,7 @@ window.JBL_CONCEPTS = {
             "WHY? Simvastatin을 저녁에 먹는 이유",
             "ADR은 간과 근육에 붙인다"
           ],
-          "source": "@pharmcard lipid | 최종지도 9 · Statin | '''Lovastatin· Simvastatin· Atorvastatin· Rosuvastatin → HMG-CoA reductase 억제'''\n\n@flow 간 콜레스테롤 합성·농도 ↓ | LDL 수용체 발현 ↑ | 혈중 LDL의 간 회수 ↑ → LDL ↓\n\n* '''혈중 LDL 크게 ↓ · HDL 조금 ↑ → HDL/LDL 비율 ↑'''\n* '''간 VLDL 분비 ↓'''도 함께 연결한다.\n* '''Simvastatin· Lovastatin → 저녁''' / 긴 반감기의 Atorvastatin· Rosuvastatin → 시간 제약 적음\n* '''ADR = 간·근육''' → 간효소 ↑·근병증 / Gemfibrozil 병용 시 근독성 주의\n\n> '''반복 선지: 간에서 늘어나는 것은 LDL “수용체”.''' 장 흡수 억제는 Ezetimibe· NPC1L1 자리다."
+          "source": "@pharmcard lipid | 심혈관계 지도 9 · Statin | '''Lovastatin· Simvastatin· Atorvastatin· Rosuvastatin → HMG-CoA reductase 억제'''\n\n@flow 간 콜레스테롤 합성·농도 ↓ | LDL 수용체 발현 ↑ | 혈중 LDL의 간 회수 ↑ → LDL ↓\n\n* '''혈중 LDL 크게 ↓ · HDL 조금 ↑ → HDL/LDL 비율 ↑'''\n* '''간 VLDL 분비 ↓'''도 함께 연결한다.\n* '''Simvastatin· Lovastatin → 저녁''' / 긴 반감기의 Atorvastatin· Rosuvastatin → 시간 제약 적음\n* '''ADR = 간·근육''' → 간효소 ↑·근병증 / Gemfibrozil 병용 시 근독성 주의\n\n> '''반복 선지: 간에서 늘어나는 것은 LDL “수용체”.''' 장 흡수 억제는 Ezetimibe· NPC1L1 자리다."
         },
         {
           "key": "fibrate",
@@ -706,7 +706,7 @@ window.JBL_CONCEPTS = {
             "Fibrate · PPARα → LPL → TG 분해",
             "CM·VLDL·LDL·HDL이 맡은 일"
           ],
-          "source": "@pharmcard lipid | 최종지도 10 · Fibrate | '''Gemfibrozil· Fenofibrate → PPARα 활성화 → LPL ↑ → TG ↓↓'''\n\n'''LPL'''은 혈중 '''CM· VLDL의 TG'''를 분해한다. 지방산 산화 ↑·간 VLDL 분비 ↓도 같은 방향.\n\n||= 위치 ||= 약·기전 ||\n|| '''혈중 TG 분해 ↑''' || Fibrate → '''PPARα–LPL''' ||\n|| '''지방세포 FFA 유리 ↓''' || Niacin → '''HSL 억제''' ||\n|| '''간 콜레스테롤 합성 ↓''' || Statin → '''HMG-CoA reductase 억제''' ||\n\n'''Fibrate ADR''' 담석·근병증 / Statin 병용 시 특히 '''Gemfibrozil''' 주의\n'''담즙산을 장에서 붙잡는 약'''은 Resin, '''LDL 수용체 발현 ↑'''는 Statin의 대표 연결이다."
+          "source": "@pharmcard lipid | 심혈관계 지도 10 · Fibrate | '''Gemfibrozil· Fenofibrate → PPARα 활성화 → LPL ↑ → TG ↓↓'''\n\n'''LPL'''은 혈중 '''CM· VLDL의 TG'''를 분해한다. 지방산 산화 ↑·간 VLDL 분비 ↓도 같은 방향.\n\n||= 위치 ||= 약·기전 ||\n|| '''혈중 TG 분해 ↑''' || Fibrate → '''PPARα–LPL''' ||\n|| '''지방세포 FFA 유리 ↓''' || Niacin → '''HSL 억제''' ||\n|| '''간 콜레스테롤 합성 ↓''' || Statin → '''HMG-CoA reductase 억제''' ||\n\n'''Fibrate ADR''' 담석·근병증 / Statin 병용 시 특히 '''Gemfibrozil''' 주의\n'''담즙산을 장에서 붙잡는 약'''은 Resin, '''LDL 수용체 발현 ↑'''는 Statin의 대표 연결이다."
         },
         {
           "key": "niacin",
@@ -720,7 +720,7 @@ window.JBL_CONCEPTS = {
             "Niacin · 지방세포 FFA를 줄여 VLDL을 낮춘다",
             "Niacin ADR · 홍조와 통풍을 함께"
           ],
-          "source": "@pharmcard lipid | 최종지도 11 · Niacin | '''HSL 억제 → 지방세포 FFA ↓ → 간 VLDL·혈중 LDL ↓ / HDL ↑· Lp(a) ↓'''\n\n||= 외울 부작용 ||= 연결 ||\n|| '''홍조·가려움''' || Prostaglandin 매개 → Aspirin으로 완화 ||\n|| '''요산 ↑''' || '''통풍 유발·악화''' ||\n|| '''혈당 ↑·간독성''' || 당뇨·간질환에서 주의 ||\n\n'''비교 이름''' Simvastatin = 간·근육 / Gemfibrozil = 담석·근병증 / Resin = 담즙산 결합 / Ezetimibe = NPC1L1\n\n> '''반복 기출의 통풍 단서 = Niacin.''' 23077의 ‘HDL 감소’ 복원과 달리, 강의·한장지도의 암기 방향은 '''HDL 증가'''다."
+          "source": "@pharmcard lipid | 심혈관계 지도 11 · Niacin | '''HSL 억제 → 지방세포 FFA ↓ → 간 VLDL·혈중 LDL ↓ / HDL ↑· Lp(a) ↓'''\n\n||= 외울 부작용 ||= 연결 ||\n|| '''홍조·가려움''' || Prostaglandin 매개 → Aspirin으로 완화 ||\n|| '''요산 ↑''' || '''통풍 유발·악화''' ||\n|| '''혈당 ↑·간독성''' || 당뇨·간질환에서 주의 ||\n\n'''비교 이름''' Simvastatin = 간·근육 / Gemfibrozil = 담석·근병증 / Resin = 담즙산 결합 / Ezetimibe = NPC1L1\n\n> '''반복 기출의 통풍 단서 = Niacin.''' 23077의 ‘HDL 감소’ 복원과 달리, 강의·한장지도의 암기 방향은 '''HDL 증가'''다."
         },
         {
           "key": "intestinal",
@@ -732,7 +732,7 @@ window.JBL_CONCEPTS = {
             "Resin · 담즙산을 붙잡아 대변으로",
             "Ezetimibe · NPC1L1에서 콜레스테롤 흡수 차단"
           ],
-          "source": "@pharmcard lipid | 최종지도 12 · Resin | '''Cholestyramine· Colestipol· Colesevelam → 담즙산 결합 → 대변 배설 ↑'''\n\n'''장간순환 ↓ → 간 콜레스테롤을 담즙산으로 더 사용 → LDL 수용체 ↑ → LDL ↓'''\n* '''담즙정체성 가려움 완화''' → 반복 기출의 Colestipol\n* '''변비·복부 불편 · 지용성 비타민·다른 약 흡수 ↓''' / TG 상승 주의\n\n@pharmcard lipid | 최종지도 13 · Ezetimibe | '''NPC1L1 차단 → 장 콜레스테롤 흡수 ↓ → LDL ↓'''\n\n'''같은 장, 다른 표적: Resin = 담즙산 / Ezetimibe = 콜레스테롤 운반체.'''\n나머지 이름은 '''Niacin = HDL·통풍 / Statin = 합성 억제 / Fibrate = LPL· TG'''로 돌려놓는다."
+          "source": "@pharmcard lipid | 심혈관계 지도 12 · Resin | '''Cholestyramine· Colestipol· Colesevelam → 담즙산 결합 → 대변 배설 ↑'''\n\n'''장간순환 ↓ → 간 콜레스테롤을 담즙산으로 더 사용 → LDL 수용체 ↑ → LDL ↓'''\n* '''담즙정체성 가려움 완화''' → 반복 기출의 Colestipol\n* '''변비·복부 불편 · 지용성 비타민·다른 약 흡수 ↓''' / TG 상승 주의\n\n@pharmcard lipid | 심혈관계 지도 13 · Ezetimibe | '''NPC1L1 차단 → 장 콜레스테롤 흡수 ↓ → LDL ↓'''\n\n'''같은 장, 다른 표적: Resin = 담즙산 / Ezetimibe = 콜레스테롤 운반체.'''\n나머지 이름은 '''Niacin = HDL·통풍 / Statin = 합성 억제 / Fibrate = LPL· TG'''로 돌려놓는다."
         },
         {
           "key": "pcsk9",
@@ -744,7 +744,7 @@ window.JBL_CONCEPTS = {
             "PCSK9 억제제 · LDL 수용체를 다시 쓰게 한다",
             "간 콜레스테롤이 줄면 LDL 수용체가 늘어난다"
           ],
-          "source": "@pharmcard lipid | 최종지도 14 · PCSK9 억제제 | '''Evolocumab· Alirocumab → LDL 수용체 분해 ↓·재순환 ↑ → LDL ↓'''\n\n||= 같은 LDL 감소, 다른 자리 ||= 약물 ||\n|| '''수용체 재사용 ↑''' || PCSK9 항체 · '''Evolocumab· Alirocumab''' ||\n|| '''합성 ↓ → 수용체 발현 ↑''' || Statin · Atorvastatin ||\n|| '''장 콜레스테롤 흡수 ↓''' || Ezetimibe · NPC1L1 ||\n|| '''담즙산 배설 ↑''' || Resin · Cholestyramine ||\n|| '''혈중 TG 분해 ↑''' || Fibrate · Gemfibrozil ||\n\n'''-mab 이름 두 개를 PCSK9 칸에 고정.''' Statin의 ‘발현 ↑’와 PCSK9의 ‘분해 ↓·재순환 ↑’를 이어 외운다."
+          "source": "@pharmcard lipid | 심혈관계 지도 14 · PCSK9 억제제 | '''Evolocumab· Alirocumab → LDL 수용체 분해 ↓·재순환 ↑ → LDL ↓'''\n\n||= 같은 LDL 감소, 다른 자리 ||= 약물 ||\n|| '''수용체 재사용 ↑''' || PCSK9 항체 · '''Evolocumab· Alirocumab''' ||\n|| '''합성 ↓ → 수용체 발현 ↑''' || Statin · Atorvastatin ||\n|| '''장 콜레스테롤 흡수 ↓''' || Ezetimibe · NPC1L1 ||\n|| '''담즙산 배설 ↑''' || Resin · Cholestyramine ||\n|| '''혈중 TG 분해 ↑''' || Fibrate · Gemfibrozil ||\n\n'''-mab 이름 두 개를 PCSK9 칸에 고정.''' Statin의 ‘발현 ↑’와 PCSK9의 ‘분해 ↓·재순환 ↑’를 이어 외운다."
         }
       ]
     },
@@ -764,7 +764,7 @@ window.JBL_CONCEPTS = {
             "NO → GC → cGMP를 순서대로",
             "Sildenafil은 cGMP 분해를 막는다"
           ],
-          "source": "@pharmcard nitrate | 최종지도 16 · Nitrate | '''Nitroglycerin· Isosorbide → NO → GC 활성화 → cGMP ↑ → 평활근 이완'''\n\n||= cGMP가 오르는 두 경로 ||= 이름 ||\n|| '''생성 ↑ · NO–guanylyl cyclase''' || Nitroglycerin· Isosorbide dinitrate ||\n|| '''분해 ↓ · PDE5 억제''' || Sildenafil· Tadalafil· Vardenafil ||\n\n> '''Nitrate + PDE5 억제제 → 심한 저혈압 → 병용 금기.'''\n\n'''비교 약물''' Nicorandil = K⁺ 통로 개방 + NO / Hydralazine = 직접 세동맥 이완 / Nifedipine = 혈관 L-type Ca²⁺ 차단 / Ranolazine = late Na⁺ 억제\n\n'''반복 발문의 ‘cGMP 활성화’'''는 '''NO → GC → cGMP 생성 증가'''의 순서로 기억한다."
+          "source": "@pharmcard nitrate | 심혈관계 지도 16 · Nitrate | '''Nitroglycerin· Isosorbide → NO → GC 활성화 → cGMP ↑ → 평활근 이완'''\n\n||= cGMP가 오르는 두 경로 ||= 이름 ||\n|| '''생성 ↑ · NO–guanylyl cyclase''' || Nitroglycerin· Isosorbide dinitrate ||\n|| '''분해 ↓ · PDE5 억제''' || Sildenafil· Tadalafil· Vardenafil ||\n\n> '''Nitrate + PDE5 억제제 → 심한 저혈압 → 병용 금기.'''\n\n'''비교 약물''' Nicorandil = K⁺ 통로 개방 + NO / Hydralazine = 직접 세동맥 이완 / Nifedipine = 혈관 L-type Ca²⁺ 차단 / Ranolazine = late Na⁺ 억제\n\n'''반복 발문의 ‘cGMP 활성화’'''는 '''NO → GC → cGMP 생성 증가'''의 순서로 기억한다."
         },
         {
           "key": "nitrate-load",
@@ -777,7 +777,7 @@ window.JBL_CONCEPTS = {
             "급성 발작은 설하, 이유는 1차 통과",
             "내성과 nitrate-free interval"
           ],
-          "source": "@pharmcard nitrate | 최종지도 16 · Nitrate의 주효과 | '''큰 정맥 이완 → VR· preload ↓ → 심실용적·벽장력 ↓ → 심근 O₂ 수요 ↓'''\n\n* '''큰 동맥·관상혈관도 이완''' → 관상연축 완화 / 주된 부하 변화는 '''preload ↓'''\n* '''기관지·위장관·비뇨생식기''' → 평활근 이완\n* '''NO–cGMP ↑''' → 혈소판 응집 ↓\n\n||= 사용 장면 ||= 함께 기억 ||\n|| '''급성 발작 · 설하 NTG''' || 빠른 작용 · 1차 통과 회피 ||\n|| '''지속 노출''' || 내성 → nitrate-free interval ||\n\n'''HR·수축력·벽장력이 커질수록 O₂ 수요 ↑.''' Nitrate는 벽장력을 낮추는 자리에 둔다."
+          "source": "@pharmcard nitrate | 심혈관계 지도 16 · Nitrate의 주효과 | '''큰 정맥 이완 → VR· preload ↓ → 심실용적·벽장력 ↓ → 심근 O₂ 수요 ↓'''\n\n* '''큰 동맥·관상혈관도 이완''' → 관상연축 완화 / 주된 부하 변화는 '''preload ↓'''\n* '''기관지·위장관·비뇨생식기''' → 평활근 이완\n* '''NO–cGMP ↑''' → 혈소판 응집 ↓\n\n||= 사용 장면 ||= 함께 기억 ||\n|| '''급성 발작 · 설하 NTG''' || 빠른 작용 · 1차 통과 회피 ||\n|| '''지속 노출''' || 내성 → nitrate-free interval ||\n\n'''HR·수축력·벽장력이 커질수록 O₂ 수요 ↑.''' Nitrate는 벽장력을 낮추는 자리에 둔다."
         },
         {
           "key": "reflex-rate",
@@ -793,7 +793,7 @@ window.JBL_CONCEPTS = {
             "β 차단제는 수요↓와 이완기 시간↑",
             "CCB는 DHP 혈관, Non-DHP 심장"
           ],
-          "source": "@pharmcard nitrate | 최종지도 16 → 17 · Nitrate와 β 차단제 | '''Isosorbide dinitrate· NTG → 혈압 ↓ → 압반사 → HR ↑'''\n\n||= 약물 자리 ||= 심박수 연결 ||\n|| '''Nitrate · DHP(-dipine)''' || 혈관 이완 → '''반사성 빈맥''' 가능 ||\n|| '''Propranolol''' || β₁·β₂ 차단 → HR·수축력 ↓ ||\n|| '''Verapamil· Diltiazem''' || 심장 L-type Ca²⁺ 차단 → HR· AV 전도 ↓ ||\n|| '''Clonidine / Reserpine''' || 중추 α₂ 자극 / VMAT 차단· NE 고갈 → 교감 ↓ ||\n\n'''β 차단제''' → O₂ 수요 ↓ + 이완기 관류 시간 ↑ → 운동성 협심증 / Nitrate의 반사성 빈맥도 조절\n'''Niacin'''은 지질약·홍조·통풍 자리. 22068의 미복원 선지는 반복 문항에 근거한 보강판에서 확인한다."
+          "source": "@pharmcard nitrate | 심혈관계 지도 16 → 17 · Nitrate와 β 차단제 | '''Isosorbide dinitrate· NTG → 혈압 ↓ → 압반사 → HR ↑'''\n\n||= 약물 자리 ||= 심박수 연결 ||\n|| '''Nitrate · DHP(-dipine)''' || 혈관 이완 → '''반사성 빈맥''' 가능 ||\n|| '''Propranolol''' || β₁·β₂ 차단 → HR·수축력 ↓ ||\n|| '''Verapamil· Diltiazem''' || 심장 L-type Ca²⁺ 차단 → HR· AV 전도 ↓ ||\n|| '''Clonidine / Reserpine''' || 중추 α₂ 자극 / VMAT 차단· NE 고갈 → 교감 ↓ ||\n\n'''β 차단제''' → O₂ 수요 ↓ + 이완기 관류 시간 ↑ → 운동성 협심증 / Nitrate의 반사성 빈맥도 조절\n'''Niacin'''은 지질약·홍조·통풍 자리. 22068의 미복원 선지는 반복 문항에 근거한 보강판에서 확인한다."
         },
         {
           "key": "new-angina",
@@ -805,7 +805,7 @@ window.JBL_CONCEPTS = {
             "Ranolazine은 late Na⁺, 비교표에서는 혈역학 유지",
             "Ivabradine과 Nicorandil을 다른 칸에"
           ],
-          "source": "@pharmcard nitrate | 최종지도 18 · 신규 약물 | '''Ranolazine = late Na⁺ / Ivabradine = If / Nicorandil = K⁺ 개방 + NO'''\n\n||= 약물 ||= 기전 → 기억할 효과 ||\n|| '''Ranolazine''' || late Na⁺ ↓ → NCX의 Ca²⁺ 배출 도움 → Ca²⁺ 과부하 ↓ · '''QT 연장''' ||\n|| '''Ivabradine''' || SA node If 억제 → '''HR ↓''' · 광시증 ||\n|| '''Nicorandil''' || K⁺ 통로 개방 + NO → '''preload· afterload ↓''' · 궤양 ||\n\n> '''20052의 late Na⁺· Ca²⁺ 감소 단서 = Ranolazine.''' 복원의 ‘수축력 감소’는 이 기전을 가리키며, 강의·최종지도 비교표에서는 '''HR·혈압·수축력의 큰 변화 없이''' 부담을 줄이는 약으로 둔다.\n\n'''비교''' Nitrate = preload ↓ / Propranolol· Verapamil = HR·수축력 ↓"
+          "source": "@pharmcard nitrate | 심혈관계 지도 18 · 신규 약물 | '''Ranolazine = late Na⁺ / Ivabradine = If / Nicorandil = K⁺ 개방 + NO'''\n\n||= 약물 ||= 기전 → 기억할 효과 ||\n|| '''Ranolazine''' || late Na⁺ ↓ → NCX의 Ca²⁺ 배출 도움 → Ca²⁺ 과부하 ↓ · '''QT 연장''' ||\n|| '''Ivabradine''' || SA node If 억제 → '''HR ↓''' · 광시증 ||\n|| '''Nicorandil''' || K⁺ 통로 개방 + NO → '''preload· afterload ↓''' · 궤양 ||\n\n> '''20052의 late Na⁺· Ca²⁺ 감소 단서 = Ranolazine.''' 복원의 ‘수축력 감소’는 이 기전을 가리키며, 강의·심혈관계 지도 비교표에서는 '''HR·혈압·수축력의 큰 변화 없이''' 부담을 줄이는 약으로 둔다.\n\n'''비교''' Nitrate = preload ↓ / Propranolol· Verapamil = HR·수축력 ↓"
         }
       ]
     },
@@ -826,7 +826,7 @@ window.JBL_CONCEPTS = {
             "Thiazide → Loop → K-sparing",
             "칼륨 방향과 Spironolactone의 여성형유방"
           ],
-          "source": "@pharmcard diuretic | 최종지도 1 · 이뇨제 | '''Na⁺·물 배출 ↑ → 혈량· preload ↓ / K⁺ 보존은 두 쌍'''\n\n||= 분류·이름 ||= K⁺·대표 함정 ||\n|| '''Thiazide · Furosemide(Loop)''' || '''K⁺ 소실''' → 저칼륨혈증 ||\n|| '''Spironolactone· Eplerenone''' || Aldosterone 수용체 차단(MRA) → '''K⁺ 보존''' ||\n|| '''Amiloride· Triamterene''' || ENaC 차단 → '''K⁺ 보존''' ||\n\n'''Spironolactone = 고K⁺·여성형유방.''' Eplerenone은 내분비 부작용이 더 적다.\n'''19048· 21059의 반복 흐름''' 이뇨제 후 '''저K⁺''' → K-sparing으로 변경 → 여성형유방\n\n'''부작용 짝''' 마른기침 = ACEi / 발모 = Minoxidil / 서맥 = β 차단· Non-DHP / 체액 감소 → 기립성 저혈압 가능\n'''Esmolol = β₁ 선택 / Propranolol = β₁·β₂ / NTG = NO–cGMP· preload ↓'''"
+          "source": "@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Na⁺·물 배출 ↑ → 혈량· preload ↓ / K⁺ 보존은 두 쌍'''\n\n||= 분류·이름 ||= K⁺·대표 함정 ||\n|| '''Thiazide · Furosemide(Loop)''' || '''K⁺ 소실''' → 저칼륨혈증 ||\n|| '''Spironolactone· Eplerenone''' || Aldosterone 수용체 차단(MRA) → '''K⁺ 보존''' ||\n|| '''Amiloride· Triamterene''' || ENaC 차단 → '''K⁺ 보존''' ||\n\n'''Spironolactone = 고K⁺·여성형유방.''' Eplerenone은 내분비 부작용이 더 적다.\n'''19048· 21059의 반복 흐름''' 이뇨제 후 '''저K⁺''' → K-sparing으로 변경 → 여성형유방\n\n'''부작용 짝''' 마른기침 = ACEi / 발모 = Minoxidil / 서맥 = β 차단· Non-DHP / 체액 감소 → 기립성 저혈압 가능\n'''Esmolol = β₁ 선택 / Propranolol = β₁·β₂ / NTG = NO–cGMP· preload ↓'''"
         },
         {
           "key": "raas",
@@ -844,7 +844,7 @@ window.JBL_CONCEPTS = {
             "Captopril 이후 Ang II↓·aldosterone↓·renin↑",
             "ACEi의 마른기침과 ARB의 차이"
           ],
-          "source": "@pharmcard raas | 최종지도 2 · RAAS 억제제 | '''ACEi(-pril) → Ang II ↓· aldosterone ↓· Na⁺ 재흡수 ↓ / 되먹임 감소 → renin ↑'''\n\n||= 이름 ||= 기전·부작용 ||\n|| '''Captopril· Enalapril· Lisinopril''' || ACE 억제 → bradykinin 분해 ↓ → '''마른기침·혈관부종''' ||\n|| '''Losartan· Valsartan· Candesartan''' || '''AT₁ 차단''' · bradykinin 분해에 영향 적음 ||\n\n'''공통''' 혈관 이완·부하 ↓ / 고K⁺·임신 금기\n'''기침 때문에 바꾸면 → ARB.''' 다른 -pril도 같은 기침 기전을 공유한다.\n\n'''부작용 짝''' 진정 = Methyldopa· Clonidine / 빈맥 = 직접 혈관확장제 / 첫 투여 기립성 저혈압 = α₁ 차단제 / 서맥·피로 = β 차단제\n\n'''25074의 ‘AT2’ 복원'''은 보강판에서 '''Ang II 감소'''로 읽는다."
+          "source": "@pharmcard raas | 심혈관계 지도 2 · RAAS 억제제 | '''ACEi(-pril) → Ang II ↓· aldosterone ↓· Na⁺ 재흡수 ↓ / 되먹임 감소 → renin ↑'''\n\n||= 이름 ||= 기전·부작용 ||\n|| '''Captopril· Enalapril· Lisinopril''' || ACE 억제 → bradykinin 분해 ↓ → '''마른기침·혈관부종''' ||\n|| '''Losartan· Valsartan· Candesartan''' || '''AT₁ 차단''' · bradykinin 분해에 영향 적음 ||\n\n'''공통''' 혈관 이완·부하 ↓ / 고K⁺·임신 금기\n'''기침 때문에 바꾸면 → ARB.''' 다른 -pril도 같은 기침 기전을 공유한다.\n\n'''부작용 짝''' 진정 = Methyldopa· Clonidine / 빈맥 = 직접 혈관확장제 / 첫 투여 기립성 저혈압 = α₁ 차단제 / 서맥·피로 = β 차단제\n\n'''25074의 ‘AT2’ 복원'''은 보강판에서 '''Ang II 감소'''로 읽는다."
         },
         {
           "key": "central",
@@ -859,7 +859,7 @@ window.JBL_CONCEPTS = {
             "Methyldopa·Clonidine은 중추에서",
             "교감억제제에 이뇨제를 더하는 이유"
           ],
-          "source": "@pharmcard sympathetic | 최종지도 3 · 중추 → 신경말단 | '''중추 교감 출력 ↓ / 말단 NE 저장·유리 ↓ → 혈압 ↓'''\n\n||= 자리 ||= 이름·연결 ||\n|| '''중추''' || Methyldopa → false transmitter·α₂ → '''임신성 고혈압''' ||\n|| '''중추''' || Clonidine → α₂ 자극 · 갑자기 중단하면 반동성 고혈압 ||\n|| '''신경말단''' || Guanethidine → NE 유리 ↓ / Reserpine → '''VMAT 차단· NE 고갈''' ||\n\n'''중추 약의 진정'''을 붙이고, 장기 투여의 '''Na⁺·물 저류 → 혈량 ↑'''를 이어 본다.\n\n> '''교감억제제의 체액 보상 → 이뇨제 병용.''' 반사성 빈맥을 줄이는 병용은 β 차단제 자리다.\n\n'''25075의 임신 선택 = Methyldopa.''' ACEi· ARB는 임신 금기, Atenolol은 태아 성장· Spironolactone은 항안드로겐 효과를 주의한다."
+          "source": "@pharmcard sympathetic | 심혈관계 지도 3 · 중추 → 신경말단 | '''중추 교감 출력 ↓ / 말단 NE 저장·유리 ↓ → 혈압 ↓'''\n\n||= 자리 ||= 이름·연결 ||\n|| '''중추''' || Methyldopa → false transmitter·α₂ → '''임신성 고혈압''' ||\n|| '''중추''' || Clonidine → α₂ 자극 · 갑자기 중단하면 반동성 고혈압 ||\n|| '''신경말단''' || Guanethidine → NE 유리 ↓ / Reserpine → '''VMAT 차단· NE 고갈''' ||\n\n'''중추 약의 진정'''을 붙이고, 장기 투여의 '''Na⁺·물 저류 → 혈량 ↑'''를 이어 본다.\n\n> '''교감억제제의 체액 보상 → 이뇨제 병용.''' 반사성 빈맥을 줄이는 병용은 β 차단제 자리다.\n\n'''25075의 임신 선택 = Methyldopa.''' ACEi· ARB는 임신 금기, Atenolol은 태아 성장· Spironolactone은 항안드로겐 효과를 주의한다."
         },
         {
           "key": "beta",
@@ -873,7 +873,7 @@ window.JBL_CONCEPTS = {
             "Propranolol은 β₁·β₂, 혈압 효과는 심장·renin",
             "β 차단제 이름은 다섯 묶음으로"
           ],
-          "source": "@pharmcard sympathetic | 최종지도 4 · β 차단제 | '''Propranolol = β₁·β₂ 차단 / 심장 β₁ → HR· CO ↓ / 신장 JG 세포 β₁ → renin ↓'''\n\n||= 약물 묶음 ||= 외울 차이 ||\n|| '''Propranolol· Nadolol''' || β₁·β₂ 비선택 ||\n|| '''Atenolol· Metoprolol· Bisoprolol''' || β₁ 선택 / '''Esmolol'''은 초단시간 ||\n|| '''Labetalol· Carvedilol''' || α₁ + β 차단 ||\n|| '''Pindolol· Acebutolol''' || ISA(부분 작용) ||\n\n'''박창신 반복 기출''' Propranolol의 선택성은 '''β₁·β₂''', 혈압을 낮추는 renin 경로는 '''신장 β₁ 차단'''.\n\n'''다른 수용체 자리''' α₁ 차단 → 혈관 이완·-zosin / '''β₂ 자극''' → 혈관·기관지 이완 / α₂ 자극 → NE 유리·중추 교감 ↓"
+          "source": "@pharmcard sympathetic | 심혈관계 지도 4 · β 차단제 | '''Propranolol = β₁·β₂ 차단 / 심장 β₁ → HR· CO ↓ / 신장 JG 세포 β₁ → renin ↓'''\n\n||= 약물 묶음 ||= 외울 차이 ||\n|| '''Propranolol· Nadolol''' || β₁·β₂ 비선택 ||\n|| '''Atenolol· Metoprolol· Bisoprolol''' || β₁ 선택 / '''Esmolol'''은 초단시간 ||\n|| '''Labetalol· Carvedilol''' || α₁ + β 차단 ||\n|| '''Pindolol· Acebutolol''' || ISA(부분 작용) ||\n\n'''박창신 반복 기출''' Propranolol의 선택성은 '''β₁·β₂''', 혈압을 낮추는 renin 경로는 '''신장 β₁ 차단'''.\n\n'''다른 수용체 자리''' α₁ 차단 → 혈관 이완·-zosin / '''β₂ 자극''' → 혈관·기관지 이완 / α₂ 자극 → NE 유리·중추 교감 ↓"
         },
         {
           "key": "alpha",
@@ -884,7 +884,7 @@ window.JBL_CONCEPTS = {
           "wikiSections": [
             "α₁ 차단은 Prazosin·Terazosin·Doxazosin"
           ],
-          "source": "@pharmcard sympathetic | 최종지도 5 · α₁ 차단제 | '''Prazosin· Terazosin· Doxazosin → α₁ 차단 → 혈관 이완'''\n\n'''α₂ 되먹임 보존 → 비선택적 α 차단보다 반사성 빈맥이 적다.'''\n'''ADR = first-dose 기립성 저혈압.''' 빈맥은 여전히 가능하므로 ‘덜하다’까지 한 묶음.\n\n||= 반복 선지의 이름 ||= 제자리 ||\n|| '''Methyldopa''' || 중추 α₂· false transmitter·임신 ||\n|| '''Spironolactone''' || MRA· K⁺ 보존·여성형유방 ||\n|| '''Propranolol''' || β₁·β₂·심장 + renin ↓ ||\n|| '''Captopril''' || ACE 억제· bradykinin ↑·기침 ||\n\n> '''혈관 이완 + 선택적 α₁ → -zosin 계열 세 이름을 함께 꺼낸다.'''"
+          "source": "@pharmcard sympathetic | 심혈관계 지도 5 · α₁ 차단제 | '''Prazosin· Terazosin· Doxazosin → α₁ 차단 → 혈관 이완'''\n\n'''α₂ 되먹임 보존 → 비선택적 α 차단보다 반사성 빈맥이 적다.'''\n'''ADR = first-dose 기립성 저혈압.''' 빈맥은 여전히 가능하므로 ‘덜하다’까지 한 묶음.\n\n||= 반복 선지의 이름 ||= 제자리 ||\n|| '''Methyldopa''' || 중추 α₂· false transmitter·임신 ||\n|| '''Spironolactone''' || MRA· K⁺ 보존·여성형유방 ||\n|| '''Propranolol''' || β₁·β₂·심장 + renin ↓ ||\n|| '''Captopril''' || ACE 억제· bradykinin ↑·기침 ||\n\n> '''혈관 이완 + 선택적 α₁ → -zosin 계열 세 이름을 함께 꺼낸다.'''"
         },
         {
           "key": "vasodilator",
@@ -896,7 +896,7 @@ window.JBL_CONCEPTS = {
             "Hydralazine·Minoxidil과 두 보상반응",
             "응급 약물은 시작과 지속을 짝짓기"
           ],
-          "source": "@pharmcard vasodilator | 최종지도 6 · 직접 혈관확장제 | '''세동맥 이완 → 혈압 ↓ → 반사성 빈맥 + Na⁺·물 저류'''\n\n||= 이름 ||= 표적·대표 단서 ||\n|| '''Hydralazine''' || 세동맥 이완 · 약물 유발 lupus ||\n|| '''Minoxidil''' || K⁺ 통로 개방 · '''발모·다모증''' ||\n|| '''Nitroprusside''' || NO·동맥 + 정맥 · 즉시 작용·짧은 지속 ||\n|| '''Fenoldopam''' || D₁ 작용 · 신혈관 이완· Na⁺ 배설 ↑ ||\n\n'''빈맥 → β 차단제 / Na⁺·물 저류 → 이뇨제'''를 병용하는 이유다.\n\n> '''23072 보강판의 ‘직접 세동맥 확장’ → Minoxidil.''' Prazosin도 빈맥이 가능하다. Propranolol은 HR ↓, Captopril· Losartan은 RAAS 억제 자리."
+          "source": "@pharmcard vasodilator | 심혈관계 지도 6 · 직접 혈관확장제 | '''세동맥 이완 → 혈압 ↓ → 반사성 빈맥 + Na⁺·물 저류'''\n\n||= 이름 ||= 표적·대표 단서 ||\n|| '''Hydralazine''' || 세동맥 이완 · 약물 유발 lupus ||\n|| '''Minoxidil''' || K⁺ 통로 개방 · '''발모·다모증''' ||\n|| '''Nitroprusside''' || NO·동맥 + 정맥 · 즉시 작용·짧은 지속 ||\n|| '''Fenoldopam''' || D₁ 작용 · 신혈관 이완· Na⁺ 배설 ↑ ||\n\n'''빈맥 → β 차단제 / Na⁺·물 저류 → 이뇨제'''를 병용하는 이유다.\n\n> '''23072 보강판의 ‘직접 세동맥 확장’ → Minoxidil.''' Prazosin도 빈맥이 가능하다. Propranolol은 HR ↓, Captopril· Losartan은 RAAS 억제 자리."
         },
         {
           "key": "ccb",
@@ -909,7 +909,7 @@ window.JBL_CONCEPTS = {
             "-dipine은 혈관, Verapamil·Diltiazem은 심장",
             "CCB의 빈맥은 혈관, 서맥은 심장부터"
           ],
-          "source": "@pharmcard ccb | 최종지도 7 · L-type Ca²⁺ 차단 | '''DHP(-dipine) → 혈관 / Verapamil· Diltiazem → 심장'''\n\n||= 이름 ||= 효과·함정 ||\n|| '''Nifedipine· Amlodipine''' || 세동맥 이완· afterload ↓ → '''반사성 빈맥''' 가능 ||\n|| '''Verapamil· Diltiazem''' || HR· AV 전도·수축력 ↓ → '''서맥·전도 차단''' 주의 ||\n\n'''20050의 병용''' 혈관 이완 A(DHP) → 빈맥 → '''B(β 차단제)'''로 조절\n'''Non-DHP + β 차단제'''는 서맥· AV block이 겹친다.\n\n'''25076 고령 단독 고혈압'''은 '''L-type 차단·말초혈관 확장'''이 출제 방향.\n다른 선택지는 '''β₁ = HR· CO· renin ↓ / ARB = AT₁ / 중추 α₂ = 교감 ↓'''로 연결한다."
+          "source": "@pharmcard ccb | 심혈관계 지도 7 · L-type Ca²⁺ 차단 | '''DHP(-dipine) → 혈관 / Verapamil· Diltiazem → 심장'''\n\n||= 이름 ||= 효과·함정 ||\n|| '''Nifedipine· Amlodipine''' || 세동맥 이완· afterload ↓ → '''반사성 빈맥''' 가능 ||\n|| '''Verapamil· Diltiazem''' || HR· AV 전도·수축력 ↓ → '''서맥·전도 차단''' 주의 ||\n\n'''20050의 병용''' 혈관 이완 A(DHP) → 빈맥 → '''B(β 차단제)'''로 조절\n'''Non-DHP + β 차단제'''는 서맥· AV block이 겹친다.\n\n'''25076 고령 단독 고혈압'''은 '''L-type 차단·말초혈관 확장'''이 출제 방향.\n다른 선택지는 '''β₁ = HR· CO· renin ↓ / ARB = AT₁ / 중추 α₂ = 교감 ↓'''로 연결한다."
         }
       ]
     },

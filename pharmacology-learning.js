@@ -14,17 +14,17 @@ function renderPharmacologyBlock(line,course,footnotes){
   }
   if(line==='@pharmmap'){
     const id=`pharm-map-${++pharmacologyMapSerial}`,first=pharmacologyMapRegions[0];
-    return `<div class="pharm-map" data-pharm-map><div class="pharm-map-label">한장정리에서 위치 잡기</div><div class="pharm-map-buttons" role="group" aria-label="약물군 위치 선택">${pharmacologyMapRegions.map((r,i)=>`<button type="button" data-pharm-region="${i}" aria-pressed="${i===0}" aria-controls="${id}-${i}">${r.name}</button>`).join('')}</div><div class="pharm-map-preview"><img src="./assets/lecture-08/${first.map}.webp" srcset="./assets/lecture-08/cardiovascular-map-final-20261106-preview.webp 2400w, ./assets/lecture-08/cardiovascular-map-final-20261106.webp 7200w" sizes="(max-width: 900px) 100vw, 880px" alt="심혈관계 약물 한장정리 최종본 · 혈압 약물은 왼쪽 네 열" data-note-image width="7200" height="5095"><span class="pharm-map-focus" data-pharm-focus aria-hidden="true" style="left:0%;top:5%;width:50%;height:93%"></span></div><div aria-live="polite" aria-atomic="true">${pharmacologyMapRegions.map((r,i)=>`<div class="pharm-map-copy" data-pharm-panel="${i}" id="${id}-${i}" ${i?'hidden':''}><span class="pharm-map-range">${r.range}</span><p>${r.text}</p>${inline(`[[#${r.heading}|이 부분 읽기 →]]`)}</div>`).join('')}</div><p class="pharm-map-help">약물군을 누르면 원본 지도에서 위치가 표시됩니다. 지도 그림을 누르면 확대해서 볼 수 있어요.</p></div>`;
+    return `<div class="pharm-map" data-pharm-map><div class="pharm-map-label">한장정리에서 위치 잡기</div><div class="pharm-map-buttons" role="group" aria-label="약물군 위치 선택">${pharmacologyMapRegions.map((r,i)=>`<button type="button" data-pharm-region="${i}" aria-pressed="${i===0}" aria-controls="${id}-${i}">${r.name}</button>`).join('')}</div><div class="pharm-map-preview"><img src="./assets/lecture-08/${first.map}.webp" srcset="./assets/lecture-08/cardiovascular-map-final-20261106-preview.webp 2400w, ./assets/lecture-08/cardiovascular-map-final-20261106.webp 7200w" sizes="(max-width: 900px) 100vw, 880px" alt="심혈관계 지도 · 혈압 약물은 왼쪽 네 열" data-note-image width="7200" height="5095"><span class="pharm-map-focus" data-pharm-focus aria-hidden="true" style="left:0%;top:5%;width:50%;height:93%"></span></div><div aria-live="polite" aria-atomic="true">${pharmacologyMapRegions.map((r,i)=>`<div class="pharm-map-copy" data-pharm-panel="${i}" id="${id}-${i}" ${i?'hidden':''}><span class="pharm-map-range">${r.range}</span><p>${r.text}</p>${inline(`[[#${r.heading}|이 부분 읽기 →]]`)}</div>`).join('')}</div><p class="pharm-map-help">약물군을 누르면 원본 지도에서 위치가 표시됩니다. 지도 그림을 누르면 확대해서 볼 수 있어요.</p></div>`;
   }
   if(line.startsWith('@pharmcard ')){
     const [tone,label,...body]=line.slice(11).split('|').map(s=>s.trim());
     const valid=['diuretic','raas','sympathetic','vasodilator','ccb','lipid','nitrate','digoxin','failure','arrhythmia'];
     const kind=valid.includes(tone)?tone:'failure';
-    const mapNumber=label.match(/^최종지도\s+(\d+)(?:[ ·.]|$)/)?.[1];
+    const mapNumber=label.match(/^(?:심혈관계 지도|최종지도)\s+(\d+)(?:[ ·.]|$)/)?.[1];
     const hfMapNumber=label.match(/^심부전·부정맥지도\s+(\d+)(?:[ ·.]|$)/)?.[1];
     const mapClass=mapNumber && Number(mapNumber)<=18 ? ` pharm-final-map-${mapNumber}`
       : hfMapNumber && Number(hfMapNumber)<=9 ? ` pharm-hf-map-${hfMapNumber}` : '';
-    return `<div class="pharm-memory pharm-${kind}${mapClass}"><div class="pharm-memory-label">${inline(label||'기억할 문장')}</div><div class="pharm-memory-text">${mapClass ? inline(body.join('|')).replace(/·/g,'·<wbr>') : inline(body.join('|'))}</div></div>`;
+    return `<div class="pharm-memory pharm-${kind}${mapClass}"><div class="pharm-memory-label">${inline((label||'기억할 문장').replace(/^최종지도/, '심혈관계 지도').replace(/^(심혈관계 지도\s+\d+)\.\s*/, '$1 · '))}</div><div class="pharm-memory-text">${mapClass ? inline(body.join('|')).replace(/·/g,'·<wbr>') : inline(body.join('|'))}</div></div>`;
   }
   return '';
 }

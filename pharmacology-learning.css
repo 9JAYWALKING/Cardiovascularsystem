@@ -48,3 +48,65 @@
 :root[data-theme="dark"] .study-ui .pharm-ccb { --pharm-accent:#a0caa7; }
 :root[data-theme="dark"] .study-ui .pharm-lipid { --pharm-accent:#d9c38c; }
 :root[data-theme="dark"] .study-ui .pharm-nitrate,:root[data-theme="dark"] .study-ui .pharm-digoxin { --pharm-accent:#e8a4af; }
+
+/* Final map panel colors are memorization cues, not interface accents. */
+.study-ui :is(.lipid-map,.angina-map,.htn-map) .pharm-map-buttons button { flex:0 1 auto; max-width:100%; }
+.study-ui .pharm-final-map-1 { --pharm-accent:#2e4fc5; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-1 { --pharm-accent:#b3c3ff; }
+.study-ui .pharm-final-map-2 { --pharm-accent:#6f40b4; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-2 { --pharm-accent:#d1b6f0; }
+.study-ui .pharm-final-map-3 { --pharm-accent:#c6511b; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-3 { --pharm-accent:#f0bd9f; }
+.study-ui .pharm-final-map-4 { --pharm-accent:#2e7e43; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-4 { --pharm-accent:#a6d6b4; }
+.study-ui .pharm-final-map-5 { --pharm-accent:#b5243e; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-5 { --pharm-accent:#efb1bd; }
+.study-ui .pharm-final-map-6 { --pharm-accent:#646f1c; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-6 { --pharm-accent:#cbd69a; }
+.study-ui .pharm-final-map-7 { --pharm-accent:#94631b; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-7 { --pharm-accent:#e6c28f; }
+.study-ui .pharm-final-map-8 { --pharm-accent:#996c10; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-8 { --pharm-accent:#e8cd91; }
+.study-ui .pharm-final-map-9 { --pharm-accent:#a3327f; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-9 { --pharm-accent:#edb2db; }
+.study-ui .pharm-final-map-10 { --pharm-accent:#10749a; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-10 { --pharm-accent:#9fd3e5; }
+.study-ui .pharm-final-map-11 { --pharm-accent:#205d3b; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-11 { --pharm-accent:#a5d5b8; }
+.study-ui .pharm-final-map-12 { --pharm-accent:#5d2b70; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-12 { --pharm-accent:#d9b9e5; }
+.study-ui .pharm-final-map-13 { --pharm-accent:#a13d11; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-13 { --pharm-accent:#edb698; }
+.study-ui .pharm-final-map-14 { --pharm-accent:#35668f; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-14 { --pharm-accent:#adcbe7; }
+.study-ui .pharm-final-map-15 { --pharm-accent:#4e7828; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-15 { --pharm-accent:#c5dca7; }
+.study-ui .pharm-final-map-16 { --pharm-accent:#6e462a; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-16 { --pharm-accent:#dfc0aa; }
+.study-ui .pharm-final-map-17 { --pharm-accent:#15786e; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-17 { --pharm-accent:#a1d8d1; }
+.study-ui .pharm-final-map-18 { --pharm-accent:#8a40b5; }
+:root[data-theme="dark"] .study-ui .pharm-final-map-18 { --pharm-accent:#d8b6ed; }
+
+/* Heart-failure/arrhythmia map: explicit category memory cues, not UI accents. */
+.study-ui .pharm-hf-map-1 { --pharm-accent:#b3263a; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-1 { --pharm-accent:#efb1bd; }
+.study-ui .pharm-hf-map-2 { --pharm-accent:#c9541d; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-2 { --pharm-accent:#f0bd9f; }
+.study-ui .pharm-hf-map-3 { --pharm-accent:#0f7f86; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-3 { --pharm-accent:#a1d8d1; }
+.study-ui .pharm-hf-map-4 { --pharm-accent:#46566e; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-4 { --pharm-accent:#c2ccd9; }
+.study-ui .pharm-hf-map-5 { --pharm-accent:#2a4cc4; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-5 { --pharm-accent:#b3c3ff; }
+.study-ui .pharm-hf-map-6 { --pharm-accent:#6a3fb8; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-6 { --pharm-accent:#d1b6f0; }
+.study-ui .pharm-hf-map-7 { --pharm-accent:#2f7d43; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-7 { --pharm-accent:#a6d6b4; }
+.study-ui .pharm-hf-map-8 { --pharm-accent:#94631b; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-8 { --pharm-accent:#e6c28f; }
+.study-ui .pharm-hf-map-9 { --pharm-accent:#a2347f; }
+:root[data-theme="dark"] .study-ui .pharm-hf-map-9 { --pharm-accent:#edb2db; }
+.study-ui .jbl-compact-card .pharm-memory { margin:.65em 0; padding:9px 12px; }
+.study-ui .jbl-compact-card .pharm-memory:first-child { margin-top:0; }
+.study-ui .jbl-compact-card .pharm-memory-label { margin-bottom:3px; }

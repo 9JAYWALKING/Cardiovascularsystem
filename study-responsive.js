@@ -53,7 +53,9 @@
         const value = row.cells[index]?.textContent.trim().replace(/\s+/g, ' ') || '';
         return Array.from(value).reduce((n, char) => n + (/[^\u0000-\u024f]/u.test(char) ? 1 : .55), 0);
       });
-      return Math.min(columns > 3 ? 7 : 6.5, Math.max(2.5, ...units)) + 1.2;
+      // Drug names need room to remain whole in the compact pharmacology cards.
+      const cap = table.closest('.jbl-compact-card')?.querySelector('.pharm-memory') ? 10 : columns > 3 ? 7 : 6.5;
+      return Math.min(cap, Math.max(2.5, ...units)) + 1.2;
     }).reduce((sum, room) => sum + room, 0);
     tables.set(table, { parent, columnRoom, stackable });
   }

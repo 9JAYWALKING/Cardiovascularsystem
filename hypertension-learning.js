@@ -1,11 +1,93 @@
 /* Lecture 11: original map order, fixed locations, qualitative mechanisms. */
-const hypertensionMapRegions=[
- {label:'0 · 혈압',heading:'BP = CO × PVR에서 약의 자리를 찾기',text:'맨 왼쪽 · 혈압의 조절 축과 약물의 자리',rect:[1.1,7.4,11.8,60]},
- {label:'1 · 이뇨제',heading:'Thiazide → Loop → K-sparing',text:'두 번째 열 위 · Thiazide → Loop → K-sparing',rect:[13.5,7.4,11.8,40]},
- {label:'2 · RAAS',heading:'-pril은 생성, -sartan은 수용체',text:'두 번째 열 아래 · ACEi → ARB → Aliskiren',rect:[13.5,47.5,11.8,39.5]},
- {label:'3 · 교감신경',heading:'중추 → 신경말단 → β → α 순서',text:'세 번째 열 · 중추 → 신경말단 → β → α',rect:[25.8,7.4,11.8,80]},
- {label:'4 · 혈관확장',heading:'Hydralazine·Minoxidil과 두 보상반응',text:'네 번째 열 위 · 경구·장기 → 비경구·단기 → 보상반응',rect:[38.2,7.4,11.8,20]},
- {label:'5 · CCB',heading:'-dipine은 혈관, Verapamil·Diltiazem은 심장',text:'네 번째 열 가운데 · DHP → Non-DHP → 환자 조건',rect:[38.2,27.6,11.8,58]}
+const hypertensionMapRegions = [
+  {
+    "label": "0 · 혈압",
+    "heading": "BP = CO × PVR에서 약의 자리를 찾기",
+    "text": "맨 왼쪽 위 · BP = CO × PVR, 네 계열의 작용 자리",
+    "rect": [
+      1.03,
+      7.28,
+      12.05,
+      44.89
+    ]
+  },
+  {
+    "label": "1 · 이뇨제",
+    "heading": "Thiazide → Loop → K-sparing",
+    "text": "두 번째 열 위 · Thiazide → Loop → K-sparing",
+    "rect": [
+      13.31,
+      7.28,
+      12.05,
+      35.51
+    ]
+  },
+  {
+    "label": "2 · RAAS",
+    "heading": "-pril은 생성, -sartan은 수용체",
+    "text": "두 번째 열 아래 · ACEi → ARB → Aliskiren",
+    "rect": [
+      13.31,
+      42.81,
+      12.05,
+      54.89
+    ]
+  },
+  {
+    "label": "3 · 중추·신경",
+    "heading": "중추 → 신경말단 → β → α 순서",
+    "text": "세 번째 열 위 · 중추 α₂ → 신경말단 NE 고갈",
+    "rect": [
+      25.59,
+      7.28,
+      12,
+      28.47
+    ]
+  },
+  {
+    "label": "4 · β 차단제",
+    "heading": "β 차단제 이름은 다섯 묶음으로",
+    "text": "세 번째 열 가운데 · 비선택 → β₁ 선택 → ISA → α+β → β₁+NO",
+    "rect": [
+      25.59,
+      35.76,
+      12,
+      33.63
+    ]
+  },
+  {
+    "label": "5 · α 차단제",
+    "heading": "α₁ 차단은 Prazosin·Terazosin·Doxazosin",
+    "text": "세 번째 열 아래 · -azosin·BPH·first-dose 기립성 저혈압",
+    "rect": [
+      25.59,
+      69.41,
+      12,
+      28.29
+    ]
+  },
+  {
+    "label": "6 · 혈관확장",
+    "heading": "Hydralazine·Minoxidil과 두 보상반응",
+    "text": "네 번째 열 위 · 경구·장기 / 비경구·단기 → 보상반응",
+    "rect": [
+      37.83,
+      7.28,
+      12.05,
+      18.85
+    ]
+  },
+  {
+    "label": "7 · CCB",
+    "heading": "-dipine은 혈관, Verapamil·Diltiazem은 심장",
+    "text": "네 번째 열 가운데 · DHP → Non-DHP",
+    "rect": [
+      37.83,
+      26.14,
+      12.05,
+      35.58
+    ]
+  }
 ];
 const hypertensionRAASStates=[
  {label:'기본 경로',active:[],title:'혈관수축 + Na⁺·물 보유',text:'Ang II는 AT₁을 통해 혈관을 수축시키고 aldosterone 분비를 늘린다. Aldosterone은 Na⁺ 재흡수·K⁺ 배설을 늘린다.',kinin:'ACE는 bradykinin을 분해한다.',memory:'생성 효소와 수용체를 먼저 구분해 보세요.'},
@@ -26,7 +108,7 @@ function renderHypertensionLearningBlock(line,course,footnotes){
  const inline=t=>renderWikiInline(t,course,footnotes);
  if(line==='@htnmap'){
   const id=`htn-map-${++hypertensionBlockSerial}`;
-  return `<div class="pharm-map htn-map" data-htn-map><div class="pharm-map-label">한장정리 왼쪽 네 열</div><div class="pharm-map-buttons" role="group" aria-label="11강 한장정리 위치">${hypertensionMapRegions.map((r,i)=>`<button type="button" data-htn-region="${i}" aria-pressed="${!i}" aria-controls="${id}-${i}">${r.label}</button>`).join('')}</div><div class="pharm-map-preview"><img src="./assets/lecture-08/cardiovascular-map.webp" width="4200" height="2972" data-note-image alt="심혈관계 약물 한장지도 원본 · 왼쪽 네 열의 고혈압 약물"><span class="pharm-map-focus" aria-hidden="true" style="left:1.1%;top:7.4%;width:11.8%;height:60%"></span></div><div aria-live="polite" aria-atomic="true">${hypertensionMapRegions.map((r,i)=>`<div class="pharm-map-copy" data-htn-panel="${i}" id="${id}-${i}" ${i?'hidden':''}><p>${r.text}</p>${inline(`[[#${r.heading}|이 부분 읽기 →]]`)}</div>`).join('')}</div><p class="pharm-map-help">번호를 누르면 원래 지도에서 위치가 표시됩니다. 그림을 누르면 확대해서 볼 수 있어요.</p></div>`;
+  return `<div class="pharm-map htn-map" data-htn-map><div class="pharm-map-label">한장정리 왼쪽 네 열</div><div class="pharm-map-buttons" role="group" aria-label="11강 한장정리 위치">${hypertensionMapRegions.map((r,i)=>`<button type="button" data-htn-region="${i}" aria-pressed="${!i}" aria-controls="${id}-${i}">${r.label}</button>`).join('')}</div><div class="pharm-map-preview"><img src="./assets/lecture-08/cardiovascular-map-final-20261106.webp" srcset="./assets/lecture-08/cardiovascular-map-final-20261106-preview.webp 2400w, ./assets/lecture-08/cardiovascular-map-final-20261106.webp 7200w" sizes="(max-width: 900px) 100vw, 880px" width="7200" height="5095" data-note-image alt="심혈관계 약물 한장지도 최종본 · 왼쪽 네 열의 고혈압 약물"><span class="pharm-map-focus" aria-hidden="true" style="left:1.03%;top:7.28%;width:12.05%;height:44.89%"></span></div><div aria-live="polite" aria-atomic="true">${hypertensionMapRegions.map((r,i)=>`<div class="pharm-map-copy" data-htn-panel="${i}" id="${id}-${i}" ${i?'hidden':''}><p>${r.text}</p>${inline(`[[#${r.heading}|이 부분 읽기 →]]`)}</div>`).join('')}</div><p class="pharm-map-help">번호를 누르면 원래 지도에서 위치가 표시됩니다. 그림을 누르면 확대해서 볼 수 있어요.</p></div>`;
  }
  if(line==='@htnraas'){
   const id=`htn-raas-${++hypertensionBlockSerial}`;
@@ -37,7 +119,7 @@ function renderHypertensionLearningBlock(line,course,footnotes){
   return `<div class="pharm-map htn-widget" data-htn-compensation><div class="pharm-map-label">왜 β 차단제와 이뇨제를 더할까?</div><div class="pharm-map-buttons" role="group" aria-label="보상반응 조절 약물"><button type="button" data-htn-add="beta" aria-pressed="false" aria-controls="${id}">β 차단제 더하기</button><button type="button" data-htn-add="diuretic" aria-pressed="false" aria-controls="${id}">이뇨제 더하기</button></div><div id="${id}" data-htn-compensation-panel aria-live="polite" aria-atomic="true">${hypertensionCompensationPanel(false,false)}</div><p class="pharm-map-help">합본 p.41·47의 보상반응. 버튼을 다시 누르면 해당 약물을 빼고 비교할 수 있어요.</p></div>`;
  }
  if(line==='@htnrecall'){
-  const cells=[['1 · Thiazide → Loop → K-sparing','HCTZ·Chlorthalidone → Furosemide → Spironolactone·Eplerenone / Amiloride·Triamterene'],['2 · ACEi → ARB → Renin','Captopril·Enalapril·Lisinopril → Losartan·Valsartan → Aliskiren'],['3-1 · 중추','Methyldopa·Clonidine'],['3-2 · 신경말단','Guanethidine·Reserpine'],['3-3 · β 차단','Propranolol / Atenolol·Metoprolol / Labetalol·Carvedilol / Nebivolol'],['3-4 · α₁ 차단','Prazosin·Terazosin·Doxazosin'],['4 · 직접 혈관확장','Hydralazine·Minoxidil / Nitroprusside·Diazoxide'],['5 · DHP → Non-DHP','Nifedipine·Amlodipine → Verapamil·Diltiazem']];
+  const cells=[['1 · Thiazide → Loop → K-sparing','HCTZ·Chlorthalidone → Furosemide → Spironolactone·Eplerenone / Amiloride·Triamterene'],['2 · ACEi → ARB → Renin','Captopril·Enalapril·Lisinopril → Losartan·Valsartan → Aliskiren'],['3 · 중추','Methyldopa·Clonidine'],['3 · 신경말단','Guanethidine·Reserpine'],['4 · β 차단','Propranolol / Atenolol·Metoprolol / Labetalol·Carvedilol / Nebivolol'],['5 · α₁ 차단','Prazosin·Terazosin·Doxazosin'],['6 · 직접 혈관확장','Hydralazine·Minoxidil / Nitroprusside·Diazoxide·Fenoldopam'],['7 · DHP → Non-DHP','Nifedipine·Amlodipine → Verapamil·Diltiazem']];
   return `<div class="pharm-recall htn-recall"><div class="pharm-recall-grid">${cells.map(([label,answer])=>`<div class="pharm-recall-cell"><strong>${label}</strong><div class="pharm-recall-slot"><span class="pharm-recall-answer" aria-hidden="true">${answer}</span><span class="pharm-recall-prompt">같은 칸의 약물명은?</span></div><button type="button" data-pharm-reveal aria-expanded="false" aria-label="${label} 약물명 확인">답 확인</button></div>`).join('')}</div></div>`;
  }
  return '';

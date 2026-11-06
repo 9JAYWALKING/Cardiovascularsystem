@@ -64,6 +64,35 @@
 .study-ui .jbl-compact-card .jbl-wiki-text li { margin-block:.3em; }
 .study-ui .jbl-concept-links { font-weight:650; }
 .study-ui .jbl-concept-links a { display:inline-flex; align-items:center; min-height:40px; }
+/* Short JBL mechanisms read top-to-bottom even in a narrow or enlarged pane. */
+.study-ui .jbl-compact-card .learning-flow {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:12px;
+  margin:14px 0!important;
+}
+.study-ui .jbl-compact-card .learning-flow li {
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:baseline;
+  gap:10px;
+  min-width:0;
+  padding:10px 14px;
+  font-size:var(--reading-body);
+  line-height:1.55;
+  overflow-wrap:anywhere;
+}
+.study-ui .jbl-compact-card .learning-flow .learning-step {
+  margin:0;
+  font-size:var(--reading-meta);
+}
+.study-ui .jbl-compact-card .learning-flow li:not(:last-child)::after {
+  display:block;
+  content:'↓';
+  inset:auto auto -16px 23px;
+  font-size:16px;
+  line-height:20px;
+}
 .study-ui .wiki-hero>p { max-width:var(--reading-width); }
 .study-ui .wiki-toc { --wiki-reading-width:var(--reading-width); }
 .study-ui .wiki-formula-equation { font-size:var(--reading-section); }

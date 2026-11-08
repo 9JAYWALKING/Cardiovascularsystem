@@ -1035,6 +1035,260 @@ window.JBL_CONCEPTS = {
           "source": "@pharmcard arrhythmia | 심부전·부정맥지도 8 · Class IV | '''Verapamil· Diltiazem = NDHP → L-type Ca²⁺ 차단 → AV 전도· HR·수축력 ↓'''\n\n||= ECG 자리 ||= 기전·약물 ||\n|| '''PR · AV node''' || Verapamil· Diltiazem → Ca²⁺ 의존 전도 ↓ ||\n|| '''QRS · 심실 전도''' || Na⁺ 차단 · Quinidine(IA)· IC ||\n|| '''QT · 심실 재분극''' || K⁺ 차단 · IA· III → APD· ERP ↑ ||\n\n'''Non-DHP = 심장 / DHP(-dipine) = 혈관.''' Verapamil의 기출 포인트는 '''AV 전도· PR 연장, QT 변화 적음'''.\n\n'''선택성''' Procainamide· Lidocaine 등 Na 차단 → 정상보다 '''탈분극 조직''' / Lidocaine = 허혈성 심실\n'''비교''' IC의 Na 차단이 IB보다 강함 / Amiodarone의 APD 연장 = K 차단 / Quinidine의 QRS = Na, QT = K"
         }
       ]
+    },
+    "14": {
+      "mode": "compact",
+      "groups": [
+        {
+          "key": "plaque",
+          "heading": "죽상판 · 내막의 판과 얇아지는 덮개",
+          "questions": [
+            "21020",
+            "20030",
+            "19030"
+          ],
+          "wikiSections": [
+            "표면의 fibrous cap과 깊은 lipid core",
+            "안정판과 취약판은 덮개를 비교한다"
+          ],
+          "source": "@pathpos plaque-outcome\n\n'''내강 → fibrous cap → necrotic lipid core → 중막'''\n\n* '''Cap''' = 평활근세포·collagen / '''Core''' = 지질·세포 잔해·혈장단백·fibrin\n* '''내막에서 시작''' → 진행하면 아래 중막·탄력판 손상 / 주변 신생혈관\n* '''군데군데·편심성''' → 부위마다 심한 정도가 다름\n* '''초기 바깥쪽 확장''' → 내강 크기를 한동안 유지\n\n> '''염증 ↑ → collagen 분해 ↑ → cap 얇아짐. 큰 core + 얇은 cap = 파열에 취약.'''\n\n'''판 파열·미란 → 혈전''' / 서서히 자란 판 → 내강 협착"
+        },
+        {
+          "key": "hypertension",
+          "heading": "고혈압 · 전신 혈관과 폐혈관을 나누기",
+          "questions": [
+            "22026",
+            "20029",
+            "19029"
+          ],
+          "wikiSections": [
+            "유리질과 양파껍질을 구분한다",
+            "대동맥박리는 혈액이 중막을 가른다"
+          ],
+          "source": "@pathpos small-artery\n\n||= 혈관의 변화 ||= 연결할 배경 ||\n|| '''Hyaline''' · 균질한 분홍색 벽 || 만성 고혈압·당뇨·고령 ||\n|| '''Hyperplastic''' · 동심성 양파껍질 || 심한 고혈압 ||\n|| '''Fibrinoid necrosis''' · 벽 괴사 || 악성 고혈압 등 심한 손상 ||\n\n'''전신 고혈압''' → 대동맥류·대동맥박리 위험 ↑ / berry aneurysm의 형성·파열 위험과 연결\n\n> '''Plexiform lesion = 폐동맥고혈압 → 폐의 작은 동맥.''' 전신 고혈압과 혈관 구역을 나눈다."
+        }
+      ]
+    },
+    "15": {
+      "mode": "compact",
+      "groups": [
+        {
+          "key": "coronary-event",
+          "heading": "협심증 · 고정 협착 / 연축 / 새 혈전",
+          "questions": [
+            "25062",
+            "23053",
+            "22028",
+            "21021"
+          ],
+          "wikiSections": [
+            "협심증은 혈관에서 생긴 사건으로 구분한다"
+          ],
+          "source": "@pathpos ischemia\n\n||= 이름 ||= 혈관에서 생긴 일 ||\n|| '''Stable = typical''' || 만성 '''고정 협착''' → 운동 시 흉통·휴식 시 호전 ||\n|| '''Prinzmetal = variant''' || '''관상동맥 연축''' → 휴식 중 흉통도 가능 ||\n|| '''Unstable = crescendo''' || '''Plaque fissure·rupture + 새 혈전''' → 흉통 악화 ||\n\n> '''급성 죽상판 변화·혈전 → unstable angina · 심근경색 · 급성심장사'''\n\n'''기존 협착 + 최근 흉통 악화 + troponin·CK-MB 정상''' → 불안정 협심증의 '''fissure with thrombosis'''\n\n'''Typical과 Prinzmetal의 대표 기전'''은 각각 고정 협착·연축으로 붙여 둔다."
+        },
+        {
+          "key": "infarct-distribution",
+          "heading": "경색 분포 · 원주형 심내막하 = 전신 저관류",
+          "questions": [
+            "25오02"
+          ],
+          "wikiSections": [
+            "심내막하부터 전층으로 퍼진다",
+            "막힌 혈관의 영역을 먼저 찾는다"
+          ],
+          "source": "@pathpos infarct-distribution\n\n> '''좌심실 안쪽을 원주형으로 두른 경색 → global hypotension'''\n\n* '''심내막하''' = 허혈에 가장 취약한 안쪽 '''1/3–1/2'''\n* '''한 관상동맥 영역의 전층''' = 급성 혈전성 폐색을 먼저 연결\n* '''산재한 작은 경색''' = 미세색전·작은 혈관 병변\n\n'''한 혈관이 막힌 영역인가, 여러 영역의 안쪽이 함께 손상됐나?''' 깊이와 분포를 같이 본다."
+        },
+        {
+          "key": "reperfusion",
+          "heading": "재관류 · 수축띠와 출혈",
+          "questions": [
+            "23054",
+            "20031"
+          ],
+          "wikiSections": [
+            "재관류 뒤 출혈과 contraction band",
+            "기능 상실에서 괴사, 흉터까지"
+          ],
+          "source": "@pathpos infarct-complication\n\n@flow 혈전용해제·PCI → 혈류 회복 | Ca²⁺ 과부하·과수축 | '''Contraction band necrosis + 출혈'''\n\n||= 시간·상황 ||= 조직에서 찾을 것 ||\n|| '''초기 경색''' || 응고괴사·호산성 증가 → 호중구 ||\n|| '''수일 뒤 · 3–7일''' || 대식세포가 제거 → 벽이 약해져 '''파열 위험''' ||\n|| '''수 주 뒤''' || 육아조직 → collagen 반흔 ||\n\n> '''재관류의 수축띠 = 근세포 안의 진한 가로 띠. HCM의 disarray = 근세포 다발의 뒤엉킨 배열.'''"
+        }
+      ]
+    },
+    "16": {
+      "mode": "compact",
+      "groups": [
+        {
+          "key": "failure-hypertrophy",
+          "heading": "비대·심부전 · 수축과 충만 구분",
+          "questions": [
+            "25061",
+            "22027",
+            "21017",
+            "19034"
+          ],
+          "wikiSections": [
+            "잘 짜내지 못하는 심장과 잘 늘어나지 않는 심장",
+            "압력은 두껍게, 용적은 길고 크게"
+          ],
+          "source": "@pathpos hypertrophy\n\n||= 기능장애 ||= 묶어 외울 질환 ||\n|| '''Systolic · 짜내는 힘 ↓''' || 만성 허혈성 손상·바이러스 심근염·DCM·진행된 심한 AS ||\n|| '''Diastolic · 충만 ↓''' || '''심한 LV 비대'''·amyloidosis·constrictive pericarditis ||\n\n'''압력 부하 · AS/고혈압''' → sarcomere '''병렬''' → 세포 단면·벽 두께 ↑\n'''용적 부하 · 역류''' → sarcomere '''직렬''' → 세포 길이·심실강 ↑\n\n'''병적 비대''' → early gene 발현·간질 섬유화 / 심근량 증가를 모세혈관 증가가 충분히 따라가지 못함\n\n> '''Massive LV hypertrophy → diastolic / Viral myocarditis → systolic.'''",
+          "wikiCourse": 15
+        },
+        {
+          "key": "congestion-cor-pulmonale",
+          "heading": "울혈·폐심장증 · 고이는 곳과 시작점",
+          "questions": [
+            "23049",
+            "23051",
+            "22025",
+            "20037"
+          ],
+          "wikiSections": [
+            "좌심부전은 폐, 우심부전은 전신정맥",
+            "폐심장증의 인과 방향"
+          ],
+          "source": "@pathpos hypertensive-heart\n\n'''좌심부전 → 폐정맥 울혈·폐포 미세출혈 → hemosiderin-laden macrophage'''\n'''갈색 객담·수포음·심비대''' → 폐포의 '''heart failure cell'''\n\n'''우심부전 → 전신정맥 울혈 → 하지부종·복수·nutmeg liver'''\n\n@flow '''COPD·반복 폐혈전색전''' | 폐혈관 저항·폐동맥압 ↑ | 우심실 비대·확장 → '''cor pulmonale'''\n\n> '''폐심장증의 출발점 = 폐·폐혈관.''' AS·전신 고혈압은 좌심실의 압력 부하 쪽에 놓는다.",
+          "wikiCourse": 15
+        },
+        {
+          "key": "aortic-stenosis",
+          "heading": "AS · 첨판 개수와 교련",
+          "questions": [
+            "23052",
+            "22023",
+            "19033"
+          ],
+          "wikiSections": [
+            "대동맥판 석회화와 이첨판"
+          ],
+          "source": "@pathpos valve-degeneration\n\n||= 사진에서 보이는 것 ||= 연결할 원인 ||\n|| '''첨판 2개 + raphe''' || 선천성 '''bicuspid aortic valve''' → 이른 석회화·AS ||\n|| '''삼첨판의 결절성 석회''' · 고령 || 퇴행성 석회화 → '''나이''' ||\n|| '''Commissural fusion''' · 승모판도 침범 || 만성 '''류마티스성 판막질환''' ||\n\n'''AS → 좌심실 압력 부하·동심성 비대 → 수축기 심잡음'''\n\n> '''같은 고령·AS 증례도 사진이 답을 가른다. 첨판 2개·raphe면 선천성, 삼첨판 석회화면 퇴행성.'''"
+        },
+        {
+          "key": "vegetation",
+          "heading": "Vegetation · 크기·위치·파괴",
+          "questions": [
+            "25057"
+          ],
+          "wikiSections": [
+            "증식물은 위치·크기·파괴 여부로 읽자"
+          ],
+          "source": "@pathpos vegetation\n\n||= 증식물 ||= 모양·배경 ||\n|| '''IE · 감염성''' || 크고 울퉁불퉁·잘 부서짐 → 판막 파괴·패혈성 색전 ||\n|| '''NBTE''' || 폐쇄선의 작은 '''무균성 혈전''' · 암·과응고 ||\n|| '''급성 류마티스''' || 폐쇄선의 작은 사마귀 · 면역성 심장염 ||\n|| '''Libman–Sacks''' || 첨판 '''양면''' · SLE ||\n\n'''반복 도식: ① IE → ② NBTE → ③ 류마티스 → ④ Libman–Sacks'''\n\n* '''급성 IE''' → 정상 판막도 파괴 / 손상·혈전 부위에는 균이 정착하기 쉬움\n* '''인공 판막''' → S. aureus·coagulase-negative staphylococci\n* '''혈류에 노출된 판막 표면''' → 승모판의 심방 쪽·대동맥판의 심실 쪽"
+        },
+        {
+          "key": "cardiomyopathy",
+          "heading": "심근병증 · 확장 / 침착 / 지방 대체",
+          "questions": [
+            "25055",
+            "23047"
+          ],
+          "wikiSections": [
+            "세 가지 형태를 먼저 놓자",
+            "DCM · 늘어난 방에서 힘이 부족하다",
+            "RCM과 ARVC · 뻣뻣한 벽, 대체된 벽"
+          ],
+          "source": "@pathpos cardiomyopathy\n\n||= 모양·기능 ||= 질환·단서 ||\n|| '''큰 방 + 약한 수축''' || '''DCM''' · 벽혈전·판륜 확장성 역류 ||\n|| '''뻣뻣한 벽 + 충만 장애''' || '''RCM''' · 대표 원인 amyloidosis ||\n|| '''얇고 확장된 우심실 + 지방·섬유 대체''' || '''ARVC''' · 반복 실신·심실부정맥 ||\n\n'''DCM 원인''' → Coxsackie B·알코올·주산기·thiamine 결핍·항암제\n\n> '''Amyloid = 세포 사이 침착 / ARVC = 심근이 지방·섬유조직으로 대체.'''\nARVC는 '''desmosome''' 이상, HCM은 '''sarcomere''' 이상과 연결한다."
+        },
+        {
+          "key": "hcm",
+          "heading": "HCM · 중격·배열·섬유화",
+          "questions": [
+            "22021",
+            "21015"
+          ],
+          "wikiSections": [
+            "HCM · 두꺼운 중격과 뒤엉킨 근세포"
+          ],
+          "source": "@pathpos cardiomyopathy\n\n'''Sarcomere 이상 → 두꺼운 심근·작은 심실강 → 이완기 충만 장애'''\n\n* '''육안''' → asymmetric septal hypertrophy · 좁은 바나나 모양 심실강\n* '''현미경''' → myofiber disarray · interstitial/replacement fibrosis\n* '''중격 내 작은 혈관''' → 벽 비후·내강 협소\n* '''중격 비대 + SAM''' → 동적 LV outflow obstruction\n\n> '''좌심실 벽혈전'''은 확장된 DCM·경색 심실류와 먼저 연결. '''HCM의 좌심방 혈전'''은 좌심방 확장·AF가 동반된 상황에 붙인다."
+        }
+      ]
+    },
+    "17": {
+      "mode": "compact",
+      "groups": [
+        {
+          "key": "hypertension",
+          "heading": "고혈압 · 전신 혈관과 폐혈관을 나누기",
+          "questions": [
+            "25060"
+          ],
+          "wikiSections": [
+            "유리질과 양파껍질을 구분한다",
+            "대동맥박리는 혈액이 중막을 가른다"
+          ],
+          "source": "@pathpos small-artery\n\n||= 혈관의 변화 ||= 연결할 배경 ||\n|| '''Hyaline''' · 균질한 분홍색 벽 || 만성 고혈압·당뇨·고령 ||\n|| '''Hyperplastic''' · 동심성 양파껍질 || 심한 고혈압 ||\n|| '''Fibrinoid necrosis''' · 벽 괴사 || 악성 고혈압 등 심한 손상 ||\n\n'''전신 고혈압''' → 대동맥류·대동맥박리 위험 ↑ / berry aneurysm의 형성·파열 위험과 연결\n\n> '''Plexiform lesion = 폐동맥고혈압 → 폐의 작은 동맥.''' 전신 고혈압과 혈관 구역을 나눈다.",
+          "wikiCourse": 14
+        },
+        {
+          "key": "vegetation",
+          "heading": "Vegetation · 크기·위치·파괴",
+          "questions": [
+            "21오10",
+            "20032",
+            "19035"
+          ],
+          "wikiSections": [
+            "증식물은 위치·크기·파괴 여부로 읽자"
+          ],
+          "source": "@pathpos vegetation\n\n||= 증식물 ||= 모양·배경 ||\n|| '''IE · 감염성''' || 크고 울퉁불퉁·잘 부서짐 → 판막 파괴·패혈성 색전 ||\n|| '''NBTE''' || 폐쇄선의 작은 '''무균성 혈전''' · 암·과응고 ||\n|| '''급성 류마티스''' || 폐쇄선의 작은 사마귀 · 면역성 심장염 ||\n|| '''Libman–Sacks''' || 첨판 '''양면''' · SLE ||\n\n'''반복 도식: ① IE → ② NBTE → ③ 류마티스 → ④ Libman–Sacks'''\n\n* '''급성 IE''' → 정상 판막도 파괴 / 손상·혈전 부위에는 균이 정착하기 쉬움\n* '''인공 판막''' → S. aureus·coagulase-negative staphylococci\n* '''혈류에 노출된 판막 표면''' → 승모판의 심방 쪽·대동맥판의 심실 쪽",
+          "wikiCourse": 16
+        },
+        {
+          "key": "vasculitis-immune",
+          "heading": "혈관염 · 면역기전과 육아종",
+          "questions": [
+            "25058",
+            "23050",
+            "22024",
+            "21018",
+            "19031",
+            "19032"
+          ],
+          "wikiSections": [
+            "크기의 지도와 면역기전의 지도",
+            "EGPA · 천식·호산구·육아종"
+          ],
+          "source": "@pathpos vasculitis\n\n||= 면역기전 ||= 같은 칸에 놓을 질환 ||\n|| '''Immune complex''' || '''IgA 혈관염(HSP)'''·SLE·HBV 관련 PAN ||\n|| '''PR3-ANCA''' || '''GPA(Wegener)''' · 코·폐·신장 ||\n|| '''MPO-ANCA''' || '''MPA''' / 일부 '''EGPA(Churg–Strauss)''' ||\n|| '''Anti-endothelial cell antibody''' || '''Kawasaki''' · 강의 분류의 연결 ||\n|| '''T세포 중심''' || GCA(temporal arteritis)·Takayasu ||\n\n'''육아종 있음''' → GCA·Takayasu·GPA·EGPA\n'''MPA''' → 육아종 없는 괴사성 소혈관염\n\n> '''EGPA = 천식 + 호산구 + 혈관 밖 육아종.''' Churg–Strauss와 같은 이름이다."
+        },
+        {
+          "key": "vasculitis-morphology",
+          "heading": "혈관염 · 조직 단서 여섯 줄",
+          "questions": [
+            "25059",
+            "21019",
+            "21오12"
+          ],
+          "wikiSections": [
+            "조직 문장을 질환에 붙이는 연습",
+            "PAN · 동맥벽 전층의 괴사와 서로 다른 병기"
+          ],
+          "source": "@pathpos vasculitis\n\n||= 조직 문장의 핵심 ||= 붙일 질환 ||\n|| '''큰 동맥·탄력층 중심 육아종''' || '''GCA·Takayasu''' ||\n|| '''작은~중간 근육동맥·분절성 전층 괴사''' || '''PAN''' ||\n|| '''작은 혈관·leukocytoclasis·육아종 없음''' || '''MPA''' ||\n|| '''비중격·geographic necrosis·육아종''' || '''GPA''' ||\n|| '''호산구·혈관 밖 육아종·천식''' || '''EGPA''' ||\n|| '''혈전 안 호중구 microabscess''' · 흡연·사지 || '''Buerger''' ||\n\n> '''PAN: 벽 전층 괴사 → 동맥류·혈전.''' 급성 염증과 오래된 섬유화가 함께 보인다.\n'''GCA는 고령·측두동맥 / Takayasu는 젊은 연령·대동맥 가지'''로 위치와 나이를 더한다."
+        },
+        {
+          "key": "heart-tumors",
+          "heading": "심장종양 · 성인·심방 / 소아·심실",
+          "questions": [
+            "25056",
+            "21016",
+            "23048",
+            "22022"
+          ],
+          "wikiSections": [
+            "Myxoma · 움직이는 종괴의 폐쇄와 색전",
+            "Rhabdomyoma · 소아의 다발성 종괴와 spider cell"
+          ],
+          "source": "@pathpos heart-tumor\n\n||= 나이·위치·조직 ||= 질환·유전 연관 ||\n|| '''성인·좌심방''' / 점액기질 속 별 모양 세포 || '''Myxoma ↔ Carney complex''' ||\n|| '''태아·소아·심실 다발성 결절''' / spider cell || '''Rhabdomyoma ↔ Tuberous sclerosis''' ||\n\n'''Myxoma''' → 판막 입구를 막으면 '''실신''' / 종양·표면 혈전이 떨어지면 '''전신 색전·편마비'''\n\n'''Spider cell''' → 밝고 큰 세포·중심 핵에서 뻗는 세포질 가닥\n\n> '''점액기질은 Myxoma, 거미줄 세포는 Rhabdomyoma.''' 심장종양 전체는 '''전이'''가 원발보다 흔하다."
+        },
+        {
+          "key": "glomus",
+          "heading": "Glomus · 손끝 통증과 혈관 주위 세포",
+          "questions": [
+            "20033"
+          ],
+          "wikiSections": [
+            "Glomus tumor · 작은 혈관을 둘러싼 통증성 종양",
+            "혈관을 만드는 내피세포와 혈관 주위 세포"
+          ],
+          "source": "@pathpos vascular-tumor\n\n> '''손끝·손톱 밑 통증 + 작은 혈관을 둘러싼 둥근 세포 → Glomus tumor'''\n\n'''기원 = glomus body의 변형 평활근세포 · SMA 양성'''\n\n||= 감별 이름 ||= 조직 단서 ||\n|| '''Capillary hemangioma''' || 작은 모세혈관 증식 ||\n|| '''Pyogenic granuloma''' || 소엽성 모세혈관 증식·잘 출혈하는 결절 ||\n|| '''Kaposi sarcoma''' || HHV-8·방추세포·틈새 혈관·적혈구 유출 ||\n|| '''Angiosarcoma''' || 악성 내피세포·이형성·불규칙 혈관·침윤 ||"
+        }
+      ]
     }
   }
 };

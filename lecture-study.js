@@ -98,7 +98,11 @@ function lectureJblCompactGroups(course, sections, available) {
   const used = new Set();
   return config.groups.flatMap(item => {
     if (!item || typeof item.source !== 'string' || !Array.isArray(item.questions)) return [];
-    const references = (item.wikiSections || []).map(name => sections.find(section =>
+    // A question's lecture and the concept's place in the Wiki can differ.
+    const sourceCourse = Number(item.wikiCourse || course.id);
+    const referenceSections = sourceCourse === Number(course.id) ? sections
+      : wikiEditableSections(String(lectureNoteSources[sourceCourse] || ''));
+    const references = (item.wikiSections || []).map(name => referenceSections.find(section =>
       section.slug === name || normalizeWikiKey(section.heading) === normalizeWikiKey(name))).filter(Boolean);
     const primary = references[0];
     const numbers = [...new Set(item.questions.map(canonicalJblNumber))].filter(number => {
@@ -109,7 +113,7 @@ function lectureJblCompactGroups(course, sections, available) {
     numbers.forEach(number => used.add(number));
     return [{slug:primary?.slug || `compact-${item.key}`,bookmarkSlug:primary?.slug || '',
       bookmarkHeading:primary?.heading || item.heading,heading:item.heading,
-      parent:`${course.id}강 · 관련 ${numbers.length}문항`,source:item.source.trim(),sourceCourse:Number(course.id),
+      parent:`${course.id}강 · 관련 ${numbers.length}문항`,source:item.source.trim(),sourceCourse,
       numbers,unlinked:false,compact:true,wikiSections:references.map(section=>({slug:section.slug,heading:section.heading}))}];
   });
 }

@@ -1755,10 +1755,11 @@
 :root[data-theme="dark"] .jbl-choice-num{background-color:rgba(12,12,12,1);color:#fff}
 :root[data-theme="dark"] .jbl-choice.selected{background-color:rgba(12,12,12,1);border-top-color:rgba(48,48,48,1);border-right-color:rgba(48,48,48,1);border-bottom-color:rgba(48,48,48,1);border-left-color:rgba(48,48,48,1);color:#fff}
 :root[data-theme="dark"] .jbl-choice.selected .jbl-choice-num{background-color:rgba(12,12,12,1);color:#fff}
-:root[data-theme="dark"] .jbl-choice.correct{background-color:rgba(12,12,12,1);border-top-color:var(--brand-line,#483039);border-right-color:var(--brand-line,#483039);border-bottom-color:var(--brand-line,#483039);border-left-color:var(--brand-line,#483039);color:var(--brand-ink,#edb6c5)}
-:root[data-theme="dark"] .jbl-choice.correct .jbl-choice-num{background-color:rgba(12,12,12,1);color:var(--brand-ink,#edb6c5)}
-:root[data-theme="dark"] .jbl-choice.wrong{background-color:#000;border-top-color:rgba(48,48,48,1);border-right-color:rgba(48,48,48,1);border-bottom-color:rgba(48,48,48,1);border-left-color:rgba(48,48,48,1);color:hsl(0.0 48.0% 68%)}
-:root[data-theme="dark"] .jbl-choice.wrong .jbl-choice-num{background-color:hsla(0.0,25.0%,15%,1);color:hsl(0.0 48.0% 68%)}
+/* Answer feedback keeps blue = correct and red = wrong in both themes. */
+:root[data-theme="dark"] .jbl-choice.correct{background-color:#14253d;border-color:#60a5fa;color:#bfdbfe}
+:root[data-theme="dark"] .jbl-choice.correct .jbl-choice-num{background-color:#24446b;color:#dbeafe}
+:root[data-theme="dark"] .jbl-choice.wrong{background-color:#351b22;border-color:#f87171;color:#fecaca}
+:root[data-theme="dark"] .jbl-choice.wrong .jbl-choice-num{background-color:#612d36;color:#fee2e2}
 :root[data-theme="dark"] .jbl-answer-box{background-color:rgba(12,12,12,1);border-top-color:rgba(48,48,48,1);border-right-color:rgba(48,48,48,1);border-bottom-color:rgba(48,48,48,1);border-left-color:rgba(48,48,48,1);color:var(--brand-ink,#edb6c5)}
 :root[data-theme="dark"] .jbl-editor{border-top-color:rgba(48,48,48,1);border-right-color:rgba(48,48,48,1);border-bottom-color:rgba(48,48,48,1);border-left-color:rgba(48,48,48,1);background-color:#000}
 :root[data-theme="dark"] .jbl-editor-field label{color:#fff}
@@ -2085,9 +2086,9 @@ SOFTWARE.
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js"></script>
 <script src="./course-data.js"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=pharm-map-name-20261106"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=pharm-map-name-20261106"></script>
-<script src="./lecture-study.js?v=pane-controls-20261105"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=pathology-j-20261108"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=pathology-jbl-20261108"></script>
+<script src="./lecture-study.js?v=pathology-jbl-20261108"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
   <script src="./cardiovascular-atlas-data.js?v=starter-20261106"></script>

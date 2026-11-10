@@ -1,0 +1,1737 @@
+window.CARDIO_ECG_LEARNING = {
+  "cases": {
+    "theory-11": {
+      "label": "정상",
+      "title": "정상 심전도에서 기준 잡기",
+      "summary": "같은 박동을 여러 방향에서 기록한다. 아래의 긴 II 유도에서는 P–QRS 관계와 RR 간격을 이어서 본다.",
+      "src": "assets/wiki20-ecg/theory-11.jpg",
+      "width": 1474,
+      "height": 799,
+      "source": "총론 p.11",
+      "steps": [
+        {
+          "label": "II · P–QRS–T",
+          "box": [
+            5,
+            780,
+            410,
+            210
+          ],
+          "text": "낮고 둥근 P파 다음에 좁은 QRS, 그 뒤에 T파가 이어진다. 같은 순서가 반복되는지 확인하자.",
+          "targets": [
+            {
+              "x": 98.37177747625509,
+              "y": 927.4092615769713,
+              "label": "P"
+            },
+            {
+              "x": 111.94029850746269,
+              "y": 867.334167709637,
+              "label": "R"
+            },
+            {
+              "x": 137.04206241519674,
+              "y": 924.9061326658323,
+              "label": "T"
+            }
+          ]
+        },
+        {
+          "label": "V1 → V6",
+          "box": [
+            500,
+            0,
+            495,
+            770
+          ],
+          "text": "V1에서는 작은 R·깊은 S가 보이고, 왼쪽 흉부유도로 갈수록 R이 우세해진다. 한 유도의 음성 QRS만 보고 이상이라고 판단하지 않는다.",
+          "targets": []
+        }
+      ]
+    },
+    "theory-42": {
+      "label": "좌축편위",
+      "title": "I 양성 · aVF 음성 · II 음성",
+      "summary": "I와 aVF로 왼쪽 위를 찾고, II가 음성인 것까지 확인하면 좌축편위로 좁혀진다.",
+      "src": "assets/wiki20-ecg/theory-42.jpg",
+      "width": 639,
+      "height": 328,
+      "source": "총론 p.42",
+      "steps": [
+        {
+          "label": "I의 양성 QRS",
+          "box": [
+            0,
+            0,
+            500,
+            310
+          ],
+          "text": "첫째 줄 왼쪽 I 유도의 QRS는 위쪽이 우세하다.",
+          "targets": []
+        },
+        {
+          "label": "II·aVF 음성",
+          "box": [
+            0,
+            350,
+            1000,
+            640
+          ],
+          "text": "둘째 줄 왼쪽 II와 셋째 줄 오른쪽 aVF의 QRS가 아래쪽으로 깊다. 축은 −30°보다 더 왼쪽으로 향한다.",
+          "targets": []
+        }
+      ]
+    },
+    "theory-45": {
+      "label": "정상 범위의 음성 aVF",
+      "title": "I 양성 · aVF 음성인데 II는 양성",
+      "summary": "aVF가 음성이어도 −30°~0°는 정상 범위에 들어간다.",
+      "src": "assets/wiki20-ecg/theory-45.jpg",
+      "width": 655,
+      "height": 403,
+      "source": "총론 p.45",
+      "steps": [
+        {
+          "label": "II가 양성",
+          "box": [
+            0,
+            330,
+            470,
+            260
+          ],
+          "text": "둘째 줄 왼쪽 II의 R이 S보다 우세하다. 좌축편위와 구분하는 마지막 확인이다.",
+          "targets": []
+        },
+        {
+          "label": "aVF가 음성",
+          "box": [
+            500,
+            680,
+            490,
+            310
+          ],
+          "text": "셋째 줄 오른쪽 aVF는 음성이다. 이 부호만으로 좌축편위를 확정하지 않고 II를 함께 본다.",
+          "targets": []
+        }
+      ]
+    },
+    "theory-46": {
+      "label": "등상성 · +60°",
+      "title": "aVL에 수직인 두 방향 중 +60°",
+      "summary": "aVL의 양·음성 QRS가 비슷하면 평균 축은 aVL에 거의 수직이다.",
+      "src": "assets/wiki20-ecg/theory-46.jpg",
+      "width": 655,
+      "height": 328,
+      "source": "총론 p.46",
+      "steps": [
+        {
+          "label": "aVL · 등상성",
+          "box": [
+            500,
+            320,
+            490,
+            410
+          ],
+          "text": "둘째 줄 오른쪽 aVL의 QRS는 위·아래 성분이 비슷하고 작다. −30°에 수직인 +60° 또는 −120°를 생각한다.",
+          "targets": []
+        },
+        {
+          "label": "II · 양성",
+          "box": [
+            0,
+            320,
+            480,
+            410
+          ],
+          "text": "II(+60°)의 QRS가 양성이므로 +60° 쪽을 고른다.",
+          "targets": []
+        }
+      ]
+    },
+    "theory-47": {
+      "label": "등상성 · −60°",
+      "title": "aVR에 수직인 두 방향 중 −60°",
+      "summary": "aVR에 수직인 후보는 −60°와 +120°이다.",
+      "src": "assets/wiki20-ecg/theory-47.jpg",
+      "width": 639,
+      "height": 328,
+      "source": "총론 p.47",
+      "steps": [
+        {
+          "label": "aVR · 등상성",
+          "box": [
+            500,
+            0,
+            490,
+            340
+          ],
+          "text": "첫째 줄 오른쪽 aVR에서 양·음성 성분이 비슷한 QRS를 찾는다.",
+          "targets": []
+        },
+        {
+          "label": "III · 음성",
+          "box": [
+            0,
+            650,
+            490,
+            340
+          ],
+          "text": "III(+120°)가 음성이므로 반대 방향인 −60°를 고른다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-04": {
+      "label": "좌심방확대",
+      "title": "좌심방확대 · II의 넓은 P, V1의 깊은 말단 음성 P",
+      "summary": "P파 앞부분은 우심방, 뒷부분은 좌심방의 탈분극을 주로 반영한다.",
+      "src": "assets/wiki20-ecg/practice-04.jpg",
+      "width": 1422,
+      "height": 947,
+      "source": "증례 p.4",
+      "steps": [
+        {
+          "label": "II · 넓은 P",
+          "box": [
+            0,
+            295,
+            275,
+            220
+          ],
+          "text": "둘째 줄 왼쪽에서 QRS 바로 앞의 낮고 넓은 P파를 본다. 두 봉우리처럼 보이는 P와 늘어난 폭이 단서다.",
+          "targets": [
+            {
+              "x": 104.07876230661041,
+              "y": 384.37170010559663,
+              "label": "P"
+            },
+            {
+              "x": 186.35724331926863,
+              "y": 384.37170010559663,
+              "label": "P"
+            }
+          ]
+        },
+        {
+          "label": "V1 · 말단 음성 P",
+          "box": [
+            525,
+            30,
+            245,
+            240
+          ],
+          "text": "V1의 작은 P파에서 뒤쪽 음성 부분이 깊다. 바로 뒤의 큰 음성 QRS와 구별해서 보자.",
+          "targets": [
+            {
+              "x": 588.6075949367089,
+              "y": 151.00316789862725,
+              "label": "P"
+            }
+          ]
+        },
+        {
+          "label": "II · P파 더 가까이",
+          "box": [
+            85,
+            335,
+            145,
+            80
+          ],
+          "text": "P는 작은 두 봉우리처럼 넓게 보인다. 뒤의 날카로운 QRS와 분리해서 폭을 읽자.",
+          "targets": [
+            {
+              "x": 104.07876230661041,
+              "y": 384.37170010559663,
+              "label": "P"
+            },
+            {
+              "x": 186.35724331926863,
+              "y": 384.37170010559663,
+              "label": "P"
+            }
+          ]
+        }
+      ]
+    },
+    "practice-07": {
+      "label": "우심방확대",
+      "title": "우심방확대 · 높고 뾰족한 P",
+      "summary": "하벽 유도에서 P파의 높이를 먼저 본다. 원본 해상도가 낮아 작은 눈금의 정밀 측정보다는 모양 비교에 쓰자.",
+      "src": "assets/wiki20-ecg/practice-07.jpg",
+      "width": 1410,
+      "height": 757,
+      "source": "증례 p.7",
+      "steps": [
+        {
+          "label": "II·III · 높은 P",
+          "box": [
+            160,
+            0,
+            350,
+            480
+          ],
+          "text": "위쪽 II·III에서 QRS 앞의 뾰족한 P파가 보인다. 좌심방확대의 넓은 P와 비교하자.",
+          "targets": [
+            {
+              "x": 219.8581560283688,
+              "y": 257.59577278731837,
+              "label": "P"
+            },
+            {
+              "x": 386.5248226950355,
+              "y": 231.1756935270806,
+              "label": "P"
+            }
+          ]
+        },
+        {
+          "label": "aVF · 높은 P",
+          "box": [
+            825,
+            0,
+            170,
+            480
+          ],
+          "text": "위쪽 맨 오른쪽 aVF에서도 QRS 앞에 솟은 P파를 확인한다.",
+          "targets": [
+            {
+              "x": 875.1773049645391,
+              "y": 219.2866578599736,
+              "label": "P"
+            }
+          ]
+        }
+      ]
+    },
+    "practice-10": {
+      "label": "좌심실비대",
+      "title": "좌심실비대 · 깊은 S + 높은 R",
+      "summary": "QRS 전압을 보고, 좌측 유도의 ST–T 변화까지 연결한다.",
+      "src": "assets/wiki20-ecg/practice-10.jpg",
+      "width": 1422,
+      "height": 920,
+      "source": "증례 p.10",
+      "steps": [
+        {
+          "label": "V1 · 깊은 S",
+          "box": [
+            515,
+            0,
+            250,
+            330
+          ],
+          "text": "V1에서 QRS가 아래로 깊게 내려간다. V1/V2의 S 깊이는 왼쪽 유도의 R 높이와 합쳐 본다.",
+          "targets": [
+            {
+              "x": 587.9043600562588,
+              "y": 290.2173913043478,
+              "label": "S"
+            }
+          ]
+        },
+        {
+          "label": "V5·V6 · 높은 R",
+          "box": [
+            765,
+            270,
+            230,
+            500
+          ],
+          "text": "V5·V6의 R이 매우 높고, ST 하강과 T 역전이 동반된다. 전압과 strain(부하에 따른 재분극 변화)을 함께 보자.",
+          "targets": [
+            {
+              "x": 848.8045007032349,
+              "y": 451.0869565217391,
+              "label": "R"
+            },
+            {
+              "x": 869.1983122362869,
+              "y": 685.8695652173913,
+              "label": "ST–T"
+            }
+          ]
+        }
+      ]
+    },
+    "practice-12": {
+      "label": "우심실비대",
+      "title": "우심실비대 · V1의 R이 우세",
+      "summary": "정상에서 S가 우세하던 V1이 R 우세로 바뀌고, 왼쪽 흉부유도에서는 S가 깊다.",
+      "src": "assets/wiki20-ecg/practice-12.jpg",
+      "width": 1434,
+      "height": 866,
+      "source": "증례 p.12",
+      "steps": [
+        {
+          "label": "V1·V2 · 높은 R",
+          "box": [
+            520,
+            0,
+            245,
+            520
+          ],
+          "text": "오른쪽 흉부유도 V1·V2의 R이 두드러진다. QRS 폭보다는 전압의 방향과 우측 ST–T 변화를 본다.",
+          "targets": []
+        },
+        {
+          "label": "I·하벽유도 · 우축",
+          "box": [
+            0,
+            0,
+            505,
+            770
+          ],
+          "text": "I는 음성, II·III·aVF는 양성이 우세하다. 우축편위가 우심실비대 소견을 뒷받침한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-16": {
+      "label": "전벽·중격 급성기",
+      "title": "전벽·중격 심근경색 · 앞쪽 유도군의 ST 상승",
+      "summary": "V1–V4를 중심으로 QRS 뒤의 ST를 같은 유도의 기준선과 비교한다.",
+      "src": "assets/wiki20-ecg/practice-16.jpg",
+      "width": 1533,
+      "height": 973,
+      "source": "증례 p.16",
+      "steps": [
+        {
+          "label": "V2·V3 · Q/QS와 ST",
+          "box": [
+            500,
+            270,
+            250,
+            500
+          ],
+          "text": "V2·V3에서 QRS가 깊은 음성으로 시작하고, 뒤의 ST–T가 위로 올라온다. Q/QS와 ST 상승을 각각 짚자.",
+          "targets": [
+            {
+              "x": 562.2961513372472,
+              "y": 650.5652620760535,
+              "label": "ST"
+            }
+          ]
+        },
+        {
+          "label": "V4 · ST–T 상승",
+          "box": [
+            750,
+            0,
+            245,
+            270
+          ],
+          "text": "V4에서도 QRS 뒤의 ST–T가 상승한다. 서로 이웃한 앞쪽 유도들이 함께 변한다.",
+          "targets": [
+            {
+              "x": 828.4409654272667,
+              "y": 113.0524152106886,
+              "label": "ST"
+            }
+          ]
+        }
+      ]
+    },
+    "practice-17": {
+      "label": "전벽·중격 5일 뒤",
+      "title": "전벽·중격 경색의 5일 뒤",
+      "summary": "급성기와 비교해 ST 상승은 줄고, Q/QS와 T 역전이 남는다.",
+      "src": "assets/wiki20-ecg/practice-17.jpg",
+      "width": 1444,
+      "height": 984,
+      "source": "증례 p.17",
+      "steps": [
+        {
+          "label": "V2·V3 · T 역전",
+          "box": [
+            510,
+            170,
+            245,
+            310
+          ],
+          "text": "V2·V3에서 QRS 뒤의 T파가 아래로 향한다. 급성기의 위로 솟은 ST–T와 비교하자.",
+          "targets": []
+        },
+        {
+          "label": "V4·V5 · 남은 변화",
+          "box": [
+            760,
+            0,
+            235,
+            320
+          ],
+          "text": "Q/QS와 음성 T가 보인다. ST가 내려왔다고 경색의 흔적이 모두 사라지는 것은 아니다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-18": {
+      "label": "하벽 급성기",
+      "title": "하벽 심근경색 · II·III·aVF가 함께 변한다",
+      "summary": "심전도 종이에서 떨어져 배치되어 있어도 II·III·aVF는 같은 하벽 유도군이다.",
+      "src": "assets/wiki20-ecg/practice-18.jpg",
+      "width": 1526,
+      "height": 982,
+      "source": "증례 p.18",
+      "steps": [
+        {
+          "label": "II·III · ST 상승",
+          "box": [
+            0,
+            260,
+            260,
+            510
+          ],
+          "text": "왼쪽 둘째·셋째 줄의 QRS 뒤 ST가 기준선보다 높다. 특히 III에서 잘 보인다.",
+          "targets": []
+        },
+        {
+          "label": "aVF · 같은 하벽",
+          "box": [
+            260,
+            525,
+            245,
+            245
+          ],
+          "text": "셋째 줄 두 번째 aVF에도 ST 상승이 이어진다. I·aVL 쪽의 반대 방향 변화도 함께 살펴보자.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-19": {
+      "label": "하벽 5일 뒤",
+      "title": "하벽 경색의 5일 뒤",
+      "summary": "하벽의 ST 상승이 줄고, Q파와 T 역전이 남은 모습이다.",
+      "src": "assets/wiki20-ecg/practice-19.jpg",
+      "width": 1570,
+      "height": 839,
+      "source": "증례 p.19",
+      "steps": [
+        {
+          "label": "III·aVF · Q와 음성 T",
+          "box": [
+            0,
+            650,
+            500,
+            340
+          ],
+          "text": "셋째 줄 III·aVF의 QRS 시작과 뒤집힌 T를 확인한다. 급성 하벽 사진과 같은 유도끼리 비교하자.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-20": {
+      "label": "ST 비상승 증례",
+      "title": "ST 비상승 심근경색 · ECG와 증상을 함께 읽기",
+      "summary": "뚜렷한 지속 ST 상승이 없는 증례다. 흉통과 심근효소 상승이라는 임상 맥락이 진단에 함께 필요하다.",
+      "src": "assets/wiki20-ecg/practice-20.jpg",
+      "width": 1600,
+      "height": 938,
+      "source": "증례 p.20",
+      "steps": [
+        {
+          "label": "흉부유도 · ST 확인",
+          "box": [
+            500,
+            0,
+            495,
+            770
+          ],
+          "text": "ST 상승형 경색 사진과 비교해 보자. ECG가 정상에 가까워도 증상·심근 troponin 평가가 필요한 이유를 보여준다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-22": {
+      "label": "동성빈맥",
+      "title": "동성빈맥 · 같은 순서, 짧아진 RR",
+      "summary": "각 QRS 앞의 P파와 1:1 관계를 확인한 다음 빠른 박동수를 읽는다.",
+      "src": "assets/wiki20-ecg/practice-22.jpg",
+      "width": 1453,
+      "height": 824,
+      "source": "증례 p.22",
+      "steps": [
+        {
+          "label": "II · P가 먼저",
+          "box": [
+            0,
+            275,
+            270,
+            235
+          ],
+          "text": "작은 P가 QRS에 앞서고, QRS가 좁다. 작은 파형을 찾기 어려우면 다른 유도와 긴 리듬줄도 함께 본다.",
+          "targets": []
+        },
+        {
+          "label": "V1 리듬줄 · 짧은 RR",
+          "box": [
+            0,
+            790,
+            500,
+            200
+          ],
+          "text": "아래 리듬줄에서 좁은 QRS가 규칙적으로 빠르게 반복된다. P의 존재가 다른 좁은 QRS 빈맥을 구분하는 출발점이다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-23": {
+      "label": "동성서맥",
+      "title": "동성서맥 · 느려도 P–QRS 순서는 유지",
+      "summary": "RR 간격이 길어지고, QRS 앞의 P파가 유지된다.",
+      "src": "assets/wiki20-ecg/practice-23.jpg",
+      "width": 1439,
+      "height": 867,
+      "source": "증례 p.23",
+      "steps": [
+        {
+          "label": "II 리듬줄 · 긴 RR",
+          "box": [
+            0,
+            770,
+            500,
+            220
+          ],
+          "text": "P–QRS–T가 반복되면서 R과 R 사이가 길다. 동성서맥의 임상 의미는 증상과 원인까지 함께 판단한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-24": {
+      "label": "동성부정맥",
+      "title": "동성부정맥 · P는 유지되고 RR이 달라진다",
+      "summary": "같은 모양의 P와 QRS가 반복되면서 박동 간격이 변한다.",
+      "src": "assets/wiki20-ecg/practice-24.jpg",
+      "width": 1440,
+      "height": 828,
+      "source": "증례 p.24",
+      "steps": [
+        {
+          "label": "V1 리듬줄 · 간격 변화",
+          "box": [
+            0,
+            780,
+            670,
+            210
+          ],
+          "text": "초반에 가까웠던 QRS 사이가 뒤쪽에서 넓어진다. P–QRS 관계가 유지되는 점을 심방세동과 비교하자.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-25": {
+      "label": "동정지",
+      "title": "동정지 · P와 QRS가 함께 쉬는 구간",
+      "summary": "중간의 긴 공백에서 다음 P파와 QRS가 모두 보이지 않는다.",
+      "src": "assets/wiki20-ecg/practice-25.jpg",
+      "width": 1472,
+      "height": 935,
+      "source": "증례 p.25",
+      "steps": [
+        {
+          "label": "II 리듬줄 · 공백",
+          "box": [
+            190,
+            790,
+            480,
+            200
+          ],
+          "text": "세 번째 박동 뒤부터 다음 박동 전까지 긴 공백이 있다. 그 사이 규칙적으로 진행하는 P파가 있는지를 확인한다.",
+          "targets": []
+        },
+        {
+          "label": "공백 뒤 · 박동 재개",
+          "box": [
+            565,
+            790,
+            420,
+            200
+          ],
+          "text": "박동이 다시 나타난다. 서맥 증례에서는 공백 길이와 함께 어지럼·실신, 약물 등 원인을 묶어 읽는다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-28": {
+      "label": "동방출구차단",
+      "title": "동방출구차단 · 1120 → 2240 ms",
+      "summary": "동방결절의 신호가 심방으로 빠져나오지 못한 박동에서는 P–QRS가 빠진다.",
+      "src": "assets/wiki20-ecg/practice-28.jpg",
+      "width": 1600,
+      "height": 1200,
+      "source": "증례 p.28",
+      "steps": [
+        {
+          "label": "심전도 · 간격 2배",
+          "box": [
+            100,
+            250,
+            850,
+            270
+          ],
+          "text": "기본 주기의 약 2배 길이로 박동이 빠지는 모습을 본다. 전도된 박동의 PR은 160 ms로 일정하다.",
+          "targets": []
+        },
+        {
+          "label": "사다리도 · 어디서 막히나",
+          "box": [
+            90,
+            540,
+            850,
+            400
+          ],
+          "text": "SN(동방결절)에서 나온 일부 신호가 A(심방)로 전달되지 않는다. A 아래 AVN(방실결절)과 V(심실)의 반응도 함께 빠진다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-29": {
+      "label": "1도",
+      "title": "1도 방실차단 · PR이 길지만 모두 전도",
+      "summary": "모든 P 뒤에 QRS가 따라오면서 PR이 길게 유지된다.",
+      "src": "assets/wiki20-ecg/practice-29.jpg",
+      "width": 1453,
+      "height": 860,
+      "source": "증례 p.29",
+      "steps": [
+        {
+          "label": "II · 긴 PR",
+          "box": [
+            10,
+            265,
+            265,
+            245
+          ],
+          "text": "작은 P의 시작에서 QRS 시작까지를 센다. 0.20초보다 길면서 P:QRS가 1:1이면 1도 방실차단이다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-30": {
+      "label": "Mobitz I",
+      "title": "2도 방실차단 Mobitz I · PR이 늘다가 QRS 탈락",
+      "summary": "같은 II 리듬줄에서 연속 박동의 PR을 순서대로 비교한다.",
+      "src": "assets/wiki20-ecg/practice-30.jpg",
+      "width": 1464,
+      "height": 956,
+      "source": "증례 p.30",
+      "steps": [
+        {
+          "label": "II 리듬줄 · PR과 탈락",
+          "box": [
+            0,
+            770,
+            530,
+            220
+          ],
+          "text": "전도된 두 박동의 PR을 비교하고, 긴 RR 안에 남은 작은 P를 찾는다. P는 이어지지만 그 뒤 QRS가 탈락한다.",
+          "targets": [
+            {
+              "x": 118.85245901639344,
+              "y": 940.3765690376569,
+              "label": "P"
+            },
+            {
+              "x": 223.36065573770492,
+              "y": 936.1924686192468,
+              "label": "P"
+            }
+          ]
+        },
+        {
+          "label": "II · 전도되지 않은 P",
+          "box": [
+            90,
+            850,
+            160,
+            110
+          ],
+          "text": "앞의 P에는 QRS가 이어지지만 다음 작은 P 뒤에는 QRS가 빠진다. 넓게 볼 때의 PR 변화와 함께 읽자.",
+          "targets": [
+            {
+              "x": 118.85245901639344,
+              "y": 940.3765690376569,
+              "label": "P"
+            },
+            {
+              "x": 223.36065573770492,
+              "y": 936.1924686192468,
+              "label": "P"
+            }
+          ]
+        }
+      ]
+    },
+    "practice-31": {
+      "label": "Mobitz II",
+      "title": "2도 방실차단 Mobitz II · 일정한 PR 뒤 탈락",
+      "summary": "전도된 박동의 PR이 거의 같다가 일부 P 뒤의 QRS가 갑자기 빠진다.",
+      "src": "assets/wiki20-ecg/practice-31.jpg",
+      "width": 1460,
+      "height": 808,
+      "source": "증례 p.31",
+      "steps": [
+        {
+          "label": "II 리듬줄 · 탈락 전후",
+          "box": [
+            0,
+            770,
+            530,
+            220
+          ],
+          "text": "초반 QRS 두 개 뒤 긴 간격을 살펴보자. 전도된 박동의 PR이 점차 길어지는지, 일정한지를 구분한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-32": {
+      "label": "2:1",
+      "title": "2:1 방실차단 · P 두 번에 QRS 한 번",
+      "summary": "P파를 먼저 끝까지 따라가면 전도되는 P와 막히는 P가 번갈아 나타난다.",
+      "src": "assets/wiki20-ecg/practice-32.jpg",
+      "width": 1427,
+      "height": 832,
+      "source": "증례 p.32",
+      "steps": [
+        {
+          "label": "II · 전도와 차단",
+          "box": [
+            0,
+            270,
+            500,
+            240
+          ],
+          "text": "QRS와 QRS 사이 작은 P를 찾는다. P 두 개 중 하나에만 QRS가 뒤따른다.",
+          "targets": []
+        },
+        {
+          "label": "V1 리듬줄 · 반복 확인",
+          "box": [
+            0,
+            780,
+            550,
+            210
+          ],
+          "text": "한 번의 인상으로 끝내지 않고 뒤쪽 박동에서도 같은 2:1 관계가 반복되는지 확인한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-33": {
+      "label": "3:1",
+      "title": "3:1 방실차단 · P 세 번에 QRS 한 번",
+      "summary": "QRS가 느리게 나타나도 심방의 P파는 그 사이를 계속 진행한다.",
+      "src": "assets/wiki20-ecg/practice-33.jpg",
+      "width": 1413,
+      "height": 837,
+      "source": "증례 p.33",
+      "steps": [
+        {
+          "label": "V1 리듬줄 · P 세기",
+          "box": [
+            0,
+            780,
+            600,
+            210
+          ],
+          "text": "큰 QRS 사이에서 작은 P를 세어 본다. 전도된 P 한 개와 전도되지 않은 P 두 개의 묶음이다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-34": {
+      "label": "고도차단",
+      "title": "고도 방실차단 · 연속된 P가 전도되지 않는다",
+      "summary": "일부 박동은 전도되지만 여러 P 뒤에 QRS가 나타나지 않는다.",
+      "src": "assets/wiki20-ecg/practice-34.jpg",
+      "width": 1400,
+      "height": 779,
+      "source": "증례 p.34",
+      "steps": [
+        {
+          "label": "II 리듬줄 · 작은 P들",
+          "box": [
+            0,
+            790,
+            680,
+            200
+          ],
+          "text": "긴 QRS 간격 사이의 작은 심방 파형을 따라간다. 완전차단과 구분할 때는 실제 전도되는 P–QRS 관계가 남아 있는지 본다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-35": {
+      "label": "완전차단",
+      "title": "완전 방실차단 · 심방과 심실이 따로 간다",
+      "summary": "P–P와 R–R은 각각 규칙적이어도 서로의 고정된 관계가 없다.",
+      "src": "assets/wiki20-ecg/practice-35.jpg",
+      "width": 1484,
+      "height": 927,
+      "source": "증례 p.35",
+      "steps": [
+        {
+          "label": "II 리듬줄 · P와 QRS",
+          "box": [
+            0,
+            780,
+            600,
+            210
+          ],
+          "text": "P파와 느린 QRS를 따로 따라가 보자. QRS 앞뒤로 P의 위치가 달라지며 PR이 일정하지 않다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-36": {
+      "label": "박동기 후",
+      "title": "심박동기 삽입 후 · 자극 뒤 심실 반응",
+      "summary": "앞의 완전차단 증례에서 박동기 삽입 뒤 기록한 심전도다.",
+      "src": "assets/wiki20-ecg/practice-36.jpg",
+      "width": 1485,
+      "height": 924,
+      "source": "증례 p.36",
+      "steps": [
+        {
+          "label": "II 리듬줄 · spike와 QRS",
+          "box": [
+            0,
+            780,
+            500,
+            210
+          ],
+          "text": "QRS 직전의 가늘고 수직인 자극 spike를 확인한다. 심실 조율 뒤 QRS는 넓게 나타날 수 있다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-48": {
+      "label": "우각차단",
+      "title": "우각차단 · V1의 말단 R′, 왼쪽의 넓은 S",
+      "summary": "늦게 흥분하는 우심실의 신호가 QRS 끝부분에 남는다.",
+      "src": "assets/wiki20-ecg/practice-48.jpg",
+      "width": 1516,
+      "height": 834,
+      "source": "증례 p.48",
+      "steps": [
+        {
+          "label": "V1 · rSR′",
+          "box": [
+            515,
+            0,
+            245,
+            285
+          ],
+          "text": "V1에서 처음 r 이후 내려갔다가 끝에 다시 올라오는 R′를 찾는다. T파까지 QRS로 묶지 말고 시작과 끝을 확인하자.",
+          "targets": [
+            {
+              "x": 525.0659630606859,
+              "y": 125.89928057553956,
+              "label": "R′"
+            }
+          ]
+        },
+        {
+          "label": "I · 말단 S",
+          "box": [
+            0,
+            0,
+            265,
+            260
+          ],
+          "text": "I에서 R 뒤의 넓은 음성 말단을 본다. V6에서도 말단 S를 함께 비교한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-52": {
+      "label": "좌각차단",
+      "title": "좌각차단 · 넓은 QRS와 좌심실의 지연",
+      "summary": "V1은 깊은 음성 QRS, 좌측 유도에서는 넓은 R파가 단서다.",
+      "src": "assets/wiki20-ecg/practice-52.jpg",
+      "width": 1480,
+      "height": 901,
+      "source": "증례 p.52",
+      "steps": [
+        {
+          "label": "V1 · 깊고 넓은 QRS",
+          "box": [
+            525,
+            0,
+            245,
+            285
+          ],
+          "text": "V1의 QRS가 아래로 넓게 내려간다. 바로 뒤에 반대 방향의 ST–T가 따라올 수 있다.",
+          "targets": []
+        },
+        {
+          "label": "I · 넓은 R",
+          "box": [
+            0,
+            0,
+            275,
+            270
+          ],
+          "text": "I의 R이 날카로운 정상 QRS보다 넓고 둔하다. 전압이 큰 것과 폭이 넓은 것을 구분해서 보자.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-56": {
+      "label": "좌전섬유속차단",
+      "title": "좌전섬유속차단 · 좁은 QRS와 좌축편위",
+      "summary": "좌전섬유속이 막히면 남은 경로를 통해 전기가 왼쪽 위로 향한다.",
+      "src": "assets/wiki20-ecg/practice-56.jpg",
+      "width": 1494,
+      "height": 834,
+      "source": "증례 p.56",
+      "steps": [
+        {
+          "label": "I·aVL · qR",
+          "box": [
+            0,
+            0,
+            520,
+            510
+          ],
+          "text": "I·aVL은 작은 q 뒤 R이 우세하다. QRS가 꼭 넓어질 필요는 없다.",
+          "targets": []
+        },
+        {
+          "label": "II·III·aVF · rS",
+          "box": [
+            0,
+            300,
+            520,
+            480
+          ],
+          "text": "하벽 유도는 작은 r 뒤 깊은 S가 나타난다. 좌축편위와 함께 묶는다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-59": {
+      "label": "좌후섬유속차단",
+      "title": "좌후섬유속차단 · 좁은 QRS와 우축편위",
+      "summary": "우축편위와 유도별 qR/rS 조합을 확인한다.",
+      "src": "assets/wiki20-ecg/practice-59.jpg",
+      "width": 1440,
+      "height": 827,
+      "source": "증례 p.59",
+      "steps": [
+        {
+          "label": "I·aVL · rS",
+          "box": [
+            0,
+            0,
+            500,
+            510
+          ],
+          "text": "I·aVL에서 작은 r 뒤 S가 우세하다.",
+          "targets": []
+        },
+        {
+          "label": "II·III·aVF · qR",
+          "box": [
+            0,
+            300,
+            500,
+            480
+          ],
+          "text": "하벽 유도에서 qR을 찾는다. 우심실비대 같은 다른 우축편위 원인도 함께 확인한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-60": {
+      "label": "이섬유속차단",
+      "title": "이섬유속차단 · 우각차단 + 좌전섬유속차단",
+      "summary": "QRS의 끝모양과 사지유도의 축을 따로 읽은 뒤 합친다.",
+      "src": "assets/wiki20-ecg/practice-60.jpg",
+      "width": 1494,
+      "height": 834,
+      "source": "증례 p.60",
+      "steps": [
+        {
+          "label": "V1 · 우각차단",
+          "box": [
+            530,
+            0,
+            250,
+            265
+          ],
+          "text": "V1의 말단 R′와 넓은 QRS가 우각차단 쪽 단서다.",
+          "targets": []
+        },
+        {
+          "label": "I·하벽 · 좌축",
+          "box": [
+            0,
+            0,
+            520,
+            770
+          ],
+          "text": "I가 양성이고 하벽 유도들이 음성이다. 좌전섬유속차단의 축 변화를 함께 붙인다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-64": {
+      "label": "심방세동",
+      "title": "심방세동 · 일정한 P 없이 RR이 제멋대로",
+      "summary": "한 박동보다 긴 리듬줄에서 불규칙성을 확인한다.",
+      "src": "assets/wiki20-ecg/practice-64.jpg",
+      "width": 1571,
+      "height": 866,
+      "source": "증례 p.64",
+      "steps": [
+        {
+          "label": "II 리듬줄 · RR 비교",
+          "box": [
+            0,
+            780,
+            650,
+            210
+          ],
+          "text": "QRS 사이 간격이 일정한 규칙 없이 달라진다. 매번 QRS 앞에 같은 P가 따라오는지도 함께 확인한다.",
+          "targets": []
+        },
+        {
+          "label": "V1 · 심방 활동",
+          "box": [
+            510,
+            0,
+            245,
+            250
+          ],
+          "text": "QRS 사이의 작은 불규칙한 기저선 변화를 본다. 작은 굴곡 하나보다 전체 기록의 P–QRS 관계가 중요하다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-65": {
+      "label": "넓어지는 구간",
+      "title": "심방세동 중 넓어지는 QRS · Holter 예제",
+      "summary": "이 증례의 문맥은 심방세동 중 변행전도이다. 빈맥에서 일시적으로 각차단 모양이 생길 수 있다.",
+      "src": "assets/wiki20-ecg/practice-65.jpg",
+      "width": 1569,
+      "height": 274,
+      "source": "증례 p.65",
+      "steps": [
+        {
+          "label": "좁은 QRS → 넓은 QRS",
+          "box": [
+            280,
+            300,
+            500,
+            680
+          ],
+          "text": "가운데 구간에서 QRS 모양이 넓게 바뀌었다가 되돌아온다. 넓은 QRS 빈맥은 심실빈맥과의 감별이 필요하다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-67": {
+      "label": "세동 + 규칙적 서맥",
+      "title": "심방세동인데 RR이 규칙적이라면",
+      "summary": "불규칙한 심방 활동과 느리고 규칙적인 심실 리듬을 따로 본다.",
+      "src": "assets/wiki20-ecg/practice-67.jpg",
+      "width": 1404,
+      "height": 786,
+      "source": "증례 p.67",
+      "steps": [
+        {
+          "label": "II 리듬줄 · 규칙적 RR",
+          "box": [
+            0,
+            770,
+            650,
+            220
+          ],
+          "text": "QRS는 느리고 일정하다. 이 증례는 심방세동에 완전 방실차단이 겹쳐 이탈리듬이 심실을 구동하는 맥락이다.",
+          "targets": []
+        },
+        {
+          "label": "V1 · 세동파",
+          "box": [
+            530,
+            0,
+            250,
+            260
+          ],
+          "text": "QRS 사이에 이어지는 잔물결 같은 심방 활동을 확인한다. 규칙적인 RR만 보고 동성리듬으로 바꾸어 읽지 않는다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-68": {
+      "label": "심방조동",
+      "title": "심방조동 · 일정하게 이어지는 톱니 F파",
+      "summary": "심방의 반복 파형과 QRS의 전도비를 각각 본다.",
+      "src": "assets/wiki20-ecg/practice-68.jpg",
+      "width": 1571,
+      "height": 861,
+      "source": "증례 p.68",
+      "steps": [
+        {
+          "label": "II·III · 톱니파",
+          "box": [
+            0,
+            260,
+            270,
+            500
+          ],
+          "text": "하벽 유도에서 기저선이 평평해지지 않고 톱니처럼 이어진다. F파가 규칙적이라는 점이 중요하다.",
+          "targets": [
+            {
+              "x": 59.83450031826862,
+              "y": 408.8269454123113,
+              "label": "F"
+            },
+            {
+              "x": 64.29026098026735,
+              "y": 678.2810685249709,
+              "label": "F"
+            }
+          ]
+        },
+        {
+          "label": "II 리듬줄 · 전도비",
+          "box": [
+            0,
+            770,
+            550,
+            220
+          ],
+          "text": "QRS 사이에도 여러 F파가 반복된다. 전도비에 따라 심실 RR은 규칙적일 수도, 달라질 수도 있다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-69": {
+      "label": "심방빈맥",
+      "title": "심방빈맥 · 동성 P와 다른 심방 파형",
+      "summary": "분리된 심방 파형이 빠르게 반복되는지 살핀다.",
+      "src": "assets/wiki20-ecg/practice-69.jpg",
+      "width": 1429,
+      "height": 969,
+      "source": "증례 p.69",
+      "steps": [
+        {
+          "label": "II · 이소성 심방파",
+          "box": [
+            0,
+            270,
+            280,
+            220
+          ],
+          "text": "II에서 동성 P와 다른 음성 심방 파형을 찾는다. 톱니처럼 연속되는 조동파와 비교하자.",
+          "targets": []
+        },
+        {
+          "label": "긴 II · P–QRS 관계",
+          "box": [
+            0,
+            760,
+            650,
+            200
+          ],
+          "text": "QRS가 달라져도 심방 활동을 계속 따라간다. 심방의 빠른 활동과 심실로 내려오는 전도를 따로 읽는다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-73": {
+      "label": "AVNRT",
+      "title": "방실결절회귀빈맥 · 빠르고 규칙적인 좁은 QRS",
+      "summary": "P가 QRS에 묻히거나 바로 뒤에 붙어 뚜렷하게 분리되지 않을 수 있다.",
+      "src": "assets/wiki20-ecg/practice-73.jpg",
+      "width": 1453,
+      "height": 835,
+      "source": "증례 p.73",
+      "steps": [
+        {
+          "label": "II 리듬줄 · 규칙적 빈맥",
+          "box": [
+            0,
+            655,
+            550,
+            180
+          ],
+          "text": "길게 기록한 II에서 좁은 QRS가 규칙적으로 반복된다. 매 QRS 앞에 분리된 동성 P는 뚜렷하지 않다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-74": {
+      "label": "AVRT",
+      "title": "방실회귀빈맥 · 회귀회로에 부전도로가 참여",
+      "summary": "좁고 규칙적인 빈맥에서 QRS 뒤의 역행성 심방 활동도 살핀다.",
+      "src": "assets/wiki20-ecg/practice-74.jpg",
+      "width": 1422,
+      "height": 867,
+      "source": "증례 p.74",
+      "steps": [
+        {
+          "label": "II · QRS와 뒤쪽 파형",
+          "box": [
+            0,
+            280,
+            280,
+            230
+          ],
+          "text": "빠르고 규칙적인 QRS 뒤의 작은 파형을 찾는다. 표면 ECG만으로 회로의 세부 경로를 모두 확정하기보다, 이 증례에서는 AVRT의 전체 모양을 익히자.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-76": {
+      "label": "심실조기수축",
+      "title": "심실조기수축 · 먼저 튀어나온 넓은 QRS",
+      "summary": "원래 박동보다 일찍 나온 다른 모양의 넓은 QRS와 그 뒤 간격을 본다.",
+      "src": "assets/wiki20-ecg/practice-76.jpg",
+      "width": 1466,
+      "height": 843,
+      "source": "증례 p.76",
+      "steps": [
+        {
+          "label": "V1 리듬줄 · 조기박동",
+          "box": [
+            420,
+            760,
+            300,
+            230
+          ],
+          "text": "좁은 원래 QRS 사이로 넓고 다른 모양의 박동이 먼저 끼어든다. 뒤의 T 방향과 간격도 같이 비교한다.",
+          "targets": []
+        },
+        {
+          "label": "V2 · 다른 QRS 모양",
+          "box": [
+            510,
+            240,
+            255,
+            300
+          ],
+          "text": "V2에서도 원래 박동과 조기박동의 QRS가 뚜렷하게 다르다. 폭뿐 아니라 발생 시점과 앞선 P를 함께 본다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-78": {
+      "label": "심실빈맥",
+      "title": "심실빈맥 · 넓은 QRS가 연속된다",
+      "summary": "넓고 빠른 QRS가 이어질 때 가장 먼저 심실빈맥을 떠올린다.",
+      "src": "assets/wiki20-ecg/practice-78.jpg",
+      "width": 1520,
+      "height": 836,
+      "source": "증례 p.78",
+      "steps": [
+        {
+          "label": "V1 리듬줄 · wide tachycardia",
+          "box": [
+            0,
+            780,
+            550,
+            210
+          ],
+          "text": "넓은 QRS가 빠르게 연속된다. 규칙적인 좁은 QRS 빈맥과 폭을 비교하자.",
+          "targets": []
+        },
+        {
+          "label": "V2·V3 · 같은 빈맥",
+          "box": [
+            530,
+            270,
+            250,
+            500
+          ],
+          "text": "흉부유도에서도 넓은 복합파가 이어진다. AV 해리, 포획박동, 융합박동이 보이면 심실 기원을 뒷받침한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-79": {
+      "label": "발생·종료",
+      "title": "심실빈맥이 나타났다 멎는 예제",
+      "summary": "한 장 안에서도 리듬이 바뀔 수 있으므로 처음부터 끝까지 이어서 읽는다.",
+      "src": "assets/wiki20-ecg/practice-79.jpg",
+      "width": 1565,
+      "height": 878,
+      "source": "증례 p.79",
+      "steps": [
+        {
+          "label": "V1·V2 · 넓은 빈맥 구간",
+          "box": [
+            545,
+            0,
+            230,
+            520
+          ],
+          "text": "흉부유도 가운데에서 넓은 빈맥 구간을 확인한다. 앞뒤의 다른 파형과 폭·간격을 비교한다.",
+          "targets": []
+        },
+        {
+          "label": "긴 II · 시간 순서",
+          "box": [
+            0,
+            780,
+            990,
+            210
+          ],
+          "text": "아래의 긴 리듬줄은 시간 흐름을 이어서 보여준다. 위 12유도의 서로 다른 칸을 모두 같은 시점으로 연결하지 말고 기록 형식을 먼저 확인한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-80": {
+      "label": "심실세동",
+      "title": "심실세동 · 조직화된 QRS가 사라진다",
+      "summary": "진폭과 모양이 무질서하게 변하고 일정한 QRS를 따라갈 수 없다.",
+      "src": "assets/wiki20-ecg/practice-80.jpg",
+      "width": 1523,
+      "height": 893,
+      "source": "증례 p.80",
+      "steps": [
+        {
+          "label": "V1 리듬줄 · 무질서한 파형",
+          "box": [
+            0,
+            780,
+            650,
+            210
+          ],
+          "text": "P–QRS–T의 반복 구조가 없다. 심실의 유효한 박출이 사라지는 응급 리듬이다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-81": {
+      "label": "Torsades",
+      "title": "다형성 심실빈맥 · Torsades de pointes",
+      "summary": "파형의 크기와 방향이 기저선을 중심으로 꼬이듯 변한다.",
+      "src": "assets/wiki20-ecg/practice-81.jpg",
+      "width": 1520,
+      "height": 823,
+      "source": "증례 p.81",
+      "steps": [
+        {
+          "label": "V1 리듬줄 · 비틀리는 구간",
+          "box": [
+            80,
+            770,
+            640,
+            220
+          ],
+          "text": "일정한 QRS 모양이 반복되는 단형성 심실빈맥과 비교하자. Torsades는 QT 연장과 연결해서 기억한다.",
+          "targets": []
+        },
+        {
+          "label": "시작 전 박동",
+          "box": [
+            0,
+            0,
+            170,
+            260
+          ],
+          "text": "빈맥 직전 정상적으로 분리되는 박동의 QT도 살핀다. 짧은 사진만으로 QT를 정밀하게 확정하기 어려우면 더 긴 기록을 함께 본다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-82": {
+      "label": "WPW",
+      "title": "WPW 조기흥분 · 짧은 PR + delta wave",
+      "summary": "P 뒤에 QRS가 일찍 시작하면서 상승 첫 부분이 비스듬해진다.",
+      "src": "assets/wiki20-ecg/practice-82.jpg",
+      "width": 1507,
+      "height": 841,
+      "source": "증례 p.82",
+      "steps": [
+        {
+          "label": "I·II · 짧은 PR와 delta",
+          "box": [
+            0,
+            0,
+            280,
+            520
+          ],
+          "text": "작은 P 뒤에서 QRS가 곧 시작하고, 첫 상승부가 완만하다. 이 slurring이 delta wave다.",
+          "targets": [
+            {
+              "x": 171.2010617120106,
+              "y": 112.96076099881094,
+              "label": "δ"
+            }
+          ]
+        },
+        {
+          "label": "V5·V6 · 초기 slurring",
+          "box": [
+            770,
+            260,
+            225,
+            500
+          ],
+          "text": "왼쪽 흉부유도에서도 QRS 시작이 완만하게 올라간다. R 꼭대기보다 QRS 시작점을 보자.",
+          "targets": []
+        },
+        {
+          "label": "I · delta 시작점",
+          "box": [
+            147,
+            40,
+            55,
+            105
+          ],
+          "text": "δ 표시가 QRS 시작의 완만한 상승부를 짚는다. 작은 P가 끝난 뒤 심실 일부가 일찍 활성화되는 자리다.",
+          "targets": [
+            {
+              "x": 171.2010617120106,
+              "y": 112.96076099881094,
+              "label": "δ"
+            }
+          ]
+        }
+      ]
+    },
+    "practice-83": {
+      "label": "WPW + 심방세동",
+      "title": "조기흥분성 심방세동 · 빠르고 불규칙한 넓은 QRS",
+      "summary": "부전도로로 매우 빠르게 전도되면 폭과 모양이 달라지는 QRS가 불규칙하게 나타난다.",
+      "src": "assets/wiki20-ecg/practice-83.jpg",
+      "width": 1373,
+      "height": 929,
+      "source": "증례 p.83",
+      "steps": [
+        {
+          "label": "긴 리듬줄 · 불규칙한 wide QRS",
+          "box": [
+            0,
+            800,
+            650,
+            190
+          ],
+          "text": "RR이 매우 짧고 불규칙하며 QRS 모양도 달라진다. 평소 WPW pattern 사진과 함께 비교하자.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-85": {
+      "label": "K⁺ 증가",
+      "title": "고칼륨혈증 · 높은 T에서 넓은 파형으로",
+      "summary": "A→D는 칼륨이 증가할 때 나타날 수 있는 변화의 예시다. 파형만으로 정확한 혈중 수치를 역산하지 않는다.",
+      "src": "assets/wiki20-ecg/practice-85.jpg",
+      "width": 916,
+      "height": 1132,
+      "source": "증례 p.85",
+      "steps": [
+        {
+          "label": "B · 뾰족한 T",
+          "box": [
+            330,
+            230,
+            560,
+            250
+          ],
+          "text": "정상 A에 비해 B의 T가 뾰족하고 높다.",
+          "targets": []
+        },
+        {
+          "label": "C·D · P 소실·QRS 확대",
+          "box": [
+            120,
+            460,
+            700,
+            530
+          ],
+          "text": "더 진행하면 P가 작아지거나 사라지고 QRS가 넓어진다. 마지막에는 QRS와 T가 합쳐진 sine-wave 모양이 된다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-86": {
+      "label": "K⁺ 감소",
+      "title": "저칼륨혈증 · T는 낮아지고 U는 커진다",
+      "summary": "T 뒤에 따로 솟는 U파를 놓치지 말자.",
+      "src": "assets/wiki20-ecg/practice-86.jpg",
+      "width": 911,
+      "height": 1120,
+      "source": "증례 p.86",
+      "steps": [
+        {
+          "label": "B·C · T와 U 구분",
+          "box": [
+            100,
+            250,
+            690,
+            450
+          ],
+          "text": "T가 평평해지고 그 뒤 U가 두드러진다. ST 하강도 함께 나타난다.",
+          "targets": []
+        },
+        {
+          "label": "D · T–U 융합",
+          "box": [
+            320,
+            670,
+            570,
+            320
+          ],
+          "text": "T와 U가 이어지면 QT가 길어진 것처럼 보일 수 있다. U까지 포함한 QU와 T 끝까지의 QT를 구분한다.",
+          "targets": []
+        }
+      ]
+    },
+    "practice-87": {
+      "label": "Ca²⁺ 변화",
+      "title": "칼슘과 ST 길이 · 높으면 짧고 낮으면 길다",
+      "summary": "정상 A와 고칼슘 B, 저칼슘 C를 비교한다.",
+      "src": "assets/wiki20-ecg/practice-87.jpg",
+      "width": 760,
+      "height": 1151,
+      "source": "증례 p.87",
+      "steps": [
+        {
+          "label": "A·B · 고칼슘의 짧은 QT",
+          "box": [
+            0,
+            0,
+            780,
+            680
+          ],
+          "text": "B에서는 ST가 짧아져 T가 QRS 가까이 온다. 고칼슘혈증은 QT 단축과 연결한다.",
+          "targets": []
+        },
+        {
+          "label": "C · 저칼슘의 긴 QT",
+          "box": [
+            410,
+            635,
+            570,
+            350
+          ],
+          "text": "C에서는 ST가 길어져 T가 뒤로 밀린다. 저칼슘혈증은 QT 연장과 연결한다.",
+          "targets": []
+        }
+      ]
+    }
+  },
+  "groups": {
+    "normal": {
+      "title": "정상 심전도 · 기준 사진",
+      "cases": [
+        "theory-11"
+      ]
+    },
+    "axis": {
+      "title": "실제 파형으로 전기축 확인",
+      "cases": [
+        "theory-42",
+        "theory-45",
+        "theory-46",
+        "theory-47"
+      ]
+    },
+    "atria": {
+      "title": "심방확대 · P파 비교",
+      "cases": [
+        "practice-04",
+        "practice-07"
+      ]
+    },
+    "hypertrophy": {
+      "title": "정상·좌심실비대·우심실비대 비교",
+      "cases": [
+        "theory-11",
+        "practice-10",
+        "practice-12"
+      ]
+    },
+    "ischemia": {
+      "title": "위치와 시간에 따른 심근경색 비교",
+      "cases": [
+        "practice-16",
+        "practice-17",
+        "practice-18",
+        "practice-19",
+        "practice-20"
+      ]
+    },
+    "sinus": {
+      "title": "동성리듬과 멈춘 박동 비교",
+      "cases": [
+        "practice-22",
+        "practice-23",
+        "practice-24",
+        "practice-25",
+        "practice-28"
+      ]
+    },
+    "avblock": {
+      "title": "P를 따라가며 방실차단 비교",
+      "cases": [
+        "practice-29",
+        "practice-30",
+        "practice-31",
+        "practice-32",
+        "practice-33",
+        "practice-34",
+        "practice-35",
+        "practice-36"
+      ]
+    },
+    "bundle": {
+      "title": "정상·우각차단·좌각차단 비교",
+      "cases": [
+        "theory-11",
+        "practice-48",
+        "practice-52"
+      ]
+    },
+    "fascicle": {
+      "title": "섬유속차단 · 축과 QRS의 조합",
+      "cases": [
+        "practice-56",
+        "practice-59",
+        "practice-60"
+      ]
+    },
+    "atrial": {
+      "title": "심방의 파형과 심실 RR을 따로 읽기",
+      "cases": [
+        "practice-64",
+        "practice-68",
+        "practice-69",
+        "practice-67",
+        "practice-65"
+      ]
+    },
+    "reentry": {
+      "title": "발작성 빈맥과 조기흥분 비교",
+      "cases": [
+        "practice-73",
+        "practice-74",
+        "practice-82",
+        "practice-83"
+      ]
+    },
+    "ventricular": {
+      "title": "심실성 부정맥 비교",
+      "cases": [
+        "practice-76",
+        "practice-78",
+        "practice-79",
+        "practice-80",
+        "practice-81"
+      ]
+    },
+    "electrolytes": {
+      "title": "전해질 변화 · T·U·QT 비교",
+      "cases": [
+        "practice-85",
+        "practice-86",
+        "practice-87"
+      ]
+    }
+  }
+};

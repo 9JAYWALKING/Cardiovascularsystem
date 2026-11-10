@@ -1,0 +1,12 @@
+.brady-learning .brady-spike{stroke:var(--ecg-ink);stroke-width:2;fill:none;stroke-linecap:round}
+.brady-learning .brady-chambers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.brady-learning .brady-chamber{border:1px solid var(--ecg-line);border-radius:15px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.brady-learning .brady-chamber.is-paced{border-color:var(--ecg-ink)}
+.brady-learning .brady-chamber>strong{font-size:var(--reading-body,18px);color:var(--ecg-ink)}
+.brady-learning .brady-capability{font-size:var(--reading-small,15px);color:var(--ecg-muted);line-height:1.5}
+.brady-learning .brady-capability.is-active{color:var(--ecg-ink);font-weight:700}
+.brady-learning .brady-route{padding:12px 0;border-bottom:1px solid var(--ecg-line);font-weight:600;color:var(--ecg-ink)}
+.brady-learning .brady-key{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--ecg-ink);font-size:var(--reading-small,15px)}
+.brady-learning .brady-mobile-plot{display:none}
+@container(max-width:380px){.brady-learning .brady-desktop-plot{display:none}.brady-learning .brady-mobile-plot{display:block}}
+@container(max-width:320px){.brady-learning .brady-chambers{gap:8px}.brady-learning .brady-chamber{padding:10px}.brady-learning .brady-capability{overflow-wrap:anywhere}}

@@ -1,6 +1,8 @@
 /* 위키 본문 안에서 사용하는 학습 블록. 글과 각주·문항 링크는 기존 편집 문법을 공유한다. */
 function renderWikiLearningBlock(line, course, footnotes) {
   const inline = value => renderWikiInline(value, course, footnotes);
+  const ecg = typeof renderECGLearningBlock==='function' ? renderECGLearningBlock(line, course, footnotes) : '';
+  if (ecg) return ecg;
   const pathology = renderPathologyLearningBlock(line, course, footnotes);
   if (pathology) return pathology;
   const pharmacology = renderPharmacologyBlock(line, course, footnotes);
@@ -67,6 +69,7 @@ function learningRateMarkup(){return `<div class="learning-interactive" data-lea
 
 let learningExamHistorySerial=0;
 function bindWikiLearning(container,course){
+  if(typeof bindECGLearning==='function')bindECGLearning(container);
   bindPathologyLearning(container,course);
   bindPharmacologyLearning(container);
   bindLipidLearning(container);

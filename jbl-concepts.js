@@ -1289,6 +1289,220 @@ window.JBL_CONCEPTS = {
           "source": "@pathpos vascular-tumor\n\n> '''손끝·손톱 밑 통증 + 작은 혈관을 둘러싼 둥근 세포 → Glomus tumor'''\n\n'''기원 = glomus body의 변형 평활근세포 · SMA 양성'''\n\n||= 감별 이름 ||= 조직 단서 ||\n|| '''Capillary hemangioma''' || 작은 모세혈관 증식 ||\n|| '''Pyogenic granuloma''' || 소엽성 모세혈관 증식·잘 출혈하는 결절 ||\n|| '''Kaposi sarcoma''' || HHV-8·방추세포·틈새 혈관·적혈구 유출 ||\n|| '''Angiosarcoma''' || 악성 내피세포·이형성·불규칙 혈관·침윤 ||"
         }
       ]
+    },
+    "20": {
+      "mode": "compact",
+      "groups": [
+        {
+          "key": "ecg-chambers",
+          "heading": "비대 · 심방은 P, 심실은 QRS",
+          "questions": [
+            "25047",
+            "23039",
+            "22007",
+            "21010",
+            "19074"
+          ],
+          "wikiSections": [
+            "좌심실비대와 우심실비대",
+            "좌심방 확대와 우심방 확대"
+          ],
+          "source": "@ecgrecall chambers\n\n> '''LVH = V1·V2 깊은 S + V5·V6 큰 R → 측벽 ST↓·T 역전(strain)'''\n\n* '''LVH 전압'''　S(V1 또는 V2) + R(V5 또는 V6) '''>35 mm''' · 10 mm/mV 보정\n* '''RVH'''　V1·V2 큰 R + V5·V6 깊은 S + 우축편위\n* '''LAE'''　II: 넓고 갈라진 P / V1: 말단 음성 P 증가\n* '''RAE'''　II: 높고 뾰족한 P / V1: 초기 양성 P 증가\n\n'''심방 확대는 P파, 각차단은 QRS 폭·말단, WPW는 짧은 PR·delta.''' 양심실 확대는 좌·우심실 근거를 함께 확인한다.\n\n@detail 용어·약자\nLVH/RVH = Left/Right ventricular hypertrophy, 좌/우심실비대. LAE/RAE = Left/Right atrial enlargement, 좌/우심방 확대. WPW = Wolff–Parkinson–White 조기흥분. PR은 P 시작~QRS 시작 간격. P는 심방 탈분극, QRS는 심실 탈분극, T는 심실 재분극이다. ST는 QRS 끝~T 시작 구간. 승모판협착증(mitral stenosis)은 좌심방 부담·확대와 심방세동을 연결한다. Mobitz II 방실차단은 PR이 일정한 중 QRS가 탈락한다.\n@enddetail"
+        },
+        {
+          "key": "ecg-axis",
+          "heading": "전기축 · I·aVF, 경계는 II",
+          "questions": [
+            "25050",
+            "21009",
+            "19077"
+          ],
+          "wikiSections": [
+            "전기축은 I·aVF, 경계에서는 II"
+          ],
+          "source": "@ecgrecall axis\n\n> '''I＋ · aVF− → II까지 음성이면 좌축편위'''\n\n||= I / aVF ||= 축 ||\n|| '''＋ / ＋''' || 정상 ||\n|| '''＋ / −''' || II＋: 정상 경계 / II−: '''LAD''' ||\n|| '''− / ＋''' || '''RAD''' ||\n|| '''− / −''' || 극단축 · No man’s land ||\n\n'''정상 −30°~+90°.''' R과 Q·S를 합친 QRS 순방향을 본다. 판독 가능한 사지유도가 부족하거나 순전압이 거의 없으면 축 판정이 어렵다.\n\n@detail 용어·약자\nLAD = Left axis deviation, 좌축편위. RAD = Right axis deviation, 우축편위. Extreme axis / northwest axis / no man’s land = 극단축. 이 카드의 LAD는 관상동맥 이름이 아닌 전기축 용어다. aVF = augmented voltage foot, 다리 방향 증폭 전위 유도. I·II는 사지유도이며 QRS는 심실 탈분극 파형이다.\n@enddetail"
+        },
+        {
+          "key": "ecg-infarct",
+          "heading": "심근경색 · ST가 올라간 유도를 묶기",
+          "questions": [
+            "25049",
+            "23040",
+            "21012",
+            "20065"
+          ],
+          "wikiSections": [
+            "ST가 올라간 유도들을 묶어 보자",
+            "급성기에서 며칠 뒤까지"
+          ],
+          "source": "@ecgrecall infarct\n\n||= 영역 ||= 묶어 볼 유도 ||\n|| '''전중격·전벽''' || '''V1–V4''' ||\n|| '''하벽''' || '''II·III·aVF''' ↑ ↔ I·aVL ↓ ||\n|| '''측벽''' || '''I·aVL·V5·V6''' ||\n\n'''급성 ST↑·큰 T → Q/QS·T 역전 → ST 회복''' · 시간에 따라 달라지는 흐름\n\n* '''NSTEMI'''　ST↓·T 역전 또는 거의 정상 → 증상·troponin 확인\n* '''심낭염'''　광범위 ST↑·PR↓ / '''LVH·LBBB'''도 ST–T 변화 가능 → QRS부터 구분\n\n@detail 용어·약자\nMI = Myocardial infarction, 심근경색. STEMI = ST-elevation myocardial infarction, ST상승 심근경색. NSTEMI = Non-ST-elevation myocardial infarction, 비ST상승 심근경색. Anteroseptal / inferior / lateral = 전중격 / 하벽 / 측벽. Acute pericarditis = 급성 심낭염. Troponin = 트로포닌, 심근 손상 표지자. LVH = Left ventricular hypertrophy, 좌심실비대. LBBB = Left bundle branch block, 좌각차단. ST는 QRS 끝~T 시작, PR은 P 시작~QRS 시작 간격. aVL/aVF = augmented voltage left/foot, 왼팔/다리 방향 증폭 전위 유도. 실제 경색 판단에는 허혈 증상·troponin 변화 등을 함께 확인하며, 시간 변화는 환자마다 다르다.\n@enddetail"
+        },
+        {
+          "key": "ecg-bundle",
+          "heading": "각차단 · V1의 끝, 좌측 유도의 반대 모양",
+          "questions": [
+            "23042",
+            "20064",
+            "20오21",
+            "19076"
+          ],
+          "wikiSections": [
+            "우각차단과 좌각차단"
+          ],
+          "source": "@ecgrecall bundle\n\n> '''RBBB: V1 끝에 R′ / LBBB: V1은 주로 음성'''\n\n||= 완전 각차단 · QRS ≥0.12초 ||= V1 ↔ I·V6 ||\n|| '''RBBB''' || '''rSR′''' ↔ 넓은 말단 S ||\n|| '''LBBB''' || '''QS/rS''' ↔ 넓고 패인 R ||\n\n'''LBBB의 큰 양성 T'''는 음성 QRS 뒤에 온다. QRS 끝을 잡고 T를 따로 읽자.\n\n'''높이'''가 크면 LVH / '''시작'''이 완만하고 PR이 짧으면 WPW / '''같은 벽의 ST·Q 변화'''는 경색을 연결한다.\n\n@detail 용어·약자\nRBBB = Right bundle branch block, 우각차단. LBBB = Left bundle branch block, 좌각차단. LVH = Left ventricular hypertrophy, 좌심실비대. WPW = Wolff–Parkinson–White 조기흥분. QRS는 심실 탈분극, T는 심실 재분극. QS는 전체가 음성인 QRS, R′는 QRS 안에서 추가로 나타나는 양성파다. PR은 P 시작~QRS 시작 간격. ST는 QRS 끝~T 시작 구간이며, 각차단의 이차 ST–T 변화는 주 QRS와 반대 방향으로 나타나기 쉽다.\n@enddetail"
+        },
+        {
+          "key": "ecg-atrial",
+          "heading": "AF·AFL · RR보다 먼저 심방파를 보자",
+          "questions": [
+            "23041",
+            "22종125",
+            "22008",
+            "19075"
+          ],
+          "wikiSections": [
+            "AF·AFL·AT는 심방의 모양부터",
+            "심방세동인데 RR이 규칙적이라면?"
+          ],
+          "source": "@ecgrecall atrial\n\n> '''AF = 일정한 P 없음 + RR 완전 불규칙 / AFL = 연속 톱니 F파'''\n\n||= 패턴 ||= 고를 단서 ||\n|| '''AT''' || 이소성 P가 규칙적으로 반복 · P 사이 기저선 ||\n|| '''PSVT''' || 빠르고 규칙적인 좁은 QRS · P가 겹쳐 숨음 ||\n|| '''VT''' || 빠른 넓은 QRS · 방실해리·포획·융합박동 확인 ||\n\n'''AFL은 전도비에 따라 RR이 달라진다.''' AF인데 느리고 규칙적인 QRS라면 '''완전 방실차단 + 이탈박동'''을 생각한다.\n\n@detail 용어·약자\nAF = Atrial fibrillation, 심방세동. AFL = Atrial flutter, 심방조동. AT = Atrial tachycardia, 심방빈맥. PSVT = Paroxysmal supraventricular tachycardia, 발작성 상심실성 빈맥. VT = Ventricular tachycardia, 심실빈맥. P는 심방 탈분극, F는 flutter(조동) 파형, QRS는 심실 탈분극. RR은 연속한 R파 사이 간격. Complete AV block = Complete atrioventricular block, 완전 방실차단. 동성서맥(sinus bradycardia)은 동성 P–QRS를 유지하며 60회/분 미만이다. 넓은 QRS 빈맥에는 상심실성 빈맥의 변행전도도 있어 심방·심실 관계를 함께 본다.\n@enddetail"
+        },
+        {
+          "key": "ecg-tachy",
+          "heading": "빠른 리듬 · 동성 P인가, 숨은 P인가?",
+          "questions": [
+            "25048",
+            "23043"
+          ],
+          "wikiSections": [
+            "P–QRS 순서가 유지되는가?",
+            "AVNRT와 AVRT"
+          ],
+          "source": "@ecgrecall tachy\n\n* '''동성빈맥'''　동성 P–QRS 유지 + '''>100회/분''' · 규칙적이면 300 ÷ RR 큰 칸 수\n* '''동성부정맥'''　동성 P 유지 + PP·RR이 주기적으로 변화\n* '''APC'''　예상보다 이른 이소성 P / '''AT'''　이소성 P가 빠르게 반복\n\n> '''PSVT = 빠르고 규칙적인 좁은 QRS. AVNRT·AVRT는 AV node가 회로에 포함 → 차단하면 종료 가능.'''\n\n'''AF''' 일정한 P 소실·RR 불규칙 / '''AFL''' 연속 F파 / '''VF''' 정돈된 QRS 소실\n\n@detail 용어·약자\nSinus tachycardia / sinus arrhythmia = 동성빈맥 / 동성부정맥. APC = Atrial premature contraction, 심방조기수축. AT = Atrial tachycardia, 심방빈맥. PSVT = Paroxysmal supraventricular tachycardia, 발작성 상심실성 빈맥. AVNRT = Atrioventricular nodal reentrant tachycardia, 방실결절 재진입성 빈맥. AVRT = Atrioventricular reentrant tachycardia, 방실회귀성 빈맥. AV node = Atrioventricular node, 방실결절. AF = Atrial fibrillation, 심방세동. AFL = Atrial flutter, 심방조동. VF = Ventricular fibrillation, 심실세동. P는 심방 탈분극, QRS는 심실 탈분극, PP/RR은 연속 P/R 사이 간격이다. 완전 방실차단은 P·QRS가 독립, 동성서맥은 동성 P–QRS 유지 + 60회/분 미만. AVNRT는 방실결절의 두 경로, AVRT는 방실결절·부전도로를 이용한다. 조기흥분 AF에는 일반적인 방실결절 차단 원칙을 그대로 적용하지 않는다.\n@enddetail"
+        },
+        {
+          "key": "ecg-preexcitation",
+          "heading": "WPW · 짧은 PR, 완만한 QRS 시작",
+          "questions": [
+            "22009",
+            "22종129"
+          ],
+          "wikiSections": [
+            "짧은 PR + delta wave",
+            "AVNRT와 AVRT"
+          ],
+          "source": "@ecgrecall preexcitation\n\n> '''WPW = PR <0.12초 + delta wave + 넓은 QRS'''\n\n'''부전도로 → 심실 일부가 먼저 흥분''' → QRS 첫 부분이 완만해진다.\n\n* '''WPW'''　QRS '''시작''' / '''각차단'''　QRS '''폭·말단''' / '''비대'''　유도별 '''전압'''을 본다.\n* '''AVRT'''　방실결절 ↔ 부전도로 재진입 · 정방향은 대개 좁은 QRS\n* '''WPW + AF'''　매우 빠르고 불규칙한 넓은 QRS → 일반적인 AV node 차단 원칙 적용 주의\n\n@detail 용어·약자\nWPW = Wolff–Parkinson–White 조기흥분. Delta wave = 델타파, 심실 조기흥분으로 QRS 시작이 완만해진 부분. Accessory pathway = 부전도로. AVRT = Atrioventricular reentrant tachycardia, 방실회귀성 빈맥. AV node = Atrioventricular node, 방실결절. AF = Atrial fibrillation, 심방세동. PR은 P 시작~QRS 시작 간격, QRS는 심실 탈분극. 역행전도만 하는 잠복 부전도로(concealed accessory pathway)는 평소 delta가 없어도 AVRT를 만들 수 있다. RBBB/LBBB = Right/Left bundle branch block, 우/좌각차단. LVH/RVH = Left/Right ventricular hypertrophy, 좌/우심실비대. 심근경색(myocardial infarction)은 같은 벽의 연속 유도에서 ST·Q 변화를 확인한다.\n@enddetail"
+        },
+        {
+          "key": "ecg-avblock",
+          "heading": "방실차단 · P는 나오는데 QRS가 빠진다",
+          "questions": [
+            "19078"
+          ],
+          "wikiSections": [
+            "고도 차단과 완전 차단",
+            "PR이 길어지는가, QRS가 빠지는가"
+          ],
+          "source": "@ecgrecall avblock\n\n||= 배열 ||= 이름 ||\n|| PR 점점 ↑ → QRS 탈락 || '''Mobitz I''' ||\n|| 전도된 PR 일정 → QRS 탈락 || '''Mobitz II''' ||\n|| 연속 P ≥2개 차단 · 일부 전도 || '''고도 방실차단''' ||\n|| P·QRS가 독립적으로 진행 || '''완전 방실차단''' ||\n\n> '''3:1 = P 3개마다 QRS 1개 → 고도 차단에 포함.''' 함께 보기에 나오면 실제 전도비가 일정한지 본다.\n\n'''RBBB'''는 V1 말단 R′·넓은 QRS / '''RVH'''는 V1 큰 R·우축편위. 차단된 P–QRS 관계와 따로 구분한다.\n\n@detail 용어·약자\nAV block = Atrioventricular block, 방실차단. High-degree / complete AV block = 고도 / 완전 방실차단. Mobitz I·II는 2도 방실차단 유형이다. PR은 P 시작~QRS 시작 간격, P는 심방 탈분극, QRS는 심실 탈분극. RBBB = Right bundle branch block, 우각차단. RVH = Right ventricular hypertrophy, 우심실비대. 2:1 전도만으로 Mobitz I·II를 구분하기 어렵다.\n@enddetail"
+        }
+      ]
+    },
+    "21": {
+      "mode": "compact",
+      "groups": [
+        {
+          "key": "brady-pr",
+          "heading": "PR · 늘다가 빠지나, 그대로 빠지나?",
+          "questions": [
+            "25051",
+            "21011"
+          ],
+          "wikiSections": [
+            "Mobitz I · Wenckebach부터 눈에 익히기",
+            "A → H → V로 차단 위치 찾기"
+          ],
+          "source": "@ecgrecall avblock 1\n\n> '''Mobitz I = PR 점점 연장 → QRS 탈락 → PR 다시 짧아짐'''\n\n* '''Mobitz II'''　PR 일정 → 갑자기 QRS 탈락\n* '''2:1'''　P 2개당 QRS 1개 · 이 배열만으로 I·II 구분은 어려움\n* '''고도 차단'''　P ≥2개 연속 차단 + 일부 전도 / '''완전 차단'''　P·QRS 독립\n\n'''공백에 P도 없으면''' 동정지·SA block. 전형적인 II형 SA block은 긴 PP가 기본 PP의 '''정수배'''.\n\n@detail 2:1의 위치를 더 묻는다면\n'''AH block'''은 A 뒤 H가 사라지는 '''No His''', '''HV block'''은 A·H가 나온 뒤 V가 빠지는 '''No V'''. 강의에서는 두 위치 모두 2:1로 나타난다. A·H·V는 심방·히스속·심실 전위를 뜻한다.\n@enddetail\n\n@detail 용어·약자\nP는 심방 탈분극, QRS는 심실 탈분극, T는 심실 재분극이다. PR은 P 시작~QRS 시작, PP·RR은 연속 P·R 사이의 간격이다. AV = atrioventricular, 방실. SA = sinoatrial, 동방. AV block = 방실차단, SA block = 동방차단. Mobitz I·II = 2도 방실차단의 두 유형. Mobitz I은 Wenckebach형이라고도 한다. High-grade / complete AV block = 고도 / 완전 방실차단. Sinus pause = 동정지. AH = atrial–His interval, 심방–히스속 전도시간. HV = His–ventricular interval, 히스속–심실 전도시간.\n@enddetail\n\n@source 21강 강의록 p.4–12"
+        },
+        {
+          "key": "brady-block",
+          "heading": "고도·완전 차단 · 남아 있는 P–QRS 연결",
+          "questions": [
+            "25053",
+            "25054",
+            "23045",
+            "22종126",
+            "21014",
+            "20066"
+          ],
+          "wikiSections": [
+            "고도 차단과 완전 차단을 구분하기"
+          ],
+          "source": "@ecgrecall avblock 0\n\n||= 남아 있는 관계 ||= 진단 ||\n|| P ≥2개 연속 차단 + '''일부 P → QRS''' || '''고도 차단''' ||\n|| P·QRS가 각자 진행 · '''PR 관계가 계속 바뀜''' || '''완전 차단''' ||\n\n> '''3:1·4:1도 고도 차단.''' 여러 P가 더 길게 연속 탈락하는 모습도 함께 기억하자.\n\n'''P도 없는 공백''' → 동정지·SA block / '''느린 P–QRS 1:1''' → 동성서맥\n\n'''가역 원인 없는 후천성 Mobitz II·고도·완전 차단 → 무증상이어도 영구 박동기.'''\n\n@detail 함께 나오는 보기까지\n* '''1도 차단'''　PR >200 ms + P–QRS 1:1\n* '''Mobitz I / II'''　PR 점점 연장 / PR 일정 → QRS 탈락\n* '''AF'''　일정한 P 없음 + RR 불규칙\n* '''AFL'''　연속 톱니 F파\n* '''PSVT / VT'''　빠르고 규칙적인 대개 좁은 QRS / 빠른 대개 넓은 QRS\n@enddetail\n\n@detail 사진의 판독 범위\n25053·20066의 4:1은 원시험의 복원 기억이다. 수록된 대체 사진에서 전도비를 그대로 재측정한 값은 아니다. 원본 채점이 보류된 문항은 해설의 사진·복원 범위를 함께 확인한다.\n@enddetail\n\n@detail 용어·약자\nP는 심방 탈분극, QRS는 심실 탈분극, T는 심실 재분극이다. PR은 P 시작~QRS 시작, PP·RR은 연속 P·R 사이의 간격이다. AV = atrioventricular, 방실. SA = sinoatrial, 동방. AV block = 방실차단, SA block = 동방차단. SND = sinus node dysfunction, 동기능부전. SSS = sick sinus syndrome, 동기능부전증후군. Sinus pause / sinus bradycardia = 동정지 / 동성서맥. High-grade / complete AV block = 고도 / 완전 방실차단. Escape rhythm = 이탈리듬. AF / AFL = atrial fibrillation / atrial flutter, 심방세동 / 심방조동. PSVT = paroxysmal supraventricular tachycardia, 발작성 상심실성빈맥. VT = ventricular tachycardia, 심실빈맥. F파는 flutter wave, 조동파다.\n@enddetail\n\n@source 21강 강의록 p.8–12, 26–27"
+        },
+        {
+          "key": "brady-sinus",
+          "heading": "긴 공백 · P도 사라졌는가?",
+          "questions": [
+            "25052",
+            "23046",
+            "22011",
+            "22종128"
+          ],
+          "wikiSections": [
+            "동기능부전 · 느린 동성리듬과 동정지",
+            "빠르다가 멈춘다 · 빈맥–서맥증후군"
+          ],
+          "source": "@ecgrecall brady-sinus\n\n> '''P·QRS 모두 없음 → Sinus pause / P는 계속, QRS만 빠짐 → AV block'''\n\n* '''동성서맥'''　느리지만 P–QRS 1:1\n* '''SA block II형'''　P–QRS–T 묶음 탈락 · 긴 PP = 기본 PP의 정수배\n* '''SSS'''　증상성 동성서맥·동정지·빈맥–서맥을 묶는 동기능부전\n\n'''느린 QRS 앞에 P가 흐리면''' 접합부 이탈리듬도 생각한다. '''동정지의 초 수 + 증상 연관 + 가역 원인'''을 함께 확인한다.\n\n@detail 빠른 리듬·차단이 보기에 섞이면\n* '''동성빈맥'''　동성 P–QRS 1:1 + >100회/분\n* '''AFL'''　규칙적인 톱니 F파 / '''AF'''　일정한 P 없음 + RR 불규칙\n* '''VF'''　정돈된 QRS가 사라진 무질서한 파형\n* '''Mobitz I / II'''　PR 연장 / 일정 → QRS 탈락\n* '''고도 / 완전 차단'''　여러 P 연속 차단 + 일부 전도 / P·QRS 독립\n@enddetail\n\n@detail 용어·약자\nP는 심방 탈분극, QRS는 심실 탈분극, T는 심실 재분극이다. PR은 P 시작~QRS 시작, PP·RR은 연속 P·R 사이의 간격이다. AV = atrioventricular, 방실. SA = sinoatrial, 동방. AV block = 방실차단, SA block = 동방차단. SND = sinus node dysfunction, 동기능부전. SSS = sick sinus syndrome, 동기능부전증후군. Sinus pause / sinus bradycardia = 동정지 / 동성서맥. Junctional escape rhythm = 접합부 이탈리듬. Tachycardia–bradycardia syndrome = 빈맥–서맥증후군. AF / AFL = atrial fibrillation / atrial flutter, 심방세동 / 심방조동. VF = ventricular fibrillation, 심실세동. Sinus tachycardia = 동성빈맥. F파는 flutter wave, 조동파다.\n@enddetail\n\n@source 21강 강의록 p.14–16, 28–29"
+        },
+        {
+          "key": "brady-indications",
+          "heading": "박동기 적응증 · 증상과 차단 종류",
+          "questions": [
+            "23044",
+            "22012"
+          ],
+          "wikiSections": [
+            "영구형 박동기 · 동기능부전과 AV block의 기준"
+          ],
+          "source": "> '''SND는 증상 연결 / 중요한 AV block은 가역 원인 배제'''\n\n||= 상황 ||= 결정 조건 ||\n|| '''동정지·동성서맥''' || 증상과 동시에 기록 + 원인 교정 후에도 지속 → '''박동기''' ||\n|| '''후천성 Mobitz II·고도·완전 차단''' || 가역·생리적 원인 없음 → '''무증상도 박동기''' ||\n|| '''무증상 수면 pause·운동선수 서맥''' || 수면·생리적 원인 평가, 경과 확인 ||\n|| '''무증상 1도 차단''' || 대개 관찰 ||\n\n'''2초 반복·수면 중 2–3초'''라는 숫자만으로 SND의 박동기를 정하지 않는다. '''실신 ↔ 서맥의 동시 기록'''이 핵심.\n\n@detail 적응증의 추가 조건\n '''운동에 맞춰 심박수가 증가하지 않아 증상'''이 생기는 경우도 SND의 적응증이다. '''꼭 필요한 대체 불가능한 약물'''로 증상성 서맥이 생기면 박동기 치료를 함께 고려한다.\n\n 강의록의 '''깨어 있을 때 3초 이상 무수축·이탈리듬 <40회/분'''은 완전·진행성 방실차단 표의 문맥이다. 무증상 수면 pause의 기준과 나누어 읽자.\n @enddetail\n\n\n적응증 확인[*ind [[https://professional.heart.org/en/science-news/2018-guideline-for-the-evaluation-and-management-of-bradycardia-and-cardiac-conduction-delay/top-things-to-know|서맥·전도장애 지침]] · SND는 증상 연관성을 확인하며, 가역 원인 없는 후천성 Mobitz II·고도·완전 차단은 증상과 관계없이 영구 조율을 권고한다.]\n\n@detail 용어·약자\nAV = atrioventricular, 방실. SA = sinoatrial, 동방. AV block = 방실차단, SA block = 동방차단. SND = sinus node dysfunction, 동기능부전. SSS = sick sinus syndrome, 동기능부전증후군. Sinus pause / sinus bradycardia = 동정지 / 동성서맥. Mobitz II = 2도 방실차단 II형. High-grade / complete AV block = 고도 / 완전 방실차단. First-degree AV block = 1도 방실차단. Symptomatic chronotropic incompetence = 증상을 동반한 심박수 증가 부전. Pacemaker = 심박동기.\n@enddetail\n\n@source 21강 강의록 p.26–29"
+        },
+        {
+          "key": "brady-pause-treatment",
+          "heading": "동정지 치료 · 최근 약인가, 지속되는 증상인가?",
+          "questions": [
+            "21013",
+            "19079"
+          ],
+          "wikiSections": [
+            "서맥을 치료할 때 · 증상과 원인을 함께",
+            "긴 공백에 P도 없다면 동방결절을 보자"
+          ],
+          "source": "> '''같은 pause여도 최근 β차단제 처방이 치료를 바꾼다.'''\n\n||= 발문의 단서 ||= 연결할 치료 ||\n|| '''최근 β차단제''' + 증상성 pause || '''약물 중단·조정 + ECG 모니터링''' ||\n|| '''증상 ↔ pause''' 동시 + 가역 원인 교정 후 반복 || '''영구 심박동기''' ||\n\n'''약물 조정 뒤에도 남는 증상성 서맥 → 박동기 재평가.'''\n\n* '''Atropine · Isoproterenol'''　급성·일시적 심박수 지지\n* '''Amiodarone'''　빈맥 치료 · 서맥·전도억제 가능\n* '''DC 율동전환'''　불안정한 빈맥 / '''ICD'''　치명적 VT·VF 위험\n\n@detail 급성 처치와 장기 치료를 구분하기\n저혈압·의식저하 등 '''불안정한 서맥은 심박수 지지·임시조율'''을 먼저 한다. 약물성 서맥에서도 순환 상태를 함께 확인한다. 가역 원인을 교정한 뒤 지속되는 증상성 동기능부전을 장기간 보완하는 기기가 영구 박동기다.\n@enddetail\n\n@detail 용어·약자\nSND = sinus node dysfunction, 동기능부전. SSS = sick sinus syndrome, 동기능부전증후군. Sinus pause / sinus bradycardia = 동정지 / 동성서맥. Pacemaker = 심박동기. ICD = implantable cardioverter-defibrillator, 삽입형 제세동기. DC cardioversion = direct-current cardioversion, 직류 심장율동전환. VT / VF = ventricular tachycardia / ventricular fibrillation, 심실빈맥 / 심실세동. β-blocker = 베타차단제. ECG = electrocardiogram, 심전도. Atropine(아트로핀)은 무스카린 수용체 차단, isoproterenol(이소프로테레놀)은 β수용체 자극으로 심박수를 지지한다. Amiodarone(아미오다론)은 항부정맥제다.\n@enddetail\n\n@source 21강 강의록 p.14–16, 28–29"
+        },
+        {
+          "key": "brady-av-treatment",
+          "heading": "실신 + 2:1 차단 · 지속되면 조율",
+          "questions": [
+            "22015",
+            "20067"
+          ],
+          "wikiSections": [
+            "먼저 불안정한 서맥을 놓치지 않기",
+            "A → H → V로 차단 위치 찾기"
+          ],
+          "source": "@ecgrecall avblock 5\n\n> '''P 2개당 QRS 1개 → 2:1 AV block.''' T에 겹친 P까지 세자.\n\n'''실신 때 차단 기록 → 가역 원인 교정 → 지속되면 영구 박동기'''\n\n* '''안정적'''　원인·회복 가능성을 평가 · 반복 기출은 ‘2–3일 뒤에도 지속’\n* '''저혈압·의식저하'''　심박수 지지·임시조율을 서두른다\n\n'''박동기'''는 느린 심실을 받치고, '''DC 율동전환'''은 불안정한 빈맥을 전환한다. '''ICD'''는 치명적 VT·VF 위험에 연결한다.\n\n@detail 두 반복 문항의 함정\n'''동성서맥'''은 P–QRS 1:1, 이 사진은 '''2:1'''이다. 증상 때 방실차단이 직접 기록되었으므로 리듬 원인 평가와 치료가 우선이며, 뇌 MRI·기립경사검사로 먼저 넘어가는 흐름과 구별한다.\n\n‘2–3일’은 안정적으로 지속 여부를 살피는 기출 조건이다. 불안정한 서맥의 응급 처치를 미루는 시간 기준으로 쓰지 않는다.\n@enddetail\n\n@detail 용어·약자\nP는 심방 탈분극, QRS는 심실 탈분극, T는 심실 재분극이다. PR은 P 시작~QRS 시작, PP·RR은 연속 P·R 사이의 간격이다. AV = atrioventricular, 방실. SA = sinoatrial, 동방. AV block = 방실차단, SA block = 동방차단. Pacemaker = 심박동기. ICD = implantable cardioverter-defibrillator, 삽입형 제세동기. DC cardioversion = direct-current cardioversion, 직류 심장율동전환. VT / VF = ventricular tachycardia / ventricular fibrillation, 심실빈맥 / 심실세동. Brain MRI = brain magnetic resonance imaging, 뇌 자기공명영상. Tilt-table test = 기립경사검사. Sinus bradycardia = 동성서맥, 느리지만 P–QRS 1:1을 유지한다.\n@enddetail\n\n@source 21강 강의록 p.8–11, 26–27"
+        },
+        {
+          "key": "brady-premature",
+          "heading": "이른 넓은 박동 · 관찰에도 조건이 있다",
+          "questions": [
+            "25102"
+          ],
+          "wikiSections": [
+            "느린 맥박을 두 갈래로 나누기"
+          ],
+          "source": "@ecgrecall brady-premature\n\n> '''기본 박동보다 먼저 나온 넓고 다른 QRS → PVC의 모양'''\n\n'''치료 판단 = 증상 + 발생 부담 + 심실 기능·기저 심질환'''\n\n증상이 없거나 경미하고 '''낮은 PVC 부담 + 정상 심실 기능'''이면 관찰 가능.\n\n* '''Aspirin · Clopidogrel'''　항혈소판제\n* '''LMWH'''　항응고제 → 혈전성 질환의 별도 적응증 확인\n\n'''25102의 원시험 정답은 보류.''' 흉통이 없다는 정보만으로 관찰을 확정하지 않는다.\n\n@detail 약물명과 판단 범위\n'''Enoxaban'''은 원문의 정확한 성분명이 확인되지 않았다. 비슷한 이름의 다른 약으로 대응시키지 않는다. 수록 ECG의 조기박동 형태와, 심실 기능·전체 발생 빈도에 근거한 치료 판단을 나누어 보자.\n\n[[https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.119.042434|PVC의 평가와 치료]]\n@enddetail\n\n@detail 용어·약자\nP는 심방 탈분극, QRS는 심실 탈분극, T는 심실 재분극이다. PR은 P 시작~QRS 시작, PP·RR은 연속 P·R 사이의 간격이다. PVC = premature ventricular contraction, 심실조기수축. ECG = electrocardiogram, 심전도. Aspirin = 아스피린, cyclooxygenase-1(COX-1, 사이클로옥시게나제-1) 억제. Clopidogrel = 클로피도그렐, P2Y₁₂ ADP 수용체 억제. ADP = adenosine diphosphate, 아데노신이인산. LMWH = low-molecular-weight heparin, 저분자량 헤파린; antithrombin(안티트롬빈)을 통해 주로 Xa를 억제한다.\n@enddetail\n\n@source J 25102 수록 ECG · 치료 조건은 보충 근거 참조"
+        }
+      ]
     }
   }
 };

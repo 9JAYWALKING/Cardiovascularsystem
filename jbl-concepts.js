@@ -1324,7 +1324,7 @@ window.JBL_CONCEPTS = {
         },
         {
           "key": "ecg-infarct",
-          "heading": "심근경색 · ST가 올라간 유도를 묶기",
+          "heading": "심근경색 · 위치와 시점을 함께 읽기",
           "questions": [
             "25049",
             "23040",
@@ -1335,7 +1335,7 @@ window.JBL_CONCEPTS = {
             "ST가 올라간 유도들을 묶어 보자",
             "급성기에서 며칠 뒤까지"
           ],
-          "source": "@ecgrecall infarct\n\n||= 영역 ||= 묶어 볼 유도 ||\n|| '''전중격·전벽''' || '''V1–V4''' ||\n|| '''하벽''' || '''II·III·aVF''' ↑ ↔ I·aVL ↓ ||\n|| '''측벽''' || '''I·aVL·V5·V6''' ||\n\n'''급성 ST↑·큰 T → Q/QS·T 역전 → ST 회복''' · 시간에 따라 달라지는 흐름\n\n* '''NSTEMI'''　ST↓·T 역전 또는 거의 정상 → 증상·troponin 확인\n* '''심낭염'''　광범위 ST↑·PR↓ / '''LVH·LBBB'''도 ST–T 변화 가능 → QRS부터 구분\n\n@detail 용어·약자\nMI = Myocardial infarction, 심근경색. STEMI = ST-elevation myocardial infarction, ST상승 심근경색. NSTEMI = Non-ST-elevation myocardial infarction, 비ST상승 심근경색. Anteroseptal / inferior / lateral = 전중격 / 하벽 / 측벽. Acute pericarditis = 급성 심낭염. Troponin = 트로포닌, 심근 손상 표지자. LVH = Left ventricular hypertrophy, 좌심실비대. LBBB = Left bundle branch block, 좌각차단. ST는 QRS 끝~T 시작, PR은 P 시작~QRS 시작 간격. aVL/aVF = augmented voltage left/foot, 왼팔/다리 방향 증폭 전위 유도. 실제 경색 판단에는 허혈 증상·troponin 변화 등을 함께 확인하며, 시간 변화는 환자마다 다르다.\n@enddetail"
+          "source": "@ecgrecall infarct\n\n||= 영역 ||= 묶어 볼 유도 ||\n|| '''전중격·전벽''' || '''V1–V4''' ||\n|| '''하벽''' || '''II·III·aVF''' ↑ ↔ I·aVL ↓ ||\n|| '''측벽''' || '''I·aVL·V5·V6''' ||\n\n'''급성 ST↑·큰 T → Q/QS·T 역전, ST 회복'''\n\n\"\"25049 = 하벽 경색 5일 후 · III·aVF Q파·T 역전\"\" · ST 상승이 가라앉아도 하벽 경색의 경과다.\n\n* '''NSTEMI'''　ST↓·T 역전 또는 거의 정상 → 증상·troponin 확인\n* '''심낭염'''　광범위 ST↑·PR↓ / '''LVH·LBBB'''도 ST–T 변화 가능 → QRS부터 구분\n\n@detail 용어·약자\nMI = Myocardial infarction, 심근경색. STEMI = ST-elevation myocardial infarction, ST상승 심근경색. NSTEMI = Non-ST-elevation myocardial infarction, 비ST상승 심근경색. Anteroseptal / inferior / lateral = 전중격 / 하벽 / 측벽. Acute pericarditis = 급성 심낭염. Troponin = 트로포닌, 심근 손상 표지자. LVH = Left ventricular hypertrophy, 좌심실비대. LBBB = Left bundle branch block, 좌각차단. ST는 QRS 끝~T 시작, PR은 P 시작~QRS 시작 간격. aVL/aVF = augmented voltage left/foot, 왼팔/다리 방향 증폭 전위 유도. 실제 경색 판단에는 허혈 증상·troponin 변화 등을 함께 확인하며, 시간 변화는 환자마다 다르다.\n@enddetail"
         },
         {
           "key": "ecg-bundle",

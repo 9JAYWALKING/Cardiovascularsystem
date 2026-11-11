@@ -1,4 +1,4 @@
-/* Reviewed J20 ECG regions; source images remain unchanged. */
+/* Lecture-photo audit 2026-11-11. Original pixels retained. */
 (function(){
 const data = {
   "cases": {
@@ -49,12 +49,12 @@ const data = {
     },
     "j-25048": {
       "label": "25048",
-      "title": "현재 대체 사진은 동성 P–QRS가 빠르게 반복된다",
+      "title": "동성 P–QRS를 유지하면서 빨라진 리듬",
       "summary": "유도 버튼을 눌러 전체 사진의 위치와 확대 파형을 함께 확인하자.",
       "src": "./J/2025/25048-1.jpg",
       "width": 919,
       "height": 491,
-      "source": "대체 ECG · 원시험 사진과 구분",
+      "source": "20강 증례 슬라이드 22 · 동성빈맥 사진 / 원시험 사진 미확인",
       "alt": "J 25048 대체 학습 ECG",
       "steps": [
         {
@@ -83,34 +83,78 @@ const data = {
     },
     "j-25049": {
       "label": "25049",
-      "title": "V1–V4의 ST·QRS 변화 → 전중격 심근경색",
-      "summary": "유도 버튼을 눌러 전체 사진의 위치와 확대 파형을 함께 확인하자.",
+      "title": "하벽 심근경색 5일 후 · III·aVF의 Q파·T 역전",
+      "summary": "급성기의 ST 상승이 가라앉고 하벽의 경색 흔적이 남은 사진이다. III·aVF에서 QRS 시작과 T파를 구분해 보자.",
       "src": "./J/2025/25049-1.jpg",
       "width": 2048,
       "height": 982,
-      "source": "J 25049 수록 ECG",
-      "alt": "J 25049 수록 심전도",
+      "source": "20강 증례 슬라이드 19 · 18의 급성 하벽 경색 이후 5일",
+      "alt": "J25049 · 하벽 심근경색 5일 후 원본 ECG",
       "steps": [
         {
-          "label": "V1–V3 · QRS와 ST",
+          "label": "III · Q파와 T 역전",
           "box": [
-            490,
-            20,
-            270,
-            970
+            0,
+            735,
+            245,
+            160
           ],
-          "text": "전중격 쪽 V1–V3에서 R 진행이 좋지 않고, 특히 V2·V3의 ST가 올라간다. Q/QS 모양과 ST를 함께 본다.",
+          "text": "셋째 줄 왼쪽 III: QRS 시작의 음성 Q파와, 그 뒤 아래로 향하는 T파를 차례로 본다.",
+          "targets": [
+            {
+              "x": 83,
+              "y": 834,
+              "label": "Q"
+            },
+            {
+              "x": 115,
+              "y": 835,
+              "label": "T"
+            }
+          ]
+        },
+        {
+          "label": "aVF · 같은 하벽 변화",
+          "box": [
+            250,
+            735,
+            240,
+            160
+          ],
+          "text": "III 오른쪽의 aVF에서도 QRS 시작의 음성파와 T 역전을 확인한다. 떨어져 배치된 III·aVF를 같은 하벽으로 묶자.",
+          "targets": [
+            {
+              "x": 280,
+              "y": 819,
+              "label": "Q"
+            },
+            {
+              "x": 309,
+              "y": 825,
+              "label": "T"
+            }
+          ]
+        },
+        {
+          "label": "II · ST 상승이 가라앉은 시점",
+          "box": [
+            0,
+            420,
+            245,
+            160
+          ],
+          "text": "둘째 줄 왼쪽 II의 ST는 급성기처럼 높이 솟아 있지 않다. 아래 연속 사진 비교에서 급성 하벽 사진과 같은 유도를 맞춰 보자.",
           "targets": []
         },
         {
-          "label": "V4 · 인접 유도",
+          "label": "V2·V3 · QRS와 T 구분",
           "box": [
-            750,
-            10,
-            245,
-            310
+            490,
+            405,
+            250,
+            555
           ],
-          "text": "V4까지 이어지는 변화를 살펴 전중격·전벽의 연속된 유도들을 묶는다.",
+          "text": "깊은 S 뒤 큰 양성 T를 나누어 읽는다. 이 파형 하나로 전벽 경색을 정하지 않고, 하벽 Q파·T 역전과 강의의 연속 사진을 함께 본다.",
           "targets": []
         }
       ]
@@ -336,7 +380,7 @@ const data = {
       "src": "./J/2023/23043-1.jpg",
       "width": 1322,
       "height": 709,
-      "source": "J 23043 수록 ECG",
+      "source": "20강 증례 슬라이드 74 · AVRT(PSVT의 한 유형)",
       "alt": "J 23043 수록 심전도",
       "steps": [
         {
@@ -1225,6 +1269,14 @@ const data = {
       "caption": "유도별 확대",
       "cases": [
         "j-19078-inferred"
+      ]
+    },
+    "j-25049-course": {
+      "title": "하벽 심근경색 · 급성기와 5일 후",
+      "caption": "강의록 연속 사진 · 같은 유도 비교",
+      "cases": [
+        "practice-18",
+        "practice-19"
       ]
     }
   }

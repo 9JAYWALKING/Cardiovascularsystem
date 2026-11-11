@@ -30,7 +30,8 @@
   const territories=[['V1','V2','V3','V4'],['II','III','aVF'],['I','aVL','V5','V6']];
   const normalST='M8 75H60l7 5 9 -42 9 52 7 -15H160q16 -30 32 0H232';
   const raisedST='M8 75H60l7 5 9 -42 9 52 7 -35Q120 52 148 55q24 -40 44 20H232';
-  function infarct(i){const active=territories[i];return `<div class="erc-territory"><div class="erc-lead-grid">${leadRows.map(n=>`<span class="${active.includes(n)?'is-active':i===1&&['I','aVL'].includes(n)?'is-reciprocal':''}">${n}${i===1&&['I','aVL'].includes(n)?'<small aria-label="ST 하강">↓</small>':''}</span>`).join('')}</div>${panel('선택 영역 · ST 상승',raisedST,normalST)}</div>`;}
+  const evolvedMI='M8 75H60l8 25 8 -56 10 41 7 -10H160q16 42 32 0H232';
+  function infarct(i){const followup=i===3,active=territories[followup?1:i];return `<div class="erc-territory"><div class="erc-lead-grid">${leadRows.map(n=>`<span class="${active.includes(n)?'is-active':i===1&&['I','aVL'].includes(n)?'is-reciprocal':''}">${n}${i===1&&['I','aVL'].includes(n)?'<small aria-label="ST 하강">↓</small>':''}</span>`).join('')}</div>${panel(followup?'III·aVF · Q파·T 역전':'선택 영역 · 급성 ST 상승',followup?evolvedMI:raisedST,normalST)}</div>`;}
   function qrs(x,y,wide=false){return wide?`M${x-18} ${y}l10 -29 15 -5 13 47 10 -13`:`M${x-5} ${y}l4 3 5 -29 5 39 5 -13`;}
   function pWave(x,y,inverted=false){return `M${x-13} ${y}q8 ${inverted?13:-14} 16 0`;}
   function rhythmLine(kind,y,ref=false){let xs=[50,130,210,290,370,450],b='';const cls=ref?'erc-reference':'erc-trace';
@@ -81,7 +82,7 @@
   const groups={
     chambers:{items:['좌심실비대','우심실비대','좌심방 확대','우심방 확대'],draw:chambers,cues:['V1의 깊은 S와 V6의 큰 R을 한 쌍으로 기억한다.','V1 큰 R + V6 깊은 S, 전기축도 오른쪽으로.','II의 넓은 P, V1의 말단 음성 P가 커진다.','II의 높은 P, V1의 초기 양성 P가 커진다.']},
     axis:{items:['좌축','정상','정상 경계','우축','극단축'],draw:axis,cues:['I＋ · aVF− · II− → 좌축편위.','I＋ · aVF＋ → 정상축.','I＋ · aVF−여도 II＋이면 정상 범위.','I− · aVF＋ → 우축편위.','I− · aVF− → 극단축.']},
-    infarct:{items:['전중격·전벽','하벽','측벽'],draw:infarct,cues:['V1–V4의 연속된 ST·QRS 변화를 묶는다.','II·III·aVF 상승 ↔ I·aVL 상호성 하강.','I·aVL·V5·V6는 같은 측벽을 본다.']},
+    infarct:{items:['전중격·전벽','하벽·급성기','측벽','하벽·5일 후'],draw:infarct,cues:['V1–V4의 연속된 ST·QRS 변화를 묶는다.','II·III·aVF 상승 ↔ I·aVL 상호성 하강.','I·aVL·V5·V6는 같은 측벽을 본다.','25049의 경과: ST 상승이 가라앉고 III·aVF에 Q파·T 역전이 남는다. 이 모식도는 시간 변화의 핵심을 비교한다.']},
     bundle:{items:['좌각차단','우각차단','정상'],draw:bundle,cues:['V1의 넓은 음성 QRS 뒤 큰 양성파는 T. QRS와 나누어 읽자.','V1의 말단 R′ ↔ V6의 넓은 말단 S.','좁은 QRS의 정상 모양을 기준으로 폭·말단을 비교한다.']},
     atrial:{items:['AF','AFL','AT','PSVT','VT'],draw:i=>rhythm(['af','afl','at','psvt','vt'][i]),cues:['일정한 P 없이 RR이 제멋대로 불규칙.','톱니 F파가 계속된다. 도식은 4:1 전도.','이소성 P가 빠르고 규칙적으로 반복된다.','빠르고 규칙적인 좁은 QRS, P가 QRS에 겹칠 수 있다.','넓은 QRS가 빠르게 반복된다. 방실관계까지 확인한다.']},
     tachy:{items:['PSVT','동성빈맥','동성부정맥','AT','APC','VF'],draw:i=>rhythm(['psvt','st','sa','at','apc','vf'][i]),cues:['동성 P가 분리되어 보이지 않는 규칙적인 좁은 QRS 빈맥.','같은 동성 P가 매 QRS 앞에 나온다.','동성 P 유지 + 간격이 주기적으로 길고 짧아짐.','동성 P와 모양이 다른 이소성 P가 반복된다.','먼저 나온 이소성 P와 그 뒤 QRS를 찾는다.','정돈된 QRS가 사라진 혼란스러운 심실 파형.']},

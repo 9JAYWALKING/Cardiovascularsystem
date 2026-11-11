@@ -1,0 +1,35 @@
+.tachy-learning .tachy-route{font-size:var(--reading-small,15px);color:var(--ecg-muted);margin:4px 0 14px}
+.tachy-learning .tachy-map-nodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:8px}
+.tachy-learning .tachy-map-nodes button{display:flex;align-items:center;gap:9px;text-align:left;padding:12px;line-height:1.45}
+.tachy-learning .tachy-map-nodes button>span{opacity:.7;font-size:var(--reading-meta,14px)}
+.tachy-learning .tachy-map-nodes strong{color:inherit;font-size:var(--reading-small,15px);line-height:inherit}
+.tachy-learning .tachy-map-copy{border-top:1px solid var(--ecg-line);margin-top:16px;padding-top:14px}
+.tachy-learning .tachy-location{font-size:var(--reading-small,15px);font-weight:700;color:var(--ecg-ink)}
+.tachy-learning .tachy-jump{font-size:var(--reading-small,15px)}
+.tachy-learning .tachy-lab-content>svg{max-width:565px;margin:0 auto}
+.tachy-learning[data-tachy-lab=reentry] .tachy-lab-content>svg{max-width:400px}
+.tachy-learning .tachy-wire{fill:none;stroke:var(--ecg-line);stroke-width:8;stroke-linecap:round}
+.tachy-learning .tachy-active,.tachy-learning .tachy-arrow{fill:none;stroke:var(--ecg-ink);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.tachy-learning .tachy-stop{fill:none;stroke:var(--ecg-ink);stroke-width:6;stroke-linecap:round}
+.tachy-learning .tachy-hr,.tachy-learning .tachy-bp{fill:none;stroke:var(--ecg-ink);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.tachy-learning .tachy-bp{stroke-dasharray:8 5}
+.tachy-learning .tachy-guide{fill:none;stroke:var(--ecg-muted);stroke-width:1.4;stroke-dasharray:4 5;opacity:.6}
+.tachy-learning .tachy-sequence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tachy-learning .tachy-sequence>div{padding:11px 9px;border:1px solid var(--ecg-line);border-radius:12px}
+.tachy-learning .tachy-sequence small{display:block;color:var(--ecg-muted);font-size:var(--reading-meta,14px)}
+.tachy-learning .tachy-sequence strong{display:block;color:var(--ecg-ink);font-size:var(--reading-small,15px);line-height:1.5;overflow-wrap:anywhere}
+.tachy-learning .tachy-score-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0 18px}
+.tachy-learning .tachy-score-fields label{display:flex;align-items:center;gap:9px;font-size:var(--reading-small,15px);border:1px solid var(--ecg-line);border-radius:12px;min-height:46px;padding:10px 12px;line-height:1.5;cursor:pointer}
+.tachy-learning .tachy-score-fields input{width:18px;height:18px;flex:0 0 18px;margin:0;accent-color:var(--ecg-ink)}
+.tachy-learning .tachy-score-fields small{font-size:var(--reading-meta,14px);font-weight:700;color:var(--ecg-ink);white-space:nowrap}
+.tachy-learning .tachy-score-fields .tachy-age{grid-column:1/-1;flex-wrap:wrap}
+.tachy-learning select{font:inherit;color:inherit;background:transparent;border:1px solid var(--ecg-line);border-radius:9px;padding:7px 10px;margin-left:auto;max-width:100%;min-height:40px}
+.tachy-learning option{background:var(--ecg-soft);color:var(--ecg-ink)}
+.tachy-learning input:focus-visible,.tachy-learning select:focus-visible{outline:2px solid var(--ecg-ink);outline-offset:3px}
+.tachy-learning .tachy-score-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border-top:1px solid var(--ecg-line);padding-top:16px}
+.tachy-learning .tachy-score-results>div{padding:12px;border:1px solid var(--ecg-line);border-radius:12px;text-align:center}
+.tachy-learning .tachy-score-results span{display:block;font-size:var(--reading-meta,14px);color:var(--ecg-muted);overflow-wrap:anywhere}
+.tachy-learning .tachy-score-results strong{display:block;font-size:var(--reading-title,24px);color:var(--ecg-ink);margin:6px 0}
+.tachy-learning .tachy-score-results strong small{font-size:var(--reading-small,15px);margin-left:5px}
+.tachy-learning .tachy-score-results p{font-size:var(--reading-small,15px);font-weight:600;margin:0}
+@container(max-width:440px){.tachy-learning .tachy-score-fields{grid-template-columns:minmax(0,1fr)}.tachy-learning .tachy-map-nodes{grid-template-columns:repeat(2,minmax(0,1fr))}.tachy-learning .tachy-sequence{grid-template-columns:minmax(0,1fr)}.tachy-learning .tachy-sequence>div{display:flex;align-items:center;gap:10px}.tachy-learning .tachy-score-results{gap:7px}.tachy-learning .tachy-score-results>div{padding:10px 6px}}

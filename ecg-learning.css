@@ -31,6 +31,11 @@
 .ecg-learning .ecg-signs strong,.ecg-learning .ecg-signs span{display:block;font-size:var(--reading-small,15px);color:var(--ecg-ink)}
 .ecg-learning .ecg-photo{position:relative;background:#fff;border:1px solid var(--ecg-line);border-radius:8px;overflow:hidden;margin:14px 0}
 .ecg-learning .ecg-photo img{display:block;width:100%;height:auto;margin:0;max-width:100%;filter:none!important}
+.ecg-learning .ecg-photo-reading{border-left:3px solid var(--ecg-ink);padding:6px 12px;margin:10px 0 14px;background:var(--ecg-soft)}
+.ecg-learning .ecg-photo-reading p{margin:4px 0 0}
+.ecg-learning .pathology-j-photo{max-width:620px;margin:12px auto 0}
+.ecg-learning .pathology-j-photo .ecg-markers text{font-size:42px;stroke-width:5}
+.ecg-learning .pathology-j-photo .ecg-markers path{stroke-width:4}
 .ecg-learning .ecg-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .ecg-learning .ecg-overlay[hidden]{display:none}
 .ecg-learning .ecg-markers[hidden]{display:none}

@@ -15,6 +15,13 @@
     const [x,y,w,h]=s.box.map((v,i)=>v*(i%2?c.height:c.width)/1000);
     const padX=c.width*.01,padY=c.height*.015;
     const left=Math.max(0,x-padX),top=Math.max(0,y-padY),right=Math.min(c.width,x+w+padX),bottom=Math.min(c.height,y+h+padY);
+    if(c.layout==='photo-first'){
+      return `<div class="ecg-case-heading"><strong>${esc(c.title)}</strong><span>${esc(c.source)}</span></div><p>${esc(c.summary)}</p>
+        ${c.steps.length>1?`<div class="ecg-buttons" role="group" aria-label="사진에서 확인할 소견">${buttons(c.steps,'data-ecg-step',index)}</div>`:''}
+        <div class="ecg-photo-reading" aria-live="polite"><strong>${esc(s.label)}</strong><p>${esc(s.text)}</p></div>
+        <div class="ecg-focus-toolbar"><span>사진에서 짚어보기</span><button type="button" data-ecg-layer aria-pressed="${show}">${show?'학습 표시 숨기기':'학습 표시 켜기'}</button></div>
+        <div class="ecg-photo pathology-j-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt||c.title)}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}>${markers(c,s,show)}</svg></div>`;
+    }
     return `<div class="ecg-case-heading"><strong>${esc(c.title)}</strong><span>${esc(c.source)}</span></div><p>${esc(c.summary)}</p>
       <div class="ecg-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt || c.title+' · 강의록 원본 심전도')}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(c.width,c.height)*.008}"/>${markers(c,s,show)}</svg></div>
       <div class="ecg-focus-toolbar"><span>사진에서 짚어보기</span><button type="button" data-ecg-layer aria-pressed="${show}">${show?'학습 표시 숨기기':'학습 표시 켜기'}</button></div>
@@ -23,7 +30,8 @@
   }
   function gallery(id){
     const g=window.CARDIO_ECG_LEARNING?.groups[id];if(!g)return '';
-    return `<section class="ecg-learning ecg-gallery" data-ecg-gallery="${id}" data-ecg-case="0" data-ecg-step-index="0" data-ecg-show="true"><div class="ecg-heading"><strong>${esc(g.title)}</strong><span>${esc(g.caption || '강의록 사진 비교')}</span></div>${g.cases.length>1?`<div class="ecg-buttons" role="group" aria-label="${esc(g.title)} 사진 선택">${buttons(g.cases.map(k=>window.CARDIO_ECG_LEARNING.cases[k].label),'data-ecg-case-button')}</div>`:''}<div class="ecg-case-content">${caseBody(g.cases[0])}</div>${note('버튼을 누르면 전체 사진의 표시 위치와 아래 확대 사진이 함께 바뀝니다. 원래 사진에 있던 표시와 글자는 그대로 유지됩니다.')}</section>`;
+    const photoOnly=g.cases.every(k=>window.CARDIO_ECG_LEARNING.cases[k].layout==='photo-first');
+    return `<section class="ecg-learning ecg-gallery" data-ecg-gallery="${id}" data-ecg-case="0" data-ecg-step-index="0" data-ecg-show="true"><div class="ecg-heading"><strong>${esc(g.title)}</strong><span>${esc(g.caption || '강의록 사진 비교')}</span></div>${g.cases.length>1?`<div class="ecg-buttons" role="group" aria-label="${esc(g.title)} 사진 선택">${buttons(g.cases.map(k=>window.CARDIO_ECG_LEARNING.cases[k].label),'data-ecg-case-button')}</div>`:''}<div class="ecg-case-content">${caseBody(g.cases[0])}</div>${photoOnly?'':note('버튼을 누르면 전체 사진의 표시 위치와 아래 확대 사진이 함께 바뀝니다. 원래 사진에 있던 표시와 글자는 그대로 유지됩니다.')}</section>`;
   }
   const waveParts=[
     ['P파',100,160,'P파 · 심방 탈분극','동방결절에서 시작한 신호가 심방을 통과한다. 먼저 우심방, 이어서 좌심방의 성분이 더해진다.'],

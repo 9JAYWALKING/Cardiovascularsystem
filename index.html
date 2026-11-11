@@ -2022,7 +2022,7 @@ SOFTWARE.
 <link rel="stylesheet" href="./pathology-learning.css?v=pathology-20261108">
 <link rel="stylesheet" href="./study-tutorial.css?v=reading-system-20261105">
 <link rel="stylesheet" href="./congenital-learning.css?v=20261111-chd">
-<link rel="stylesheet" href="./ecg-learning.css?v=ecg20-20261110">
+<link rel="stylesheet" href="./ecg-learning.css?v=19033-photo-20261111">
 <link rel="stylesheet" href="./tachy-learning.css?v=tachy22-23-20261111">
 <link rel="stylesheet" href="./brady-learning.css?v=brady21-20261110">
 <link rel="stylesheet" href="./ecg-recall.css?v=jbl20-20261110">
@@ -2089,7 +2089,7 @@ SOFTWARE.
 <script src="./pathology-learning.js?v=pathology-20261108"></script>
 <script src="./ecg-learning-data.js?v=20261111-chd-quiz"></script>
 <script src="./tachy-learning-data.js?v=tachy22-23-20261111"></script>
-<script src="./ecg-j-learning-data.js?v=comprehensive-merge-20261111"></script>
+<script src="./ecg-j-learning-data.js?v=19033-photo-20261111"></script>
 <script src="./ecg-j21-learning-data.js?v=comprehensive-merge-20261111"></script>
 <script src="./brady-learning-data.js?v=brady21-20261110"></script>
 <script src="./brady-learning.js?v=brady21-20261110"></script>
@@ -2102,7 +2102,7 @@ SOFTWARE.
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=j22-23-20261111"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=19033-photo-20261111"></script>
 <script src="./question-migrations.js?v=comprehensive-merge-20261111"></script>
 <script id="jbl-concept-data" src="./jbl-concepts.js?v=jbl22-23-20261111"></script>
 <script src="./lecture-study.js?v=20261111-chd-j"></script>
@@ -4299,7 +4299,7 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=j22-23-20261111"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=19033-photo-20261111"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');

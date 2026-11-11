@@ -36,6 +36,9 @@
 .ecg-learning .ecg-markers[hidden]{display:none}
 .ecg-learning .ecg-markers path,.ecg-learning .ecg-markers circle{fill:none;stroke:#852745;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .ecg-learning .ecg-markers text{fill:#852745;stroke:#fff;stroke-width:4;paint-order:stroke;stroke-linejoin:round;font-size:23px;font-weight:800}
+.ecg-gallery[data-ecg-gallery="j-19033-original"] .ecg-markers text{font-size:60px}
+.ecg-gallery[data-ecg-gallery="j-19033-inferred"] .ecg-markers text{font-size:40px}
+.ecg-gallery[data-ecg-gallery^="j-19033-"] .ecg-markers path{stroke-width:4}
 .ecg-learning .ecg-overlay rect{fill:#8b294c;fill-opacity:.08;stroke:#8b294c;stroke-width:3;vector-effect:non-scaling-stroke;paint-order:stroke}
 .ecg-learning .ecg-focus-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:var(--reading-small,15px)}
 .ecg-learning .ecg-focus-toolbar button{padding:6px 10px;background:transparent;color:var(--ecg-ink);min-height:40px}

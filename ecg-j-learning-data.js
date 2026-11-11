@@ -4,3 +4,7 @@ const data = {"cases":{"j-25047":{"label":"25047","title":"오른쪽 깊은 S + 
 Object.assign(window.CARDIO_ECG_LEARNING.cases,data.cases);
 Object.assign(window.CARDIO_ECG_LEARNING.groups,data.groups);
 })();
+
+/* J19033 photo-first review */
+Object.assign(window.CARDIO_ECG_LEARNING.cases,{"j-19033-original":{"label":"원본 · 승모판륜","title":"승모판륜 석회화","summary":"판막 이름 → 석회의 위치 → 선지 ③ 순서로 읽자.","src":"./J/2019/19033-1.jpg","width":1281,"height":769,"alt":"19033 원본 · 승모판륜 석회화","source":"강의록 합본 p.106과 동일 사진","steps":[{"label":"승모판륜의 석회","box":[45,100,900,850],"text":"C의 판륜과 D의 부착부에 석회 결절이 솟아 있다. 화살표의 위치를 대동맥판 첨판과 구별하자.","targets":[{"x":710,"y":390,"label":"승모판륜 석회화"}]}]},"j-19033-inferred":{"label":"추정 보강 · 대동맥판","title":"석회화 대동맥판협착","summary":"첨판 기저부의 석회가 열림을 방해한다. 이첨판에서는 더 일찍 생긴다.","src":"./assets/pathology-14-17/p104-calcific-aortic-stenosis.jpg","width":768,"height":764,"alt":"강의록 104쪽 · 석회화 대동맥판협착","source":"강의록 합본 p.104 · 추정 보강용 사진","steps":[{"label":"첨판의 석회 덩어리","box":[35,80,935,850],"text":"세 첨판에 솟은 석회 덩어리를 보자. 사진 자체가 이첨판이라는 뜻은 아니다. 이 질환이 이첨판에서 잘 발생한다는 ①을 연결한다.","targets":[{"x":665,"y":455,"label":"석회화 대동맥판협착"}]}]}});
+Object.assign(window.CARDIO_ECG_LEARNING.groups,{"j-19033-original":{"title":"사진 해설 · 승모판륜 석회화","caption":"화살표로 위치 확인 · 표시 숨기기 가능","cases":["j-19033-original"]},"j-19033-inferred":{"title":"사진 해설 · 석회화 대동맥판협착","caption":"화살표로 위치 확인 · 표시 숨기기 가능","cases":["j-19033-inferred"]}});

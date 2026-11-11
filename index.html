@@ -2093,15 +2093,15 @@ SOFTWARE.
 <script src="./ecg-learning.js?v=brady21-20261110"></script>
 <script src="./ecg-recall.js?v=ecg-audit-20261111"></script>
 <script src="./wiki-learning.js?v=ecg20-20261110"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=comprehensive-merge-20261111"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=20261111-reclass-23-47-49"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js"></script>
 <script src="./course-data.js"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=comprehensive-merge-20261111"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=20261111-reclass-23-47-49"></script>
 <script src="./question-migrations.js?v=comprehensive-merge-20261111"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=comprehensive-merge-20261111"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=20261111-reclass-23-47-49"></script>
 <script src="./lecture-study.js?v=pathology-jbl-20261108"></script>
-<script src="./question-updates-data.js?v=20261111-filters"></script>
+<script src="./question-updates-data.js?v=20261111-reclass-23-47-49"></script>
 <script src="./question-updates.js?v=20261111-filters"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
@@ -4288,17 +4288,17 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=comprehensive-merge-20261111"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=20261111-reclass-23-47-49"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
       dataScript.textContent = '';
-      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=comprehensive-merge-20261111"]');
+      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=20261111-reclass-23-47-49"]');
       const notePayload = JSON.stringify(lectureNoteSources).replace(/</g, '\\u003c');
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=comprehensive-merge-20261111"]');
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=20261111-reclass-23-47-49"]');
       if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);

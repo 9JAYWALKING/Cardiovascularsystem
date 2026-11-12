@@ -20,7 +20,7 @@
         ${c.steps.length>1?`<div class="ecg-buttons" role="group" aria-label="사진에서 확인할 소견">${buttons(c.steps,'data-ecg-step',index)}</div>`:''}
         <div class="ecg-photo-reading" aria-live="polite"><strong>${esc(s.label)}</strong><p>${esc(s.text)}</p></div>
         <div class="ecg-focus-toolbar"><span>사진에서 짚어보기</span><button type="button" data-ecg-layer aria-pressed="${show}">${show?'학습 표시 숨기기':'학습 표시 켜기'}</button></div>
-        <div class="ecg-photo pathology-j-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt||c.title)}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}>${markers(c,s,show)}</svg></div>`;
+        <div class="ecg-photo pathology-j-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt||c.title)}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}>${c.highlightBox?`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(c.width,c.height)*.008}"/>`:''}${markers(c,s,show)}</svg></div>`;
     }
     return `<div class="ecg-case-heading"><strong>${esc(c.title)}</strong><span>${esc(c.source)}</span></div><p>${esc(c.summary)}</p>
       <div class="ecg-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt || c.title+' · 강의록 원본 심전도')}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(c.width,c.height)*.008}"/>${markers(c,s,show)}</svg></div>

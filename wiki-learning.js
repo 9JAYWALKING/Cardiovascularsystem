@@ -1,6 +1,8 @@
 /* 위키 본문 안에서 사용하는 학습 블록. 글과 각주·문항 링크는 기존 편집 문법을 공유한다. */
 function renderWikiLearningBlock(line, course, footnotes) {
   const inline = value => renderWikiInline(value, course, footnotes);
+  const clinical = window.renderClinicalLearningBlock?.(line);
+  if (clinical) return clinical;
   const tachy = window.renderTachyLearningBlock?.(line,course);
   if (tachy) return tachy;
   const congenital = window.renderCongenitalLearningBlock?.(line,course);

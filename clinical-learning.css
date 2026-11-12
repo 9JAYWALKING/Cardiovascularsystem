@@ -1,0 +1,3 @@
+.clinical-videos{min-width:0;max-width:100%}
+.clinical-videos video{display:block;width:100%;max-width:680px;height:auto;margin:0 auto;border-radius:10px;background:#111;aspect-ratio:1/1;object-fit:contain}
+.clinical-videos .learning-detail{margin:10px 0}

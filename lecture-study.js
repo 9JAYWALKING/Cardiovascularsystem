@@ -108,7 +108,7 @@ function lectureJblCompactGroups(course, sections, available) {
     const numbers = [...new Set(item.questions.map(canonicalJblNumber))].filter(number => {
       const question = available.get(number);
       return question && questionBelongsToCourse(question,course.id) && !used.has(number);
-    }).sort(compareJblNumbers);
+    }).sort((a,b)=>compareJblStudyQuestions(available.get(a),available.get(b)));
     if (!numbers.length) return [];
     numbers.forEach(number => used.add(number));
     return [{slug:primary?.slug || `compact-${item.key}`,bookmarkSlug:primary?.slug || '',

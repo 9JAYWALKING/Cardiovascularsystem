@@ -497,8 +497,9 @@ html:not([data-theme="dark"]) .study-ui .study-answer-status.is-correct { color:
 .study-ui .lecture-pane[hidden] { display:none!important; }
 .study-ui .lecture-pane-head { display:none!important; }
 @media(max-width:760px) {
-  .study-ui .detail-topline { grid-template-columns:minmax(0,1fr) auto auto; gap:8px; }
-  .study-ui .detail-topline h2,.study-ui .detail-breadcrumb,.study-ui .detail-info { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .study-ui .detail-topline { grid-template-columns:minmax(0,1fr) auto; gap:14px 8px; }
+  .study-ui .detail-topline>div:first-child { grid-column:1 / -1; }
+  .study-ui .detail-topline :is(h2,.detail-breadcrumb,.detail-info) { white-space:normal; overflow-wrap:anywhere; }
   .study-ui .lecture-view-tabs button { padding:8px 11px; font-size:calc((14px) * var(--study-type-scale,1)); }
   .study-ui .detail-course-controls { gap:4px; }
   .study-ui .detail-course-nav { width:32px; min-width:32px; }

@@ -2,6 +2,9 @@
 let updatedJblPosition = 0;
 const updatedJblFilterTypes = ['정답 수정','보강 추가','문항 추가','강의 재분류'];
 const updatedJblFilters = new Set();
+const updatedGroupTitle = group => group.courseId ? `${group.courseId}강 · ${group.course.title}` : '출처 강의 확인 중';
+const updatedGroupProfessor = group => group.courseId ? `${group.course.professor} 교수` : '강의 배정 검토';
+const updatedGroupLink = group => group.courseId ? `<a href="#lecture-${group.courseId}">${escapeHtml(updatedGroupTitle(group))}</a>` : '<span>출처 강의 확인 중</span>';
 
 function updatedJblGroups(all = false) {
   const byNumber = new Map(jblQuestions.map(q => [canonicalJblNumber(q.globalNumber),q]));
@@ -16,7 +19,7 @@ function updatedJblGroups(all = false) {
     if (!groups.has(courseId)) groups.set(courseId,{courseId,course:byId(courseId) || emptyRenderCourse,items:[]});
     groups.get(courseId).items.push({...change,number,question});
   }
-  return [...groups.values()].sort((a,b)=>a.courseId-b.courseId).map(group=>({
+  return [...groups.values()].sort((a,b)=>(a.courseId || Infinity)-(b.courseId || Infinity)).map(group=>({
     ...group,items:group.items.sort((a,b)=>compareJblNumbers(a.number,b.number))
   }));
 }
@@ -41,7 +44,7 @@ function toggleUpdatedJblFilter(type) {
 function updatedJblEntries() {
   return updatedJblGroups().flatMap(group=>[{
     studyKind:'wiki',id:`jbl-update:${window.CARDIO_QUESTION_UPDATES.id}:${group.courseId}`,
-    globalNumber:null,displayId:'변경 안내',question:`${group.courseId}강 · ${group.course.title}`,
+    globalNumber:null,displayId:'변경 안내',question:updatedGroupTitle(group),
     choices:[],images:[],answerIndices:[],lectureIds:[group.courseId],
     group:{updateSummary:true,updateGroup:group}
   },...group.items.map(item=>item.question)]);
@@ -50,7 +53,7 @@ function updatedJblEntries() {
 function updatedJblCounter(state,entries) {
   if(!entries.some(q=>q.group?.updateSummary))return null;
   const current=entries[state.index];
-  return current?.group?.updateSummary ? `${current.lectureIds[0]}강 안내`
+  return current?.group?.updateSummary ? (current.lectureIds[0] ? `${current.lectureIds[0]}강 안내` : '강의 확인 안내')
     : `${entries.slice(0,state.index+1).filter(q=>q.studyKind!=='wiki').length} / ${entries.filter(q=>q.studyKind!=='wiki').length}`;
 }
 
@@ -62,10 +65,10 @@ function updatedQuestionCardMarkup(card) {
     rows.get(key).numbers.push(item.number);
   }
   return `<article class="jbl-card jbl-wiki-card jbl-compact-card update-summary-card">
-    <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">변경 안내</span><span class="jbl-source">${escapeHtml(group.course.professor)} 교수 · ${group.items.length}문항</span></div></div><h2 class="jbl-title">${escapeHtml(card.question)}</h2></header>
+    <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">변경 안내</span><span class="jbl-source">${escapeHtml(updatedGroupProfessor(group))} · ${group.items.length}문항</span></div></div><h2 class="jbl-title">${escapeHtml(card.question)}</h2></header>
     <div class="jbl-card-body"><p class="update-intro">이 안내 다음에 아래 문항들이 차례로 나와요.</p>
     <ul class="update-change-list">${[...rows.values()].map(row=>`<li><div class="update-change-types">${updatedJblFilterTypes.filter(type=>row.types.includes(type)).map(type=>`<span>${escapeHtml(type)}</span>`).join('')}</div><p>${escapeHtml(row.reason)}</p><div class="update-question-links">${row.numbers.map(number=>`<button type="button" data-update-question="${escapeHtml(number)}" aria-label="J${escapeHtml(number)} 문항으로 이동">J${escapeHtml(number)}</button>`).join('')}</div></li>`).join('')}</ul>
-    <div class="update-card-footer"><a href="#lecture-${group.courseId}">${group.courseId}강 Wiki로 이어보기</a><button type="button" data-update-question="${escapeHtml(group.items[0].number)}">이 강의 문항 시작 <span aria-hidden="true">→</span></button></div></div></article>`;
+    <div class="update-card-footer">${group.courseId ? `<a href="#lecture-${group.courseId}">${group.courseId}강 Wiki로 이어보기</a>` : '<span>출처 강의 확인 중</span>'}<button type="button" data-update-question="${escapeHtml(group.items[0].number)}">문항 시작 <span aria-hidden="true">→</span></button></div></div></article>`;
 }
 
 function jumpUpdatedQuestion(number) {
@@ -93,8 +96,8 @@ function renderUpdatedQuestions() {
   root.innerHTML=`<div class="jbl-wrap updates-wrap">
     <header class="updates-heading"><div><p>${escapeHtml(window.CARDIO_QUESTION_UPDATES.date.replaceAll('-','.'))} · ${updatedJblFilters.size?`선택 ${count} / 전체 ${total}문항`:`${count}문항`}</p><h1>최신 업데이트 문항 모아보기</h1></div><a class="updates-home" href="#home">홈으로</a></header>
     ${updatedJblFiltersMarkup()}
-    <nav class="updates-course-nav" aria-label="업데이트 강의 이동"><label for="updates-course-select">강의 이동</label><select id="updates-course-select" ${!groups.length?'disabled':''}>${groups.map(g=>`<option value="${g.courseId}" ${g===group?'selected':''}>${g.courseId}강 · ${escapeHtml(g.course.title)} (${g.items.length}문항)</option>`).join('')}</select><button type="button" data-update-summary ${info||!group?'disabled':''}>변경 안내</button></nav>
-    ${!info&&group?`<div class="updates-question-context"><a href="#lecture-${group.courseId}">${group.courseId}강 · ${escapeHtml(group.course.title)}</a><span>${escapeHtml(group.course.professor)} 교수 · ${group.items.findIndex(c=>c.question.id===item.id)+1} / ${group.items.length}문항</span><details><summary>이 문항의 변경 내용</summary><p>${updatedJblFilterTypes.filter(type=>change.types.includes(type)).map(escapeHtml).join(' · ')}<br>${escapeHtml(change.reason)}</p></details></div>`:''}
+    <nav class="updates-course-nav" aria-label="업데이트 강의 이동"><label for="updates-course-select">강의 이동</label><select id="updates-course-select" ${!groups.length?'disabled':''}>${groups.map(g=>`<option value="${g.courseId}" ${g===group?'selected':''}>${escapeHtml(updatedGroupTitle(g))} (${g.items.length}문항)</option>`).join('')}</select><button type="button" data-update-summary ${info||!group?'disabled':''}>변경 안내</button></nav>
+    ${!info&&group?`<div class="updates-question-context">${updatedGroupLink(group)}<span>${escapeHtml(updatedGroupProfessor(group))} · ${group.items.findIndex(c=>c.question.id===item.id)+1} / ${group.items.length}문항</span><details><summary>이 문항의 변경 내용</summary><p>${updatedJblFilterTypes.filter(type=>change.types.includes(type)).map(escapeHtml).join(' · ')}<br>${escapeHtml(change.reason)}</p></details></div>`:''}
     <div data-updated-question-root></div></div><div class="jbl-bottom-nav"><div class="jbl-bottom-inner">${navMarkup(state,entries)}</div></div>`;
   renderQuestionCard(root.querySelector('[data-updated-question-root]'),entries,'jbl-all',renderJblStandalone);
   const nav=root.querySelector('.jbl-bottom-inner');

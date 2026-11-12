@@ -7,6 +7,13 @@
   const line=(d,cls='ecg-trace')=>`<path class="${cls}" d="${d}"/>`;
   const grid=(w=640,h=210)=>`<path class="ecg-grid" d="${Array.from({length:Math.floor(w/20)},(_,i)=>`M${(i+1)*20} 0V${h}`).join(' ')} ${Array.from({length:Math.floor(h/20)},(_,i)=>`M0 ${(i+1)*20}H${w}`).join(' ')}"/>`;
   const note=t=>`<p class="ecg-note">${t}</p>`;
+  const sourceVideo=c=>c.video ? `<details class="ecg-source-video"><summary>강의 원본 영상 재생</summary><p class="ecg-note">${esc(c.videoNote||'재생·일시정지로 움직임을 확인하세요. 위의 학습 표시는 정지 화면을 기준으로 합니다.')}</p><video controls playsinline muted loop preload="none" poster="${esc(c.src)}" aria-label="${esc(c.title+' · 강의 원본 영상')}"><source src="${esc(c.video)}" type="video/mp4">이 브라우저에서는 영상을 재생할 수 없습니다. <a href="${esc(c.video)}">원본 영상 열기</a></video></details>` : '';
+  document.addEventListener('toggle',event=>{
+    if(event.target.matches?.('details')&&!event.target.open){
+      event.target.querySelectorAll('.ecg-source-video video').forEach(video=>video.pause());
+      if(event.target.matches('.ecg-source-video'))event.target.querySelector('video')?.pause();
+    }
+  },true);
   function markers(c,s,show,zoom=false){
     return `<g class="ecg-markers" ${show?'':'hidden'}>${(s.targets||[]).map(p=>{const x=p.x*c.width/1000,y=p.y*c.height/1000,scale=Math.min(Math.min(c.width,c.height)/900,zoom?c.width*s.box[2]/320000:Infinity);return `<g transform="translate(${x} ${y}) scale(${scale})"><path d="M-26 -34L-5 -7 M-14 -9L-5 -7 -7 -17"/><circle cx="0" cy="0" r="5"/><text x="-28" y="-40" text-anchor="middle">${esc(p.label)}</text></g>`;}).join('')}</g>`;
   }
@@ -20,7 +27,7 @@
         ${c.steps.length>1?`<div class="ecg-buttons" role="group" aria-label="사진에서 확인할 소견">${buttons(c.steps,'data-ecg-step',index)}</div>`:''}
         <div class="ecg-photo-reading" aria-live="polite"><strong>${esc(s.label)}</strong><p>${esc(s.text)}</p></div>
         <div class="ecg-focus-toolbar"><span>사진에서 짚어보기</span><button type="button" data-ecg-layer aria-pressed="${show}">${show?'학습 표시 숨기기':'학습 표시 켜기'}</button></div>
-        <div class="ecg-photo pathology-j-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt||c.title)}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}>${c.highlightBox?`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(c.width,c.height)*.008}"/>`:''}${markers(c,s,show)}</svg></div>`;
+        <div class="ecg-photo pathology-j-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt||c.title)}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}>${c.highlightBox?`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(c.width,c.height)*.008}"/>`:''}${markers(c,s,show)}</svg></div>${sourceVideo(c)}`;
     }
     return `<div class="ecg-case-heading"><strong>${esc(c.title)}</strong><span>${esc(c.source)}</span></div><p>${esc(c.summary)}</p>
       <div class="ecg-photo" data-ecg-photo><img src="${esc(c.src)}" width="${c.width}" height="${c.height}" alt="${esc(c.alt || c.title+' · 강의록 원본 심전도')}" loading="lazy" decoding="async"><svg viewBox="0 0 ${c.width} ${c.height}" aria-hidden="true" class="ecg-overlay" ${show?'':'hidden'}><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(c.width,c.height)*.008}"/>${markers(c,s,show)}</svg></div>

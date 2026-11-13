@@ -100,3 +100,52 @@ window.QuestionMigrations = (() => {
   try { run(window.localStorage); } catch (_) { /* Storage can be unavailable. */ }
   return {canonical,records,selection,sessions,run};
 })();
+
+// Separate revision: never replay the 2022/2023 option permutations for a 2019 update.
+window.Odap2019Migration = (() => {
+  function run(storage, config = window.JBL_DATA?.odap2019Revision) {
+    if (!config?.revision) return false;
+    const marker = 'cardiovascular-question-migration-' + config.revision;
+    const sessionKey = 'cardiovascular-random-sessions-v1';
+    const recordKey = 'cardiovascular-wrong-answers-v1';
+    const originals = {};
+    try {
+      if (storage.getItem(marker) === 'done') return false;
+      for (const key of [sessionKey,recordKey]) originals[key] = storage.getItem(key);
+      const sessions = JSON.parse(originals[sessionKey] || '{}');
+      const records = JSON.parse(originals[recordKey] || '{}');
+      for (const state of Object.values(sessions)) {
+        if (!state || typeof state !== 'object') continue;
+        for (const [id,rule] of Object.entries(config.entries)) {
+          if (state.selected && Object.hasOwn(state.selected,id)) {
+            const value = state.selected[id], values = Array.isArray(value) ? value : [value];
+            const mapped = values.map(v=>rule.choices[String(v)]);
+            if (mapped.every(Number.isInteger)) state.selected[id] = Array.isArray(value) ? [...new Set(mapped)] : mapped[0];
+            else delete state.selected[id];
+          }
+          for (const field of ['answerShown','explanationShown','attempts','choiceEffectsHidden','feedbackHidden'])
+            if (state[field]) delete state[field][id];
+        }
+      }
+      for (const [id,rule] of Object.entries(config.entries)) {
+        const record = records[id];
+        // Preserve counts and timestamps; an old auto-grade cannot grade the revised choices.
+        if (record && rule.reviewStatus && !record.manual)
+          records[id] = {...record,status:'uncertain',pending:false,sourceRevision:config.revision};
+      }
+      const changed = JSON.stringify(sessions)!==(originals[sessionKey] || '{}') || JSON.stringify(records)!==(originals[recordKey] || '{}');
+      if (changed && storage.getItem(marker+'-backup') === null) storage.setItem(marker+'-backup',JSON.stringify(originals));
+      if (originals[sessionKey] !== null) storage.setItem(sessionKey,JSON.stringify(sessions));
+      if (originals[recordKey] !== null) storage.setItem(recordKey,JSON.stringify(records));
+      storage.setItem(marker,'done');
+      return true;
+    } catch (_) {
+      for (const [key,value] of Object.entries(originals)) {
+        try { if (value === null) storage.removeItem(key); else storage.setItem(key,value); } catch (_) {}
+      }
+      return false;
+    }
+  }
+  try { run(window.localStorage); } catch (_) {}
+  return {run};
+})();

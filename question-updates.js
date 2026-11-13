@@ -1,6 +1,6 @@
 /* A release collection reuses the J viewer: lecture note, its questions, next lecture. */
 let updatedJblPosition = 0;
-const updatedJblFilterTypes = ['정답 수정','보강 추가','문항 추가','강의 재분류'];
+const updatedJblFilterTypes = ['정답 수정','보강 추가','문항 추가','강의 재분류','19 오답 30'];
 const updatedJblFilters = new Set();
 const updatedGroupTitle = group => group.courseId ? `${group.courseId}강 · ${group.course.title}` : '출처 강의 확인 중';
 const updatedGroupProfessor = group => group.courseId ? `${group.course.professor} 교수` : '강의 배정 검토';

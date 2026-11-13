@@ -1,0 +1,15 @@
+/* Original explanation pages keep their pixels; typed quotations follow font settings. */
+.wiki-grid:has(> .wiki-source-original) { grid-template-columns:minmax(0,1fr); }
+.wiki-grid > .wiki-figure.wiki-source-original,
+.wiki-figure.wiki-source-original {
+  grid-column:1 / -1;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box;
+  margin:8px 0;
+  padding:6px;
+}
+.wiki-source-original img { width:100%; height:auto; max-height:none; object-fit:contain; }
+.wiki-source-original figcaption { color:#8f475b; font-size:var(--reading-meta,14px); }
+html[data-theme="dark"] .wiki-source-original figcaption { color:#e6adc0; }
+.jbl-explanation-text blockquote { font-size:var(--reading-body,18px); line-height:1.75; overflow-wrap:anywhere; }

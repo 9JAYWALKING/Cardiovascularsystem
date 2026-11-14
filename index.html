@@ -2106,7 +2106,7 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=20261111-chd"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=clinical18-19-20261112"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=odap2019-20261113"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=question-links-20261114"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261113-schedule"></script>
@@ -4312,7 +4312,7 @@ SOFTWARE.
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
       dataScript.textContent = '';
-      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=odap2019-20261113"]');
+      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=question-links-20261114"]');
       const notePayload = JSON.stringify(lectureNoteSources).replace(/</g, '\\u003c');
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');

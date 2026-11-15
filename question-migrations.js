@@ -189,3 +189,6 @@ if (window.JBL_DATA?.claude20261115Revision && window.Odap2019Migration) {
 
 // Preserve selected choice numbers, but invalidate old PSVT grades after the teacher clarification.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.psvt20261115Revision); } catch (_) {}
+
+// Correct the negative stems without losing selected choices or manual history.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.chdStem20261115Revision); } catch (_) {}

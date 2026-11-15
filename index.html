@@ -2111,9 +2111,9 @@ SOFTWARE.
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=psvt-professor-20261115"></script>
-<script src="./question-migrations.js?v=psvt-professor-20261115"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=psvt-professor-20261115"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=chd-stem-20261115"></script>
+<script src="./question-migrations.js?v=chd-stem-20261115"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=chd-stem-20261115"></script>
 <script src="./lecture-study.js?v=20261112-jbl-order"></script>
 <script src="./question-updates-data.js?v=psvt-professor-20261115"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
@@ -4311,7 +4311,7 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=psvt-professor-20261115"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=chd-stem-20261115"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
@@ -4321,13 +4321,13 @@ SOFTWARE.
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=psvt-professor-20261115"]');
-      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=psvt-professor-20261115'); conceptDataScript.textContent=''; }
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=chd-stem-20261115"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=chd-stem-20261115'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);
       downloadCurrentFile('lecture-notes.js', `window.LECTURE_NOTE_SOURCES = ${notePayload};\n`, 'text/javascript;charset=utf-8', 360);
-      if (window.JBL_CONCEPTS) downloadCurrentFile('jbl-concepts.js?v=psvt-professor-20261115', `window.JBL_CONCEPTS = ${JSON.stringify(window.JBL_CONCEPTS).replace(/</g,'\\u003c')};\n`, 'text/javascript;charset=utf-8', 450);
+      if (window.JBL_CONCEPTS) downloadCurrentFile('jbl-concepts.js?v=chd-stem-20261115', `window.JBL_CONCEPTS = ${JSON.stringify(window.JBL_CONCEPTS).replace(/</g,'\\u003c')};\n`, 'text/javascript;charset=utf-8', 450);
       if (window.PATHOLOGY_MAP) downloadCurrentFile('pathology-map.js', window.PATHOLOGY_MAP.exportSource(), 'text/javascript;charset=utf-8', 540);
       jblHasUnsavedChanges = false;
     }

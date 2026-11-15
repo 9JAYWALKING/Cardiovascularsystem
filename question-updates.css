@@ -13,6 +13,10 @@
 .update-filter span{font-size:var(--reading-ui-meta);font-weight:500;opacity:.8}
 .update-filter.active{background:var(--study-accent);border-color:var(--study-accent);color:var(--study-surface)}
 .updates-filter-hint{margin:0 0 18px;font-size:var(--reading-ui-meta);line-height:1.5;color:var(--study-muted)}
+.updates-releases{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--study-border)}
+.update-release{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;max-width:100%;padding:9px 14px;border:1px solid var(--study-border);border-radius:12px;background:var(--study-surface);color:var(--study-muted);font:inherit;font-size:var(--reading-ui-small);font-weight:650;cursor:pointer}
+.update-release span{font-size:var(--reading-ui-meta);font-weight:500;white-space:nowrap}
+.update-release.active{background:var(--study-accent);border-color:var(--study-accent);color:var(--study-surface)}
 .updates-wrap :is(button,a,select):focus-visible,.updates-entry:focus-visible{outline:2px solid var(--study-accent);outline-offset:3px}
 .study-ui .update-summary-card .jbl-title{color:var(--study-accent)}
 .update-intro{margin:0 0 16px;color:var(--study-muted);font-size:var(--reading-small);line-height:1.6}

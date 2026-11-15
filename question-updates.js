@@ -1,15 +1,40 @@
 /* A release collection reuses the J viewer: lecture note, its questions, next lecture. */
 let updatedJblPosition = 0;
-const updatedJblFilterTypes = ['정답 수정','보강 추가','문항 추가','강의 재분류','19 오답 30'];
+const updatedJblFilterTypes = ['정답 수정','보강 추가','문항 추가','강의 재분류','해설·사진 보완','19 오답 30'];
 const updatedJblFilters = new Set();
+let updatedJblReleaseId = '';
+const updatedJblReleases = () => window.CARDIO_QUESTION_UPDATES?.releases?.length
+  ? window.CARDIO_QUESTION_UPDATES.releases : [window.CARDIO_QUESTION_UPDATES].filter(Boolean);
+const updatedJblRelease = () => updatedJblReleases().find(release=>release.id===updatedJblReleaseId) || updatedJblReleases()[0];
+
+function selectUpdatedReleaseForQuestion(number) {
+  const matches=release=>(release?.entries || []).some(item=>canonicalJblNumber(item.number)===canonicalJblNumber(number));
+  if(matches(updatedJblRelease()))return;
+  const release=updatedJblReleases().find(matches);
+  if(release)updatedJblReleaseId=release.id;
+}
+
+function updatedJblReleaseMarkup() {
+  const active=updatedJblRelease();
+  return `<div class="updates-releases" role="tablist" aria-label="업데이트 날짜">${updatedJblReleases().map(release=>`<button type="button" role="tab" id="update-tab-${escapeHtml(release.id)}" class="update-release${release===active?' active':''}" aria-selected="${release===active}" aria-controls="updates-release-panel" tabindex="${release===active?'0':'-1'}" data-update-release="${escapeHtml(release.id)}">${escapeHtml(release.label || release.date.replaceAll('-','.'))}<span>${updatedJblGroups(true,release).reduce((sum,group)=>sum+group.items.length,0)}문항</span></button>`).join('')}</div>`;
+}
+
+function selectUpdatedJblRelease(id) {
+  if(!updatedJblReleases().some(release=>release.id===id))return;
+  closeQuestionExplanationSplit(false);
+  updatedJblReleaseId=id;updatedJblFilters.clear();
+  standaloneState().index=0;updatedJblPosition=0;
+  renderJblStandalone();
+  [...document.querySelectorAll('[data-update-release]')].find(button=>button.dataset.updateRelease===id)?.focus({preventScroll:true});
+}
 const updatedGroupTitle = group => group.courseId ? `${group.courseId}강 · ${group.course.title}` : '출처 강의 확인 중';
 const updatedGroupProfessor = group => group.courseId ? `${group.course.professor} 교수` : '강의 배정 검토';
 const updatedGroupLink = group => group.courseId ? `<a href="#lecture-${group.courseId}">${escapeHtml(updatedGroupTitle(group))}</a>` : '<span>출처 강의 확인 중</span>';
 
-function updatedJblGroups(all = false) {
+function updatedJblGroups(all = false, release = updatedJblRelease()) {
   const byNumber = new Map(jblQuestions.map(q => [canonicalJblNumber(q.globalNumber),q]));
   const groups = new Map(), seen = new Set();
-  for (const change of window.CARDIO_QUESTION_UPDATES?.entries || []) {
+  for (const change of release?.entries || []) {
     if(!all && updatedJblFilters.size && !change.types.some(type=>updatedJblFilters.has(type)))continue;
     const number = canonicalJblNumber(change.number), question = byNumber.get(number);
     if (!question || seen.has(number)) continue;
@@ -27,7 +52,8 @@ function updatedJblGroups(all = false) {
 function updatedJblFiltersMarkup() {
   const items=updatedJblGroups(true).flatMap(group=>group.items);
   const button=(type,label,count,active)=>`<button type="button" class="update-filter${active?' active':''}" data-update-filter="${escapeHtml(type)}" aria-pressed="${active}">${label}<span>${count}</span></button>`;
-  return `<div class="updates-filters" role="group" aria-label="업데이트 유형 필터 · 복수 선택">${button('','전체',items.length,!updatedJblFilters.size)}${updatedJblFilterTypes.map(type=>button(type,type,items.filter(item=>item.types.includes(type)).length,updatedJblFilters.has(type))).join('')}</div><p class="updates-filter-hint">여러 유형을 함께 선택할 수 있어요.</p>`;
+  const types=updatedJblFilterTypes.filter((type,index)=>index<4 || items.some(item=>item.types.includes(type)));
+  return `<div class="updates-filters" role="group" aria-label="업데이트 유형 필터 · 복수 선택">${button('','전체',items.length,!updatedJblFilters.size)}${types.map(type=>button(type,type,items.filter(item=>item.types.includes(type)).length,updatedJblFilters.has(type))).join('')}</div><p class="updates-filter-hint">선택한 날짜 안에서 여러 유형을 함께 볼 수 있어요. ‘해설·사진 보완’은 정답을 바꾸지 않은 문항이에요.</p>`;
 }
 
 function toggleUpdatedJblFilter(type) {
@@ -43,7 +69,7 @@ function toggleUpdatedJblFilter(type) {
 
 function updatedJblEntries() {
   return updatedJblGroups().flatMap(group=>[{
-    studyKind:'wiki',id:`jbl-update:${window.CARDIO_QUESTION_UPDATES.id}:${group.courseId}`,
+    studyKind:'wiki',id:`jbl-update:${updatedJblRelease().id}:${group.courseId}`,
     globalNumber:null,displayId:'변경 안내',question:updatedGroupTitle(group),
     choices:[],images:[],answerIndices:[],lectureIds:[group.courseId],
     group:{updateSummary:true,updateGroup:group}
@@ -85,6 +111,7 @@ function bindUpdatedQuestionCard(container) {
 
 function renderUpdatedQuestions() {
   const root=document.querySelector('#jbl-standalone'), state=standaloneState();
+  const release=updatedJblRelease();
   const groups=updatedJblGroups(), entries=updatedJblEntries();
   state.index=Math.max(0,Math.min(state.index,entries.length-1));
   updatedJblPosition=state.index;
@@ -94,11 +121,13 @@ function renderUpdatedQuestions() {
   const total=updatedJblGroups(true).reduce((sum,g)=>sum+g.items.length,0);
   const change=group?.items.find(change=>change.question.id===item?.id);
   root.innerHTML=`<div class="jbl-wrap updates-wrap">
-    <header class="updates-heading"><div><p>${escapeHtml(window.CARDIO_QUESTION_UPDATES.date.replaceAll('-','.'))} · ${updatedJblFilters.size?`선택 ${count} / 전체 ${total}문항`:`${count}문항`}</p><h1>최신 업데이트 문항 모아보기</h1></div><a class="updates-home" href="#home">홈으로</a></header>
+    <header class="updates-heading"><div><p>${escapeHtml(release.date.replaceAll('-','.'))} · ${updatedJblFilters.size?`선택 ${count} / 전체 ${total}문항`:`${count}문항`}</p><h1>최신 업데이트 문항 모아보기</h1></div><a class="updates-home" href="#home">홈으로</a></header>
+    ${updatedJblReleaseMarkup()}
+    <div id="updates-release-panel" role="tabpanel" aria-labelledby="update-tab-${escapeHtml(release.id)}">
     ${updatedJblFiltersMarkup()}
     <nav class="updates-course-nav" aria-label="업데이트 강의 이동"><label for="updates-course-select">강의 이동</label><select id="updates-course-select" ${!groups.length?'disabled':''}>${groups.map(g=>`<option value="${g.courseId}" ${g===group?'selected':''}>${escapeHtml(updatedGroupTitle(g))} (${g.items.length}문항)</option>`).join('')}</select><button type="button" data-update-summary ${info||!group?'disabled':''}>변경 안내</button></nav>
     ${!info&&group?`<div class="updates-question-context">${updatedGroupLink(group)}<span>${escapeHtml(updatedGroupProfessor(group))} · ${group.items.findIndex(c=>c.question.id===item.id)+1} / ${group.items.length}문항</span><details><summary>이 문항의 변경 내용</summary><p>${updatedJblFilterTypes.filter(type=>change.types.includes(type)).map(escapeHtml).join(' · ')}<br>${escapeHtml(change.reason)}</p></details></div>`:''}
-    <div data-updated-question-root></div></div><div class="jbl-bottom-nav"><div class="jbl-bottom-inner">${navMarkup(state,entries)}</div></div>`;
+    <div data-updated-question-root></div></div></div><div class="jbl-bottom-nav"><div class="jbl-bottom-inner">${navMarkup(state,entries)}</div></div>`;
   renderQuestionCard(root.querySelector('[data-updated-question-root]'),entries,'jbl-all',renderJblStandalone);
   const nav=root.querySelector('.jbl-bottom-inner');
   bindViewerNav(nav,entries,'jbl-all',renderJblStandalone);
@@ -111,4 +140,13 @@ function renderUpdatedQuestions() {
   root.querySelector('#updates-course-select').addEventListener('change',event=>showGroup(event.target.value));
   root.querySelector('[data-update-summary]').addEventListener('click',()=>showGroup(group.courseId));
   root.querySelectorAll('[data-update-filter]').forEach(button=>button.addEventListener('click',()=>toggleUpdatedJblFilter(button.dataset.updateFilter)));
+  const tabs=[...root.querySelectorAll('[data-update-release]')];
+  tabs.forEach((button,index)=>{
+    button.addEventListener('click',()=>selectUpdatedJblRelease(button.dataset.updateRelease));
+    button.addEventListener('keydown',event=>{
+      const next=event.key==='ArrowRight'?(index+1)%tabs.length:event.key==='ArrowLeft'?(index+tabs.length-1)%tabs.length:event.key==='Home'?0:event.key==='End'?tabs.length-1:-1;
+      if(next<0)return;
+      event.preventDefault();selectUpdatedJblRelease(tabs[next].dataset.updateRelease);
+    });
+  });
 }

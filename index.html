@@ -382,7 +382,7 @@
       min-width: 860px;
       display: grid;
       grid-template-columns: 72px repeat(5, minmax(150px, 1fr));
-      grid-template-rows: 58px repeat(var(--schedule-hour-count, 9), minmax(70px, auto));
+      grid-template-rows: 58px var(--schedule-time-rows, repeat(var(--schedule-hour-count, 9), minmax(70px, auto)));
       position: relative;
     }
 
@@ -1982,7 +1982,7 @@
   :root[data-theme="dark"] .quick-preview {background:#160f10;color:#ddb7bf;}
   :root[data-theme="dark"] .quick-final-heading,:root[data-theme="dark"] .quick-heading h2 {color:#ddb7bf;}
 </style>
-<link rel="stylesheet" href="./study-ui.css?v=20261112-jbl-mobile">
+<link rel="stylesheet" href="./study-ui.css?v=20261115-schedule">
   <link rel="stylesheet" href="./wiki-image-overlays.css?v=typography-v1-20261105">
   <link rel="stylesheet" href="./cardiovascular-atlas.css?v=starter-20261106">
   <link rel="stylesheet" href="./kmle.css?v=clinical-20261106">
@@ -2110,12 +2110,12 @@ SOFTWARE.
 <script id="lecture-note-data" src="./lecture-notes.js?v=question-links-20261114"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
-<script src="./course-data.js?v=20261113-schedule"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=claude-review-20261115"></script>
+<script src="./course-data.js?v=20261115-schedule"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=hanyang21-25-20261115"></script>
 <script src="./question-migrations.js?v=claude-review-20261115"></script>
 <script id="jbl-concept-data" src="./jbl-concepts.js?v=ecg-review-20261115"></script>
 <script src="./lecture-study.js?v=20261112-jbl-order"></script>
-<script src="./question-updates-data.js?v=claude-review-20261115"></script>
+<script src="./question-updates-data.js?v=hanyang21-25-20261115"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
   <script src="./wiki-image-annotations.js"></script>
   <script src="./wiki-image-overlays.js"></script>
@@ -2331,7 +2331,6 @@ SOFTWARE.
           <button class="study-app" type="button" data-quick-bookmarks><span class="study-app-icon app-favorites" aria-hidden="true">⭐</span><h3>즐겨찾기</h3><span class="study-app-caption">문단 ${wikiBookmarks.length} · 문항 ${jblFavorites.size}</span></button>
           <button class="study-app" type="button" data-quick-route="#cardiovascular-atlas"><span class="study-app-icon app-atlas" aria-hidden="true"></span><h3>순환기계 큰 그림</h3></button>
           <button class="study-app" type="button" data-quick-route="#kmle"><span class="study-app-icon app-kmle" aria-hidden="true"></span><h3>국시 순환기계</h3></button>
-          <button class="study-app" type="button" data-quick-route="#pathology"><span class="study-app-icon app-pathology" aria-hidden="true"></span><h3>ECG 땡시</h3></button>
           <button class="study-app" type="button" data-quick-wrong><span class="study-app-icon app-wrong" aria-hidden="true">✏️</span><h3>오답 복습</h3><span class="study-app-caption">${wrongQuestionIds().length}문항</span></button>
           <button class="study-app" type="button" data-resp-exams><span class="study-app-icon app-exam" aria-hidden="true">⏱️</span><h3>실전처럼 풀기</h3><span class="study-app-caption">준비 중</span></button>
           <button class="study-app" type="button" data-resp-mocks aria-haspopup="dialog"><span class="study-app-icon app-mock" aria-hidden="true">📝</span><h3>실전 모의고사</h3><span class="study-app-caption">준비 중</span></button>
@@ -4312,7 +4311,7 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=claude-review-20261115"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=hanyang21-25-20261115"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
@@ -4554,6 +4553,20 @@ SOFTWARE.
       syncScheduleOp();
     });
 
+    const scheduleMinutes = time => { const [hour,minute] = time.split(':').map(Number); return hour * 60 + minute; };
+    const scheduleTime = minutes => `${String(Math.floor(minutes / 60)).padStart(2,'0')}:${String(minutes % 60).padStart(2,'0')}`;
+    function scheduleTimeline(weekSlots) {
+      const starts = weekSlots.map(({slot}) => scheduleMinutes(slot.time));
+      const ends = weekSlots.map(({slot},index) => starts[index] + (slot.duration || 1) * 60);
+      const start = Math.min(scheduleMinutes(hours[0]), ...starts);
+      const end = Math.max(scheduleMinutes(hours.at(-1)), ...ends);
+      // Include class boundaries so half-hour starts and durations use whole grid lines.
+      const boundaries = new Set([start,end,...starts,...ends]);
+      for (let minute = Math.ceil(start / 60) * 60; minute <= end; minute += 60) boundaries.add(minute);
+      const minutes = [...boundaries].sort((a,b) => a-b);
+      return {minutes,rows:minutes.slice(0,-1).map((minute,index) => ({time:scheduleTime(minute),duration:(minutes[index+1]-minute)/60,lunch:minute >= 13*60 && minute < 14*60}))};
+    }
+
     function renderSchedule() {
       const target = document.querySelector('#week-stack');
       if (!Object.keys(weekCalendar).length) { target.innerHTML='<div class="personal-note-empty">등록된 수업 일정이 없습니다.</div>'; syncScheduleOp(); return; }
@@ -4561,23 +4574,25 @@ SOFTWARE.
       target.innerHTML = weeks.map(week => {
         const weekSlots = courses.flatMap(course => course.slots.filter(slot => slot.week === week).map(slot => ({course,slot})));
         const weekDates = weekCalendar[week];
-        const hasEveningClass = weekSlots.some(({slot}) => Number(slot.time.split(':')[0]) + (slot.duration || 1) > 18);
-        const weekHours = hours.filter(hour => hour !== '18:00' || hasEveningClass);
+        const timeline = scheduleTimeline(weekSlots);
+        const rowTracks = timeline.rows.map(row => `minmax(calc(var(--schedule-row-min,70px) * ${row.duration}),auto)`).join(' ');
         const examDate = window.SITE_CONFIG?.examDate;
-        return `<article class="week-card" data-schedule-week="${week}"><div class="week-title"><strong>${week}주차</strong><span>${formatDate(weekDates.월)} – ${formatDate(weekDates.금)}</span></div><div class="timetable-scroll"><div class="timetable" style="--schedule-hour-count:${weekHours.length}">
+        return `<article class="week-card" data-schedule-week="${week}"><div class="week-title"><strong>${week}주차</strong><span>${formatDate(weekDates.월)} – ${formatDate(weekDates.금)}</span></div><div class="timetable-scroll"><div class="timetable" style="--schedule-hour-count:${timeline.rows.length};--schedule-time-rows:${rowTracks}">
           <div class="grid-cell day-head" style="grid-column:1;grid-row:1">시간</div>
           ${days.map((day,index) => `<div class="grid-cell day-head" style="grid-column:${index+2};grid-row:1">${day}<small>${formatDate(weekDates[day])}</small></div>`).join('')}
-          ${weekHours.map((hour,row) => `<div class="grid-cell time-cell ${hour === '13:00' ? 'lunch-cell' : ''}" style="grid-column:1;grid-row:${row+2}">${hour}</div>${days.map((day,col) => `<div class="grid-cell ${hour === '13:00' ? 'lunch-cell' : ''}" style="grid-column:${col+2};grid-row:${row+2}"></div>`).join('')}`).join('')}
-          ${days.map((day,index) => holidays.has(weekDates[day]) ? `<div class="holiday-column" style="grid-column:${index+2};grid-row:2 / span ${weekHours.length}"><span>추석</span></div>` : '').join('')}
-          ${days.map((day,index) => weekDates[day] === examDate ? `<div class="exam-column" style="grid-column:${index+2};grid-row:2 / span ${weekHours.length}" aria-label="${formatDate(examDate)} ${day}요일 순환기계 시험"><span>순환기계 시험</span></div>` : '').join('')}
+          ${timeline.rows.map((interval,row) => `<div class="grid-cell time-cell ${interval.lunch ? 'lunch-cell' : ''}" style="grid-column:1;grid-row:${row+2}">${interval.time}</div>${days.map((day,col) => `<div class="grid-cell ${interval.lunch ? 'lunch-cell' : ''}" style="grid-column:${col+2};grid-row:${row+2}"></div>`).join('')}`).join('')}
+          ${days.map((day,index) => holidays.has(weekDates[day]) ? `<div class="holiday-column" style="grid-column:${index+2};grid-row:2 / span ${timeline.rows.length}"><span>추석</span></div>` : '').join('')}
+          ${days.map((day,index) => weekDates[day] === examDate ? `<div class="exam-column" style="grid-column:${index+2};grid-row:2 / span ${timeline.rows.length}" aria-label="${formatDate(examDate)} ${day}요일 순환기계 시험"><span>순환기계 시험</span></div>` : '').join('')}
           ${weekSlots.map(({course,slot}) => {
             const col = days.indexOf(slot.day)+2;
-            const row = weekHours.indexOf(slot.time)+2;
+            const startMinutes = scheduleMinutes(slot.time);
+            const endMinutes = startMinutes + (slot.duration || 1) * 60;
+            const row = timeline.minutes.indexOf(startMinutes)+2;
+            const endRow = timeline.minutes.indexOf(endMinutes)+2;
             const color = course.isLab ? 'var(--violet)' : (course.domain === '기초의학' ? 'var(--basic)' : 'var(--clinical)');
             const soft = course.isLab ? '#eeeafb' : (course.domain === '기초의학' ? 'var(--basic-soft)' : 'var(--clinical-soft)');
-            const span = slot.duration || 1;
             const opImage = renderScheduleOp(course);
-            return `<div class="course-slot" style="grid-column:${col};grid-row:${row} / span ${span};--course-color:${color};--course-soft:${soft}"><button class="course-card" type="button" data-course="${course.id}" aria-label="${course.id} ${course.title}, ${pathText(course)}"><span class="number">${course.id}${course.isLab ? ' · 실습' : ''}</span><span class="name">${course.title}</span><span class="teacher">${course.professor} 교수</span><span class="course-tooltip" role="tooltip">${pathText(course)}</span></button>${opImage}</div>`;
+            return `<div class="course-slot" style="grid-column:${col};grid-row:${row} / ${endRow};--course-color:${color};--course-soft:${soft}"><button class="course-card" type="button" data-course="${course.id}" aria-label="${course.id} ${course.title}, ${formatDate(slot.date)} ${slot.day}요일 ${slot.time}–${scheduleTime(endMinutes)}, ${pathText(course)}"><span class="number">${course.id}${course.isLab ? ' · 실습' : ''}</span><span class="name">${course.title}</span><span class="teacher">${course.professor} 교수</span><span class="course-tooltip" role="tooltip">${pathText(course)}</span></button>${opImage}</div>`;
           }).join('')}
         </div></div></article>`;
       }).join('');

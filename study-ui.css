@@ -152,7 +152,7 @@ html[data-theme="dark"] .study-ui .bookmark-category.clinical { background:#2114
   .study-ui .week-title strong { font-size:15px; }
   .study-ui .week-title span { font-size:10px; }
   .study-ui .timetable-scroll { overflow-x:visible; }
-  .study-ui .timetable { width:100%; min-width:0; grid-template-columns:32px repeat(5,minmax(0,1fr)); grid-template-rows:32px repeat(var(--schedule-hour-count,9),minmax(44px,auto)); }
+  .study-ui .timetable { --schedule-row-min:44px; width:100%; min-width:0; grid-template-columns:32px repeat(5,minmax(0,1fr)); grid-template-rows:32px var(--schedule-time-rows,repeat(var(--schedule-hour-count,9),minmax(44px,auto))); }
   .study-ui .timetable .grid-cell { padding:3px 1px; }
   .study-ui .timetable .day-head { font-size:11px; line-height:1.2; }
   .study-ui .timetable .day-head small { font-size:8px; white-space:nowrap; }

@@ -2017,7 +2017,7 @@ SOFTWARE.
 <link rel="stylesheet" href="./lipid-learning.css?v=lecture09-20261106">
 <link rel="stylesheet" href="./arrhythmia-learning.css?v=lecture13-20261106">
 <link rel="stylesheet" href="./heart-failure-learning.css?v=lecture12-20261106">
-<link rel="stylesheet" href="./hypertension-learning.css?v=lecture11-20261106">
+<link rel="stylesheet" href="./hypertension-learning.css?v=lecture32-20261115">
 <link rel="stylesheet" href="./angina-learning.css?v=lecture10-20261106">
 <link rel="stylesheet" href="./pharmacology-learning.css?v=pharmacology-jbl-20261106">
 <link rel="stylesheet" href="./wiki-learning.css?v=reading-system-20261105">
@@ -2086,7 +2086,7 @@ SOFTWARE.
 <script src="./pharmacology-learning.js?v=pharm-map-name-20261106"></script>
 <script src="./lipid-learning.js?v=pharm-map-name-20261106"></script>
 <script src="./angina-learning.js?v=pharm-map-name-20261106"></script>
-<script src="./hypertension-learning.js?v=pharm-map-name-20261106"></script>
+<script src="./hypertension-learning.js?v=lecture32-20261115"></script>
 <script src="./heart-failure-learning.js?v=lecture12-20261106"></script>
 <script src="./arrhythmia-learning.js?v=lecture13-20261106"></script>
 <script src="./pathology-learning-data.js?v=pathology-20261108"></script>
@@ -2109,13 +2109,13 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=20261111-chd"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=clinical18-19-20261112"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=psvt-professor-20261115"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=wiki32-20261115"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=chd-stem-20261115"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=lecture32-j-20261115"></script>
 <script src="./question-migrations.js?v=chd-stem-20261115"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=chd-stem-20261115"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=lecture32-20261115"></script>
 <script src="./lecture-study.js?v=20261112-jbl-order"></script>
 <script src="./question-updates-data.js?v=psvt-professor-20261115"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
@@ -4377,13 +4377,13 @@ SOFTWARE.
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=chd-stem-20261115"]');
-      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=chd-stem-20261115'); conceptDataScript.textContent=''; }
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=lecture32-20261115"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=lecture32-20261115'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);
       downloadCurrentFile('lecture-notes.js', `window.LECTURE_NOTE_SOURCES = ${notePayload};\n`, 'text/javascript;charset=utf-8', 360);
-      if (window.JBL_CONCEPTS) downloadCurrentFile('jbl-concepts.js?v=chd-stem-20261115', `window.JBL_CONCEPTS = ${JSON.stringify(window.JBL_CONCEPTS).replace(/</g,'\\u003c')};\n`, 'text/javascript;charset=utf-8', 450);
+      if (window.JBL_CONCEPTS) downloadCurrentFile('jbl-concepts.js?v=lecture32-20261115', `window.JBL_CONCEPTS = ${JSON.stringify(window.JBL_CONCEPTS).replace(/</g,'\\u003c')};\n`, 'text/javascript;charset=utf-8', 450);
       if (window.PATHOLOGY_MAP) downloadCurrentFile('pathology-map.js', window.PATHOLOGY_MAP.exportSource(), 'text/javascript;charset=utf-8', 540);
       jblHasUnsavedChanges = false;
     }

@@ -105,6 +105,8 @@ function hypertensionCompensationPanel(beta,diuretic){
  return `<p class="htn-start">Hydralazine·Minoxidil → 세동맥 이완 → PVR·혈압↓</p><div class="htn-branches"><div class="${beta?'is-treated':''}"><span>교감신경 쪽 보상</span><strong>${beta?'β 차단 → 반사성 빈맥·수축력 증가 억제':'반사성 빈맥 · 수축력↑'}</strong><p>${beta?'신장 β₁ 차단은 renin 분비도 낮춘다.':'교감신경이 심장 β₁을 자극해 혈압을 다시 올리려 한다.'}</p></div><div class="${diuretic?'is-treated':''}"><span>신장·체액 쪽 보상</span><strong>${diuretic?'이뇨제 → Na⁺·물 저류 조절':'Na⁺·물 저류 · 혈량↑'}</strong><p>${diuretic?'Na⁺와 물의 배출을 늘려 체액 보상을 줄인다.':'신장·RAAS가 체액량을 늘려 혈압을 다시 올리려 한다.'}</p></div></div><p class="htn-memory">${beta&&diuretic?'혈관확장제 + β 차단제 + 이뇨제 → 빈맥과 체액 저류를 각각 조절':beta?'β 차단제로 빈맥을 조절했다. 체액 저류 쪽도 확인하자.':diuretic?'이뇨제로 체액 보상을 조절했다. 반사성 빈맥 쪽도 확인하자.':'두 보상반응에 맞는 병용약을 하나씩 눌러 보세요.'}</p>`;
 }
 function renderHypertensionLearningBlock(line,course,footnotes){
+ const clinical = renderHypertensionClinicalBlock(line);
+ if (clinical) return clinical;
  const inline=t=>renderWikiInline(t,course,footnotes);
  if(line==='@htnmap'){
   const id=`htn-map-${++hypertensionBlockSerial}`;
@@ -125,6 +127,7 @@ function renderHypertensionLearningBlock(line,course,footnotes){
  return '';
 }
 function bindHypertensionLearning(container){
+ bindHypertensionClinical(container);
  container.querySelectorAll('[data-htn-map]:not([data-htn-bound])').forEach(block=>{
   block.dataset.htnBound='1';block.querySelectorAll('[data-htn-region]').forEach(button=>button.addEventListener('click',()=>{
    const i=Number(button.dataset.htnRegion),r=hypertensionMapRegions[i];
@@ -146,4 +149,36 @@ function bindHypertensionLearning(container){
    block.querySelector('[data-htn-compensation-panel]').innerHTML=hypertensionCompensationPanel(enabled('beta'),enabled('diuretic'));
   }));
  });
+}
+
+/* Lecture 32: source-star markers and compact clinical comparisons. */
+const bp32Phenotypes = [
+  { label:'양쪽 기준 미만', clinic:'125/75', home:'120/75', title:'두 장소 모두 고혈압 진단 기준 미만', text:'진료실 140/90, 가정 135/85 미만이다. 여기의 분류는 고혈압 진단 기준을 비교한 것으로, 진료실의 정상·주의·전단계 분류와 구분한다.' },
+  { label:'백의고혈압', clinic:'150/95', home:'120/75', title:'병원에서 높고, 집에서는 기준 미만', text:'진료실에서만 높은 양상이다. 일상 혈압과 위험도를 확인하고 생활요법·추적관찰을 이어간다. 진료실 숫자만으로 모든 환자에게 약물을 시작하지 않는다.' },
+  { label:'가면고혈압', clinic:'130/85', home:'145/90', title:'병원에서는 기준 미만, 집에서 높음', text:'정상처럼 보이는 진료실혈압 뒤에 일상 혈압 상승이 가려져 있다. 가정혈압을 확인하고 활동혈압 등으로 평가한다. 병원에서 낮다는 이유로 안심하지 않는다.' },
+  { label:'지속성 고혈압', clinic:'150/95', home:'145/90', title:'병원과 집에서 모두 높음', text:'반복 측정으로 높은 상태를 확인한 뒤 장기손상·위험도에 맞춰 목표와 치료를 정한다. 치료 목표와 진단 기준은 서로 다른 숫자일 수 있다.' }
+];
+const bp32Resistance = [
+  { label:'먼저 확인', title:'정확히 쟀는가, 실제로 복용하는가?', text:'측정 오류·백의효과·복약 불이행 → 생활습관·수면무호흡·다른 약 → 이차성 원인을 확인한다. 처방전의 약 개수만 세지 않는다.', regimen:['측정','복약','생활·수면','이차성 원인'] },
+  { label:'빠진 D 찾기', title:'Valsartan + amlodipine + metoprolol', text:'A + C + B 조합이다. 이뇨제 D가 빠져 있다. 23038에서는 thiazide 계열을 추가해 기본 조합을 갖추는 판단이 먼저다.', regimen:['A · ARB','C · CCB','B · β차단','D · 빠짐'], focus:3 },
+  { label:'A+C+D 최적화', title:'Valsartan + amlodipine + chlorthalidone', text:'강의 예시 용량은 320 mg + 10 mg + 25 mg이다. 각 약의 최대 내약 용량·신기능에 맞는 이뇨제와 실제 복약을 확인한다.', regimen:['A · ARB','C · CCB','D · 이뇨제'], focus:2 },
+  { label:'그다음 MRA', title:'기본 조합 이후에도 조절되지 않는다면', text:'Spironolactone·eplerenone 같은 MRA를 검토한다. K⁺·신기능·부작용을 확인하고, 이후 약제 추가와 전문의 의뢰는 환자 상태에 맞춰 정한다.', regimen:['A','C','D','MRA'], focus:3 }
+];
+function renderHypertensionClinicalBlock(line) {
+  const star = line.match(/^@htnstar (3|7|11|19|20|27|36|46|54)$/);
+  if (star) return `<div class="bp32-star"><strong><span aria-hidden="true">★</span> PPT 별표 · 교수님 강조</strong><span>슬라이드 ${star[1]}</span></div>`;
+  const type = line === '@htnphenotypes' ? 'phenotype' : line === '@htnresistant' ? 'resistant' : '';
+  if (!type) return '';
+  const items = type === 'phenotype' ? bp32Phenotypes : bp32Resistance;
+  const id = `bp32-${++hypertensionBlockSerial}`;
+  return `<div class="bp32-widget htn-widget" data-bp32-widget><p class="bp32-caption">${type==='phenotype'?'병원·집의 조합을 눌러 비교하기 · 치료 전 예시':'현재 약물 조합에서 다음 판단 찾기'}</p><div class="bp32-buttons" role="group" aria-label="${type==='phenotype'?'혈압 양상 비교':'저항성 고혈압 치료 단계'}">${items.map((s,i)=>`<button type="button" data-bp32-choice="${i}" aria-pressed="${i===0}" aria-controls="${id}-${i}">${s.label}</button>`).join('')}</div><div class="bp32-panels" aria-live="polite">${items.map((s,i)=>`<section class="bp32-panel" id="${id}-${i}" data-bp32-panel="${i}" ${i?'hidden':''}>${type==='phenotype'?`<div class="bp32-measures"><div><span>진료실 · 기준 140/90</span><strong>${s.clinic}</strong></div><div><span>가정 · 기준 135/85</span><strong>${s.home}</strong></div></div>`:`<div class="bp32-regimen">${s.regimen.map((r,j)=>`<span class="${s.focus===j?'is-focus':''}">${r}</span>`).join('')}</div>`}<h4>${s.title}</h4><p>${s.text}</p></section>`).join('')}</div></div>`;
+}
+function bindHypertensionClinical(container) {
+  container.querySelectorAll('[data-bp32-widget]:not([data-bp32-bound])').forEach(block=>{
+    block.dataset.bp32Bound='1';
+    block.querySelectorAll('[data-bp32-choice]').forEach(button=>button.addEventListener('click',()=>{
+      block.querySelectorAll('[data-bp32-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+      block.querySelectorAll('[data-bp32-panel]').forEach(p=>p.hidden=p.dataset.bp32Panel!==button.dataset.bp32Choice);
+    }));
+  });
 }

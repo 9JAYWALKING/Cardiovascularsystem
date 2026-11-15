@@ -751,8 +751,10 @@
     .wiki-link:hover, .wiki-link:focus-visible { color: #5f2d38; border-bottom-style: solid; outline: none; }
     .wiki-link-missing { color: #b91c1c; border-bottom: 1px dotted #ef4444; cursor: help; }
     .wiki-footnote-ref { position: relative; display: inline-block; margin-left: 2px; color: #853e4d; font-size: .75em; font-weight: 900; text-decoration: none; vertical-align: super; }
-    .wiki-footnote-preview-box { position: fixed; left: 0; top: 0; z-index: 10000; box-sizing: border-box; width: max-content; min-width: min(150px, calc(100vw - 24px)); max-width: min(340px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow: auto; padding: 10px 12px; border-radius: 10px; color: #fff; background: #3a1b21; box-shadow: 0 10px 28px rgba(39,18,23,.22); font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 650; line-height: 1.55; text-align: left; white-space: normal; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .12s ease; }
+    .wiki-footnote-preview-box { position: fixed; left: 0; top: 0; z-index: 10000; box-sizing: border-box; width: max-content; min-width: min(150px, calc(100vw - 24px)); max-width: min(340px, calc(100vw - 24px)); max-height: min(360px, calc(100dvh - 24px)); overflow: auto; overscroll-behavior: contain; overflow-wrap: anywhere; padding: 10px 12px; border-radius: 10px; color: #fff; background: #3a1b21; box-shadow: 0 10px 28px rgba(39,18,23,.22); font-size: calc((13px) * var(--study-type-scale,1)); font-weight: 650; line-height: 1.55; text-align: left; white-space: normal; pointer-events: auto; opacity: 0; visibility: hidden; transition: opacity .12s ease; }
     .wiki-footnote-preview-box.is-visible { opacity: 1; visibility: visible; }
+    .wiki-footnote-preview-hint { display: none; margin-top: 8px; padding-top: 7px; border-top: 1px solid rgba(255,255,255,.2); font-size: .85em; font-weight: 400; opacity: .8; }
+    .wiki-footnote-preview-box.is-pinned .wiki-footnote-preview-hint { display: block; }
     .wiki-footnote-preview-arrow { position: absolute; left: var(--wiki-footnote-arrow-left, 50%); width: 0; height: 0; border: 6px solid transparent; transform: translateX(-50%); }
     .wiki-footnote-preview-box[data-placement="above"] .wiki-footnote-preview-arrow { top: 100%; border-top-color: #3a1b21; }
     .wiki-footnote-preview-box[data-placement="below"] .wiki-footnote-preview-arrow { bottom: 100%; border-bottom-color: #3a1b21; }
@@ -2975,7 +2977,7 @@ SOFTWARE.
         .replace(/'''|''|""|~~~|~~/g, '')
         .replace(/\s+/g, ' ')
         .trim();
-      return text.length > 260 ? `${text.slice(0, 257)}…` : text;
+      return text;
     }
 
     function renderWikiInline(value, course, footnoteState, allowFootnotes = true, strongContext = false) {
@@ -3507,14 +3509,27 @@ SOFTWARE.
 
 
     let activeWikiFootnotePreviewReference = null;
+    let wikiFootnotePreviewPinned = false;
+    let wikiFootnotePreviewHideTimer;
+    function scheduleWikiFootnotePreviewHide(reference) {
+      clearTimeout(wikiFootnotePreviewHideTimer);
+      wikiFootnotePreviewHideTimer = window.setTimeout(() => {
+        const preview = document.querySelector('[data-wiki-footnote-preview-box]');
+        if (wikiFootnotePreviewPinned || preview?.matches(':hover') || preview?.contains(document.activeElement)) return;
+        hideWikiFootnotePreview(reference);
+      }, 180);
+    }
     function ensureWikiFootnotePreviewBox() {
       let preview = document.querySelector('[data-wiki-footnote-preview-box]');
       if (preview) return preview;
       preview = document.createElement('div');
+      preview.id = 'wiki-footnote-preview';
       preview.className = 'wiki-footnote-preview-box';
       preview.dataset.wikiFootnotePreviewBox = '';
       preview.setAttribute('role', 'tooltip');
-      preview.innerHTML = '<span data-wiki-footnote-preview-text></span><span class="wiki-footnote-preview-arrow" aria-hidden="true"></span>';
+      preview.innerHTML = '<span data-wiki-footnote-preview-text></span><small class="wiki-footnote-preview-hint">각주 번호를 한 번 더 누르면 아래 각주로 이동합니다.</small><span class="wiki-footnote-preview-arrow" aria-hidden="true"></span>';
+      preview.addEventListener('mouseenter', () => clearTimeout(wikiFootnotePreviewHideTimer));
+      preview.addEventListener('mouseleave', () => scheduleWikiFootnotePreviewHide(activeWikiFootnotePreviewReference));
       document.body.appendChild(preview);
       const refresh = () => {
         if (activeWikiFootnotePreviewReference?.isConnected) positionWikiFootnotePreview(activeWikiFootnotePreviewReference);
@@ -3524,6 +3539,22 @@ SOFTWARE.
       window.visualViewport?.addEventListener('resize', refresh, { passive:true });
       window.visualViewport?.addEventListener('scroll', refresh, { passive:true });
       document.addEventListener('scroll', refresh, { passive:true, capture:true });
+      document.addEventListener('pointerdown', event => {
+        if (activeWikiFootnotePreviewReference && !activeWikiFootnotePreviewReference.contains(event.target) && !preview.contains(event.target)) hideWikiFootnotePreview();
+      }, true);
+      document.addEventListener('keydown', event => {
+        if (event.key !== 'Escape' || !activeWikiFootnotePreviewReference) return;
+        event.preventDefault();
+        event.stopPropagation();
+        hideWikiFootnotePreview();
+      }, true);
+      new MutationObserver(() => {
+        const reference = activeWikiFootnotePreviewReference;
+        if (reference && (!reference.isConnected || reference.closest('dialog:not([open])'))) {
+          if (!preview.isConnected) document.body.append(preview);
+          hideWikiFootnotePreview();
+        }
+      }).observe(document.body, { childList:true, subtree:true, attributes:true, attributeFilter:['open'] });
       return preview;
     }
 
@@ -3533,13 +3564,13 @@ SOFTWARE.
       if (!reference?.isConnected || !text) { hideWikiFootnotePreview(); return; }
       const previewHost = reference.closest('dialog') || document.body;
       if (preview.parentElement !== previewHost) previewHost.append(preview);
-      preview.querySelector('[data-wiki-footnote-preview-text]').textContent = text;
+      const previewText = preview.querySelector('[data-wiki-footnote-preview-text]');
+      if (previewText.textContent !== text) { previewText.textContent = text; preview.scrollTop = 0; }
       preview.classList.add('is-visible');
       preview.style.left = '0px';
       preview.style.top = '0px';
       preview.style.visibility = 'hidden';
       const referenceRect = reference.getBoundingClientRect();
-      const previewRect = preview.getBoundingClientRect();
       const viewport = window.visualViewport;
       const viewportLeft = viewport?.offsetLeft || 0;
       const viewportTop = viewport?.offsetTop || 0;
@@ -3547,6 +3578,9 @@ SOFTWARE.
       const viewportBottom = viewportTop + (viewport?.height || window.innerHeight);
       const margin = 12;
       const gap = 10;
+      const availableRoom = Math.max(referenceRect.top - viewportTop, viewportBottom - referenceRect.bottom) - margin - gap;
+      preview.style.maxHeight = `${Math.max(40, Math.min(360, availableRoom))}px`;
+      const previewRect = preview.getBoundingClientRect();
       const center = referenceRect.left + referenceRect.width / 2;
       const aboveTop = referenceRect.top - previewRect.height - gap;
       const belowTop = referenceRect.bottom + gap;
@@ -3566,16 +3600,28 @@ SOFTWARE.
       preview.style.visibility = '';
     }
 
-    function showWikiFootnotePreview(reference) {
+    function showWikiFootnotePreview(reference, pinned = false) {
+      if (wikiFootnotePreviewPinned && reference !== activeWikiFootnotePreviewReference && !pinned) return;
+      clearTimeout(wikiFootnotePreviewHideTimer);
+      if (reference !== activeWikiFootnotePreviewReference) hideWikiFootnotePreview();
       activeWikiFootnotePreviewReference = reference;
+      wikiFootnotePreviewPinned = wikiFootnotePreviewPinned || pinned;
+      reference.setAttribute('aria-expanded', 'true');
+      reference.setAttribute('aria-describedby', 'wiki-footnote-preview');
+      const preview = ensureWikiFootnotePreviewBox();
+      preview.classList.toggle('is-pinned', wikiFootnotePreviewPinned);
       positionWikiFootnotePreview(reference);
     }
 
     function hideWikiFootnotePreview(reference) {
       if (reference && activeWikiFootnotePreviewReference !== reference) return;
+      clearTimeout(wikiFootnotePreviewHideTimer);
+      activeWikiFootnotePreviewReference?.setAttribute('aria-expanded', 'false');
+      activeWikiFootnotePreviewReference?.removeAttribute('aria-describedby');
       activeWikiFootnotePreviewReference = null;
+      wikiFootnotePreviewPinned = false;
       const preview = document.querySelector('[data-wiki-footnote-preview-box]');
-      if (preview) preview.classList.remove('is-visible');
+      if (preview) preview.classList.remove('is-visible', 'is-pinned');
     }
 
     function fitJblQuestionImage(image) {
@@ -3729,15 +3775,25 @@ SOFTWARE.
         scrollWikiElementIntoView(target, { block:'center', flash:true });
       };
       container.querySelectorAll('[data-wiki-footnote]').forEach(link => {
+        if (link.dataset.footnoteEventsBound) return;
+        link.dataset.footnoteEventsBound = 'true';
+        link.setAttribute('aria-expanded', 'false');
         link.addEventListener('mouseenter', () => showWikiFootnotePreview(link));
-        link.addEventListener('mouseleave', () => hideWikiFootnotePreview(link));
+        link.addEventListener('mouseleave', () => scheduleWikiFootnotePreviewHide(link));
         link.addEventListener('focus', () => showWikiFootnotePreview(link));
-        link.addEventListener('blur', () => hideWikiFootnotePreview(link));
+        link.addEventListener('blur', () => scheduleWikiFootnotePreviewHide(link));
         link.addEventListener('click', event => {
           event.preventDefault();
+          event.stopPropagation();
+          // Hover/focus previews do not count as the first click.
+          if (activeWikiFootnotePreviewReference !== link || !wikiFootnotePreviewPinned) {
+            showWikiFootnotePreview(link, true);
+            return;
+          }
           hideWikiFootnotePreview(link);
           const footnoteId = link.getAttribute('href')?.replace(/^#/, '');
-          const footnote = footnoteId ? document.getElementById(footnoteId) : null;
+          // Split views can contain another copy of the same document.
+          const footnote = footnoteId ? container.querySelector('#' + CSS.escape(footnoteId)) : null;
           if (footnote) footnote.dataset.wikiReturnId = link.id;
           flashWikiTarget(footnote);
         });
@@ -5528,6 +5584,8 @@ SOFTWARE.
     function captureContextWikiAnchor(note, shell) {
       let top = Math.max(0, document.querySelector('.masthead')?.getBoundingClientRect().bottom || 0);
       let bottom = window.innerHeight;
+      const bounds = note.closest('.context-link-source')?.getBoundingClientRect();
+      if (bounds) { top = Math.max(top, bounds.top); bottom = Math.min(bottom, bounds.bottom); }
       for (let element = note.parentElement; element && shell.contains(element); element = element.parentElement) {
         const style = getComputedStyle(element);
         if (!/(auto|scroll|hidden|clip)/.test(style.overflowY || style.overflow)) continue;
@@ -5547,7 +5605,37 @@ SOFTWARE.
           anchor = {element, top:rect.top, offset:rect.top - top, coversTop};
         }
       }
+      if (anchor) {
+        // Anchor the first visible character, not a paragraph offset that changes on reflow.
+        const walker = document.createTreeWalker(anchor.element, NodeFilter.SHOW_TEXT);
+        for (let node; (node = walker.nextNode());) {
+          if (!node.textContent.trim() || node.parentElement.closest('button,[hidden]')) continue;
+          const range = document.createRange(); range.selectNodeContents(node);
+          if (![...range.getClientRects()].some(r => r.height && r.bottom > top && r.top < bottom)) continue;
+          let lo = 0, hi = node.length;
+          while (lo < hi) {
+            const mid = (lo + hi) >> 1;
+            range.setStart(node, mid); range.setEnd(node, mid + 1);
+            if (range.getBoundingClientRect().bottom <= top) lo = mid + 1; else hi = mid;
+          }
+          if (lo >= node.length) continue;
+          range.setStart(node, lo); range.setEnd(node, lo + 1);
+          const rect = range.getBoundingClientRect();
+          if (!rect.height || rect.top >= bottom) continue;
+          anchor.textNode = node; anchor.textOffset = lo; anchor.offset = rect.top - top; break;
+        }
+      }
       return anchor;
+    }
+
+    function contextWikiAnchorRect(anchor) {
+      if (anchor.textNode?.isConnected && anchor.textOffset < anchor.textNode.length) {
+        // DOM Range endpoints move when the Wiki is reparented; recreate from the text node.
+        const range = document.createRange();
+        range.setStart(anchor.textNode, anchor.textOffset); range.setEnd(anchor.textNode, anchor.textOffset + 1);
+        return range.getBoundingClientRect();
+      }
+      return anchor.element.getBoundingClientRect();
     }
 
     function alignContextWikiSource(position, source) {
@@ -5561,7 +5649,7 @@ SOFTWARE.
       const anchor = position.anchor;
       if (anchor?.element.isConnected && source.contains(anchor.element)) {
         const top = source.getBoundingClientRect().top + (source.clientTop || 0);
-        source.scrollTop += anchor.element.getBoundingClientRect().top - top - anchor.offset;
+        source.scrollTop += contextWikiAnchorRect(anchor).top - top - anchor.offset;
       }
     }
 
@@ -5626,6 +5714,19 @@ SOFTWARE.
         if (element.isConnected) { element.scrollTop = top; element.scrollLeft = left; }
       });
       window.scrollTo({ top:position.top, left:position.left, behavior:'instant' });
+      const anchor = position.anchor;
+      if (!anchor?.element.isConnected) return;
+      let scroller = anchor.element.parentElement;
+      while (scroller && scroller !== document.body) {
+        const style = getComputedStyle(scroller);
+        if (/(auto|scroll)/.test(style.overflowY) && scroller.scrollHeight > scroller.clientHeight + 1) break;
+        scroller = scroller.parentElement;
+      }
+      const top = Math.max(0, document.querySelector('.masthead')?.getBoundingClientRect().bottom || 0,
+        scroller && scroller !== document.body ? scroller.getBoundingClientRect().top + scroller.clientTop : 0);
+      const delta = contextWikiAnchorRect(anchor).top - top - anchor.offset;
+      if (scroller && scroller !== document.body) scroller.scrollTop += delta;
+      else window.scrollBy({top:delta, behavior:'instant'});
     }
 
     function namespaceContextPreviewIds(container, token) {
@@ -5720,6 +5821,7 @@ SOFTWARE.
       const state = contextLinkState;
       if (!state.active) return;
       const expanding = !state.expanded;
+      if (expanding && state.returnPosition) state.expandedWikiAnchor = captureContextWikiAnchor(state.opener.closest('.wiki-note'), state.shell);
       if (expanding) state.positionCleanup?.();
       const contentScroll = state.body.scrollTop;
       if (expanding) state.sourcePaneScroll = contextSourceScrollElement().scrollTop;
@@ -5875,6 +5977,12 @@ SOFTWARE.
       const next = contextLinkState.originalNextSibling;
       const opener = contextLinkState.opener;
       const returnPosition = contextLinkState.returnPosition;
+      if (returnPosition && restorePosition) {
+        const note = opener?.closest('.wiki-note');
+        returnPosition.anchor = contextLinkState.expanded ? contextLinkState.expandedWikiAnchor
+          : note && captureContextWikiAnchor(note, shell);
+        returnPosition.hash = location.hash;
+      }
       if (shell && parent) {
         if (next && next.parentNode === parent) parent.insertBefore(shell, next);
         else parent.append(shell);
@@ -5912,6 +6020,76 @@ SOFTWARE.
       if (handleLectureStudyLink(link, target)) return;
       openContextLinkSplit(target, contextLinkState.active ? contextLinkState.opener : link);
     }
+
+    function wikiMarginNote(event) {
+      const target = event.target;
+      if (!(target instanceof Element) || event.defaultPrevented || event.button !== 0 ||
+          event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+          window.CardiovascularGestures?.isEnabled?.() === false ||
+          document.querySelector('dialog[open],.wiki-section-editor-overlay,#jbl-image-modal.show') ||
+          questionExplanationState.active || window.getSelection()?.toString().trim()) return null;
+      if (target.closest('a,button,input,textarea,select,summary,label,nav,table,figure,img,svg,canvas,iframe,[contenteditable],[role="button"],[hidden],[inert],.wiki-toc,.context-link-target,.lecture-pane-head,.is-closing')) return null;
+      const root = contextLinkState.active ? contextLinkState.source : document.querySelector('.site-shell > main');
+      if (!root?.contains(target)) return null;
+      if (!target.matches('.wiki-note,.wiki-layout,.wiki-article,.wiki-section,.wiki-section-content,p,li,blockquote,h4,h5,h6,main,.detail-wrap,.lecture-workspace,.lecture-pane,.lecture-pane-body,[data-course-wiki],.context-link-source')) return null;
+      const notes = [...root.querySelectorAll('.wiki-note')].filter(note => {
+        const r = note.getBoundingClientRect();
+        return note.getClientRects().length && r.top <= event.clientY && r.bottom >= event.clientY;
+      });
+      const note = target.closest('.wiki-note') || notes[0];
+      if (!note || !notes.includes(note)) return null;
+      // Blank padding is eligible; text double-click keeps native word selection.
+      const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
+      for (let node; (node = walker.nextNode());) {
+        if (!node.textContent.trim()) continue;
+        const range = document.createRange(); range.selectNodeContents(node);
+        if ([...range.getClientRects()].some(r => event.clientX >= r.left && event.clientX <= r.right && event.clientY >= r.top && event.clientY <= r.bottom)) return null;
+      }
+      return note;
+    }
+
+    function nearestWikiQuestionLink(note, y) {
+      const headings = [...note.querySelectorAll('.wiki-section-head h4,h5[data-wiki-level],h6[data-wiki-level]')];
+      const groups = [{heading:null, links:[]}];
+      for (const heading of headings) groups.push({heading, links:[]});
+      for (const link of note.querySelectorAll('[data-jbl-question-link]')) {
+        if (!contextLinkTargetFromElement(link)) continue;
+        let group = groups[0];
+        for (const candidate of groups.slice(1)) {
+          if (candidate.heading.contains(link) || candidate.heading.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING) group = candidate;
+        }
+        group.links.push(link);
+      }
+      let best = null;
+      groups.forEach((group, index) => {
+        if (!group.links.length || (group.heading && !group.heading.getClientRects().length)) return;
+        const top = (group.heading || note).getBoundingClientRect().top;
+        const next = groups.slice(index + 1).find(g => g.heading?.getClientRects().length);
+        const bottom = next ? next.heading.getBoundingClientRect().top : note.getBoundingClientRect().bottom;
+        const distance = y < top ? top - y : y > bottom ? y - bottom : 0;
+        if (!best || distance < best.distance) best = {distance, link:group.links[0]};
+      });
+      return best?.link || null;
+    }
+
+    document.addEventListener('mousedown', event => {
+      // Browsers can select the nearest word even when a double-click lands in padding.
+      if (event.detail === 2 && wikiMarginNote(event)) event.preventDefault();
+    });
+    document.addEventListener('dblclick', event => {
+      const note = wikiMarginNote(event);
+      if (!note) return;
+      if (contextLinkState.active) {
+        if (contextLinkState.stack.at(-1)?.type !== 'j') return;
+        event.preventDefault();
+        closeContextLinkSplit();
+      } else {
+        const link = nearestWikiQuestionLink(note, event.clientY);
+        if (!link) return;
+        event.preventDefault();
+        openContextLinkSplit(contextLinkTargetFromElement(link), link);
+      }
+    });
 
     document.addEventListener('click', handleContextLinkClick, true);
     document.addEventListener('keydown', event => {

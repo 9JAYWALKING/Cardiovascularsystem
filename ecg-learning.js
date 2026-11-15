@@ -113,8 +113,21 @@
       if(toggle){const show=block.dataset.ecgShow!=='true';block.dataset.ecgShow=String(show);block.querySelectorAll('.ecg-overlay,.ecg-markers').forEach(el=>el.toggleAttribute('hidden',!show));toggle.setAttribute('aria-pressed',String(show));toggle.textContent=show?'학습 표시 숨기기':'학습 표시 켜기';return;}
       if(caseButton){block.dataset.ecgCase=caseButton.dataset.ecgCaseButton;block.dataset.ecgStepIndex='0';block.querySelectorAll('[data-ecg-case-button]').forEach(b=>b.setAttribute('aria-pressed',String(b===caseButton)));}
       if(stepButton)block.dataset.ecgStepIndex=stepButton.dataset.ecgStep;
-      const g=window.CARDIO_ECG_LEARNING.groups[block.dataset.ecgGallery];block.querySelector('.ecg-case-content').innerHTML=caseBody(g.cases[Number(block.dataset.ecgCase)],Number(block.dataset.ecgStepIndex),block.dataset.ecgShow==='true');
-      if(stepButton)block.querySelector(`[data-ecg-step="${block.dataset.ecgStepIndex}"]`)?.focus({preventScroll:true});
+      const g=window.CARDIO_ECG_LEARNING.groups[block.dataset.ecgGallery];
+      const markup=caseBody(g.cases[Number(block.dataset.ecgCase)],Number(block.dataset.ecgStepIndex),block.dataset.ecgShow==='true');
+      if(stepButton){
+        // Keep the clicked control, original image and its layout alive. Replacing
+        // them can move browser focus/scroll anchoring to a different part of the Wiki.
+        const preview=document.createElement('template');preview.innerHTML=markup;
+        const content=block.querySelector('.ecg-case-content');
+        for(const selector of ['.ecg-overlay','.ecg-focus','.ecg-photo-reading']){
+          const current=content.querySelector(selector),next=preview.content.querySelector(selector);
+          if(current&&next)current.replaceChildren(...next.childNodes);
+        }
+        content.querySelectorAll('[data-ecg-step]').forEach(button=>button.setAttribute('aria-pressed',String(button===stepButton)));
+      }else{
+        block.querySelector('.ecg-case-content').innerHTML=markup;
+      }
     });});
   };
 })();

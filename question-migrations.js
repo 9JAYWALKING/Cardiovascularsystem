@@ -186,3 +186,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.ecg20261
 if (window.JBL_DATA?.claude20261115Revision && window.Odap2019Migration) {
   try { window.Odap2019Migration.run(window.localStorage, window.JBL_DATA.claude20261115Revision); } catch (_) {}
 }
+
+// Preserve selected choice numbers, but invalidate old PSVT grades after the teacher clarification.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.psvt20261115Revision); } catch (_) {}

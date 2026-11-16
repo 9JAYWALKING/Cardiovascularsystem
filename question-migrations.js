@@ -195,3 +195,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.chdStem2
 
 // Invalidate stale auto-grades after the diuretic stem and answer correction.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.diuretic20261116Revision); } catch (_) {}
+
+// Apply the confirmed HCM answer while preserving selected choices and manual study records.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.hcmPrecedent20261116Revision); } catch (_) {}

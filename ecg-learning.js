@@ -96,6 +96,7 @@
     avblock:{title:'P와 QRS의 관계를 따라가기',items:avStates.map(a=>a[0]),draw:avblock}
   };
   window.renderECGLearningBlock=function(line){
+    const photos=window.renderEchoPhotoBlock?.(line);if(photos)return photos;
     const brady=window.renderBradyLearningBlock?.(line);if(brady)return brady;
     const recall=window.renderECGRecallBlock?.(line);if(recall)return recall;
     if(line.startsWith('@ecgcases '))return gallery(line.slice(10).trim());
@@ -104,6 +105,7 @@
     return `<section class="ecg-learning ecg-lab" data-ecg-lab="${id}"><div class="ecg-heading"><strong>${l.title}</strong><span>눌러서 비교</span></div><div class="ecg-buttons" role="group" aria-label="${l.title}">${buttons(l.items,'data-ecg-state')}</div><div class="ecg-lab-content" aria-live="polite">${l.draw(0)}</div>${note(id==='avblock'?'전도 관계를 익히는 모식도 · P와 QRS를 위아래로 분리했습니다. 실제 간격은 원본 심전도에서 확인하세요.':'이해를 위한 모식도 · 실제 파형과 수치 측정은 원본 심전도에서 확인하세요.')}</section>`;
   };
   window.bindECGLearning=function(container){
+    window.bindEchoPhotos?.(container);
     window.bindBradyLearning?.(container);
     window.bindECGRecall?.(container);
     container.querySelectorAll('[data-ecg-lab]:not([data-ecg-bound])').forEach(block=>{block.dataset.ecgBound='1';block.addEventListener('click',e=>{const b=e.target.closest('[data-ecg-state]');if(!b)return;block.querySelectorAll('[data-ecg-state]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));block.querySelector('.ecg-lab-content').innerHTML=labs[block.dataset.ecgLab].draw(Number(b.dataset.ecgState));});});

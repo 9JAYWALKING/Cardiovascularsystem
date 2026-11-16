@@ -155,14 +155,15 @@ function bindHypertensionLearning(container){
 const bp32Phenotypes = [
   { label:'양쪽 기준 미만', clinic:'125/75', home:'120/75', title:'두 장소 모두 고혈압 진단 기준 미만', text:'진료실 140/90, 가정 135/85 미만이다. 여기의 분류는 고혈압 진단 기준을 비교한 것으로, 진료실의 정상·주의·전단계 분류와 구분한다.' },
   { label:'백의고혈압', clinic:'150/95', home:'120/75', title:'병원에서 높고, 집에서는 기준 미만', text:'진료실에서만 높은 양상이다. 일상 혈압과 위험도를 확인하고 생활요법·추적관찰을 이어간다. 진료실 숫자만으로 모든 환자에게 약물을 시작하지 않는다.' },
-  { label:'가면고혈압', clinic:'130/85', home:'145/90', title:'병원에서는 기준 미만, 집에서 높음', text:'정상처럼 보이는 진료실혈압 뒤에 일상 혈압 상승이 가려져 있다. 가정혈압을 확인하고 활동혈압 등으로 평가한다. 병원에서 낮다는 이유로 안심하지 않는다.' },
+  { label:'가면고혈압', clinic:'130/85', home:'145/90', title:'★ 가면고혈압 · 예후 비교의 핵심', text:'병원에서는 기준 미만이어도 일상 혈압은 높다. 수업에서 네 혈압 양상 중 예후가 가장 나쁜 것으로 강조했다. p.10의 비교 그래프에서도 심혈관 사건 발생률이 가장 높다. 가정혈압·활동혈압으로 숨은 상승을 확인한다.' },
   { label:'지속성 고혈압', clinic:'150/95', home:'145/90', title:'병원과 집에서 모두 높음', text:'반복 측정으로 높은 상태를 확인한 뒤 장기손상·위험도에 맞춰 목표와 치료를 정한다. 치료 목표와 진단 기준은 서로 다른 숫자일 수 있다.' }
 ];
 const bp32Resistance = [
-  { label:'먼저 확인', title:'정확히 쟀는가, 실제로 복용하는가?', text:'측정 오류·백의효과·복약 불이행 → 생활습관·수면무호흡·다른 약 → 이차성 원인을 확인한다. 처방전의 약 개수만 세지 않는다.', regimen:['측정','복약','생활·수면','이차성 원인'] },
+  { label:'먼저 백의효과', title:'★ 약을 늘리기 전, 일상 혈압도 높은가?', text:'가정혈압·활동혈압으로 백의효과부터 확인한다. 병원에서만 높다면 진짜 저항성으로 단정하지 않는다. 측정 오류·실제 복약·생활습관·수면·다른 약·이차성 원인도 함께 점검한다.', regimen:['백의효과 확인','복약','생활·수면','이차성 원인'], focus:0 },
   { label:'빠진 D 찾기', title:'Valsartan + amlodipine + metoprolol', text:'A + C + B 조합이다. 이뇨제 D가 빠져 있다. 23038에서는 thiazide 계열을 추가해 기본 조합을 갖추는 판단이 먼저다.', regimen:['A · ARB','C · CCB','B · β차단','D · 빠짐'], focus:3 },
   { label:'A+C+D 최적화', title:'Valsartan + amlodipine + chlorthalidone', text:'강의 예시 용량은 320 mg + 10 mg + 25 mg이다. 각 약의 최대 내약 용량·신기능에 맞는 이뇨제와 실제 복약을 확인한다.', regimen:['A · ARB','C · CCB','D · 이뇨제'], focus:2 },
-  { label:'그다음 MRA', title:'기본 조합 이후에도 조절되지 않는다면', text:'Spironolactone·eplerenone 같은 MRA를 검토한다. K⁺·신기능·부작용을 확인하고, 이후 약제 추가와 전문의 의뢰는 환자 상태에 맞춰 정한다.', regimen:['A','C','D','MRA'], focus:3 }
+  { label:'MRA · Spironolactone', title:'★ A+C+D 다음은 MRA, 특히 Spironolactone', text:'기본 세 약을 충분히 사용해도 높다면 Spironolactone 추가를 먼저 떠올린다. Aldosterone 작용을 차단하는 MRA이며, K⁺·신기능을 확인한다. 여성형유방 등 부작용이 있으면 Eplerenone을 고려한다.', regimen:['A','C','D','MRA · Spironolactone'], focus:3 },
+  { label:'MRA 이후', title:'β차단제 → Hydralazine → Minoxidil', text:'계속 조절되지 않으면 심박수·금기를 보고 β차단제, 이어 Hydralazine을 고려한다. 필요 시 Hydralazine을 Minoxidil로 바꾼다. 이후 단계는 환자 상태에 맞춰 조정하며, 조절 실패가 지속되면 전문의에게 의뢰한다.', regimen:['β차단제','Hydralazine','Minoxidil로 변경'] }
 ];
 function renderHypertensionClinicalBlock(line) {
   const star = line.match(/^@htnstar (3|7|11|19|20|27|36|46|54)$/);

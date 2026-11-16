@@ -192,3 +192,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.psvt2026
 
 // Correct the negative stems without losing selected choices or manual history.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.chdStem20261115Revision); } catch (_) {}
+
+// Invalidate stale auto-grades after the diuretic stem and answer correction.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.diuretic20261116Revision); } catch (_) {}

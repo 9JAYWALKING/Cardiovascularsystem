@@ -30011,7 +30011,7 @@ window.JBL_DATA = {
       ]
     },
     {
-      "question": "Hypokalemia를 일으키지 않는 이뇨제를 고르시오",
+      "question": "Hypokalemia를 일으키는 이뇨제를 고르시오",
       "passage": "",
       "choices": [
         "Spironolactone",
@@ -30035,12 +30035,9 @@ window.JBL_DATA = {
       "source": "2023 순환기계 71번",
       "images": [],
       "answerIndices": [
-        1,
-        2,
-        3,
-        5
+        4
       ],
-      "explanation": "== 선지별 해설 ==\n=== ① Spironolactone · MRA ===\n'''Spironolactone·Eplerenone → MRA·K⁺ 보존.''' Aldosterone 수용체를 막아 Na⁺ 재흡수와 연결된 K⁺ 배출을 줄인다. 한장정리 K-sparing 칸의 첫 묶음이다. Spironolactone에는 '''고칼륨혈증·여성형유방'''을 함께 붙여 두자.\n\n=== ② Amiloride · ENaC 차단 ===\n'''Amiloride·Triamterene → ENaC 차단·K⁺ 보존.''' 집합관의 Na⁺ 유입을 줄여 K⁺가 배출되는 힘도 줄인다. K-sparing 칸에서 MRA 다음에 놓인 두 약물이 이 묶음이다.\n\n=== ③ Triamterene · Amiloride와 한 묶음 ===\n'''Amiloride·Triamterene → ENaC 차단·K⁺ 보존.''' 이름이 달라도 같은 칸에서 꺼내면 된다. 이뇨제 이름을 각각 따로 외우기보다 MRA 두 개와 ENaC 차단제 두 개로 짝지어 기억하자.\n\n=== ④ Furosemide · Loop ===\n'''Thiazide·Loop(Furosemide) → K⁺ 소실.''' Furosemide는 Na⁺·물 배설을 강하게 늘리는 loop diuretic이다. 저칼륨혈증을 일으킬 수 있는 쪽으로 분류한다. 합본 강의록도 이 칼륨 소실을 digitalis 복용자·부정맥 환자에서 특히 주의할 점으로 연결한다.\n\n=== ⑤ Eplerenone · Spironolactone과 한 묶음 ===\n'''Spironolactone·Eplerenone → MRA·K⁺ 보존.''' Aldosterone 수용체를 차단하는 두 이름을 함께 기억하자. ①과 ⑤가 같은 묶음, ②와 ③이 같은 묶음이므로, 남은 ④ Furosemide의 위치가 또렷해진다.\n\n== 개념 한 번에 잡기 ==\n이뇨제는 Na⁺와 물을 내보내 혈량을 줄인다. 그중 '''Thiazide·Loop는 K⁺ 소실''', '''K-sparing은 K⁺ 보존'''이라는 두 방향을 먼저 잡자. K-sparing 네 약물을 두 묶음으로 외우면 약 이름이 바뀌어도 같은 기준으로 풀 수 있다.\n\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n\n== 한눈에 정리 ==\n||= 한장정리의 묶음 ||= 기전·칼륨 방향 ||\n|| Spironolactone·Eplerenone || MRA · aldosterone 수용체 차단 → K⁺ 보존 ||\n|| Amiloride·Triamterene || ENaC 차단 → K⁺ 보존 ||\n|| Thiazide·Loop(Furosemide) || Na⁺·물 배설과 함께 K⁺ 소실 ||\n\n'''Spironolactone → 고칼륨혈증·여성형유방'''까지 붙여 두자. {{21059}}·{{19048}}은 저칼륨혈증 때문에 바꾼 약의 부작용을 묻는 관련 유형이다. 약물군과 대표 부작용을 같은 칸에서 꺼내면 된다.\n\n== 원복원문에서 확인할 점 ==\n이 문항은 박창신 교수님의 2023년 과거 출제다. 현재 남아 있는 발문은 ‘Hypokalemia를 일으키지 않는’ 이뇨제를 묻고, 선지에는 K-sparing 네 약물이 함께 들어 있다. '''원복원 상태에 따라 ①·②·③·⑤를 함께 표시'''한다. {{22074}}의 단일 정답 문항과 같은 K-sparing 분류를 적용한 결과다.\n\n== Wiki로 이어 보기 ==\n[[11강#Thiazide → Loop → K-sparing|11강 · 이뇨제 선택]] · [[11강#칼륨 방향과 Spironolactone의 여성형유방|11강 · K⁺·여성형유방 반복]]\n[[8강#이뇨제와 K-sparing을 한 묶음으로|한장지도 1 · 이뇨제와 K-sparing]]\n@source 올해 합본 강의록 p.3 · 한장지도 1 이뇨제 · 상세 연결 p.17–19, 45 · 2023 원복원 p.21–22 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
+      "explanation": "== 선지별 해설 ==\n=== ① Spironolactone · K⁺ 보존 ===\n'''\"\"Spironolactone·Eplerenone → MRA·K⁺ 보존.\"\"''' Aldosterone 수용체를 차단해 Na⁺ 재흡수와 연결된 K⁺ 배출을 줄인다. 저칼륨혈증을 일으키는 약이 아니라 '''고칼륨혈증'''을 주의하는 약이다. Spironolactone에는 '''여성형유방'''도 함께 연결한다.\n\n=== ② Amiloride · ENaC 차단 ===\n'''\"\"Amiloride·Triamterene → ENaC 차단·K⁺ 보존.\"\"''' 집합관에서 Na⁺ 유입을 줄이면 내강이 음전하를 띠는 정도가 줄어 K⁺ 분비도 감소한다. 따라서 칼륨을 남기는 K-sparing 이뇨제다.\n\n=== ③ Triamterene · Amiloride와 한 묶음 ===\nAmiloride와 같은 '''\"\"ENaC 차단제\"\"'''다. MRA와 표적은 다르지만, '''K⁺ 배출을 줄인다'''는 방향은 같다. 저칼륨혈증을 일으키는 약을 묻는 이 문항에서는 고르지 않는다.\n\n=== ④ Furosemide · Loop · 정답 ===\n'''\"\"Furosemide → Loop 이뇨제 → K⁺ 소실 → 저칼륨혈증.\"\"''' 헨레고리 굵은상행각의 Na⁺–K⁺–2Cl⁻ 공동수송체(NKCC2)를 억제한다. 뒤쪽 네프론으로 전달되는 Na⁺가 늘고, 집합관에서 Na⁺ 재흡수와 연결된 K⁺ 분비가 증가해 저칼륨혈증이 생길 수 있다.\n\n=== ⑤ Eplerenone · Spironolactone과 한 묶음 ===\n'''\"\"Aldosterone 수용체 차단 → K⁺ 보존.\"\"''' Spironolactone과 같은 MRA이며, 역시 고칼륨혈증을 주의한다. ①·⑤는 MRA, ②·③은 ENaC 차단제이고, '''④만 Loop 이뇨제'''다.\n\n== 개념 한 번에 잡기 ==\n이뇨제는 Na⁺와 물의 배설을 늘리지만, '''칼륨의 방향은 약물군마다 다르다.''' Thiazide·Loop는 뒤쪽 네프론으로 Na⁺ 전달을 늘려 K⁺ 소실을 일으킬 수 있다. K-sparing은 집합관에서 aldosterone 작용이나 ENaC를 막아 K⁺ 배출을 줄인다.\n\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.'''\n\n== 한눈에 정리 ==\n||= 약물 묶음 ||= 표적 ||= K⁺ 방향 ||\n|| '''Spironolactone·Eplerenone''' || Aldosterone 수용체 차단(MRA) || K⁺ 보존 ||\n|| '''Amiloride·Triamterene''' || ENaC 차단 || K⁺ 보존 ||\n|| '''Furosemide · Loop''' || NKCC2 억제 || '''K⁺ 소실 → 저칼륨혈증''' ||\n\n{{22074}}는 저칼륨혈증이 생긴 뒤 '''K-sparing 이뇨제로 바꾸는 선택'''을 묻는다. {{21059}}·{{19048}}은 바꾼 약이 Spironolactone일 때의 '''여성형유방'''으로 이어진다.\n\n[* Hypokalemia = 저칼륨혈증. MRA = mineralocorticoid receptor antagonist, 무기질코르티코이드 수용체 길항제. ENaC = epithelial sodium channel, 상피 Na⁺ 통로.]\n\n== Wiki로 이어 보기 ==\n[[11강#Thiazide → Loop → K-sparing|11강 · 이뇨제 선택]] · [[11강#칼륨 방향과 Spironolactone의 여성형유방|11강 · K⁺·여성형유방 반복]]\n[[8강#이뇨제와 K-sparing을 한 묶음으로|심혈관계 지도 1 · 이뇨제와 K-sparing]]\n@source 합본 강의록 p.3, 17–19, 45 · 심혈관계 지도 1 · 2023 순환기계 71번",
       "category": "",
       "provenance": [
         {
@@ -30054,9 +30051,9 @@ window.JBL_DATA = {
           "kind": "reconstruction"
         }
       ],
-      "answerIndex": null,
-      "answerLabel": "정답: 1, 2, 3, 5번",
-      "answerStatus": "원문 선지 기준 복수정답",
+      "answerIndex": 4,
+      "answerLabel": "정답: 4번",
+      "answerStatus": "검토 답안",
       "classificationEvidence": {
         "professorBasis": "문항·실록·연도별 담당·인접 문항 대조",
         "professorMentions": [
@@ -30077,27 +30074,11 @@ window.JBL_DATA = {
       "sourceTypes": [
         "선배 복원"
       ],
-      "reinforcementReview": {
-        "date": "2026-11-04",
-        "decision": "restore-original",
-        "reason": "복수선택 지시만 추가했던 !를 제거한다. 원문의 부정과 다섯 약물을 그대로 두고 네 정답을 인정한다.",
-        "professor": "박창신"
-      },
-      "repeatedWordingReview": {
-        "date": "2026-11-04",
-        "family": "칼륨 보존성 이뇨제",
-        "decision": "restore-original",
-        "reason": "복수선택 지시만 추가했던 !를 제거한다. 원문의 부정과 다섯 약물을 그대로 두고 네 정답을 인정한다.",
-        "evidence": [
-          "23071 원복원 p21–22",
-          "원문의 hypokalemia를 일으키지 않는다는 부정 보존"
-        ]
-      },
       "choiceLearning": {
         "version": 1,
-        "reviewed": "2026-11-06",
+        "reviewed": "2026-11-16",
         "basis": {
-          "question": "Hypokalemia를 일으키지 않는 이뇨제를 고르시오",
+          "question": "Hypokalemia를 일으키는 이뇨제를 고르시오",
           "passage": "",
           "choices": [
             "Spironolactone",
@@ -30108,13 +30089,10 @@ window.JBL_DATA = {
           ],
           "images": [],
           "answerIndices": [
-            1,
-            2,
-            3,
-            5
+            4
           ]
         },
-        "title": "이뇨제는 K⁺를 버리는 쪽과 남기는 쪽으로 나눈다",
+        "title": "Furosemide는 K⁺ 소실로 저칼륨혈증을 일으킨다",
         "entries": [
           {
             "text": "Spironolactone·Eplerenone → \"\"MRA·K⁺ 보존\"\"",
@@ -49138,7 +49116,7 @@ window.JBL_DATA = {
       "answerIndices": [
         4
       ],
-      "explanation": "== 선지별 해설 ==\n=== ① Esmolol · β₁ 선택적 차단제 ===\n'''β₁ 차단 → HR·수축력↓ + renin 분비↓.''' Esmolol은 한장정리의 β₁ 선택적 차단제 칸에 있다. Metoprolol·Atenolol과 같은 선택성으로 묶고, Esmolol에는 '''반감기 약 9–10분·정맥 투여'''라는 구별점을 붙인다. 이 선지는 심장·교감신경 조절 약물의 자리로 분류하면 된다.\n\n=== ② Propranolol · 비선택적 β 차단제 ===\n'''Propranolol → β₁·β₂ 차단.''' 혈압을 낮추는 주된 연결은 심장 β₁을 통한 HR·수축력 감소와 신장 β₁을 통한 renin 감소다. β₂ 차단에 따른 기관지수축도 함께 기억하자. 한장정리에서는 Esmolol의 β₁ 선택적 묶음과 나란히 비교한다.\n\n=== ③ Nitroglycerin · Nitrate ===\n원문의 ‘nitraglycerin’은 한장정리의 '''Nitroglycerin'''에 해당하는 선지다. '''NO → cGMP↑ → 정맥 이완 → preload↓'''로 묶는다. 10강에서 다루는 질산염 칸이며, 심장으로 돌아오는 양과 산소 수요를 줄이는 약물이다.\n\n=== ④ Spironolactone · K-sparing ===\n'''Spironolactone·Eplerenone → MRA·K⁺ 보존.''' 저칼륨혈증 뒤에 칼륨을 남기는 이뇨제로 바꾸려는 상황이므로 Spironolactone을 고른다. 변형 문제에서는 '''Amiloride·Triamterene'''도 K-sparing 묶음으로 함께 떠올리자. 약을 바꾼 뒤의 부작용을 물으면 고칼륨혈증·여성형유방으로 이어진다.\n\n=== ⑤ Thiazide · K⁺ 소실 ===\n'''Thiazide·Loop(Furosemide) → K⁺ 소실.''' Thiazide는 Na⁺·물 배설을 늘리는 이뇨제지만 저칼륨혈증을 일으킬 수 있다. 약 이름 끝이나 ‘이뇨제’라는 큰 분류만 보지 말고, 칼륨의 방향까지 확인하면 ④와 구별된다.\n\n== 개념 한 번에 잡기 ==\n이뇨제는 Na⁺와 물을 내보내 혈량을 줄인다. 그중 '''Thiazide·Loop는 K⁺ 소실''', '''K-sparing은 K⁺ 보존'''이라는 두 방향을 먼저 잡자. K-sparing 네 약물을 두 묶음으로 외우면 약 이름이 바뀌어도 같은 기준으로 풀 수 있다.\n\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n\n== 한눈에 정리 ==\n||= 한장정리의 묶음 ||= 기전·칼륨 방향 ||\n|| Spironolactone·Eplerenone || MRA · aldosterone 수용체 차단 → K⁺ 보존 ||\n|| Amiloride·Triamterene || ENaC 차단 → K⁺ 보존 ||\n|| Thiazide·Loop(Furosemide) || Na⁺·물 배설과 함께 K⁺ 소실 ||\n\n'''Spironolactone → 고칼륨혈증·여성형유방'''까지 붙여 두자. {{21059}}·{{19048}}은 저칼륨혈증 때문에 바꾼 약의 부작용을 묻는 관련 유형이다. 약물군과 대표 부작용을 같은 칸에서 꺼내면 된다.\n\n== 기출에서 이어지는 질문 ==\n박창신 교수님의 과거 족보는 '''저칼륨혈증 → K-sparing 선택 → Spironolactone의 대표 부작용'''으로 질문을 바꾸어 낸다. {{23071}}처럼 여러 K-sparing 이름을 한꺼번에 제시해도 네 약물의 두 묶음으로 풀면 된다. 올해 김채균 교수님의 강의에서는 이 내용을 p.3의 이뇨제 개관과 상세 p.17–19에서 확인할 수 있다.\n\n== Wiki로 이어 보기 ==\n[[11강#Thiazide → Loop → K-sparing|11강 · 이뇨제 선택]] · [[11강#칼륨 방향과 Spironolactone의 여성형유방|11강 · K⁺·여성형유방 반복]]\n[[8강#이뇨제와 K-sparing을 한 묶음으로|한장지도 1 · 이뇨제와 K-sparing]] · [[8강#교감신경 억제제의 대표 β 차단제|β 차단제의 심장·신장 작용]] · [[8강#Nitrate는 preload와 연결한다|Nitrate · preload 감소]]\n@source 올해 합본 강의록 p.3–4 · 한장지도 최종본 1·4·16 · 상세 연결 p.17–19, 34–35 · 2022 원복원 p.26–27 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
+      "explanation": "== 선지별 해설 ==\n=== ① Esmolol · β₁ 선택적 차단제 ===\n'''β₁ 차단 → HR·수축력↓ + renin 분비↓.''' Esmolol은 한장정리의 β₁ 선택적 차단제 칸에 있다. Metoprolol·Atenolol과 같은 선택성으로 묶고, Esmolol에는 '''반감기 약 9–10분·정맥 투여'''라는 구별점을 붙인다. 이 선지는 심장·교감신경 조절 약물의 자리로 분류하면 된다.\n\n=== ② Propranolol · 비선택적 β 차단제 ===\n'''Propranolol → β₁·β₂ 차단.''' 혈압을 낮추는 주된 연결은 심장 β₁을 통한 HR·수축력 감소와 신장 β₁을 통한 renin 감소다. β₂ 차단에 따른 기관지수축도 함께 기억하자. 한장정리에서는 Esmolol의 β₁ 선택적 묶음과 나란히 비교한다.\n\n=== ③ Nitroglycerin · Nitrate ===\n원문의 ‘nitraglycerin’은 한장정리의 '''Nitroglycerin'''에 해당하는 선지다. '''NO → cGMP↑ → 정맥 이완 → preload↓'''로 묶는다. 10강에서 다루는 질산염 칸이며, 심장으로 돌아오는 양과 산소 수요를 줄이는 약물이다.\n\n=== ④ Spironolactone · K-sparing ===\n'''Spironolactone·Eplerenone → MRA·K⁺ 보존.''' 저칼륨혈증 뒤에 칼륨을 남기는 이뇨제로 바꾸려는 상황이므로 Spironolactone을 고른다. 변형 문제에서는 '''Amiloride·Triamterene'''도 K-sparing 묶음으로 함께 떠올리자. 약을 바꾼 뒤의 부작용을 물으면 고칼륨혈증·여성형유방으로 이어진다.\n\n=== ⑤ Thiazide · K⁺ 소실 ===\n'''Thiazide·Loop(Furosemide) → K⁺ 소실.''' Thiazide는 Na⁺·물 배설을 늘리는 이뇨제지만 저칼륨혈증을 일으킬 수 있다. 약 이름 끝이나 ‘이뇨제’라는 큰 분류만 보지 말고, 칼륨의 방향까지 확인하면 ④와 구별된다.\n\n== 개념 한 번에 잡기 ==\n이뇨제는 Na⁺와 물을 내보내 혈량을 줄인다. 그중 '''Thiazide·Loop는 K⁺ 소실''', '''K-sparing은 K⁺ 보존'''이라는 두 방향을 먼저 잡자. K-sparing 네 약물을 두 묶음으로 외우면 약 이름이 바뀌어도 같은 기준으로 풀 수 있다.\n\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n\n== 한눈에 정리 ==\n||= 한장정리의 묶음 ||= 기전·칼륨 방향 ||\n|| Spironolactone·Eplerenone || MRA · aldosterone 수용체 차단 → K⁺ 보존 ||\n|| Amiloride·Triamterene || ENaC 차단 → K⁺ 보존 ||\n|| Thiazide·Loop(Furosemide) || Na⁺·물 배설과 함께 K⁺ 소실 ||\n\n'''Spironolactone → 고칼륨혈증·여성형유방'''까지 붙여 두자. {{21059}}·{{19048}}은 저칼륨혈증 때문에 바꾼 약의 부작용을 묻는 관련 유형이다. 약물군과 대표 부작용을 같은 칸에서 꺼내면 된다.\n\n== 기출에서 이어지는 질문 ==\n박창신 교수님의 과거 족보는 '''저칼륨혈증 → K-sparing 선택 → Spironolactone의 대표 부작용'''으로 질문을 바꾸어 낸다. {{23071}}은 K-sparing 네 약물 사이에서 '''저칼륨혈증을 일으키는 Furosemide'''를 고르는 문제다. 올해 김채균 교수님의 강의에서는 이 내용을 p.3의 이뇨제 개관과 상세 p.17–19에서 확인할 수 있다.\n\n== Wiki로 이어 보기 ==\n[[11강#Thiazide → Loop → K-sparing|11강 · 이뇨제 선택]] · [[11강#칼륨 방향과 Spironolactone의 여성형유방|11강 · K⁺·여성형유방 반복]]\n[[8강#이뇨제와 K-sparing을 한 묶음으로|한장지도 1 · 이뇨제와 K-sparing]] · [[8강#교감신경 억제제의 대표 β 차단제|β 차단제의 심장·신장 작용]] · [[8강#Nitrate는 preload와 연결한다|Nitrate · preload 감소]]\n@source 올해 합본 강의록 p.3–4 · 한장지도 최종본 1·4·16 · 상세 연결 p.17–19, 34–35 · 2022 원복원 p.26–27 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
       "category": "",
       "provenance": [
         {
@@ -62130,7 +62108,7 @@ window.JBL_DATA = {
       "answerIndices": [
         3
       ],
-      "explanation": "== 선지별 해설 ==\n\n=== ① Dry cough · ACEi ===\n'''Captopril·Enalapril·Lisinopril → bradykinin↑ → 마른기침.''' RAAS 관련 약물이 함께 등장하므로, ACE를 막는 -pril과 aldosterone 수용체를 막는 Spironolactone의 자리를 나누어 놓자.\n\n=== ② Urticaria · 두드러기 ===\n두드러기는 약물 과민반응을 생각하게 하는 피부 증상이다. 이 반복 문항이 묻는 '''Spironolactone의 대표 내분비 부작용은 여성형유방'''이다. 약을 바꾼 이유인 K⁺ 보존과, 바꾼 뒤 나타날 수 있는 내분비 부작용을 두 단계로 연결하자.\n\n=== ③ Gynecomastia · 여성형유방 ===\n'''Spironolactone → MRA·K⁺ 보존 / 대표 부작용은 고K⁺·여성형유방.''' 항안드로겐 작용과 이어지는 여성형유방이 이 문항의 핵심이다. 같은 K-sparing이라도 Spironolactone의 내분비 부작용은 약 이름에 따로 붙여 기억한다.\n\n=== ④ Ca²⁺와 K⁺를 구분 ===\nSpironolactone에서 먼저 확인할 전해질은 '''K⁺'''다. Aldosterone 작용을 막아 K⁺ 배설을 줄이므로 '''hyperkalemia'''를 연결한다. 선지의 hypercalcemia는 Ca²⁺의 증가이니, 외울 문장은 '''Spironolactone → 고K⁺'''로 바로잡자.\n\n=== ⑤ 혈압은 낮아지는 방향 ===\n'''Aldosterone 수용체 차단 → Na⁺·물 보유↓ → 혈량·혈압↓.''' 이뇨제는 심부전에서 울혈·부종을 줄이는 흐름과도 연결된다. 이 문제의 약물 전환은 K⁺ 소실을 줄이는 쪽이고, 대표 부작용은 ③ 여성형유방이다.\n\n== 개념 한 번에 잡기 ==\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n'''저K⁺ → K-sparing으로 변경 → Spironolactone의 여성형유방'''을 한 경로로 기억하자. {{19048}}과 {{21059}}는 같은 다섯 선지로 이 연결을 반복한다. 8강의 {{23071}}·{{22074}}는 앞 단계인 K-sparing 약물 선택을 물었다.\n== 한눈에 정리 ==\n||= 묶음 ||= 약물 ||= 칼륨·추가 단서 ||\n|| K⁺ 소실 || Thiazide·Loop || 저K⁺ · digitalis 독성 주의 ||\n|| MRA || Spironolactone·Eplerenone || K⁺ 보존 · Spironolactone 여성형유방 ||\n|| ENaC 차단 || Amiloride·Triamterene || K⁺ 보존 ||\n\n== 복원 기록 ==\n19048 원문은 hyperkalemia로 남아 있지만, 21059 복원자가 이전의 hyperkalemia는 hypokalemia의 오타였다고 정정했다. 학습 흐름은 저K⁺ → K-sparing으로 변경이다. 원문과 기존 보강판은 그 구분을 보존했다.\n\n== Wiki로 이어 보기 ==\n[[11강#칼륨 방향과 Spironolactone의 여성형유방|칼륨 방향과 Spironolactone의 여성형유방]]\n@source 합본 p.18–19 · 한장지도 1 · 19048·21059 및 복원자 정정 기록 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
+      "explanation": "== 선지별 해설 ==\n\n=== ① Dry cough · ACEi ===\n'''Captopril·Enalapril·Lisinopril → bradykinin↑ → 마른기침.''' RAAS 관련 약물이 함께 등장하므로, ACE를 막는 -pril과 aldosterone 수용체를 막는 Spironolactone의 자리를 나누어 놓자.\n\n=== ② Urticaria · 두드러기 ===\n두드러기는 약물 과민반응을 생각하게 하는 피부 증상이다. 이 반복 문항이 묻는 '''Spironolactone의 대표 내분비 부작용은 여성형유방'''이다. 약을 바꾼 이유인 K⁺ 보존과, 바꾼 뒤 나타날 수 있는 내분비 부작용을 두 단계로 연결하자.\n\n=== ③ Gynecomastia · 여성형유방 ===\n'''Spironolactone → MRA·K⁺ 보존 / 대표 부작용은 고K⁺·여성형유방.''' 항안드로겐 작용과 이어지는 여성형유방이 이 문항의 핵심이다. 같은 K-sparing이라도 Spironolactone의 내분비 부작용은 약 이름에 따로 붙여 기억한다.\n\n=== ④ Ca²⁺와 K⁺를 구분 ===\nSpironolactone에서 먼저 확인할 전해질은 '''K⁺'''다. Aldosterone 작용을 막아 K⁺ 배설을 줄이므로 '''hyperkalemia'''를 연결한다. 선지의 hypercalcemia는 Ca²⁺의 증가이니, 외울 문장은 '''Spironolactone → 고K⁺'''로 바로잡자.\n\n=== ⑤ 혈압은 낮아지는 방향 ===\n'''Aldosterone 수용체 차단 → Na⁺·물 보유↓ → 혈량·혈압↓.''' 이뇨제는 심부전에서 울혈·부종을 줄이는 흐름과도 연결된다. 이 문제의 약물 전환은 K⁺ 소실을 줄이는 쪽이고, 대표 부작용은 ③ 여성형유방이다.\n\n== 개념 한 번에 잡기 ==\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n'''저K⁺ → K-sparing으로 변경 → Spironolactone의 여성형유방'''을 한 경로로 기억하자. {{19048}}과 {{21059}}는 같은 다섯 선지로 이 연결을 반복한다. {{23071}}은 '''저칼륨혈증을 일으키는 Furosemide''', {{22074}}는 '''저칼륨혈증 뒤 K-sparing 약물 선택'''을 묻는다.\n== 한눈에 정리 ==\n||= 묶음 ||= 약물 ||= 칼륨·추가 단서 ||\n|| K⁺ 소실 || Thiazide·Loop || 저K⁺ · digitalis 독성 주의 ||\n|| MRA || Spironolactone·Eplerenone || K⁺ 보존 · Spironolactone 여성형유방 ||\n|| ENaC 차단 || Amiloride·Triamterene || K⁺ 보존 ||\n\n== 복원 기록 ==\n19048 원문은 hyperkalemia로 남아 있지만, 21059 복원자가 이전의 hyperkalemia는 hypokalemia의 오타였다고 정정했다. 학습 흐름은 저K⁺ → K-sparing으로 변경이다. 원문과 기존 보강판은 그 구분을 보존했다.\n\n== Wiki로 이어 보기 ==\n[[11강#칼륨 방향과 Spironolactone의 여성형유방|칼륨 방향과 Spironolactone의 여성형유방]]\n@source 합본 p.18–19 · 한장지도 1 · 19048·21059 및 복원자 정정 기록 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
       "category": "",
       "provenance": [
         {
@@ -93859,7 +93837,7 @@ window.JBL_DATA = {
       "answerIndices": [
         3
       ],
-      "explanation": "== 선지별 해설 ==\n\n=== ① Dry cough · ACEi ===\n'''Captopril·Enalapril·Lisinopril → bradykinin↑ → 마른기침.''' RAAS 관련 약물이 함께 등장하므로, ACE를 막는 -pril과 aldosterone 수용체를 막는 Spironolactone의 자리를 나누어 놓자.\n\n=== ② Urticaria · 두드러기 ===\n두드러기는 약물 과민반응을 생각하게 하는 피부 증상이다. 이 반복 문항이 묻는 '''Spironolactone의 대표 내분비 부작용은 여성형유방'''이다. 약을 바꾼 이유인 K⁺ 보존과, 바꾼 뒤 나타날 수 있는 내분비 부작용을 두 단계로 연결하자.\n\n=== ③ Gynecomastia · 여성형유방 ===\n'''Spironolactone → MRA·K⁺ 보존 / 대표 부작용은 고K⁺·여성형유방.''' 항안드로겐 작용과 이어지는 여성형유방이 이 문항의 핵심이다. 같은 K-sparing이라도 Spironolactone의 내분비 부작용은 약 이름에 따로 붙여 기억한다.\n\n=== ④ Ca²⁺와 K⁺를 구분 ===\nSpironolactone에서 먼저 확인할 전해질은 '''K⁺'''다. Aldosterone 작용을 막아 K⁺ 배설을 줄이므로 '''hyperkalemia'''를 연결한다. 선지의 hypercalcemia는 Ca²⁺의 증가이니, 외울 문장은 '''Spironolactone → 고K⁺'''로 바로잡자.\n\n=== ⑤ 혈압은 낮아지는 방향 ===\n'''Aldosterone 수용체 차단 → Na⁺·물 보유↓ → 혈량·혈압↓.''' 이뇨제는 심부전에서 울혈·부종을 줄이는 흐름과도 연결된다. 이 문제의 약물 전환은 K⁺ 소실을 줄이는 쪽이고, 대표 부작용은 ③ 여성형유방이다.\n\n== 개념 한 번에 잡기 ==\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n'''저K⁺ → K-sparing으로 변경 → Spironolactone의 여성형유방'''을 한 경로로 기억하자. {{19048}}과 {{21059}}는 같은 다섯 선지로 이 연결을 반복한다. 8강의 {{23071}}·{{22074}}는 앞 단계인 K-sparing 약물 선택을 물었다.\n== 한눈에 정리 ==\n||= 묶음 ||= 약물 ||= 칼륨·추가 단서 ||\n|| K⁺ 소실 || Thiazide·Loop || 저K⁺ · digitalis 독성 주의 ||\n|| MRA || Spironolactone·Eplerenone || K⁺ 보존 · Spironolactone 여성형유방 ||\n|| ENaC 차단 || Amiloride·Triamterene || K⁺ 보존 ||\n\n== 복원 기록 ==\n19048 원문은 hyperkalemia로 남아 있지만, 21059 복원자가 이전의 hyperkalemia는 hypokalemia의 오타였다고 정정했다. 학습 흐름은 저K⁺ → K-sparing으로 변경이다. 원문과 기존 보강판은 그 구분을 보존했다.\n\n== Wiki로 이어 보기 ==\n[[11강#칼륨 방향과 Spironolactone의 여성형유방|칼륨 방향과 Spironolactone의 여성형유방]]\n@source 합본 p.18–19 · 한장지도 1 · 19048·21059 및 복원자 정정 기록 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
+      "explanation": "== 선지별 해설 ==\n\n=== ① Dry cough · ACEi ===\n'''Captopril·Enalapril·Lisinopril → bradykinin↑ → 마른기침.''' RAAS 관련 약물이 함께 등장하므로, ACE를 막는 -pril과 aldosterone 수용체를 막는 Spironolactone의 자리를 나누어 놓자.\n\n=== ② Urticaria · 두드러기 ===\n두드러기는 약물 과민반응을 생각하게 하는 피부 증상이다. 이 반복 문항이 묻는 '''Spironolactone의 대표 내분비 부작용은 여성형유방'''이다. 약을 바꾼 이유인 K⁺ 보존과, 바꾼 뒤 나타날 수 있는 내분비 부작용을 두 단계로 연결하자.\n\n=== ③ Gynecomastia · 여성형유방 ===\n'''Spironolactone → MRA·K⁺ 보존 / 대표 부작용은 고K⁺·여성형유방.''' 항안드로겐 작용과 이어지는 여성형유방이 이 문항의 핵심이다. 같은 K-sparing이라도 Spironolactone의 내분비 부작용은 약 이름에 따로 붙여 기억한다.\n\n=== ④ Ca²⁺와 K⁺를 구분 ===\nSpironolactone에서 먼저 확인할 전해질은 '''K⁺'''다. Aldosterone 작용을 막아 K⁺ 배설을 줄이므로 '''hyperkalemia'''를 연결한다. 선지의 hypercalcemia는 Ca²⁺의 증가이니, 외울 문장은 '''Spironolactone → 고K⁺'''로 바로잡자.\n\n=== ⑤ 혈압은 낮아지는 방향 ===\n'''Aldosterone 수용체 차단 → Na⁺·물 보유↓ → 혈량·혈압↓.''' 이뇨제는 심부전에서 울혈·부종을 줄이는 흐름과도 연결된다. 이 문제의 약물 전환은 K⁺ 소실을 줄이는 쪽이고, 대표 부작용은 ③ 여성형유방이다.\n\n== 개념 한 번에 잡기 ==\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n'''저K⁺ → K-sparing으로 변경 → Spironolactone의 여성형유방'''을 한 경로로 기억하자. {{19048}}과 {{21059}}는 같은 다섯 선지로 이 연결을 반복한다. {{23071}}은 '''저칼륨혈증을 일으키는 Furosemide''', {{22074}}는 '''저칼륨혈증 뒤 K-sparing 약물 선택'''을 묻는다.\n== 한눈에 정리 ==\n||= 묶음 ||= 약물 ||= 칼륨·추가 단서 ||\n|| K⁺ 소실 || Thiazide·Loop || 저K⁺ · digitalis 독성 주의 ||\n|| MRA || Spironolactone·Eplerenone || K⁺ 보존 · Spironolactone 여성형유방 ||\n|| ENaC 차단 || Amiloride·Triamterene || K⁺ 보존 ||\n\n== 복원 기록 ==\n19048 원문은 hyperkalemia로 남아 있지만, 21059 복원자가 이전의 hyperkalemia는 hypokalemia의 오타였다고 정정했다. 학습 흐름은 저K⁺ → K-sparing으로 변경이다. 원문과 기존 보강판은 그 구분을 보존했다.\n\n== Wiki로 이어 보기 ==\n[[11강#칼륨 방향과 Spironolactone의 여성형유방|칼륨 방향과 Spironolactone의 여성형유방]]\n@source 합본 p.18–19 · 한장지도 1 · 19048·21059 및 복원자 정정 기록 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
       "category": "",
       "provenance": [
         {
@@ -93941,7 +93919,7 @@ window.JBL_DATA = {
           "answerIndices": [
             3
           ],
-          "explanation": "== 선지별 해설 ==\n\n=== ① Dry cough · ACEi ===\n'''Captopril·Enalapril·Lisinopril → bradykinin↑ → 마른기침.''' RAAS 관련 약물이 함께 등장하므로, ACE를 막는 -pril과 aldosterone 수용체를 막는 Spironolactone의 자리를 나누어 놓자.\n\n=== ② Urticaria · 두드러기 ===\n두드러기는 약물 과민반응을 생각하게 하는 피부 증상이다. 이 반복 문항이 묻는 '''Spironolactone의 대표 내분비 부작용은 여성형유방'''이다. 약을 바꾼 이유인 K⁺ 보존과, 바꾼 뒤 나타날 수 있는 내분비 부작용을 두 단계로 연결하자.\n\n=== ③ Gynecomastia · 여성형유방 ===\n'''Spironolactone → MRA·K⁺ 보존 / 대표 부작용은 고K⁺·여성형유방.''' 항안드로겐 작용과 이어지는 여성형유방이 이 문항의 핵심이다. 같은 K-sparing이라도 Spironolactone의 내분비 부작용은 약 이름에 따로 붙여 기억한다.\n\n=== ④ Ca²⁺와 K⁺를 구분 ===\nSpironolactone에서 먼저 확인할 전해질은 '''K⁺'''다. Aldosterone 작용을 막아 K⁺ 배설을 줄이므로 '''hyperkalemia'''를 연결한다. 선지의 hypercalcemia는 Ca²⁺의 증가이니, 외울 문장은 '''Spironolactone → 고K⁺'''로 바로잡자.\n\n=== ⑤ 혈압은 낮아지는 방향 ===\n'''Aldosterone 수용체 차단 → Na⁺·물 보유↓ → 혈량·혈압↓.''' 이뇨제는 심부전에서 울혈·부종을 줄이는 흐름과도 연결된다. 이 문제의 약물 전환은 K⁺ 소실을 줄이는 쪽이고, 대표 부작용은 ③ 여성형유방이다.\n\n== 개념 한 번에 잡기 ==\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n'''저K⁺ → K-sparing으로 변경 → Spironolactone의 여성형유방'''을 한 경로로 기억하자. {{19048}}과 {{21059}}는 같은 다섯 선지로 이 연결을 반복한다. 8강의 {{23071}}·{{22074}}는 앞 단계인 K-sparing 약물 선택을 물었다.\n== 한눈에 정리 ==\n||= 묶음 ||= 약물 ||= 칼륨·추가 단서 ||\n|| K⁺ 소실 || Thiazide·Loop || 저K⁺ · digitalis 독성 주의 ||\n|| MRA || Spironolactone·Eplerenone || K⁺ 보존 · Spironolactone 여성형유방 ||\n|| ENaC 차단 || Amiloride·Triamterene || K⁺ 보존 ||\n\n== 복원 기록 ==\n19048 원문은 hyperkalemia로 남아 있지만, 21059 복원자가 이전의 hyperkalemia는 hypokalemia의 오타였다고 정정했다. 학습 흐름은 저K⁺ → K-sparing으로 변경이다. 원문과 기존 보강판은 그 구분을 보존했다.\n\n== Wiki로 이어 보기 ==\n[[11강#칼륨 방향과 Spironolactone의 여성형유방|칼륨 방향과 Spironolactone의 여성형유방]]\n@source 합본 p.18–19 · 한장지도 1 · 19048·21059 및 복원자 정정 기록 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
+          "explanation": "== 선지별 해설 ==\n\n=== ① Dry cough · ACEi ===\n'''Captopril·Enalapril·Lisinopril → bradykinin↑ → 마른기침.''' RAAS 관련 약물이 함께 등장하므로, ACE를 막는 -pril과 aldosterone 수용체를 막는 Spironolactone의 자리를 나누어 놓자.\n\n=== ② Urticaria · 두드러기 ===\n두드러기는 약물 과민반응을 생각하게 하는 피부 증상이다. 이 반복 문항이 묻는 '''Spironolactone의 대표 내분비 부작용은 여성형유방'''이다. 약을 바꾼 이유인 K⁺ 보존과, 바꾼 뒤 나타날 수 있는 내분비 부작용을 두 단계로 연결하자.\n\n=== ③ Gynecomastia · 여성형유방 ===\n'''Spironolactone → MRA·K⁺ 보존 / 대표 부작용은 고K⁺·여성형유방.''' 항안드로겐 작용과 이어지는 여성형유방이 이 문항의 핵심이다. 같은 K-sparing이라도 Spironolactone의 내분비 부작용은 약 이름에 따로 붙여 기억한다.\n\n=== ④ Ca²⁺와 K⁺를 구분 ===\nSpironolactone에서 먼저 확인할 전해질은 '''K⁺'''다. Aldosterone 작용을 막아 K⁺ 배설을 줄이므로 '''hyperkalemia'''를 연결한다. 선지의 hypercalcemia는 Ca²⁺의 증가이니, 외울 문장은 '''Spironolactone → 고K⁺'''로 바로잡자.\n\n=== ⑤ 혈압은 낮아지는 방향 ===\n'''Aldosterone 수용체 차단 → Na⁺·물 보유↓ → 혈량·혈압↓.''' 이뇨제는 심부전에서 울혈·부종을 줄이는 흐름과도 연결된다. 이 문제의 약물 전환은 K⁺ 소실을 줄이는 쪽이고, 대표 부작용은 ③ 여성형유방이다.\n\n== 개념 한 번에 잡기 ==\n@pharmcard diuretic | 심혈관계 지도 1 · 이뇨제 | '''Thiazide·Loop → K⁺ 소실 / MRA: Spironolactone·Eplerenone / ENaC 차단: Amiloride·Triamterene → K⁺ 보존.''' Spironolactone에는 '''고K⁺·여성형유방'''을 더 붙인다.\n'''저K⁺ → K-sparing으로 변경 → Spironolactone의 여성형유방'''을 한 경로로 기억하자. {{19048}}과 {{21059}}는 같은 다섯 선지로 이 연결을 반복한다. {{23071}}은 '''저칼륨혈증을 일으키는 Furosemide''', {{22074}}는 '''저칼륨혈증 뒤 K-sparing 약물 선택'''을 묻는다.\n== 한눈에 정리 ==\n||= 묶음 ||= 약물 ||= 칼륨·추가 단서 ||\n|| K⁺ 소실 || Thiazide·Loop || 저K⁺ · digitalis 독성 주의 ||\n|| MRA || Spironolactone·Eplerenone || K⁺ 보존 · Spironolactone 여성형유방 ||\n|| ENaC 차단 || Amiloride·Triamterene || K⁺ 보존 ||\n\n== 복원 기록 ==\n19048 원문은 hyperkalemia로 남아 있지만, 21059 복원자가 이전의 hyperkalemia는 hypokalemia의 오타였다고 정정했다. 학습 흐름은 저K⁺ → K-sparing으로 변경이다. 원문과 기존 보강판은 그 구분을 보존했다.\n\n== Wiki로 이어 보기 ==\n[[11강#칼륨 방향과 Spironolactone의 여성형유방|칼륨 방향과 Spironolactone의 여성형유방]]\n@source 합본 p.18–19 · 한장지도 1 · 19048·21059 및 복원자 정정 기록 · 심혈관계 약물 한장지도 최종본(2026-11-06)",
           "category": "",
           "provenance": [
             {
@@ -114445,6 +114423,21 @@ window.JBL_DATA = {
         "reviewStatus": true
       },
       "J20111": {
+        "choices": {
+          "1": 1,
+          "2": 2,
+          "3": 3,
+          "4": 4,
+          "5": 5
+        },
+        "reviewStatus": true
+      }
+    }
+  },
+  "diuretic20261116Revision": {
+    "revision": "diuretic-23071-20261116",
+    "entries": {
+      "J23071": {
         "choices": {
           "1": 1,
           "2": 2,

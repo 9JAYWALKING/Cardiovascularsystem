@@ -2033,6 +2033,7 @@ SOFTWARE.
 <link rel="stylesheet" href="./question-updates.css?v=20261115-release-tabs">
 <link rel="stylesheet" href="./clinical-learning.css?v=clinical18-19-20261112">
   <link rel="stylesheet" href="./odap2019-reading.css?v=20261113">
+<link rel="stylesheet" href="./schedule-advice.css?v=20261116">
 </head>
 <body class="">
 <script id="study-shell-first-paint">
@@ -2074,7 +2075,8 @@ SOFTWARE.
   <section id="bookmarks-view" class="view" hidden><div id="bookmark-collection-root"></div></section>
   <section id="catalog-view" class="view" hidden><div id="domain-tabs" class="domain-tabs"></div><div id="catalog"></div></section>
   <section id="schedule-view" class="view" hidden aria-labelledby="schedule-title">
-    <div class="schedule-toolbar"><h2 id="schedule-title">순환기계 시간표</h2><div class="legend"><span><i style="background:var(--basic)"></i>기초의학</span><span><i style="background:var(--clinical)"></i>임상의학</span><span><i style="background:var(--violet)"></i>실습</span><button type="button" class="schedule-op-toggle" data-schedule-op aria-pressed="false" aria-controls="week-stack">OP</button></div></div>
+    <div class="schedule-toolbar"><h2 id="schedule-title">순환기계 시간표</h2><div class="legend"><span><i style="background:var(--basic)"></i>기초의학</span><span><i style="background:var(--clinical)"></i>임상의학</span><span><i style="background:var(--violet)"></i>실습</span><button type="button" class="schedule-op-toggle" data-schedule-op aria-pressed="true" aria-controls="week-stack">OP</button></div></div>
+    <div class="schedule-op-guide"><p>색 배지를 누르면 공부 순서와 출제 근거를 볼 수 있어요.</p><button type="button" data-schedule-op-guide aria-haspopup="dialog">분류 기준</button></div>
     <div id="week-stack" class="week-stack"></div>
   </section>
   <section id="detail-view" class="view" hidden aria-live="polite"><div id="detail" class="detail-wrap"></div></section>
@@ -2115,6 +2117,8 @@ SOFTWARE.
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
+<script src="./schedule-advice-data.js?v=20261116"></script>
+<script src="./schedule-advice.js?v=20261116"></script>
 <script id="jbl-data-script" src="./jbl-data.js?v=22006-passage-20261116"></script>
 <script src="./question-migrations.js?v=chd-stem-20261115"></script>
 <script id="jbl-concept-data" src="./jbl-concepts.js?v=3637-compact-20261116"></script>
@@ -4588,22 +4592,16 @@ SOFTWARE.
       target.querySelectorAll('[data-course]').forEach(button => button.addEventListener('click', () => showDetail(button.dataset.course, 'catalog')));
     }
 
-    const scheduleBeeProfessors = new Set(window.CARDIOVASCULAR_COURSES.beeProfessors || []);
-    const scheduleOpProfessors = new Set(window.CARDIOVASCULAR_COURSES.opProfessors || []);
-    let scheduleOpVisible = false;
+    let scheduleOpVisible = true;
 
     function renderScheduleOp(course) {
-      const professor = course.professor.trim();
-      if (!scheduleBeeProfessors.has(professor)) return '';
-      const bee = '<img class="course-op-image" src="./assets/op-bee.png" alt="" aria-hidden="true" draggable="false" decoding="async">';
-      if (!scheduleOpProfessors.has(professor)) return bee;
-      return '<span class="course-op-stack" aria-hidden="true">' + bee + '<img class="course-op-badge" src="./assets/op-badge.png" width="1672" height="941" alt="" aria-hidden="true" draggable="false" decoding="async"></span>';
+      return window.ScheduleAdvice?.renderBadge(course) || '';
     }
     function syncScheduleOp() {
       document.querySelector('#schedule-view').classList.toggle('op-visible', scheduleOpVisible);
       const button = document.querySelector('[data-schedule-op]');
       button.setAttribute('aria-pressed', String(scheduleOpVisible));
-      button.setAttribute('aria-label', scheduleOpVisible ? 'OP 숨기기' : 'OP 표시');
+      button.setAttribute('aria-label', scheduleOpVisible ? 'OP 공부 조언 숨기기' : 'OP 공부 조언 표시');
     }
 
     document.querySelector('[data-schedule-op]').addEventListener('click', () => {
@@ -4655,6 +4653,7 @@ SOFTWARE.
         </div></div></article>`;
       }).join('');
       target.querySelectorAll('[data-course]').forEach(button => button.addEventListener('click', () => showDetail(button.dataset.course, 'schedule')));
+      window.ScheduleAdvice?.bind(target);
       syncScheduleOp();
     }
 

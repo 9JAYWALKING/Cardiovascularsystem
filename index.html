@@ -5568,18 +5568,32 @@ SOFTWARE.
       return source?.querySelector('#jbl-view:not([hidden]) #jbl-standalone .jbl-wrap') || source;
     }
 
-    function captureContextWikiPosition(shell, opener) {
-      if (!opener?.closest('.wiki-note') || !shell.contains(opener)) return null;
+    function captureContextWikiPosition(shell, opener, {note = opener?.closest('.wiki-note'), alignTop = false} = {}) {
+      if (!note || !shell.contains(note)) return null;
       // Splitting changes both the document width and the scroll containers.
       // Keep the original reading position, not the split pane's clamped offset.
       const elements = new Set();
-      for (let element = opener.parentElement; element && shell.contains(element); element = element.parentElement) elements.add(element);
+      for (let element = note; element && shell.contains(element); element = element.parentElement) elements.add(element);
       shell.querySelectorAll('*').forEach(element => {
         if (element.scrollTop || element.scrollLeft) elements.add(element);
       });
+      const anchor = captureContextWikiAnchor(note, shell);
+      // Margin double-taps open the nearest question, but follow the top reading
+      // line. Show that whole line at the pane top even if it was partly clipped.
+      if (alignTop && anchor?.textNode) anchor.offset = 0;
       return { top:window.scrollY, left:window.scrollX || 0, hash:location.hash,
-        anchor:captureContextWikiAnchor(opener.closest('.wiki-note'), shell),
+        anchor,
         elements:[...elements].map(element => ({element, top:element.scrollTop || 0, left:element.scrollLeft || 0})) };
+    }
+
+    function contextWikiAnchorVisible(element) {
+      if (element.checkVisibility) return element.checkVisibility({visibilityProperty:true});
+      // Closed details may still report layout rectangles in some browsers.
+      if (element.closest('[hidden]') || getComputedStyle(element).visibility === 'hidden') return false;
+      for (let closed = element.closest('details:not([open])'); closed; closed = closed.parentElement?.closest('details:not([open])')) {
+        if (!closed.querySelector(':scope > summary')?.contains(element)) return false;
+      }
+      return !!element.getClientRects().length;
     }
 
     function captureContextWikiAnchor(note, shell) {
@@ -5596,8 +5610,8 @@ SOFTWARE.
       if (bottom <= top) return null;
       let anchor = null;
       // Track the visible paragraph, not a page offset: text reflows in the narrower pane.
-      for (const element of note.querySelectorAll('h3,h4,h5,h6,p,li,blockquote,figure,tr')) {
-        if (!element.getClientRects?.().length) continue;
+      for (const element of note.querySelectorAll('h3,h4,h5,h6,p,li,blockquote,figure,tr,summary')) {
+        if (!contextWikiAnchorVisible(element)) continue;
         const rect = element.getBoundingClientRect();
         if (rect.height <= 0 || rect.bottom <= top || rect.top >= bottom) continue;
         const coversTop = rect.top <= top;
@@ -5610,7 +5624,7 @@ SOFTWARE.
         // Anchor the first visible character, not a paragraph offset that changes on reflow.
         const walker = document.createTreeWalker(anchor.element, NodeFilter.SHOW_TEXT);
         for (let node; (node = walker.nextNode());) {
-          if (!node.textContent.trim() || node.parentElement.closest('button,[hidden]')) continue;
+          if (!node.textContent.trim() || node.parentElement.closest('button,[hidden]') || !contextWikiAnchorVisible(node.parentElement)) continue;
           const range = document.createRange(); range.selectNodeContents(node);
           if (![...range.getClientRects()].some(r => r.height && r.bottom > top && r.top < bottom)) continue;
           let lo = 0, hi = node.length;
@@ -5843,7 +5857,7 @@ SOFTWARE.
       window.PATHOLOGY_MAP?.refreshLayout?.();
     }
 
-    function openContextLinkSplit(target, opener) {
+    function openContextLinkSplit(target, opener, wikiPositionOptions) {
       if (contextLinkState.active) {
         showContextLinkTarget(target, true);
         return;
@@ -5854,7 +5868,7 @@ SOFTWARE.
       if (!shell) return;
       ++contextLinkState.positionRevision;
       ++wikiNavigationToken;
-      const returnPosition = captureContextWikiPosition(shell, opener);
+      const returnPosition = captureContextWikiPosition(shell, opener, wikiPositionOptions);
       const split = document.createElement('div');
       split.className = 'context-link-split';
       split.setAttribute('role', 'group');
@@ -6088,7 +6102,7 @@ SOFTWARE.
         const link = nearestWikiQuestionLink(note, event.clientY);
         if (!link) return;
         event.preventDefault();
-        openContextLinkSplit(contextLinkTargetFromElement(link), link);
+        openContextLinkSplit(contextLinkTargetFromElement(link), link, {note, alignTop:true});
       }
     });
 

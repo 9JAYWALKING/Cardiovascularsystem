@@ -1989,6 +1989,7 @@
   <link rel="stylesheet" href="./cardiovascular-atlas.css?v=starter-20261106">
   <link rel="stylesheet" href="./kmle.css?v=clinical-20261106">
   <link rel="stylesheet" href="./pathology-drill.css?v=reading-system-20261105">
+<link rel="stylesheet" href="./ecg-drill.css?v=20261117-workbook">
 <!-- AI brand icon SVGs: Lobe Icons, https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/openai.svg ; https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/claude.svg
 MIT License
 
@@ -2134,8 +2135,8 @@ SOFTWARE.
   <script src="./cardiovascular-atlas.js?v=starter-20261106"></script>
   <script src="./kmle-data.js?v=clinical-20261106"></script>
   <script src="./kmle.js?v=clinical-20261106"></script>
-  <script src="./pathology-drill-data.js?v=stable-random-v3"></script>
-  <script src="./pathology-drill.js?v=gesture-tutorial-20261105"></script>
+  <script src="./ecg-drill-data.js?v=20261117-workbook"></script>
+  <script src="./ecg-drill.js?v=20261117-workbook"></script>
 <script>
   window.THEME_WIKI_DATA = {documents:[]};
 </script>
@@ -2342,6 +2343,7 @@ SOFTWARE.
           <button class="study-app" type="button" data-quick-bookmarks><span class="study-app-icon app-favorites" aria-hidden="true">⭐</span><h3>즐겨찾기</h3><span class="study-app-caption">문단 ${wikiBookmarks.length} · 문항 ${jblFavorites.size}</span></button>
           <button class="study-app" type="button" data-quick-route="#cardiovascular-atlas"><span class="study-app-icon app-atlas" aria-hidden="true"></span><h3>순환기계 큰 그림</h3></button>
           <button class="study-app" type="button" data-quick-route="#kmle"><span class="study-app-icon app-kmle" aria-hidden="true"></span><h3>국시 순환기계</h3></button>
+          <button class="study-app" type="button" data-quick-route="#ecg"><span class="study-app-icon app-pathology" aria-hidden="true"></span><h3>ECG 땡시</h3><span class="study-app-caption">40문항 · 파형 판독</span></button>
           <button class="study-app" type="button" data-quick-wrong><span class="study-app-icon app-wrong" aria-hidden="true">✏️</span><h3>오답 복습</h3><span class="study-app-caption">${wrongQuestionIds().length}문항</span></button>
           <button class="study-app" type="button" data-resp-exams><span class="study-app-icon app-exam" aria-hidden="true">⏱️</span><h3>실전처럼 풀기</h3><span class="study-app-caption">준비 중</span></button>
           <button class="study-app" type="button" data-resp-mocks aria-haspopup="dialog"><span class="study-app-icon app-mock" aria-hidden="true">📝</span><h3>실전 모의고사</h3><span class="study-app-caption">준비 중</span></button>
@@ -6444,10 +6446,10 @@ SOFTWARE.
       setMainMenuOpen(false);
       let hash = location.hash;
       try { hash=decodeURIComponent(hash); } catch (_) {}
-      const pathologyRoute = hash.match(/^#pathology(?:-(P\d+))?$/i);
+      const pathologyRoute = hash.match(/^#(?:ecg|pathology)(?:-([EP]\d+))?$/i);
       if (pathologyRoute) {
         showView('pathology', false);
-        window.CardiovascularPathology.render(document.querySelector('#pathology-root'), {courses, openWiki:(courseId,section,opener)=>openContextLinkSplit({type:'wiki',courseId,section},opener)}, pathologyRoute[1]?.toUpperCase());
+        window.CardiovascularPathology.render(document.querySelector('#pathology-root'), {courses, openWiki:(courseId,section,opener)=>openContextLinkSplit({type:'wiki',courseId,section},opener), openJ:(questionNumber,opener)=>openContextLinkSplit({type:'j',questionNumber:canonicalJblNumber(questionNumber)},opener)}, pathologyRoute[1]?.toUpperCase());
         return;
       }
       const kmleRoute = hash.match(/^#kmle(?:-(K\d+))?$/i);
@@ -6755,7 +6757,7 @@ SOFTWARE.
     };
     routeFromHash();
 </script>
-<script src="./study-ui.js?v=refresh-button-20261117"></script>
+<script src="./study-ui.js?v=refresh-upload-20261117"></script>
 <script src="./study-responsive.js?v=starter-20261106"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>

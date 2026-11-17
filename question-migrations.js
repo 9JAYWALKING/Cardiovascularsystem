@@ -198,3 +198,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.diuretic
 
 // Apply the confirmed HCM answer while preserving selected choices and manual study records.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.hcmPrecedent20261116Revision); } catch (_) {}
+
+// Retain original selections and manual records after restoring the recorded CRT answer.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.device35AnswerRevision); } catch (_) {}

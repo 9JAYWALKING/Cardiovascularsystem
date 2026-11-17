@@ -114,3 +114,9 @@
 .study-exam-reading .attempt-table :is(th,td) { height:auto; width:auto; }
 .study-exam-reading .attempt-table { margin-inline:auto; }
 .study-exam-reading .quizinfo p { line-height:inherit; }
+
+/* Wrapped Wiki steps retain their numbered order without a trailing arrow outside the pane. */
+.study-ui .wiki-note .learning-flow { container-name:wiki-flow; container-type:inline-size; }
+@container wiki-flow (max-width:740px) {
+  .learning-flow > li:not(:last-child)::after { display:none!important; }
+}

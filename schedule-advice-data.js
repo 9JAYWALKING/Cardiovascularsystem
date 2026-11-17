@@ -1,6 +1,6 @@
 // Reviewed study directions; historical reports remain attributed.
 window.SCHEDULE_ADVICE_DATA = {
-  "version": "2026-11-16",
+  "version": "2026-11-17",
   "tiers": {
     "king-repeat": {
       "label": "킹족",
@@ -95,7 +95,13 @@ window.SCHEDULE_ADVICE_DATA = {
     "이형석": {
       "page": 2,
       "review": "시험에 낼 내용과 답을 명확히 짚어 주었다는 후기다. 옳은 것·옳지 않은 것처럼 발문 방향도 주의하라고 한다.",
-      "classTip": "올해 수업에서 지정한 항목과 답의 조건을 정확하게 적어 두기."
+      "classTip": "올해 수업에서 짚어 준 항목·증례·정답을 먼저 정리하고, 답이 성립하는 조건과 발문의 옳고 그름 방향까지 정확히 익히기.",
+      "tier": "king-focus",
+      "classificationSource": {
+        "kind": "user-correction",
+        "date": "2026-11-17",
+        "notes": "사용자가 이형석 교수 담당 강의 전부를 킹찝으로 지정. 35·53강에 적용하며, 기출 반복 여부와는 구분한다."
+      }
     },
     "박상돈": {
       "page": 2,
@@ -1485,11 +1491,11 @@ window.SCHEDULE_ADVICE_DATA = {
     },
     "35": {
       "tier": "king-focus",
-      "summary": "지정한 기기 적응증 우선",
-      "study": "심박동기·ICD·CRT를 나누고 증상·EF·QRS 조건을 표로 비교한다. 올해 수업에서 지정하는 답과 발문의 옳고 그름 방향을 함께 적는다.",
+      "summary": "수업에서 짚은 기기 적응증 우선",
+      "study": "올해 수업에서 지정한 기기 적응증과 정답을 먼저 정리한다. 심박동기·ICD·CRT를 나누고 증상·EF·QRS 조건을 비교한 뒤, 강조한 내용에 기출을 연결한다.",
       "evidence": "2025년 확보 문항은 무증상 서맥과 CRT 관련 적응증을 묻는다.",
-      "basis": "선배 후기 중심",
-      "caveat": "현재 담당자의 다년 기출은 부족하다. 킹찝은 출제 내용을 명확히 짚어 준다는 후기를 근거로 한 공부 방향이다.",
+      "basis": "수업 강조 중심 · 수강 경험 반영",
+      "caveat": "족보의 답 번호만 외우기보다 올해 짚어 준 항목과 답의 조건, 옳은 것·옳지 않은 것의 발문 방향을 함께 확인한다.",
       "courseId": 35,
       "title": "삽입형 심장기기의 적응증과 임상적용",
       "professor": "이형석",
@@ -1498,7 +1504,7 @@ window.SCHEDULE_ADVICE_DATA = {
         "years": [
           2025
         ],
-        "hasWiki": false
+        "hasWiki": true
       },
       "questions": [
         {
@@ -2204,11 +2210,11 @@ window.SCHEDULE_ADVICE_DATA = {
       ]
     },
     "53": {
-      "tier": "pending",
-      "summary": "올해 지정 증례를 우선",
-      "study": "올해 수업에서 지정한 부정맥 증례와 답의 조건을 직접 기록한다. 20–23·35강의 리듬 분류와 기기 적응증을 연결해 정리한다.",
-      "evidence": "이 강의에 배정된 기출이 아직 없다. 교수가 출제 내용을 짚어 준다는 후기는 참고하되, 이 강의의 경향을 확정하지 않는다.",
-      "caveat": "강의별 직접 근거가 확보되기 전의 공부 방향이다.",
+      "tier": "king-focus",
+      "summary": "수업에서 짚은 부정맥 증례 우선",
+      "study": "올해 수업에서 지정한 부정맥 증례·질문·정답을 먼저 정리한다. 증례의 파형과 답이 성립하는 조건을 익히고, 20–23·35강에서 필요한 리듬 분류와 기기 적응증을 보충한다.",
+      "evidence": "현재 이 강의에 배정된 기출은 없다. 킹찝 분류는 기출 반복 횟수가 아니라 수업의 강조 방식에 대한 수강 경험을 반영한다.",
+      "caveat": "기출 수가 적다고 공부 우선순위를 낮추지 않는다. 올해 지정한 증례와 답의 조건을 먼저 익힌다.",
       "courseId": 53,
       "title": "증례로 보는 부정맥질환",
       "professor": "이형석",
@@ -2217,7 +2223,8 @@ window.SCHEDULE_ADVICE_DATA = {
         "years": [],
         "hasWiki": false
       },
-      "questions": []
+      "questions": [],
+      "basis": "수업 강조 중심 · 수강 경험 반영"
     }
   },
   "method": "원본 발문·선지와 현재 담당자 표기를 기준으로 비교했다. GPT·Claude 보강본의 유사성은 반복 근거로 세지 않았고, 병합된 출처도 별도 출제로 중복 계산하지 않았다. 사진·선지가 미복원된 경우 완전 동일로 판정하지 않았다. 2023·2025년은 연속 연도로 취급하지 않았다.",

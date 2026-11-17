@@ -90,13 +90,6 @@ function lectureJblSectionSource(source, full, courseId) {
     return content ? `[*${name} ${content}]` : whole;
   }).replace(/\[\[#([^\]]+)\]\]/g, `[[${courseId}강#$1]]`);
 }
-// Explicit related practice is a study sequence, never a source reclassification.
-function lectureStudyIncludesQuestion(question,course) {
-  if (questionBelongsToCourse(question,course.id)) return true;
-  const configured = window.JBL_CONCEPTS?.courses?.[String(course.id)]?.relatedPracticeNumbers || [];
-  return configured.some(number=>canonicalJblNumber(number)===canonicalJblNumber(question.globalNumber))
-    && (question.relatedLectureIds || []).map(Number).includes(Number(course.id));
-}
 // Authored memory cards are independent of the full Wiki paragraphs.
 // Keep the primary Wiki slug for existing card status and paragraph bookmarks.
 function lectureJblCompactGroups(course, sections, available) {
@@ -114,13 +107,13 @@ function lectureJblCompactGroups(course, sections, available) {
     const primary = references[0];
     const numbers = [...new Set(item.questions.map(canonicalJblNumber))].filter(number => {
       const question = available.get(number);
-      return question && lectureStudyIncludesQuestion(question,course) && !used.has(number);
+      return question && questionBelongsToCourse(question,course.id) && !used.has(number);
     }).sort((a,b)=>compareJblStudyQuestions(available.get(a),available.get(b)));
     if (!numbers.length) return [];
     numbers.forEach(number => used.add(number));
     return [{slug:primary?.slug || `compact-${item.key}`,bookmarkSlug:primary?.slug || '',
       bookmarkHeading:primary?.heading || item.heading,heading:item.heading,
-      parent:`${course.id}강 · 관련 ${numbers.length}문항${item.practiceSource ? " · "+item.practiceSource : ""}`,source:item.source.trim(),sourceCourse,
+      parent:`${course.id}강 · 관련 ${numbers.length}문항`,source:item.source.trim(),sourceCourse,
       numbers,unlinked:false,compact:true,wikiSections:references.map(section=>({slug:section.slug,heading:section.heading}))}];
   });
 }
@@ -153,7 +146,7 @@ function lectureJblGroups(course) {
   }
   }
   const linked = new Set(groups.flatMap(group=>group.numbers));
-  const unlinked = jblQuestions.filter(question=>lectureStudyIncludesQuestion(question,course)&&!linked.has(canonicalJblNumber(question.globalNumber))).sort((a,b)=>compareJblNumbers(a.globalNumber,b.globalNumber));
+  const unlinked = jblQuestions.filter(question=>questionBelongsToCourse(question,course.id)&&!linked.has(canonicalJblNumber(question.globalNumber))).sort((a,b)=>compareJblNumbers(a.globalNumber,b.globalNumber));
   const supplements = new Map();
   for (const question of unlinked) {
     let origin;
@@ -243,7 +236,7 @@ function bindLectureJblWikiCard(container,card) {
 function jumpLectureJblQuestion(course,question) {
   const view=lectureStudyState(course),state=viewerState('course-jbl-'+course.id);
   let entries=lectureJblEntries(course),index=entries.findIndex(item=>item.id===question.id);
-  if (index<0 && lectureStudyIncludesQuestion(question,course)) {
+  if (index<0 && questionBelongsToCourse(question,course.id)) {
     view.jblChapter='';state.filters={};state.jblRandomGroups={};
     entries=lectureJblEntries(course);index=entries.findIndex(item=>item.id===question.id);
   }
@@ -265,7 +258,7 @@ function lectureStudyBaseQuestions(course) {
   const chapter = lectureStudyChapters(course).find(item => item.slug === state.chapter);
   if (chapter?.numbers.length) return chapter.numbers.map(number => jblQuestions.find(question => canonicalJblNumber(question.globalNumber) === number)).filter(Boolean).sort(compareJblStudyQuestions);
   state.chapter = '';
-  return jblQuestions.filter(question => lectureStudyIncludesQuestion(question,course)).sort(compareJblStudyQuestions);
+  return jblQuestions.filter(question => questionBelongsToCourse(question, course.id)).sort(compareJblStudyQuestions);
 }
 function lectureStudyQuestions(course) {
   const state = viewerState('course-' + course.id);
@@ -275,7 +268,7 @@ function lectureStudyQuestions(course) {
     (!statuses.length && !filters.favoritesOnly) || statuses.includes(questionListStudyStatus(question)) ||
     (filters.favoritesOnly && questionIsFavorite(question)));
   if (!state.randomEnabled) return questions;
-  return stableRandomQuestions(state,questions,jblQuestions.filter(q=>lectureStudyIncludesQuestion(q,course)),
+  return stableRandomQuestions(state,questions,jblQuestions.filter(q=>questionBelongsToCourse(q,course.id)),
     JSON.stringify([filters,lectureStudyState(course).chapter]));
 }
 function refreshLectureStudyLinks(course) {
@@ -300,10 +293,8 @@ function renderLectureStudyFilter(course) {
   const state = lectureStudyState(course);
   const jbl = state.view==='jbl';
   const chapters = jbl ? lectureJblGroups(course) : lectureStudyChapters(course).filter(chapter => chapter.numbers.length);
-  const total = jblQuestions.filter(question => lectureStudyIncludesQuestion(question,course)).length;
-  const primary = jblQuestions.filter(question=>questionBelongsToCourse(question,course.id)).length;
-  const related = total-primary;
-  select.innerHTML = '<option value="">' + (jbl ? '전체 유형 · '+chapters.length : '전체 문항 · '+total+(related?' (배정 '+primary+' · 관련 '+related+')':'')) + '</option>' + chapters.map(chapter =>
+  const total = jblQuestions.filter(question => questionBelongsToCourse(question, course.id)).length;
+  select.innerHTML = '<option value="">' + (jbl ? '전체 유형 · '+chapters.length : '전체 문항 · '+total) + '</option>' + chapters.map(chapter =>
     '<option value="' + escapeHtml(chapter.slug) + '">' + escapeHtml(chapter.heading) + ' · ' + chapter.numbers.length + '</option>'
   ).join('');
   select.value = jbl ? state.jblChapter||'' : state.chapter;

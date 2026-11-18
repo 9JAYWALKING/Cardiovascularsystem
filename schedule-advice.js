@@ -60,7 +60,7 @@
     show(`${c.courseId}강 · ${c.title}`,`${c.professor} 교수 · 공부 방향`,
       `<div class="op-advice-lead"><div class="op-tier-line">${pill(c.tier)}<span class="op-basis">${esc(c.basis||'후기 + 기출 대조')}</span></div><h3>${esc(c.summary)}</h3><p>${esc(c.study)}</p></div>
       ${review}
-      <section class="op-section"><h3>기출에서 확인한 경향</h3><p>${esc(c.evidence)}</p>${examples}${c.material?`<p class="op-material">${esc(c.material)}</p>`:''}<p class="op-sample">현재 담당자 표기 문항 ${c.stats.count}개${c.stats.years.length?' · 확보 연도 '+c.stats.years.join(' · '):''}<br>현재 배정 자료 기준이며, 실제 출제량을 뜻하지 않습니다.</p></section>
+      <section class="op-section"><h3>${c.tier==='new-course'?'관련 기출 활용':'기출에서 확인한 경향'}</h3><p>${esc(c.evidence)}</p>${examples}${c.material?`<p class="op-material">${esc(c.material)}</p>`:''}<p class="op-sample">${c.tier==='new-course'?'동일 강의의 과거 출제 이력 없음':`현재 담당자 표기 문항 ${c.stats.count}개${c.stats.years.length?' · 확보 연도 '+c.stats.years.join(' · '):''}<br>현재 배정 자료 기준이며, 실제 출제량을 뜻하지 않습니다.`}</p></section>
       ${c.caveat?`<aside class="op-caveat"><strong>함께 확인</strong><p>${esc(c.caveat)}</p></aside>`:''}
       <details class="op-method"><summary>분류 기준·자료 범위</summary><p><strong>${esc(t.label)}</strong> · ${esc(t.description)}</p>${history}<p>${esc(data.method)}</p><p>${esc(data.scope)}</p><p class="op-sample">${esc(data.sources)}<br>${esc(data.version)} 검토</p></details>
       <a class="op-course-link" href="#lecture-${c.courseId}">${c.stats.hasWiki?'Wiki · J로 이어서 공부':'강의 · J 보기'}${chevron}</a>`,opener);

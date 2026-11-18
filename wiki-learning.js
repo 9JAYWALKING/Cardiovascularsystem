@@ -1,4 +1,14 @@
 /* 위키 본문 안에서 사용하는 학습 블록. 글과 각주·문항 링크는 기존 편집 문법을 공유한다. */
+function latestWikiQuestionLinks(value) {
+  const links = [...value.matchAll(/\{\{([^}]+)\}\}/g)];
+  // Sort standalone link lists only; keep references attached to explanatory prose.
+  if (links.length < 2 || value.replace(/\{\{[^}]+\}\}/g, '').trim()
+      || !links.every(link => QuestionId.valid(link[1]))) return value;
+  const ordered = links.slice().sort((a,b) => compareJblNumbers(a[1],b[1]));
+  let index = 0;
+  return value.replace(/\{\{[^}]+\}\}/g, () => ordered[index++][0]);
+}
+
 function renderWikiLearningBlock(line, course, footnotes) {
   const inline = value => renderWikiInline(value, course, footnotes);
   const clinical = window.renderClinicalLearningBlock?.(line);
@@ -36,7 +46,7 @@ function renderWikiLearningBlock(line, course, footnotes) {
   if (line.startsWith('@detail ')) return `<details class="learning-detail"><summary>${inline(line.slice(8))}</summary><div class="learning-detail-body">`;
   if (line==='@enddetail') return '</div></details>';
   if (line.startsWith('@source ')) return `<p class="learning-source">${inline(line.slice(8))}</p>`;
-  if (line.startsWith('@questions ')) return `<div class="learning-questions"><span>연결 문항</span><div>${inline(line.slice(11))}</div></div>`;
+  if (line.startsWith('@questions ')) return `<div class="learning-questions"><span>연결 문항</span><div>${inline(latestWikiQuestionLinks(line.slice(11)))}</div></div>`;
   if (line==='@ap') return learningAPMarkup();
   if (line==='@rate') return learningRateMarkup();
   if (line==='@pvloop') return learningPVLoopMarkup();

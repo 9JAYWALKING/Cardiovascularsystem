@@ -934,6 +934,7 @@
     .jbl-question-link { display: inline-flex; align-items: center; gap: 3px; color: #7d3a48; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
     .jbl-question-link::before { content: 'J'; display: inline-grid; width: 18px; height: 18px; place-items: center; border-radius: 5px; background: #f3e4e7; font-size: calc((11px) * var(--study-type-scale,1)); text-decoration: none; }
     .jbl-question-link-missing { color: #8e233a; text-decoration: line-through; }
+    .lecture-question-context { margin:0 0 12px; font-size:var(--reading-small); line-height:1.55; overflow-wrap:anywhere; }
     .jbl-empty { padding: 56px 24px; border: 1px dashed #e2cacf; border-radius: 22px; background: #fff; text-align: center; color: #8d626b; }
     .jbl-inline-nav { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
     .jbl-counter { font-weight: 800; color: #573139; min-width: 110px; text-align: center; }
@@ -2108,6 +2109,7 @@ SOFTWARE.
 <script src="./pericardial-tumor-learning-data.js?v=3334-20261117"></script>
 <script src="./device-learning-data.js?v=35-20261117"></script>
 <script src="./endocarditis-learning-data.js?v=39-20261117"></script>
+<script src="./ischemia-learning-data.js?v=41-20261118"></script>
 <script src="./vascular-learning-data.js?v=3637-20261116"></script>
 <script src="./ecg-j21-learning-data.js?v=comprehensive-merge-20261111"></script>
 <script src="./brady-learning-data.js?v=brady21-20261110"></script>
@@ -2117,16 +2119,16 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=20261111-chd"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=clinical18-19-20261112"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=39-20261117"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=41-20261118"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
-<script src="./schedule-advice-data.js?v=39-20261117"></script>
+<script src="./schedule-advice-data.js?v=41-20261118"></script>
 <script src="./schedule-advice.js?v=20261116"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=39-20261117"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=41-20261118"></script>
 <script src="./question-migrations.js?v=35-20261117"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=39-20261117"></script>
-<script src="./lecture-study.js?v=20261112-jbl-order"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=41-20261118"></script>
+<script src="./lecture-study.js?v=40-20261118"></script>
 <script src="./question-updates-data.js?v=lecture37-review-20261117"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
   <script src="./wiki-image-annotations.js"></script>
@@ -4030,7 +4032,7 @@ SOFTWARE.
           if (!jumpLectureJblQuestion(course,destination)) openContextLinkSplit({type:'j',questionNumber:canonicalJblNumber(value)},numberButton);
         } else if (key.startsWith('course-')) {
           const course = byId(Number(key.slice(7)));
-          if (questionBelongsToCourse(destination,course.id)) {
+          if (lectureStudyIncludesQuestion(destination,course)) {
             if (!lectureStudyQuestions(course).some(item => item.id === destination.id)) lectureStudyState(course).chapter = '';
             state.index = lectureStudyQuestions(course).findIndex(item => item.id === destination.id);
             rerender();
@@ -4411,6 +4413,9 @@ SOFTWARE.
       const rerender = () => renderCourseJ(course);
       const footer = target.closest('.lecture-j-pane')?.querySelector('[data-course-j-nav]');
       target.innerHTML = `<div class="jbl-embed"><div data-jbl-course-root></div>${footer ? '' : '<nav class="jbl-inline-nav"></nav>'}</div>`;
+      const supplementaryNotice = window.JBL_CONCEPTS?.courses?.[String(course.id)]?.supplementaryNotice;
+      if (supplementaryNotice) target.querySelector('.jbl-embed').insertAdjacentHTML('afterbegin',
+        '<p class="lecture-question-context">'+escapeHtml(supplementaryNotice)+'</p>');
       renderQuestionCard(target.querySelector('[data-jbl-course-root]'), questions, key, rerender);
       const nav = footer || target.querySelector('.jbl-inline-nav');
       nav.innerHTML = navMarkup(state, questions);
@@ -6718,7 +6723,7 @@ SOFTWARE.
         return {course:Boolean(course),standalone:viewer.key==='jbl-all',mode:jbl?'jbl':'j',filters:{...(state.filters||{})},randomEnabled:Boolean(!state.linkedQuestionNumber&&(state.randomEnabled||state.randomOrder?.length)),lectureOrderEnabled:Boolean(!state.linkedQuestionNumber&&state.lectureOrderEnabled),
           chapter:course?(jbl?lectureStudyState(course).jblChapter||'':lectureStudyState(course).chapter):'',
           chapters:chapters.map(item=>({slug:item.slug,heading:(item.unlinked?'미연결 · ':'')+item.heading,count:item.numbers.length})),
-          total:course?(jbl?chapters.length:jblQuestions.filter(question=>questionBelongsToCourse(question,course.id)).length):0};
+          total:course?(jbl?chapters.length:jblQuestions.filter(question=>lectureStudyIncludesQuestion(question,course)).length):0};
       },
       selectQuestionChapter:slug=>{
         const viewer=activeQuestionViewer();if(!viewer?.key.startsWith('course-'))return;

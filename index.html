@@ -539,6 +539,13 @@
     .wiki-section { scroll-margin-top: 24px; padding: 0 0 38px; margin: 0 0 38px; border-bottom: 1px solid #f3e6e9; }
     .wiki-section:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
     .wiki-section h4 { margin: 0 0 16px; color: #462129; font-size:var(--reading-section); line-height: 1.35; }
+    /* Clinical heading categories: quiet labels, independent of title identity. */
+    .wiki-heading-categories { display:inline-flex; align-items:center; gap:4px; margin-inline-end:.5em; vertical-align:middle; line-height:1; }
+    .wiki-heading-category, .wiki-heading-flag { display:inline-block; box-sizing:border-box; padding:.25em .6em; border:1px solid var(--brand-line,#e6d3d7); border-radius:999px; color:var(--brand-ink,#693f48); background:var(--brand-soft,#f6eef0); font-size:calc(12px * var(--study-content-scale,1)); font-weight:700; line-height:1.4; letter-spacing:0; white-space:nowrap; }
+    .wiki-heading-flag { background:transparent; font-weight:600; }
+    .wiki-toc-link .wiki-heading-categories { gap:3px; margin-inline-end:.45em; }
+    .wiki-toc-link :is(.wiki-heading-category,.wiki-heading-flag) { padding:.12em .5em; font-size:calc(11px * var(--study-ui-scale,1)); }
+
     .wiki-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin: 0 0 16px; }
     .wiki-section-head h4 { min-width: 0; margin: 0; }
     .wiki-section-actions { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 5px; }
@@ -2112,7 +2119,7 @@ SOFTWARE.
 <script src="./ischemia-learning-data.js?v=41-20261118"></script>
 <script src="./angina-learning-data.js?v=25121-20261119" data-ecg-prefix="ang42-"></script>
 <script src="./acs-learning-data.js?v=43-20261118"></script>
-<script src="./pediatric-advanced-learning.js?v=44-46-20261119"></script>
+<script src="./pediatric-advanced-learning.js?v=pediatric-jpg-20261119"></script>
 <script src="./vascular-learning-data.js?v=3637-20261116"></script>
 <script src="./ecg-j21-learning-data.js?v=comprehensive-merge-20261111"></script>
 <script src="./brady-learning-data.js?v=brady21-20261110"></script>
@@ -2122,7 +2129,7 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=wiki-order-20261118"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=kimlucia-20261119"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=clinical-categories-20261119"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
@@ -2823,6 +2830,30 @@ SOFTWARE.
       return { level:match[1].length, heading:match[2].replace(/~~~|~~/g, '').trim(), displayHeading };
     }
 
+    // Category metadata is separate from the heading: slugs, bookmarks and links
+    // continue to use the original title. Only the following nonblank line applies.
+    function wikiCategoryLine(line) {
+      return String(line || '').trim().replace(/^~~([\s\S]*)~~~$/, '$1').trim();
+    }
+
+    function wikiHeadingCategory(lines, headingIndex) {
+      let index = headingIndex + 1;
+      while (index < lines.length && !String(lines[index]).trim()) index += 1;
+      const match = wikiCategoryLine(lines[index]).match(/^@category\s+(개념|분류|기전|증상|진단|감별|치료|예후)(?:\s*\|\s*(예외|주의))?\s*$/);
+      return match ? { label:match[1], flag:match[2] || '' } : null;
+    }
+
+    function renderWikiHeading(record, course, footnotes, allowFootnotes = true) {
+      const category = record.category;
+      let title = record.displayHeading || record.heading;
+      if (!category) return renderWikiInline(title, course, footnotes, allowFootnotes);
+      // Existing titles such as '진단 · …' need only one visible category label.
+      title = title.replace(new RegExp('^(~~)?' + category.label + '\\s*[·:：]\\s*'), '$1');
+      const flag = category.flag ? `<span class="wiki-heading-flag">${escapeHtml(category.flag)}</span>` : '';
+      return `<span class="wiki-heading-categories"><span class="wiki-heading-category">${escapeHtml(category.label)}</span>${flag}</span><span class="wiki-heading-copy">${renderWikiInline(title, course, footnotes, allowFootnotes)}</span>`;
+    }
+
+
     function wikiHeadingRecordsFromLines(lines) {
       lines = expandWikiGrayBlocks(lines.join('\n')).split('\n');
       const usedSlugs = new Map();
@@ -2839,6 +2870,7 @@ SOFTWARE.
         usedSlugs.set(base, count);
         return {
           ...parsed,
+          category:wikiHeadingCategory(lines, lineIndex),
           legacyHeading,
           lineIndex,
           slug:count === 1 ? base : `${base}-${count}`,
@@ -3126,6 +3158,7 @@ SOFTWARE.
       for (let index = 0; index < contentLines.length; index += 1) {
         const line = contentLines[index].trim();
         if (!line) { flushText(); continue; }
+        if (/^@category(?:\s|$)/.test(wikiCategoryLine(line))) { flushText(); continue; }
         const learning = renderWikiLearningBlock(line, course, footnotes);
         if (learning) { flushText(); body.push(learning); continue; }
         const formula = renderWikiFormula(line, course, footnotes);
@@ -3147,7 +3180,7 @@ SOFTWARE.
           const record = headingByLine.get(index) || { heading:headingMatch.heading, slug:`section-${sectionCursor + 1}`, number:`s-${sectionCursor + 1}` };
           sectionCursor += 1;
           const contentId = `wiki-${course.id}-${record.slug}-content`;
-          body.push(`<section id="wiki-${course.id}-${record.slug}" class="wiki-section" data-wiki-section="${record.slug}" data-wiki-heading="${escapeHtml(record.heading)}" data-wiki-number="${record.number}"><div class="wiki-section-head"><h4>${renderWikiInline(headingMatch.displayHeading || headingMatch.heading, course, footnotes)}</h4><div class="wiki-section-actions"><button class="wiki-section-action" type="button" data-wiki-section-toggle aria-expanded="true" aria-controls="${contentId}">접기</button><button class="wiki-section-action" type="button" data-wiki-section-edit="${sectionCursor - 1}" aria-label="${escapeHtml(record.heading)} 문단 편집">편집</button></div></div><div id="${contentId}" class="wiki-section-content">`);
+          body.push(`<section id="wiki-${course.id}-${record.slug}" class="wiki-section" data-wiki-section="${record.slug}" data-wiki-heading="${escapeHtml(record.heading)}" data-wiki-number="${record.number}"><div class="wiki-section-head"><h4>${renderWikiHeading(record, course, footnotes)}</h4><div class="wiki-section-actions"><button class="wiki-section-action" type="button" data-wiki-section-toggle aria-expanded="true" aria-controls="${contentId}">접기</button><button class="wiki-section-action" type="button" data-wiki-section-edit="${sectionCursor - 1}" aria-label="${escapeHtml(record.heading)} 문단 편집">편집</button></div></div><div id="${contentId}" class="wiki-section-content">`);
           sectionOpen = true;
         } else if (headingMatch && headingMatch.level > 2) {
           flushText();
@@ -3155,7 +3188,7 @@ SOFTWARE.
           if (headingMatch.level === 4) { body.push('<div class="wiki-subsubsection">'); detailOpen = true; }
           const tag = headingMatch.level === 4 ? 'h6' : 'h5';
           const record = headingByLine.get(index) || { heading:headingMatch.heading, slug:normalizeWikiKey(headingMatch.heading), number:'' };
-          body.push(`<${tag} id="wiki-${course.id}-${record.slug}" data-wiki-level="${headingMatch.level}" data-wiki-section="${record.slug}" data-wiki-heading="${escapeHtml(record.heading)}" data-wiki-number="${record.number}">${renderWikiInline(record.displayHeading || record.heading, course, footnotes)}</${tag}>`);
+          body.push(`<${tag} id="wiki-${course.id}-${record.slug}" data-wiki-level="${headingMatch.level}" data-wiki-section="${record.slug}" data-wiki-heading="${escapeHtml(record.heading)}" data-wiki-number="${record.number}">${renderWikiHeading(record, course, footnotes)}</${tag}>`);
         } else if (line.startsWith('* ')) {
           flushParagraph();
           openList('ul');
@@ -3188,7 +3221,7 @@ SOFTWARE.
         body.push(`<section class="wiki-footnotes"><h4>각주</h4><ol>${footnotes.items.map(item => `<li id="wiki-fn-${course.id}-${item.number}" class="wiki-footnote-item" data-wiki-footnote-back="${item.number}" data-wiki-footnote-reference="1" tabindex="0" role="link" aria-label="각주 ${item.number}의 본문 위치로 돌아가기">${renderWikiInline(item.content, course, footnotes, false)}<span class="wiki-footnote-backs">${Array.from({ length:item.references }, (_, index) => `<a class="wiki-footnote-back" href="#wiki-fnref-${course.id}-${item.number}-${index + 1}" data-wiki-footnote-back="${item.number}" data-wiki-footnote-reference="${index + 1}" aria-label="본문의 각주 ${item.number} ${index + 1}번째 위치로 돌아가기">↩${item.references > 1 ? index + 1 : ''}</a>`).join('')}</span></li>`).join('')}</ol></section>`);
       }
 
-      const toc = headingRecords.map((record, index) => `<button class="wiki-toc-link" type="button" data-wiki-target="${record.slug}">${index + 1}. ${renderWikiInline(record.displayHeading || record.heading, course, footnotes, false)}</button>`).join('');
+      const toc = headingRecords.map((record, index) => `<button class="wiki-toc-link" type="button" data-wiki-target="${record.slug}">${index + 1}. ${renderWikiHeading(record, course, footnotes, false)}</button>`).join('');
       return `<article class="wiki-note"><header class="wiki-hero"><div class="wiki-hero-title-row"><div class="wiki-hero-title"><h3>${renderWikiInline(title, course, footnotes, false)}</h3></div></div>${summary ? `<p>${renderWikiInline(summary, course, footnotes, false)}</p>` : ''}</header><div class="wiki-layout"><aside class="wiki-toc" aria-label="정리본 목차"><strong>목차</strong>${toc}</aside><div class="wiki-article">${body.join('')}</div></div></article>`;
     }
 
@@ -3240,6 +3273,7 @@ SOFTWARE.
         const rawLine = lines[lineIndex];
         const line = rawLine.trim();
         if (!line) { flushText(); continue; }
+        if (/^@category(?:\s|$)/.test(wikiCategoryLine(line))) { flushText(); continue; }
         const learning = renderWikiLearningBlock(line, course, footnotes);
         if (learning) { flushText(); output.push(learning); continue; }
         const formula = renderWikiFormula(line, course, footnotes);
@@ -3266,7 +3300,7 @@ SOFTWARE.
           flushText(); closeDetail();
           if (heading.level === 4) { output.push('<div class="wiki-subsubsection">'); detailOpen = true; }
           const tag = heading.level === 2 ? 'h3' : heading.level === 3 ? 'h4' : 'h5';
-          output.push('<' + tag + ' data-wiki-level="' + heading.level + '">' + renderWikiInline(heading.displayHeading, course, footnotes, false) + '</' + tag + '>');
+          output.push('<' + tag + ' data-wiki-level="' + heading.level + '">' + renderWikiHeading({ ...heading, category:wikiHeadingCategory(lines, lineIndex) }, course, footnotes, false) + '</' + tag + '>');
           continue;
         }
         if (line.startsWith('* ')) {
@@ -3845,6 +3879,8 @@ SOFTWARE.
 
     function wikiSyntaxHelpMarkup() {
       const rows = [
+        ['@category 진단', '제목 바로 다음 줄에 범주: 개념·분류·기전·증상·진단·감별·치료·예후 중 하나. 원래 제목과 링크는 유지'],
+        ['@category 치료 | 주의', '예외·주의는 필요한 문단에만 범주 옆의 보조 표시로 추가'],
         ['@pharmrecall', 'K-sparing 약물명을 같은 자리에서 가리고 확인'], ['@arrmap', '13강 한장정리 위치'], ['@arrclass', 'IA·IB·IC 활동전위 비교'], ['@arrrecall', '항부정맥 약물명 가리기'], ['@hfmap', '12강 한장정리 위치'], ['@hfdigoxin', 'Digoxin 이온·수축 기전'], ['@hftargets', '심부전 치료 목적 비교'], ['@hfrecall', '심부전 약물명 가리기'], ['@htnmap', '11강 한장정리 위치'], ['@htnraas', 'RAAS 차단 위치 비교'], ['@htncompensation', '빈맥·체액 보상과 병용약'], ['@htnrecall', '고혈압 약물명 가리기'], ['@anginamap', '10강 한장정리 위치'], ['@anginacgmp', 'cGMP 생성·분해 비교'], ['@anginacompare', '협심증 약물 효과 비교'], ['@anginarecall', '협심증 약물명 가리기'], ['@lipidmap', '9강 한장정리 위치'], ['@lipidcompare', '9강 지질효과 비교'], ['@lipidrecall', '9강 약물명 가리기 복습'], ['@pharmmap', '한장정리에서 약물군 위치 찾기'], ['@pharmcard 분류 | 제목 | 암기 문장', '한장정리 분류색을 유지한 암기 문장'], ['@recall 질문 => 답 ;; 질문 => 답', '접이식 백지복습 질문과 따로 여는 답'], ['@flow 내용 | 내용 | 내용', '순서가 있는 흐름 도식'], ['@detail 제목 ... @enddetail', '더 자세히 보는 접이식 자료'], ['@pvloop / @pvload', '심장주기와 부하 변화 상호작용 도식'], ['@integration', '기립·운동·출혈·심부전의 단계별 비교'], ['@cardiacoutput', '심장·혈관 곡선과 교점 비교'], ['@bplab', 'CO·TPR·순응도로 평균압·맥압 비교'], ['@starling', '네 압력을 조절하는 고전적 Starling 모형'], ['@flowlab', '유량·압력 차이를 고정한 혈류 비교 도식'], ['@ecg waveform / leads / axis / rate / bundle / rhythms / avblock', 'ECG 파형·유도·전도 비교 모식도'], ['@ecgcases normal / axis / atria / hypertrophy / ischemia / sinus / avblock / bundle / fascicle / atrial / reentry / ventricular / electrolytes', '강의록 ECG 사진과 유도별 학습 표시·확대'], ['@ecg waveform / leads / axis / rate / bundle / rhythms / avblock', 'ECG 파형·유도·전도 비교 모식도'], ['@ecgcases normal / axis / atria / hypertrophy / ischemia / sinus / avblock / bundle / fascicle / atrial / reentry / ventricular / electrolytes', '강의록 ECG 사진과 유도별 학습 표시·확대'], ['@questions {{25001}}', '문단 아래 연결 문항'], ['@source 강의록 p.1–3', '문단의 참고 범위'], ['= 문서 제목 =', '문서 제목'], ['== 문단 제목 ==', '목차에 표시되는 상위 문단'], ['=== 하위 제목 ===', '문단 내부의 하위 제목'], ['==== 세부 제목 ====', '한 단계 작은 제목. 다음 제목 전까지 본문 전체를 한 칸 들여쓰기'],
         ["'''굵은 글자'''", '굵게 표시'], ['""내용""', '짙은 보라색 굵은 글자로 표시'], ['* 목록', '글머리표 목록'], ['# 목록', '번호 목록'], ['> 강조 문장', '강조 상자'],
         ['[[문서]]', '해당 강의 문서로 이동'], ['[[문서|출력글자]]', '표시 문구를 다르게 지정'],
@@ -6144,6 +6180,7 @@ SOFTWARE.
         .replace(/\[\[[^|\]]+\|([^\]]+)\]\]/g, '$1')
         .replace(/\[\[([^\]]+)\]\]/g, '$1')
         .replace(/\{\{((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\}\}/g, '$1번')
+        .replace(/^\s*(?:~~)?@category[^\r\n]*/gm, '')
         .replace(/^\s*@[a-z]+\s+/gim, '')
         .replace(/'''|''|""|~~~|~~/g, '')
         .replace(/^\s*=+\s*|\s*=+\s*$/gm, '')

@@ -543,8 +543,6 @@
     .wiki-heading-categories { display:inline-flex; align-items:center; gap:4px; margin-inline-end:.5em; vertical-align:middle; line-height:1; }
     .wiki-heading-category, .wiki-heading-flag { display:inline-block; box-sizing:border-box; padding:.25em .6em; border:1px solid var(--brand-line,#e6d3d7); border-radius:999px; color:var(--brand-ink,#693f48); background:var(--brand-soft,#f6eef0); font-size:calc(12px * var(--study-content-scale,1)); font-weight:700; line-height:1.4; letter-spacing:0; white-space:nowrap; }
     .wiki-heading-flag { background:transparent; font-weight:600; }
-    .wiki-toc-link .wiki-heading-categories { gap:3px; margin-inline-end:.45em; }
-    .wiki-toc-link :is(.wiki-heading-category,.wiki-heading-flag) { padding:.12em .5em; font-size:calc(11px * var(--study-ui-scale,1)); }
 
     .wiki-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin: 0 0 16px; }
     .wiki-section-head h4 { min-width: 0; margin: 0; }
@@ -2129,7 +2127,7 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=wiki-order-20261118"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=clinical-categories-20261119"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=clinical-subcategories-20261119"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
@@ -2830,7 +2828,8 @@ SOFTWARE.
       return { level:match[1].length, heading:match[2].replace(/~~~|~~/g, '').trim(), displayHeading };
     }
 
-    // Category metadata is separate from the heading: slugs, bookmarks and links
+    // Category badges belong only to level-3 subheadings. Metadata stays separate:
+    // slugs, bookmarks and links
     // continue to use the original title. Only the following nonblank line applies.
     function wikiCategoryLine(line) {
       return String(line || '').trim().replace(/^~~([\s\S]*)~~~$/, '$1').trim();
@@ -2844,7 +2843,7 @@ SOFTWARE.
     }
 
     function renderWikiHeading(record, course, footnotes, allowFootnotes = true) {
-      const category = record.category;
+      const category = record.level === 3 ? record.category : null;
       let title = record.displayHeading || record.heading;
       if (!category) return renderWikiInline(title, course, footnotes, allowFootnotes);
       // Existing titles such as '진단 · …' need only one visible category label.
@@ -3879,7 +3878,7 @@ SOFTWARE.
 
     function wikiSyntaxHelpMarkup() {
       const rows = [
-        ['@category 진단', '제목 바로 다음 줄에 범주: 개념·분류·기전·증상·진단·감별·치료·예후 중 하나. 원래 제목과 링크는 유지'],
+        ['@category 진단', '소문단(=== 제목 ===) 바로 다음 줄에 범주: 개념·분류·기전·증상·진단·감별·치료·예후 중 하나. 중문단·목차에는 표시하지 않음'],
         ['@category 치료 | 주의', '예외·주의는 필요한 문단에만 범주 옆의 보조 표시로 추가'],
         ['@pharmrecall', 'K-sparing 약물명을 같은 자리에서 가리고 확인'], ['@arrmap', '13강 한장정리 위치'], ['@arrclass', 'IA·IB·IC 활동전위 비교'], ['@arrrecall', '항부정맥 약물명 가리기'], ['@hfmap', '12강 한장정리 위치'], ['@hfdigoxin', 'Digoxin 이온·수축 기전'], ['@hftargets', '심부전 치료 목적 비교'], ['@hfrecall', '심부전 약물명 가리기'], ['@htnmap', '11강 한장정리 위치'], ['@htnraas', 'RAAS 차단 위치 비교'], ['@htncompensation', '빈맥·체액 보상과 병용약'], ['@htnrecall', '고혈압 약물명 가리기'], ['@anginamap', '10강 한장정리 위치'], ['@anginacgmp', 'cGMP 생성·분해 비교'], ['@anginacompare', '협심증 약물 효과 비교'], ['@anginarecall', '협심증 약물명 가리기'], ['@lipidmap', '9강 한장정리 위치'], ['@lipidcompare', '9강 지질효과 비교'], ['@lipidrecall', '9강 약물명 가리기 복습'], ['@pharmmap', '한장정리에서 약물군 위치 찾기'], ['@pharmcard 분류 | 제목 | 암기 문장', '한장정리 분류색을 유지한 암기 문장'], ['@recall 질문 => 답 ;; 질문 => 답', '접이식 백지복습 질문과 따로 여는 답'], ['@flow 내용 | 내용 | 내용', '순서가 있는 흐름 도식'], ['@detail 제목 ... @enddetail', '더 자세히 보는 접이식 자료'], ['@pvloop / @pvload', '심장주기와 부하 변화 상호작용 도식'], ['@integration', '기립·운동·출혈·심부전의 단계별 비교'], ['@cardiacoutput', '심장·혈관 곡선과 교점 비교'], ['@bplab', 'CO·TPR·순응도로 평균압·맥압 비교'], ['@starling', '네 압력을 조절하는 고전적 Starling 모형'], ['@flowlab', '유량·압력 차이를 고정한 혈류 비교 도식'], ['@ecg waveform / leads / axis / rate / bundle / rhythms / avblock', 'ECG 파형·유도·전도 비교 모식도'], ['@ecgcases normal / axis / atria / hypertrophy / ischemia / sinus / avblock / bundle / fascicle / atrial / reentry / ventricular / electrolytes', '강의록 ECG 사진과 유도별 학습 표시·확대'], ['@ecg waveform / leads / axis / rate / bundle / rhythms / avblock', 'ECG 파형·유도·전도 비교 모식도'], ['@ecgcases normal / axis / atria / hypertrophy / ischemia / sinus / avblock / bundle / fascicle / atrial / reentry / ventricular / electrolytes', '강의록 ECG 사진과 유도별 학습 표시·확대'], ['@questions {{25001}}', '문단 아래 연결 문항'], ['@source 강의록 p.1–3', '문단의 참고 범위'], ['= 문서 제목 =', '문서 제목'], ['== 문단 제목 ==', '목차에 표시되는 상위 문단'], ['=== 하위 제목 ===', '문단 내부의 하위 제목'], ['==== 세부 제목 ====', '한 단계 작은 제목. 다음 제목 전까지 본문 전체를 한 칸 들여쓰기'],
         ["'''굵은 글자'''", '굵게 표시'], ['""내용""', '짙은 보라색 굵은 글자로 표시'], ['* 목록', '글머리표 목록'], ['# 목록', '번호 목록'], ['> 강조 문장', '강조 상자'],

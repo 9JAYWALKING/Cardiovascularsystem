@@ -131,7 +131,17 @@ window.Odap2019Migration = (() => {
           for (const field of ['answerShown','explanationShown','attempts','choiceEffectsHidden','feedbackHidden'])
             if (state[field]) delete state[field][id];
         }
-        for (const base of Object.values(retired)) if (state.questionVersions) delete state.questionVersions[base];
+        for (const [from,base] of Object.entries(retired)) {
+          // Only an explicitly reviewed, unchanged choice mapping can carry a retired selection.
+          const rule = config.entries[from];
+          if (rule?.preserveSelectionOnRetire && state.selected &&
+              Object.hasOwn(state.selected,from) && !Object.hasOwn(state.selected,base)) {
+            const value = state.selected[from], values = Array.isArray(value) ? value : [value];
+            const mapped = values.map(v=>rule.choices[String(v)]);
+            if (mapped.every(Number.isInteger)) state.selected[base] = Array.isArray(value) ? [...new Set(mapped)] : mapped[0];
+          }
+          if (state.questionVersions) delete state.questionVersions[base];
+        }
         for (const field of ['wrongBatch','randomOrder']) if (Array.isArray(state[field])) state[field] = unique(state[field]);
         if (state.randomSession) {
           for (const field of ['seen','order']) if (Array.isArray(state.randomSession[field])) state.randomSession[field] = unique(state.randomSession[field]);
@@ -207,3 +217,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.angina42
 
 // Reconcile reviewed pathology answers without discarding selections or manual history.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.kimLucia20261119Revision); } catch (_) {}
+
+// Preserve selections and manual records while invalidating ACS case grades.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.acs20261119Revision); } catch (_) {}

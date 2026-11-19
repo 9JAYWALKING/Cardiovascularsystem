@@ -35,8 +35,32 @@
       <div class="ecg-buttons" role="group" aria-label="확대할 파형과 유도">${buttons(c.steps,'data-ecg-step',index)}</div>
       <div class="ecg-focus" aria-live="polite"><strong>${esc(s.label)} · 확대</strong><svg class="ecg-zoom" viewBox="${left} ${top} ${right-left} ${bottom-top}" role="img" aria-label="${esc(s.label)} 확대 사진"><image href="${esc(c.src)}" width="${c.width}" height="${c.height}"/>${markers(c,s,show,true)}</svg><p>${esc(s.text)}</p></div>`;
   }
+  function galleryReady(id){
+    const data=window.CARDIO_ECG_LEARNING,g=data?.groups?.[id];
+    return Boolean(g?.cases?.length && g.cases.every(key=>data.cases?.[key]?.steps?.[0]));
+  }
+  function gallerySource(id){
+    return Array.from(document.scripts).find(script=>script.dataset.ecgPrefix?.split(/\s+/).some(prefix=>prefix && id.startsWith(prefix)))?.src;
+  }
+  const galleryLoads=new Map();
+  function reloadGallerySource(source){
+    if(galleryLoads.has(source))return galleryLoads.get(source);
+    const request=new Promise((resolve,reject)=>{
+      const script=document.createElement('script'),url=new URL(source,document.baseURI);
+      url.searchParams.set('ecgRetry',String(Date.now()));script.src=url.href;
+      const finish=error=>{clearTimeout(timer);script.onload=script.onerror=null;script.remove();error?reject(error):resolve();};
+      const timer=setTimeout(()=>finish(new Error('Gallery load timed out')),12000);
+      script.onload=()=>finish();script.onerror=()=>finish(new Error('Gallery load failed'));
+      document.head.append(script);
+    }).finally(()=>galleryLoads.delete(source));
+    galleryLoads.set(source,request);return request;
+  }
+  function missingGallery(id){
+    return `<section class="ecg-learning" data-ecg-missing="${esc(id)}"><div class="ecg-heading"><strong>사진 자료</strong></div><p role="status">사진 자료를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</p>${gallerySource(id)?'<div class="ecg-buttons"><button type="button" data-ecg-retry>다시 불러오기</button></div>':''}</section>`;
+  }
   function gallery(id){
-    const g=window.CARDIO_ECG_LEARNING?.groups[id];if(!g)return '';
+    if(!galleryReady(id))return missingGallery(id);
+    const g=window.CARDIO_ECG_LEARNING.groups[id];
     const photoOnly=g.cases.every(k=>window.CARDIO_ECG_LEARNING.cases[k].layout==='photo-first');
     return `<section class="ecg-learning ecg-gallery" data-ecg-gallery="${id}" data-ecg-case="0" data-ecg-step-index="0" data-ecg-show="true"><div class="ecg-heading"><strong>${esc(g.title)}</strong><span>${esc(g.caption || '강의록 사진 비교')}</span></div>${g.cases.length>1?`<div class="ecg-buttons" role="group" aria-label="${esc(g.title)} 사진 선택">${buttons(g.cases.map(k=>window.CARDIO_ECG_LEARNING.cases[k].label),'data-ecg-case-button')}</div>`:''}<div class="ecg-case-content">${caseBody(g.cases[0])}</div>${photoOnly?'':note('버튼을 누르면 전체 사진의 표시 위치와 아래 확대 사진이 함께 바뀝니다. 원래 사진에 있던 표시와 글자는 그대로 유지됩니다.')}</section>`;
   }
@@ -108,6 +132,24 @@
     window.bindEchoPhotos?.(container);
     window.bindBradyLearning?.(container);
     window.bindECGRecall?.(container);
+    container.querySelectorAll('[data-ecg-missing]:not([data-ecg-bound])').forEach(block=>{
+      block.dataset.ecgBound='1';const id=block.dataset.ecgMissing,source=gallerySource(id),button=block.querySelector('[data-ecg-retry]');
+      if(!source||!button)return;
+      const retry=async()=>{
+        if(button.disabled)return;
+        button.disabled=true;block.setAttribute('aria-busy','true');block.querySelector('[role="status"]').textContent='사진 자료를 불러오는 중이에요.';
+        try{
+          if(!galleryReady(id))await reloadGallerySource(source);
+          if(!galleryReady(id))throw new Error('Gallery is unavailable');
+          if(block.isConnected){block.outerHTML=gallery(id);window.bindECGLearning(container);}
+        }catch(_){
+          if(block.isConnected){block.querySelector('[role="status"]').textContent='사진 자료를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.';button.disabled=false;block.removeAttribute('aria-busy');}
+        }
+      };
+      button.addEventListener('click',retry);
+      // One automatic retry handles transient failures; subsequent retries are explicit.
+      retry();
+    });
     container.querySelectorAll('[data-ecg-lab]:not([data-ecg-bound])').forEach(block=>{block.dataset.ecgBound='1';block.addEventListener('click',e=>{const b=e.target.closest('[data-ecg-state]');if(!b)return;block.querySelectorAll('[data-ecg-state]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));block.querySelector('.ecg-lab-content').innerHTML=labs[block.dataset.ecgLab].draw(Number(b.dataset.ecgState));});});
     container.querySelectorAll('[data-ecg-gallery]:not([data-ecg-bound])').forEach(block=>{block.dataset.ecgBound='1';block.addEventListener('click',e=>{
       const caseButton=e.target.closest('[data-ecg-case-button]'),stepButton=e.target.closest('[data-ecg-step]'),toggle=e.target.closest('[data-ecg-layer]');

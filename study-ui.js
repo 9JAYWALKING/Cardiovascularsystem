@@ -85,6 +85,7 @@
     hand:'<path d="M18 11V7a2 2 0 0 0-4 0v4M14 10V5a2 2 0 0 0-4 0v6M10 10.5V7a2 2 0 0 0-4 0v9M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-1-6-3l-3.6-4.8a2 2 0 0 1 3.2-2.4L6 13"/>',
     edit:'<path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15l-1 6Z"/>',
     search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+    refresh:'<path d="M20 7v5h-5M20 12a8 8 0 1 0-2.3 5.7"/>',
     tools:'<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="8" cy="18" r="2" fill="currentColor"/>'
   };
   const svg = name => '<svg viewBox="0 0 24 24" aria-hidden="true">'+icons[name]+'</svg>';
@@ -93,9 +94,13 @@
     const el=document.createElement('button');el.type='button';el.className='study-icon-button';el.setAttribute(attr,'');el.setAttribute('aria-label',label);el.title=label;el.innerHTML=svg(icon);return el;
   };
   const search=button('data-study-search','Wiki · J 검색','search');
+  const refresh=button('data-study-refresh','새로고침','refresh');
   const tools=button('data-study-tools','도구 열기','tools');
   tools.setAttribute('aria-haspopup','dialog');tools.setAttribute('aria-controls','study-control-center');tools.setAttribute('aria-expanded','false');
-  actions.prepend(search);actions.append(tools);
+  actions.prepend(search,refresh);actions.append(tools);
+  // Use the native reload path: keep the URL and stored study records, and
+  // let the existing beforeunload handler protect unsaved question edits.
+  refresh.addEventListener('click',()=>window.location.reload());
   const examDate=window.SITE_CONFIG?.examDate || '';
   const ddayStorageKey='cardiovascular-exam-dday-visible-v1';
   let ddayEnabled=false;

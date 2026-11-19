@@ -201,3 +201,9 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.hcmPrece
 
 // Retain original selections and manual records after restoring the recorded CRT answer.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.device35AnswerRevision); } catch (_) {}
+
+// Original ST-depression condition restored to grading; preserve selections and manual records.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.angina42AnswerRevision); } catch (_) {}
+
+// Reconcile reviewed pathology answers without discarding selections or manual history.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.kimLucia20261119Revision); } catch (_) {}

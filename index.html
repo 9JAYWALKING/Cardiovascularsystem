@@ -2118,6 +2118,7 @@ SOFTWARE.
 <script src="./angina-learning-data.js?v=25121-20261119" data-ecg-prefix="ang42-"></script>
 <script src="./acs-learning-data.js?v=acs-cases-20261119"></script>
 <script src="./pad-learning-data.js?v=sfa-20261120"></script>
+<script src="./surgery-learning-data.js?v=surgery-20261120"></script>
 <script src="./pediatric-advanced-learning.js?v=pediatric-jpg-20261119"></script>
 <script src="./vascular-learning-data.js?v=3637-20261116"></script>
 <script src="./ecg-j21-learning-data.js?v=comprehensive-merge-20261111"></script>
@@ -2128,16 +2129,16 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=wiki-order-20261118"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=sfa-20261120"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=surgery-20261120"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
-<script src="./schedule-advice-data.js?v=lecture38-20261119"></script>
+<script src="./schedule-advice-data.js?v=surgery-20261120"></script>
 <script src="./schedule-advice.js?v=wiki-order-20261118"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=sfa-20261120"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=surgery-20261120"></script>
 <script src="./question-migrations.js?v=sfa-20261120"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=sfa-20261120"></script>
-<script src="./lecture-study.js?v=40-20261118"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=surgery-20261120"></script>
+<script src="./lecture-study.js?v=surgery-20261120"></script>
 <script src="./question-updates-data.js?v=acs-cases-20261119"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
   <script src="./wiki-image-annotations.js"></script>
@@ -2565,7 +2566,7 @@ SOFTWARE.
     function questionVersionButton(question) {
       const base = questionVersionBase(question);
       const hasInferred = Boolean(base.inferredVersion?.question);
-      if (!hasInferred && !base.originalVersion?.question) return '';
+      if (!hasInferred && !base.originalVersion?.question) return base.generatedBy === 'gpt' ? `<span class="jbl-original-link" data-generated-question="gpt" role="img" aria-label="GPT 제작문항" title="GPT 제작문항 · 실제 기출 아님">${questionVersionIcons.gpt}</span>` : '';
       const provider = hasInferred && base.inferredVersion.provider === 'claude' ? 'claude' : 'gpt';
       const showsOriginal = hasInferred ? !question.isInferredVersion : Boolean(question.isOriginalVersion);
       const label = showsOriginal ? `${provider === 'claude' ? 'Claude' : 'GPT'} 보강 문항 보기` : '원본 문항 보기';
@@ -3021,7 +3022,7 @@ SOFTWARE.
       const text = String(value || '')
         .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2')
         .replace(/\[\[([^\]]+)\]\]/g, '$1')
-        .replace(/\{\{((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\}\}/g, '$1번 문항')
+        .replace(/\{\{((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)\}\}/g, '$1번 문항')
         .replace(/'''|''|""|~~~|~~/g, '')
         .replace(/\s+/g, ' ')
         .trim();
@@ -3030,7 +3031,7 @@ SOFTWARE.
 
     function renderWikiInline(value, course, footnoteState, allowFootnotes = true, strongContext = false) {
       const source = String(value || '');
-      const tokenPattern = /'''([\s\S]*?)'''|""([\s\S]*?)""|\[\*((?:\[\[[^\]]+\]\]|[^\]])+)\]|\[\[([^\]]+)\]\]|\{\{((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\}\}|(?<!~)~~(?!~)([\s\S]*?)~~~(?!~)/g;
+      const tokenPattern = /'''([\s\S]*?)'''|""([\s\S]*?)""|\[\*((?:\[\[[^\]]+\]\]|[^\]])+)\]|\[\[([^\]]+)\]\]|\{\{((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)\}\}|(?<!~)~~(?!~)([\s\S]*?)~~~(?!~)/g;
       let output = '';
       let cursor = 0;
       for (const match of source.matchAll(tokenPattern)) {
@@ -4419,18 +4420,18 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=sfa-20261120"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=surgery-20261120"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
       dataScript.textContent = '';
-      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=sfa-20261120"]');
+      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=surgery-20261120"]');
       const notePayload = JSON.stringify(lectureNoteSources).replace(/</g, '\\u003c');
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=sfa-20261120"]');
-      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=sfa-20261120'); conceptDataScript.textContent=''; }
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=surgery-20261120"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=surgery-20261120'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);
@@ -4474,7 +4475,7 @@ SOFTWARE.
       if (linkedMode && currentQuestion && state.linkedQuestionNumber !== canonicalJblNumber(currentQuestion.globalNumber)) {
         state.linkedQuestionNumber = canonicalJblNumber(currentQuestion.globalNumber);
         // Adjacent navigation stays in the same history entry so Back returns to the source view.
-        if (/^#jbl-q-(?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?$/.test(decodeURI(location.hash))) {
+        if (/^#jbl-q-(?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?$/.test(decodeURI(location.hash))) {
           history.replaceState({ ...(history.state || {}), jblLinkedQuestion:state.linkedQuestionNumber }, '', `#jbl-q-${state.linkedQuestionNumber}`);
         }
       }
@@ -4528,7 +4529,7 @@ SOFTWARE.
       target.querySelector('[data-jbl-home]')?.addEventListener('click', () => quickNavigate('#home'));
       const jump = () => {
         const value = target.querySelector('#jbl-jump').value.trim();
-        const globalMatch = value.match(/^\s*((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\s*번?\s*$/);
+        const globalMatch = value.match(/^\s*((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)\s*번?\s*$/);
         if (globalMatch) {
           const globalNumber = canonicalJblNumber(globalMatch[1]);
           openJblQuestionNumber(globalNumber);
@@ -6179,7 +6180,7 @@ SOFTWARE.
         })
         .replace(/\[\[[^|\]]+\|([^\]]+)\]\]/g, '$1')
         .replace(/\[\[([^\]]+)\]\]/g, '$1')
-        .replace(/\{\{((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\}\}/g, '$1번')
+        .replace(/\{\{((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)\}\}/g, '$1번')
         .replace(/^\s*(?:~~)?@category[^\r\n]*/gm, '')
         .replace(/^\s*@[a-z]+\s+/gim, '')
         .replace(/'''|''|""|~~~|~~/g, '')
@@ -6516,7 +6517,7 @@ SOFTWARE.
         const state=standaloneState();state.randomEnabled=false;state.lectureOrderEnabled=false;state.index=updatedJblPosition;
         renderJblStandalone();return showView('jbl',false);
       }
-      const linkedQuestion = hash.match(/^#jbl-q-((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)$/);
+      const linkedQuestion = hash.match(/^#jbl-q-((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)$/);
       if (linkedQuestion) {
         const state = standaloneState();
         state.linkedQuestionNumber = canonicalJblNumber(linkedQuestion[1]);

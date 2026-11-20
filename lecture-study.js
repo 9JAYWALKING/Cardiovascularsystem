@@ -132,7 +132,7 @@ function lectureJblGroups(course) {
   const groups = [];
   const add = (slug,heading,source,parent='',sourceCourse=course.id,unlinked=false) => {
     const sourceFull = String(lectureNoteSources[sourceCourse] || full);
-    const numbers = [...new Set([...source.matchAll(/\{\{((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\}\}/g)].map(match=>canonicalJblNumber(match[1])))].filter(number=>available.has(number));
+    const numbers = [...new Set([...source.matchAll(/\{\{((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)\}\}/g)].map(match=>canonicalJblNumber(match[1])))].filter(number=>available.has(number));
     groups.push({slug,bookmarkSlug:slug,heading,parent,source:lectureJblSectionSource(source,sourceFull,sourceCourse),sourceCourse:Number(sourceCourse),numbers,unlinked});
   };
   const compact = lectureJblCompactGroups(course,sections,available);
@@ -257,7 +257,7 @@ function lectureStudyChapters(course) {
     .filter(section => section.level === 3)
     .map(section => ({
       slug:section.slug, heading:section.heading,
-      numbers:[...new Set([...section.source.matchAll(/\{\{((?:\d{2}(?:오|종|미|한양)\d+|\d+)(?:-\d+)?)\}\}/g)].map(match => canonicalJblNumber(match[1])))].filter(number => available.has(number))
+      numbers:[...new Set([...section.source.matchAll(/\{\{((?:\d{2}(?:오|종|미|한양|수업)\d+|\d+)(?:-\d+)?)\}\}/g)].map(match => canonicalJblNumber(match[1])))].filter(number => available.has(number))
     }));
 }
 function lectureStudyBaseQuestions(course) {

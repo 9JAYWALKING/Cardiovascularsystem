@@ -6,6 +6,7 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const chevron = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg>';
   const pill = (key,extra='') => `<span class="op-tier" data-op-tier="${esc(key)}" ${extra}>${esc(data.tiers[key].label)}</span>`;
+  const firstAssignmentBadge = c => c.firstAssignment && c.tier!=='first-assignment' ? pill('first-assignment') : '';
   let dialog;
   let trigger;
 
@@ -56,13 +57,14 @@
     const t=data.tiers[c.tier],p=data.profiles[c.professor];
     const examples=c.questions.length ? `<nav class="op-example-links" aria-label="판정 근거 문항">${c.questions.map(q=>`<a href="#jbl-q-${encodeURIComponent(q.id)}" aria-label="J ${esc(q.id)} 근거 문항 보기" title="${esc(q.source)}"><span aria-hidden="true">J</span> ${esc(q.id)}</a>`).join('')}</nav>` : '';
     const review=c.hideReview ? '' : `<section class="op-section"><h3>수업에서 챙길 것</h3><p>${esc(p.classTip)}</p><div class="op-review"><span class="op-source-label">${p.page?'선배 리뷰 · '+p.page+'쪽':'현재 담당자 후기 없음'}</span><p>${esc(p.review)}</p></div></section>`;
-    const history=p.history&&!c.hideReview ? `<p>${esc(p.history)}</p>` : '';
+    const history=p.history&&!c.hideReview&&!c.history ? `<p>${esc(p.history)}</p>` : '';
     show(`${c.courseId}강 · ${c.title}`,`${c.professor} 교수 · 공부 방향`,
-      `<div class="op-advice-lead"><div class="op-tier-line">${pill(c.tier)}<span class="op-basis">${esc(c.basis||'후기 + 기출 대조')}</span></div><h3>${esc(c.summary)}</h3><p>${esc(c.study)}</p></div>
+      `<div class="op-advice-lead"><div class="op-tier-line">${pill(c.tier)}${firstAssignmentBadge(c)}<span class="op-basis">${esc(c.basis||'후기 + 기출 대조')}</span></div><h3>${esc(c.summary)}</h3><p>${esc(c.study)}</p></div>
+      ${c.history?`<section class="op-section"><h3>강의 구성·담당 이력</h3><p>${esc(c.history)}</p></section>`:''}
       ${review}
-      <section class="op-section"><h3>${c.tier==='new-course'?'관련 기출 활용':'기출에서 확인한 경향'}</h3><p>${esc(c.evidence)}</p>${examples}${c.material?`<p class="op-material">${esc(c.material)}</p>`:''}<p class="op-sample">${c.tier==='new-course'?'동일 강의의 과거 출제 이력 없음':`현재 담당자 표기 문항 ${c.stats.count}개${c.stats.years.length?' · 확보 연도 '+c.stats.years.join(' · '):''}<br>현재 배정 자료 기준이며, 실제 출제량을 뜻하지 않습니다.`}</p></section>
+      <section class="op-section"><h3>${c.tier==='new-course'?'관련 기출 활용':'기출에서 확인한 경향'}</h3><p>${esc(c.evidence)}</p>${examples}${c.material?`<p class="op-material">${esc(c.material)}</p>`:''}<p class="op-sample">${c.tier==='new-course'?'동일 강의의 과거 출제 이력 없음':`${esc(c.sampleLabel||'현재 담당자 표기 문항')} ${c.stats.count}개${c.stats.years.length?' · 확보 연도 '+c.stats.years.join(' · '):''}<br>현재 배정 자료 기준이며, 실제 출제량을 뜻하지 않습니다.`}</p></section>
       ${c.caveat?`<aside class="op-caveat"><strong>함께 확인</strong><p>${esc(c.caveat)}</p></aside>`:''}
-      <details class="op-method"><summary>분류 기준·자료 범위</summary><p><strong>${esc(t.label)}</strong> · ${esc(t.description)}</p>${history}<p>${esc(data.method)}</p><p>${esc(data.scope)}</p><p class="op-sample">${esc(data.sources)}<br>${esc(data.version)} 검토</p></details>
+      <details class="op-method"><summary>분류 기준·자료 범위</summary><p><strong>${esc(t.label)}</strong> · ${esc(c.tierDescription||t.description)}</p>${history}<p>${esc(data.method)}</p><p>${esc(data.scope)}</p><p class="op-sample">${esc(data.sources)}<br>${esc(c.reviewed||data.version)} 검토</p></details>
       <a class="op-course-link" href="#lecture-${c.courseId}">${c.stats.hasWiki?'Wiki · J로 이어서 공부':'강의 · J 보기'}${chevron}</a>`,opener);
   }
 
@@ -74,7 +76,7 @@
   function renderBadge(course) {
     const c=data.courses[course.id];
     if(!c || c.professor!==course.professor.trim())return '';
-    return `<button type="button" class="schedule-advice" data-schedule-advice="${c.courseId}" aria-haspopup="dialog" aria-controls="schedule-advice-dialog" aria-label="${c.courseId}강 ${esc(c.title)}, ${esc(data.tiers[c.tier].label)}: ${esc(c.summary)}. 공부 조언 보기" title="${esc(c.summary)}"><span class="op-badge-row">${pill(c.tier)}${chevron}</span><span class="op-card-advice">${esc(c.summary)}</span></button>`;
+    return `<button type="button" class="schedule-advice" data-schedule-advice="${c.courseId}" aria-haspopup="dialog" aria-controls="schedule-advice-dialog" aria-label="${c.courseId}강 ${esc(c.title)}, ${esc(data.tiers[c.tier].label)}${c.firstAssignment&&c.tier!=='first-assignment'?', 첫 담당':''}: ${esc(c.summary)}. 공부 조언 보기" title="${esc(c.summary)}"><span class="op-badge-row">${pill(c.tier)}${firstAssignmentBadge(c)}${chevron}</span><span class="op-card-advice">${esc(c.summary)}</span></button>`;
   }
 
   function bind(root) {

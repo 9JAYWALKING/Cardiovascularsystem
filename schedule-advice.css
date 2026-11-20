@@ -100,3 +100,8 @@ body.schedule-advice-open { overflow:hidden; }
   .op-guide-list>div { grid-template-columns:84px minmax(0,1fr); gap:10px; }
 }
 @media print { .schedule-op-guide,.schedule-advice-dialog { display:none!important; } }
+
+/* First assignment describes the lecturer, not a newly created course. */
+.op-tier[data-op-tier="first-assignment"] { --op-text:#80364f; --op-fill:#f5edf0; --op-edge:#d9bcc7; }
+:root[data-theme="dark"] .op-tier[data-op-tier="first-assignment"] { --op-text:#edb6c5; --op-fill:#302129; --op-edge:#705062; }
+.schedule-advice .op-badge-row { flex-wrap:wrap; }

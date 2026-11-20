@@ -2040,7 +2040,7 @@ SOFTWARE.
 <link rel="stylesheet" href="./question-updates.css?v=20261115-release-tabs">
 <link rel="stylesheet" href="./clinical-learning.css?v=clinical18-19-20261112">
   <link rel="stylesheet" href="./odap2019-reading.css?v=20261113">
-<link rel="stylesheet" href="./schedule-advice.css?v=wiki-order-20261118">
+<link rel="stylesheet" href="./schedule-advice.css?v=first-assignment-20261120">
 </head>
 <body class="">
 <script id="study-shell-first-paint">
@@ -2101,7 +2101,7 @@ SOFTWARE.
 <script src="./pathology-learning-data.js?v=pathology-20261108"></script>
 <script src="./pathology-learning.js?v=pathology-20261108"></script>
 <script src="./ecg-learning-data.js?v=20261111-chd-quiz"></script>
-<script src="./clinical-learning-data.js?v=odap2019-20261113"></script>
+<script src="./clinical-learning-data.js?v=tamponade-j-20261120"></script>
   <script src="./odap2019-learning-data.js?v=20261113"></script>
 <script src="./valve-hf-learning-data.js?v=20261113-valve-hf"></script>
 <script src="./echo-learning-data.js?v=20261116-echo29-photos"></script>
@@ -2129,15 +2129,15 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=wiki-order-20261118"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=surgery-20261120"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=cabg-precedent-20261120"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261115-schedule"></script>
-<script src="./schedule-advice-data.js?v=surgery-20261120"></script>
-<script src="./schedule-advice.js?v=wiki-order-20261118"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=surgery-20261120"></script>
-<script src="./question-migrations.js?v=sfa-20261120"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=surgery-20261120"></script>
+<script src="./schedule-advice-data.js?v=first-assignment-20261120"></script>
+<script src="./schedule-advice.js?v=first-assignment-20261120"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=surgery-source-labels-20261120"></script>
+<script src="./question-migrations.js?v=cabg-precedent-20261120"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=cabg-precedent-20261120"></script>
 <script src="./lecture-study.js?v=surgery-20261120"></script>
 <script src="./question-updates-data.js?v=acs-cases-20261119"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
@@ -4420,18 +4420,18 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=surgery-20261120"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=surgery-source-labels-20261120"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
       dataScript.textContent = '';
-      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=surgery-20261120"]');
+      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=cabg-precedent-20261120"]');
       const notePayload = JSON.stringify(lectureNoteSources).replace(/</g, '\\u003c');
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=surgery-20261120"]');
-      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=surgery-20261120'); conceptDataScript.textContent=''; }
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=cabg-precedent-20261120"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=cabg-precedent-20261120'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);

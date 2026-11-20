@@ -220,3 +220,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.kimLucia
 
 // Preserve selections and manual records while invalidating ACS case grades.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.acs20261119Revision); } catch (_) {}
+
+// Replaced text-only supplements now use independent CTA choices; keep originals and manual history.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.sfa20261120Revision); } catch (_) {}

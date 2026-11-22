@@ -100,7 +100,7 @@
   actions.prepend(search,refresh);actions.append(tools);
   // Use the native reload path: keep the URL and stored study records, and
   // let the existing beforeunload handler protect unsaved question edits.
-  refresh.addEventListener('click',()=>window.location.reload());
+  refresh.addEventListener('click',()=>window.SiteLoading ? window.SiteLoading.reload() : window.location.reload());
   const examDate=window.SITE_CONFIG?.examDate || '';
   const ddayStorageKey='cardiovascular-exam-dday-visible-v1';
   let ddayEnabled=false;

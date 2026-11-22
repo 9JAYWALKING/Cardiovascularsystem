@@ -15,6 +15,33 @@
   <link rel="icon" type="image/svg+xml" sizes="any" href="./assets/app-icons/icon.svg?v=20261105">
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icons/apple-touch-icon.png?v=20261105">
   <link rel="manifest" href="./site.webmanifest">
+
+<style id="site-loading-style">
+#site-loading-screen{display:none;position:fixed;inset:0;z-index:2147483000;place-items:center;background:#fbfaf9;color:#17191d;opacity:1;transition:opacity .42s cubic-bezier(.22,.61,.36,1);isolation:isolate;animation:site-loading-failsafe 0s 9s forwards}
+html.site-is-loading #site-loading-screen:not([hidden]){display:grid}
+#site-loading-screen[hidden]{display:none!important}
+html[data-theme="dark"] #site-loading-screen{background:#0d0e10;color:#f4f4f5}
+#site-loading-screen .loading-identity{display:flex;flex-direction:column;align-items:center;padding:32px 24px;max-width:100%;transform:none;text-align:center}
+#site-loading-screen .loading-caption{margin:0;font:600 clamp(12px,3.2vw,15px)/1.6 Arial,sans-serif;letter-spacing:.16em;color:inherit;opacity:.85}
+#site-loading-screen .loading-track{width:92px;height:3px;margin:34px 0 0;overflow:hidden;border-radius:2px;background:rgba(128,128,128,.18)}
+#site-loading-screen .loading-track::after{content:"";display:block;width:34px;height:100%;border-radius:inherit;background:currentColor;opacity:.72;animation:site-loading-progress 1.15s ease-in-out infinite alternate}
+#site-loading-screen .loading-status{margin:14px 0 0;font:400 12px/1.5 system-ui,sans-serif;color:inherit;opacity:.52}
+#site-loading-screen.is-leaving{opacity:0;pointer-events:none}
+#site-loading-screen.is-entering{animation:site-loading-enter .18s ease-out both,site-loading-failsafe 0s 9s forwards}
+@keyframes site-loading-progress{0%{transform:translateX(0)}100%{transform:translateX(58px)}}
+#site-loading-screen .loading-dots{display:inline-flex;gap:3px;margin-left:7px;vertical-align:middle}
+#site-loading-screen .loading-dots i{display:block;width:3px;height:3px;border-radius:50%;background:currentColor;animation:site-loading-dot 1.2s ease-in-out infinite}
+#site-loading-screen .loading-dots i:nth-child(2){animation-delay:.16s}
+#site-loading-screen .loading-dots i:nth-child(3){animation-delay:.32s}
+@keyframes site-loading-dot{0%,70%,100%{opacity:.25;transform:translateY(0)}35%{opacity:1;transform:translateY(-3px)}}
+@keyframes site-loading-enter{from{opacity:0}to{opacity:1}}
+@keyframes site-loading-failsafe{to{visibility:hidden;pointer-events:none}}
+@media(prefers-reduced-motion:reduce){#site-loading-screen{transition:none}#site-loading-screen .loading-track::after{animation:none;transform:translateX(29px)}#site-loading-screen .loading-dots i{animation:none;opacity:.7}#site-loading-screen.is-entering{animation:site-loading-failsafe 0s 9s forwards}}
+@media print{#site-loading-screen{display:none!important}}
+</style>
+<script id="site-loading-bootstrap">
+  if (window.self === window.top && new URLSearchParams(location.search).get('examPreview') !== '1') document.documentElement.classList.add('site-is-loading');
+</script>
   <script id="site-theme-controller">
     // Apply before first paint. Exam detail frames always stay light without changing the saved preference.
     (() => {
@@ -2043,6 +2070,15 @@ SOFTWARE.
 <link rel="stylesheet" href="./schedule-advice.css?v=first-assignment-20261120">
 </head>
 <body class="">
+<div id="site-loading-screen" role="status" aria-live="polite" aria-label="페이지를 준비하고 있습니다">
+  <div class="loading-identity">
+    <p class="loading-caption">CARDIOVASCULAR SYSTEM</p>
+    <div class="loading-track" aria-hidden="true"></div>
+    <p class="loading-status">불러오는 중<span class="loading-dots" aria-hidden="true"><i></i><i></i><i></i></span></p>
+  </div>
+</div>
+<script src="./site-loading.js?v=20261122"></script>
+
 <script id="study-shell-first-paint">
   // Apply the already-loaded shell CSS before any page content can be painted.
   // Exam detail previews intentionally retain their separate layout.
@@ -6803,7 +6839,7 @@ SOFTWARE.
     };
     routeFromHash();
 </script>
-<script src="./study-ui.js?v=refresh-upload-20261117"></script>
+<script src="./study-ui.js?v=loading-brand-20261122"></script>
 <script src="./study-responsive.js?v=starter-20261106"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>

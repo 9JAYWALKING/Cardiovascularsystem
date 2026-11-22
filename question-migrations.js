@@ -223,3 +223,9 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.acs20261
 
 // Replaced text-only supplements now use independent CTA choices; keep originals and manual history.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.sfa20261120Revision); } catch (_) {}
+
+// Apply the official CABG precedent without losing selections or manual study records.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.cabgPrecedent20261120Revision); } catch (_) {}
+
+// Apply the LCX official precedent while preserving selections and manual history.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.lcxPrecedent20261122Revision); } catch (_) {}

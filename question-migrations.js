@@ -229,3 +229,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.cabgPrec
 
 // Apply the LCX official precedent while preserving selections and manual history.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.lcxPrecedent20261122Revision); } catch (_) {}
+
+// Reconcile the lecture-backed rehabilitation key, retaining selections and manual history.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.rehab50Revision); } catch (_) {}

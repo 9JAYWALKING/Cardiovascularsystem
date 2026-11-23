@@ -232,3 +232,6 @@ try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.lcxPrece
 
 // Reconcile the lecture-backed rehabilitation key, retaining selections and manual history.
 try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.rehab50Revision); } catch (_) {}
+
+// Regrade the lecture-verified rheumatic photo without changing saved selections.
+try { window.Odap2019Migration.run(window.localStorage,window.JBL_DATA?.pathology15051Revision); } catch (_) {}

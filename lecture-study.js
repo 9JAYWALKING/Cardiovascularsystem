@@ -192,11 +192,14 @@ function lectureJblEntries(course) {
     : questionIsFavorite(question);
   const matches = item => !filtering || statuses.includes(questionListStudyStatus(item)) || Boolean(filters.favoritesOnly&&favorites(item));
   const byNumber = new Map(jblQuestions.map(question=>[canonicalJblNumber(question.globalNumber),question]));
+  const groups = lectureJblGroups(course).filter(group=>!view.jblChapter||group.slug===view.jblChapter);
+  const candidates = groups.flatMap(group=>[lectureJblWikiCard(course,group),...group.numbers.map(number=>byNumber.get(number)).filter(Boolean)]);
+  const included = new Set(stableStudyFilterBatch(state,candidates,matches,`jbl:${course.id}:${view.jblChapter||''}`).map(item=>item.id));
   const result=[];
-  for (const group of lectureJblGroups(course).filter(group=>!view.jblChapter||group.slug===view.jblChapter)) {
+  for (const group of groups) {
     const note = lectureJblWikiCard(course,group);
-    let questions = group.numbers.map(number=>byNumber.get(number)).filter(question=>question&&matches(question));
-    if (filtering && !matches(note) && !questions.length) continue;
+    let questions = group.numbers.map(number=>byNumber.get(number)).filter(question=>question&&included.has(question.id));
+    if (filtering && !included.has(note.id) && !questions.length) continue;
     if(state.randomEnabled)questions=shuffleQuestions(questions);
     result.push(note,...questions);
   }
@@ -271,9 +274,10 @@ function lectureStudyQuestions(course) {
   const state = viewerState('course-' + course.id);
   const filters = state.filters || {};
   const statuses = filters.statuses || [];
-  const questions = lectureStudyBaseQuestions(course).filter(question =>
+  const candidates = lectureStudyBaseQuestions(course);
+  const questions = stableStudyFilterBatch(state,candidates,question =>
     (!statuses.length && !filters.favoritesOnly) || statuses.includes(questionListStudyStatus(question)) ||
-    (filters.favoritesOnly && questionIsFavorite(question)));
+    (filters.favoritesOnly && questionIsFavorite(question)),`j:${course.id}:${lectureStudyState(course).chapter||''}`);
   if (!state.randomEnabled) return questions;
   return stableRandomQuestions(state,questions,jblQuestions.filter(q=>lectureStudyIncludesQuestion(q,course)),
     JSON.stringify([filters,lectureStudyState(course).chapter]));

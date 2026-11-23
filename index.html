@@ -2175,7 +2175,7 @@ SOFTWARE.
 <script id="jbl-data-script" src="./jbl-data.js?v=j23085-related-20261123"></script>
 <script src="./question-migrations.js?v=j15051-photo-20261123"></script>
 <script id="jbl-concept-data" src="./jbl-concepts.js?v=j23085-related-20261123"></script>
-<script src="./lecture-study.js?v=surgery-20261120"></script>
+<script src="./lecture-study.js?v=stable-study-filter-20261124"></script>
 <script src="./question-updates-data.js?v=j15051-photo-20261123"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
   <script src="./wiki-image-annotations.js"></script>
@@ -2282,6 +2282,7 @@ SOFTWARE.
       state.filters = {year:'', lectureId:'', professor:'', favoritesOnly:false, wrongOnly};
       // Freeze this review batch so a correct answer cannot shift the next question.
       state.wrongBatch = wrongOnly ? wrongQuestionIds() : null;
+      state.filterBatch = null;
       state.index = 0; state.panel = wrongOnly ? 'filter' : null;
       clearJblRandomOrder(state); freshQuestionAttempt(state);
     }
@@ -2664,7 +2665,7 @@ SOFTWARE.
       for(const [key,state] of Object.entries(jblViewerStates)){
         if(state.randomEnabled&&state.randomSession){
           savedRandomSessions[key]={randomEnabled:true,randomSession:state.randomSession,index:state.index,
-            filters:state.filters,wrongBatch:state.wrongBatch,selected:state.selected,answerShown:state.answerShown,
+            filters:state.filters,wrongBatch:state.wrongBatch,filterBatch:state.filterBatch,selected:state.selected,answerShown:state.answerShown,
             explanationShown:state.explanationShown,attempts:state.attempts};
         }else delete savedRandomSessions[key];
       }
@@ -2700,7 +2701,23 @@ SOFTWARE.
     function updateQuestionFilters(state,values){
       window.CardiovascularQuickMode?.cancel();
       state.filters={...(state.filters||{}),...values};state.linkedQuestionNumber=null;state.wrongBatch=null;
+      state.filterBatch=null;
       if(!state.randomEnabled){state.index=0;clearJblRandomOrder(state);}
+    }
+    function stableStudyFilterBatch(state,candidates,matches,scope){
+      const filters=state.filters||{};
+      if(!(filters.statuses?.length||filters.favoritesOnly||filters.wrongOnly)){
+        state.filterBatch=null;
+        return candidates;
+      }
+      const signature=JSON.stringify([scope,filters]);
+      // Freeze membership, not question data or grades. Refilter only on an explicit
+      // filter/scope change so answering cannot remove a card or shift its index.
+      if(state.filterBatch?.signature!==signature){
+        state.filterBatch={signature,ids:candidates.filter(matches).map(question=>question.id)};
+      }
+      const ids=new Set(state.filterBatch.ids);
+      return candidates.filter(question=>ids.has(question.id));
     }
     const standaloneState = () => {
       const state = viewerState('jbl-all');
@@ -2776,25 +2793,23 @@ SOFTWARE.
     const jblFilterValues = value => [...new Set((Array.isArray(value) ? value : [value]).map(item => String(item ?? '').trim()).filter(Boolean))];
     const jblFilterSignature = filters => JSON.stringify([isUpdatedJblView() ? 'updated2022and2023' : 'all', jblFilterValues(filters.year).sort(), jblFilterValues(filters.lectureId).sort(), jblFilterValues(filters.professor).sort(), filters.favoritesOnly, filters.wrongOnly, filters.statuses || []]);
     const filteredJblQuestions = () => {
-      const { filters } = standaloneState();
+      const state = standaloneState(), { filters } = state;
       const years = new Set(jblFilterValues(filters.year));
       const lectures = new Set(jblFilterValues(filters.lectureId).map(canonicalContentCourseId));
       const professors = new Set(jblFilterValues(filters.professor));
       const collection = isUpdatedJblView() ? updatedJblNumbers() : null;
-      return jblQuestions.filter(question => {
+      const candidates = jblQuestions.filter(question => {
         if (collection && !collection.has(canonicalJblNumber(question.globalNumber))) return false;
         if (years.size && !years.has(String(question.year))) return false;
         if (lectures.size && !questionLectureIds(question).some(id => lectures.has(id)) && !(lectures.has(0) && question.category==='과거 강의 기출')) return false;
         if (professors.size && !professors.has(questionExamProfessor(question))) return false;
-        const statuses = filters.statuses || [];
-        if (statuses.length || filters.favoritesOnly || filters.wrongOnly) {
-          const matches = statuses.includes(questionListStudyStatus(question))
-            || (filters.favoritesOnly && questionIsFavorite(question))
-            || (filters.wrongOnly && (standaloneState().wrongBatch || wrongQuestionIds()).includes(question.id));
-          if (!matches) return false;
-        }
         return true;
       });
+      return stableStudyFilterBatch(state,candidates,question =>
+        (filters.statuses || []).includes(questionListStudyStatus(question))
+        || (filters.favoritesOnly && questionIsFavorite(question))
+        || (filters.wrongOnly && (state.wrongBatch ? state.wrongBatch.includes(question.id) : questionListStudyStatus(question)==='wrong')),
+        jblFilterSignature(filters));
     };
     const jblQuestionsByNumber = () => jblQuestions.slice().sort((a,b) => compareJblNumbers(a.globalNumber,b.globalNumber));
     const jblQuestionsByLecture = (questions, lectureFilter) => {

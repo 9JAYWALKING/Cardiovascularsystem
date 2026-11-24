@@ -101,6 +101,12 @@
   document.addEventListener('keydown',e=>{if(!active()||!current||e.ctrlKey||e.altKey||e.metaKey||e.target.closest('input,textarea,select,[contenteditable="true"]')||document.querySelector('dialog[open],.context-link-split'))return;if(e.key==='ArrowLeft'){e.preventDefault();move(-1);}else if(e.key==='ArrowRight'){e.preventDefault();move(1);}else if(/^[1-4]$/.test(e.key)){e.preventDefault();choose(attempt(current).options[Number(e.key)-1]);}});
   addEventListener('hashchange',()=>{cancelAdvance();cancelGesture();if(!active()){document.querySelectorAll('.ecgd-dialog').forEach(d=>d.close());navObserver?.disconnect();}});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAdvance();});addEventListener('resize',fit,{passive:true});window.visualViewport?.addEventListener('resize',fit,{passive:true});
+  addEventListener('study-question-reset',event=>{
+    records=JSON.parse(localStorage.getItem(KEY)||'{}');
+    for(const id of event.detail.statusIds.ecg){const q=byId.get(id);if(q)delete attempts[q.key];}
+    if(current&&event.detail.statusIds.ecg.includes(current.id))resetQuestion();
+    if(active())draw(false);
+  });
   addEventListener('storage',e=>{if(e.key!==KEY)return;try{const r=JSON.parse(e.newValue||'{}');records=r&&typeof r==='object'&&!Array.isArray(r)?r:{};if(active())draw(false);}catch(_){}});
   window.CardiovascularPathology={render,isActive:active,toolsHTML,bindTools,makeOptions,openGuide,timedQuestion(){if(!active()||!current)return null;const q=current;return {key:'ecg-workbook|'+q.id,paused:explanation||Boolean(document.querySelector('dialog[open],.context-link-split')),reveal:()=>{if(current===q){revealed=true;layers=true;draw(false);}},next:()=>{if(current===q)move(1);}};},audit:()=>({total:D.questions.length,sequence:sequence.map(q=>q.id),filters:[...filters],statusFilter,random,current:current?.id,options:current?[...attempt(current).options]:[],selected:current?attempt(current).selected:null,revealed,explanation,layers,storageAvailable})};
 })();

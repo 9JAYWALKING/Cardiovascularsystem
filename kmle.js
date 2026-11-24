@@ -265,6 +265,11 @@
     if(e.key==='Escape'&&explanation)closeExplanation();
   });
 
+  window.addEventListener('study-question-reset',event=>{
+    records=safeObject(localStorage.getItem(KEY));
+    if(current&&event.detail.statusIds.kmle.includes(current.id)){picked=[];revealed=false;explanation=false;}
+    if(root&&location.hash.startsWith('#kmle')){if(current)renderQuestion(false);else renderMap();}
+  });
   window.addEventListener('storage',e=>{
     if(e.key!==KEY)return;records=safeObject(e.newValue);
     if(!root||!location.hash.startsWith('#kmle'))return;

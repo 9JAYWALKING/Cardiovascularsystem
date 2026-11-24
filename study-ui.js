@@ -86,6 +86,7 @@
     edit:'<path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15l-1 6Z"/>',
     search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
     refresh:'<path d="M20 7v5h-5M20 12a8 8 0 1 0-2.3 5.7"/>',
+    reset:'<path d="M4 4v5h5M4.4 9a8 8 0 1 1 .9 8M12 8v4l3 2"/>',
     tools:'<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="8" cy="18" r="2" fill="currentColor"/>'
   };
   const svg = name => '<svg viewBox="0 0 24 24" aria-hidden="true">'+icons[name]+'</svg>';
@@ -123,6 +124,60 @@
   window.setInterval(updateExamDday,1000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateExamDday();});
   const dialog=document.createElement('dialog');dialog.id='study-control-center';dialog.setAttribute('aria-label','도구');document.body.append(dialog);
+  const resetDialog=document.createElement('dialog');
+  resetDialog.id='study-reset-dialog';resetDialog.setAttribute('aria-labelledby','study-reset-title');document.body.append(resetDialog);
+  const resetLabels={correct:'정답',uncertain:'보류',wrong:'오답',favorite:'즐겨찾기'};
+  let resetSelection=[],resetPlan=null;
+  const resetButtonHTML=()=>'<button type="button" class="study-reset-open" data-center-reset aria-haspopup="dialog" aria-controls="study-reset-dialog">'+svg('reset')+'<span>초기화</span></button>';
+  const resetFooter=(backLabel='취소')=>`<footer class="study-reset-actions"><button type="button" data-reset-back>${backLabel}</button><button type="button" class="study-reset-confirm" data-reset-confirm>확인</button></footer>`;
+  function resetHeading(title){return `<header><p class="study-reset-scope">사이트 전체 문항</p><h2 id="study-reset-title" tabindex="-1">${title}</h2></header>`;}
+  function resetError(message){
+    let node=resetDialog.querySelector('[data-reset-error]');
+    if(!node){node=document.createElement('p');node.dataset.resetError='';node.setAttribute('role','alert');resetDialog.querySelector('footer')?.before(node);}
+    node.textContent=message;
+  }
+  function renderResetSelection(focusTitle=false){
+    try{resetPlan=window.CardiovascularQuestionReset.preview(resetSelection);}catch(_){
+      resetDialog.innerHTML=resetHeading('문항 표시 초기화')+'<p role="alert">기록을 읽지 못했어요. 저장소 접근 상태를 확인한 뒤 다시 열어 주세요.</p><footer class="study-reset-actions"><button type="button" data-reset-back>닫기</button></footer>';
+      resetDialog.querySelector('[data-reset-back]').onclick=()=>resetDialog.close();return;
+    }
+    resetDialog.innerHTML=resetHeading('문항 표시 초기화')+`<p class="study-reset-description">초기화할 표시를 골라 주세요.</p><div class="study-reset-choices" role="group" aria-label="초기화할 표시 · 중복 선택 가능">${Object.entries(resetLabels).map(([key,label])=>`<label class="study-reset-choice"><input type="checkbox" value="${key}" aria-label="${label} 초기화" ${resetSelection.includes(key)?'checked':''} ${resetPlan.counts[key]?'':'disabled'}><span class="study-reset-square">${svg(key)}<span class="study-reset-check" aria-hidden="true">✓</span></span><span class="study-reset-label">${label}</span><span class="study-reset-count">${resetPlan.counts[key].toLocaleString()}<small>문항</small></span></label>`).join('')}</div><p class="study-reset-note">정답·보류·오답 → 미풀이<br>즐겨찾기 → 해제</p><p class="study-reset-total" aria-live="polite" data-reset-total></p>`+resetFooter();
+    const update=()=>{
+      resetPlan=window.CardiovascularQuestionReset.preview(resetSelection);
+      resetDialog.querySelector('[data-reset-total]').textContent=resetPlan.total?`선택한 문항 ${resetPlan.total.toLocaleString()}개 · 중복 제외`:'여러 표시를 함께 선택할 수 있어요.';
+      resetDialog.querySelector('[data-reset-confirm]').disabled=!resetPlan.total;
+    };
+    resetDialog.querySelectorAll('input').forEach(input=>input.onchange=()=>{
+      resetSelection=[...resetDialog.querySelectorAll('input:checked')].map(el=>el.value);
+      try{update();}catch(_){resetError('기록을 읽지 못했어요. 창을 닫고 다시 열어 주세요.');resetDialog.querySelector('[data-reset-confirm]').disabled=true;}
+    });
+    resetDialog.querySelector('[data-reset-back]').onclick=()=>resetDialog.close();
+    resetDialog.querySelector('[data-reset-confirm]').onclick=()=>{
+      try{resetPlan=window.CardiovascularQuestionReset.preview(resetSelection);renderResetReview();}catch(_){resetError('기록을 읽지 못했어요. 다시 시도해 주세요.');}
+    };
+    update();if(focusTitle)resetDialog.querySelector('h2').focus({preventScroll:true});
+  }
+  function renderResetReview(message=''){
+    resetDialog.innerHTML=resetHeading('이 데이터를 초기화합니다.')+`<div class="study-reset-review">${resetPlan.selection.map(key=>`<div><span>${svg(key)}${resetLabels[key]}</span><strong>${resetPlan.counts[key].toLocaleString()}문항</strong></div>`).join('')}</div><p class="study-reset-total"><strong>총 ${resetPlan.total.toLocaleString()}문항</strong><span>중복 제외</span></p><p class="study-reset-note">${resetPlan.statusTotal?'선택한 풀이 표시와 답안 선택을 미풀이로 되돌립니다.<br>':''}${resetPlan.favoriteTotal?'선택한 문항의 즐겨찾기를 해제합니다.<br>':''}원본·보강본은 한 문항으로 계산합니다.</p>`+resetFooter('이전');
+    resetDialog.querySelector('[data-reset-back]').onclick=()=>renderResetSelection(true);
+    const confirm=resetDialog.querySelector('[data-reset-confirm]');confirm.disabled=!resetPlan.total;
+    confirm.onclick=()=>{
+      confirm.disabled=true;
+      const result=window.CardiovascularQuestionReset.commit(resetPlan);
+      if(result.changed){resetPlan=result.plan;renderResetReview('문항 표시가 변경되어 현황을 새로 불러왔어요. 다시 확인해 주세요.');return;}
+      if(!result.ok){resetError(result.error);confirm.disabled=false;return;}
+      resetDialog.innerHTML=resetHeading('초기화했어요')+`<p class="study-reset-description" role="status">${result.total.toLocaleString()}문항의 선택한 표시를 초기화했어요.</p><footer class="study-reset-actions"><button type="button" class="study-reset-confirm" data-reset-close>닫기</button></footer>`;
+      resetDialog.querySelector('[data-reset-close]').onclick=()=>resetDialog.close();
+      resetDialog.querySelector('[data-reset-close]').focus({preventScroll:true});
+      if(dialog.open)renderTools();
+    };
+    if(message)resetError(message);
+    resetDialog.querySelector('h2').focus({preventScroll:true});
+  }
+  function openReset(){resetSelection=[];renderResetSelection();resetDialog.showModal();}
+  resetDialog.addEventListener('click',event=>{if(event.target!==resetDialog)return;const r=resetDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)resetDialog.close();});
+  resetDialog.addEventListener('close',()=>{resetPlan=null;resetSelection=[];dialog.querySelector('[data-center-reset]')?.focus({preventScroll:true});});
+  addEventListener('hashchange',()=>{if(resetDialog.open)resetDialog.close();});
   const timerKey='cardiovascular-study-timer-v1';
   let studyTimer=null,timerEditorOpen=false,timerDraft='25',timerNameDraft='';
   function readTimer(raw){
@@ -447,6 +502,9 @@
     });
     dialog.querySelector('[data-center-gestures]').addEventListener('click',()=>window.CardiovascularGestures.setEnabled(!window.CardiovascularGestures.isEnabled()));
     const statusFilters=dialog.querySelector('.study-status-filters');
+    if(statusFilters)statusFilters.insertAdjacentHTML('beforeend',resetButtonHTML());
+    else dialog.querySelector('.study-center-controls').insertAdjacentHTML('afterend',`<div class="study-reset-standalone">${resetButtonHTML()}</div>`);
+    dialog.querySelector('[data-center-reset]').onclick=openReset;
     if(statusFilters && chapterFilter)statusFilters.insertAdjacentHTML('beforebegin',chapterFilter);
     dialog.querySelector('[data-center-chapter]')?.addEventListener('change',event=>{
       app.selectQuestionChapter(event.target.value);

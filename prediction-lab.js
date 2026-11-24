@@ -139,5 +139,9 @@ window.PredictionLab = (() => {
     return true;
   }
   function scrollTop(){requestAnimationFrame(()=>{const el=document.querySelector('#prediction-lab-view [data-lab-question-root]');if(el)window.scrollTo({top:Math.max(0,window.scrollY+el.getBoundingClientRect().top-(document.querySelector('.masthead')?.getBoundingClientRect().height||0)-12),behavior:'smooth'});});}
+  window.addEventListener('study-question-reset',()=>{
+    try{saved=JSON.parse(localStorage.getItem(storageKey)||'{}');}catch(_){}
+    // The shared J renderer refreshes the current card after clearing its attempt.
+  });
   return {render,renderBlock,own,status,persistStatus,favorite,toggleFavorite,jump,scrollTop};
 })();

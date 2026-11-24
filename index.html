@@ -2017,7 +2017,7 @@ html[data-theme="dark"] #site-loading-screen{background:#0d0e10;color:#f4f4f5}
   :root[data-theme="dark"] .quick-preview {background:#160f10;color:#ddb7bf;}
   :root[data-theme="dark"] .quick-final-heading,:root[data-theme="dark"] .quick-heading h2 {color:#ddb7bf;}
 </style>
-<link rel="stylesheet" href="./study-ui.css?v=20261115-schedule">
+<link rel="stylesheet" href="./study-ui.css?v=question-reset-20261125">
   <link rel="stylesheet" href="./wiki-image-overlays.css?v=typography-v1-20261105">
   <link rel="stylesheet" href="./cardiovascular-atlas.css?v=starter-20261106">
   <link rel="stylesheet" href="./kmle.css?v=clinical-20261106">
@@ -2170,15 +2170,15 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=prediction-lab-20261124"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=cases52-20261124"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=kang-pre2019-20261124"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261123-lecture51"></script>
 <script src="./schedule-advice-data.js?v=cases52-20261124"></script>
 <script src="./schedule-advice.js?v=first-assignment-20261120"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=cases52-20261124"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=kang-pre2019-20261124"></script>
 <script src="./question-migrations.js?v=j15051-photo-20261123"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=cases52-20261124"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=kang-pre2019-20261124"></script>
 <script src="./lecture-study.js?v=stable-study-filter-20261124"></script>
 <script src="./question-updates-data.js?v=j15051-photo-20261123"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
@@ -2187,13 +2187,13 @@ SOFTWARE.
   <script src="./cardiovascular-atlas-data.js?v=starter-20261106"></script>
   <script src="./cardiovascular-atlas.js?v=starter-20261106"></script>
   <script src="./kmle-data.js?v=clinical-20261106"></script>
-  <script src="./kmle.js?v=clinical-20261106"></script>
+  <script src="./kmle.js?v=question-reset-20261125"></script>
   <script src="./ecg-drill-data.js?v=20261117-workbook"></script>
-  <script src="./ecg-drill.js?v=20261117-workbook"></script>
+  <script src="./ecg-drill.js?v=question-reset-20261125"></script>
 <script src="./prediction-lab-data.js?v=20261124"></script>
 <script src="./prediction-lab-lipids-data.js?v=20261124"></script>
 <script src="./prediction-lab-gallery.js?v=20261124" data-ecg-prefix="labcase-"></script>
-<script src="./prediction-lab.js?v=20261124-lecture-header"></script>
+<script src="./prediction-lab.js?v=question-reset-20261125"></script>
 <script>
   window.THEME_WIKI_DATA = {documents:[]};
 </script>
@@ -4465,6 +4465,7 @@ SOFTWARE.
       clone.removeAttribute('data-theme');
       clone.style.removeProperty('--study-text-scale');
       clone.querySelector('#study-control-center')?.remove();
+      clone.querySelector('#study-reset-dialog')?.remove();
       clone.querySelector('#study-primary-nav')?.remove();
       clone.querySelector('[data-study-handle]')?.remove();
       clone.querySelector('[data-study-tools]')?.remove();
@@ -4493,18 +4494,18 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=cases52-20261124"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=kang-pre2019-20261124"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
       dataScript.textContent = '';
-      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=cases52-20261124"]');
+      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=kang-pre2019-20261124"]');
       const notePayload = JSON.stringify(lectureNoteSources).replace(/</g, '\\u003c');
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=cases52-20261124"]');
-      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=cases52-20261124'); conceptDataScript.textContent=''; }
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=kang-pre2019-20261124"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=kang-pre2019-20261124'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);
@@ -6810,6 +6811,24 @@ SOFTWARE.
     const wrongAnswerStorageKey = 'cardiovascular-wrong-answers-v1';
     let wrongAnswers = readStudyStorage(wrongAnswerStorageKey, {});
     if (!wrongAnswers || typeof wrongAnswers !== 'object' || Array.isArray(wrongAnswers)) wrongAnswers = {};
+    window.addEventListener('study-question-reset',event=>{
+      wrongAnswers=readStudyStorage(wrongAnswerStorageKey,{});
+      jblFavorites=new Set(readStudyStorage(jblFavoritesKey,[]).map(id=>window.JBL_DATA?.questionIdAliases?.[id]||id));
+      savedRandomSessions=readStudyStorage(randomSessionStorageKey,{});
+      const ids=[...event.detail.statusIds.j,...event.detail.statusIds.lab];
+      for(const state of Object.values(jblViewerStates))window.CardiovascularQuestionReset.clearAttempts(state,ids);
+      // Keep the current filter batch/order and scroll position, even if reset
+      // questions no longer match that filter. The next explicit filter rebuilds it.
+      const scroll={top:window.scrollY,left:window.scrollX};
+      const paneScroll=[...document.querySelectorAll('.context-link-body,.context-link-source')].map(el=>({el,top:el.scrollTop}));
+      const redraw=new Map([activeQuestionViewer(),studyQuestionViewer()].filter(Boolean).map(viewer=>[viewer.key,viewer.rerender]));
+      for(const render of redraw.values())render();
+      for(const {el,top} of paneScroll)if(el.isConnected)el.scrollTop=top;
+      const bookmarks=location.hash.match(/^#bookmarks(?:-([a-z]+))?$/);
+      if(bookmarks)renderBookmarkCollection(bookmarks[1]||'');
+      if(!location.hash||location.hash==='#home')renderQuickStart();
+      window.scrollTo({...scroll,behavior:'instant'});
+    });
     function quickQuestionContext(){
       const host=document.querySelector('#jbl-view:not([hidden]) [data-jbl-root], #detail-view:not([hidden]) .lecture-j-pane:not([hidden]) [data-jbl-course-root], #prediction-lab-view:not([hidden]) [data-lab-question-root]');
       const viewer=questionExplanationState.active?questionExplanationState.viewer:contextLinkState.active?contextLinkState.body?.querySelector('[data-context-question-root]')?.questionViewer:host?.questionViewer;
@@ -6882,7 +6901,8 @@ SOFTWARE.
     };
     routeFromHash();
 </script>
-<script src="./study-ui.js?v=loading-brand-20261122"></script>
+<script src="./study-reset.js?v=20261125"></script>
+<script src="./study-ui.js?v=question-reset-20261125"></script>
 <script src="./study-responsive.js?v=starter-20261106"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>

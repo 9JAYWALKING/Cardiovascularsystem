@@ -2068,7 +2068,7 @@ SOFTWARE.
 <link rel="stylesheet" href="./clinical-learning.css?v=clinical18-19-20261112">
   <link rel="stylesheet" href="./odap2019-reading.css?v=20261113">
 <link rel="stylesheet" href="./schedule-advice.css?v=first-assignment-20261120">
-<link rel="stylesheet" href="./prediction-lab.css?v=20261124">
+<link rel="stylesheet" href="./prediction-lab.css?v=20261124-lecture-header">
 </head>
 <body class="">
 <div id="site-loading-screen" role="status" aria-live="polite" aria-label="페이지를 준비하고 있습니다">
@@ -2191,8 +2191,9 @@ SOFTWARE.
   <script src="./ecg-drill-data.js?v=20261117-workbook"></script>
   <script src="./ecg-drill.js?v=20261117-workbook"></script>
 <script src="./prediction-lab-data.js?v=20261124"></script>
+<script src="./prediction-lab-lipids-data.js?v=20261124"></script>
 <script src="./prediction-lab-gallery.js?v=20261124" data-ecg-prefix="labcase-"></script>
-<script src="./prediction-lab.js?v=20261124"></script>
+<script src="./prediction-lab.js?v=20261124-lecture-header"></script>
 <script>
   window.THEME_WIKI_DATA = {documents:[]};
 </script>
@@ -4120,7 +4121,7 @@ SOFTWARE.
         document.removeEventListener('pointerdown',outsideNumber,true);
         if (key.startsWith('lab:')) {
           const input=numberInput.value;numberInput.hidden=true;numberButton.hidden=false;numberInput.value=question.globalNumber;
-          if(!cancel && container.isConnected && !PredictionLab.jump(input))alert('AI 01–20 중 이동할 번호를 입력해 주세요.');
+          if(!cancel && container.isConnected && !PredictionLab.jump(input))alert('현재 연구 묶음에 있는 AI 문항 번호를 입력해 주세요.');
           return;
         }
         const value = canonicalJblNumber(numberInput.value);

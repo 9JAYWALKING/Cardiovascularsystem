@@ -1,10 +1,20 @@
 #prediction-lab-root { max-width:1100px; margin:0 auto; padding:28px 16px 32px; overflow-wrap:anywhere; }
+#prediction-lab-root.lab-study { max-width:none; padding:0; }
+.lab-detail-bar { margin-bottom:8px; }
+.lab-detail-bar .detail-number-form > [hidden] { display:none !important; }
+.lab-return { color:inherit; text-decoration:none; }
+.lab-return:hover { text-decoration:underline; }
+.lab-return:focus-visible { outline:2px solid #fff; outline-offset:3px; border-radius:3px; }
+@media(min-width:901px) {
+ .study-ui main:has(#prediction-lab-view:not([hidden]) .lab-study) { padding-top:10px; }
+}
 .lab-home-head { padding:12px 0 30px; }
 .lab-back { display:inline-flex; align-items:center; min-height:40px; color:var(--study-accent); font-size:var(--reading-ui-small); text-decoration:none; }
 .lab-eyebrow { color:var(--study-accent); font-size:var(--reading-ui-small); letter-spacing:.035em; margin:12px 0 8px; font-weight:650; }
-.lab-home-head h1,.lab-header h1 { font-size:var(--reading-ui-title); line-height:1.4; margin:0 0 12px; }
-.lab-home-head>p:last-child,.lab-description,.lab-collection-main>p { font-size:var(--reading-ui-body); color:var(--study-muted); line-height:1.7; margin:10px 0; }
+.lab-home-head h1 { font-size:var(--reading-ui-title); line-height:1.4; margin:0 0 12px; }
+.lab-home-head>p:last-child,.lab-collection-main>p { font-size:var(--reading-ui-body); color:var(--study-muted); line-height:1.7; margin:10px 0; }
 .lab-collection { display:flex; gap:24px; padding:28px; border:1px solid var(--study-border); background:var(--study-surface); border-radius:22px; }
+.lab-collection + .lab-collection { margin-top:20px; }
 .lab-collection-number { width:64px; height:64px; flex-shrink:0; display:grid; place-items:center; background:var(--brand-soft,#f6eef0); color:var(--study-accent); border-radius:18px; font-size:28px; font-weight:650; }
 .lab-collection-main { min-width:0; flex:1; }
 .lab-collection-main .lab-eyebrow { margin-top:0; }
@@ -15,11 +25,6 @@
 .lab-collection-actions a { display:inline-flex; align-items:center; gap:24px; }
 .lab-collection-actions .lab-primary { background:#742d45; border-color:#742d45; color:white; }
 .lab-footnote { font-size:var(--reading-meta); color:var(--study-muted); margin:18px 0; line-height:1.6; }
-.lab-header { padding-bottom:16px; border-bottom:1px solid var(--study-border); margin-bottom:20px; }
-.lab-title-row { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
-.lab-tabs { display:inline-flex; gap:4px; padding:4px; border:1px solid var(--study-border); background:var(--brand-soft,#f6eef0); border-radius:14px; }
-.lab-tabs a { color:var(--study-accent); padding:8px 14px; border-radius:10px; text-decoration:none; font-weight:650; font-size:var(--reading-ui-body); min-height:40px; display:flex; align-items:center; }
-.lab-tabs a[aria-current] { background:var(--study-surface); color:inherit; box-shadow:0 1px 5px #0000000a; }
 .lab-controls { margin-bottom:18px; }
 .lab-topic,.lab-filter-row { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
 .lab-filter-row { margin-top:12px; }
@@ -41,17 +46,12 @@
 .lab-wiki .wiki-toc-links button { width:100%; text-align:left; min-height:42px; line-height:1.5; }
 .lab-wiki .wiki-layout.is-toc-collapsed .wiki-toc-links { display:none; }
 .lab-wiki [data-wiki-section] { scroll-margin-top:90px; }
-html[data-theme="dark"] :is(.lab-tabs,.lab-collection-number,.lab-ai-badge,.lab-controls button[aria-pressed="true"]) { background:#211519; }
+html[data-theme="dark"] :is(.lab-collection-number,.lab-ai-badge,.lab-controls button[aria-pressed="true"]) { background:#211519; }
 @media(max-width:600px) {
  #prediction-lab-root { padding:16px 12px 24px; }
  .lab-collection { padding:20px; gap:16px; flex-direction:column; }
  .lab-collection-number { width:48px; height:48px; border-radius:14px; font-size:22px; }
  .lab-collection-actions a { flex:1 1 auto; justify-content:center; }
- .lab-title-row { gap:8px; }
- .lab-header { padding-bottom:12px; margin-bottom:14px; }
- .lab-header h1 { font-size:var(--reading-ui-section); margin-bottom:4px; }
- .lab-header .lab-eyebrow { margin-top:6px; }
- .lab-description { font-size:var(--reading-ui-small); margin-bottom:0; }
  .lab-filter-note { font-size:var(--reading-ui-meta); }
  .lab-wiki .wiki-hero { padding:18px 14px; }
  .lab-wiki .wiki-layout,.lab-wiki .wiki-layout.is-toc-collapsed { padding:14px 12px 6px; }

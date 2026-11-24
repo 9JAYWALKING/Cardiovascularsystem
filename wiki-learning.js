@@ -10,6 +10,8 @@ function latestWikiQuestionLinks(value) {
 }
 
 function renderWikiLearningBlock(line, course, footnotes) {
+  const lab=window.PredictionLab?.renderBlock(line);
+  if(lab)return lab;
   const inline = value => renderWikiInline(value, course, footnotes);
   const clinical = window.renderClinicalLearningBlock?.(line);
   if (clinical) return clinical;

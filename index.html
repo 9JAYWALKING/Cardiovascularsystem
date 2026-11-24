@@ -2068,6 +2068,7 @@ SOFTWARE.
 <link rel="stylesheet" href="./clinical-learning.css?v=clinical18-19-20261112">
   <link rel="stylesheet" href="./odap2019-reading.css?v=20261113">
 <link rel="stylesheet" href="./schedule-advice.css?v=first-assignment-20261120">
+<link rel="stylesheet" href="./prediction-lab.css?v=20261124">
 </head>
 <body class="">
 <div id="site-loading-screen" role="status" aria-live="polite" aria-label="페이지를 준비하고 있습니다">
@@ -2113,6 +2114,7 @@ SOFTWARE.
   <section id="home-view" class="view"><div id="quick-start-root"></div></section>
   <section id="cardiovascular-atlas-view" class="view" hidden><div id="cardiovascular-atlas-root"></div></section>
   <section id="pathology-view" class="view" hidden><div id="pathology-root"></div></section>
+  <section id="prediction-lab-view" class="view" hidden aria-label="예상문항연구소"><div id="prediction-lab-root"></div></section>
   <section id="kmle-view" class="view" hidden><div id="kmle-root"></div></section>
   <section id="map-view" class="view" hidden><div id="disease-map-root"></div></section>
   <section id="bookmarks-view" class="view" hidden><div id="bookmark-collection-root"></div></section>
@@ -2167,7 +2169,7 @@ SOFTWARE.
 <script src="./ecg-recall.js?v=ecg-audit-20261111"></script>
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
-<script src="./wiki-learning.js?v=wiki-order-20261118"></script>
+<script src="./wiki-learning.js?v=prediction-lab-20261124"></script>
 <script id="lecture-note-data" src="./lecture-notes.js?v=cases52-20261124"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
@@ -2188,6 +2190,9 @@ SOFTWARE.
   <script src="./kmle.js?v=clinical-20261106"></script>
   <script src="./ecg-drill-data.js?v=20261117-workbook"></script>
   <script src="./ecg-drill.js?v=20261117-workbook"></script>
+<script src="./prediction-lab-data.js?v=20261124"></script>
+<script src="./prediction-lab-gallery.js?v=20261124" data-ecg-prefix="labcase-"></script>
+<script src="./prediction-lab.js?v=20261124"></script>
 <script>
   window.THEME_WIKI_DATA = {documents:[]};
 </script>
@@ -2201,6 +2206,7 @@ SOFTWARE.
       uncertain:{symbol:'△', label:'보류'}, wrong:{symbol:'X', label:'오답'}
     };
     function questionStudyStatus(id) {
+      if (window.PredictionLab?.own(id)) return PredictionLab.status(id);
       if (String(id).startsWith('jbl-wiki:')) return lectureJblWikiStatus(id);
       const record = wrongAnswers[id];
       if (record && Object.hasOwn(questionStudyStatuses, record.status)) return record.status;
@@ -2235,6 +2241,7 @@ SOFTWARE.
 
     function saveQuestionStudyStatus(id, status, manual = false) {
       if (!Object.hasOwn(questionStudyStatuses, status)) return false;
+      if (window.PredictionLab?.own(id)) return PredictionLab.persistStatus(id,status);
       if (String(id).startsWith('jbl-wiki:')) return saveLectureJblWikiStatus(id,status);
       const old = wrongAnswers[id] || {}, now = Date.now();
       const addWrong = status === 'wrong' && (!manual || questionStudyStatus(id) !== 'wrong');
@@ -2398,7 +2405,7 @@ SOFTWARE.
           <button class="study-app" type="button" data-quick-route="#ecg"><span class="study-app-icon app-pathology" aria-hidden="true"></span><h3>ECG 땡시</h3><span class="study-app-caption">40문항 · 파형 판독</span></button>
           <button class="study-app" type="button" data-quick-wrong><span class="study-app-icon app-wrong" aria-hidden="true">✏️</span><h3>오답 복습</h3><span class="study-app-caption">${wrongQuestionIds().length}문항</span></button>
           <button class="study-app" type="button" data-resp-exams><span class="study-app-icon app-exam" aria-hidden="true">⏱️</span><h3>실전처럼 풀기</h3><span class="study-app-caption">준비 중</span></button>
-          <button class="study-app" type="button" data-resp-mocks aria-haspopup="dialog"><span class="study-app-icon app-mock" aria-hidden="true">📝</span><h3>실전 모의고사</h3><span class="study-app-caption">준비 중</span></button>
+          <button class="study-app" type="button" data-quick-route="#prediction-lab"><span class="study-app-icon app-mock" aria-hidden="true">📝</span><h3>예상문항연구소</h3><span class="study-app-caption">AI 문항 · Wiki · JBL</span></button>
         </div>
         <button class="study-help-entry" data-study-tutorial-open><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v15M12 5C8 3 5 3 2 4v15c3-1 6-1 10 1 4-2 7-2 10-1V4c-3-1-6-1-10 1"/></svg><span><strong>처음이라면 · 사이트 사용법</strong><small>기본 사용 연습 · 제스처 연습 · 기능 찾아보기</small></span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         <button class="study-help-entry updates-entry" type="button" data-quick-route="#jbl-updated"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h10m4-6 3 3-3 3"/></svg><span><strong>최신 업데이트 문항 모아보기</strong><small>2026.11.21 병리 2014~2018 족보 수록 · 이전 업데이트<br>날짜·유형별 필터 · ${updatedJblNumbers().size}문항을 강의순으로</small></span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
@@ -2599,11 +2606,13 @@ SOFTWARE.
       return questionStudyStatus(questionForViewer(question).id);
     }
     function questionIsFavorite(question) {
+      if (question.isAiLab) return PredictionLab.favorite(question.id);
       const base = questionVersionBase(question);
       return jblFavorites.has(base.id) || Boolean(base.inferredVersion?.question && jblFavorites.has(base.id+'::inferred'));
     }
     const questionVersionIcons = {"gpt": "<svg aria-hidden=\"true\" focusable=\"false\" fill=\"currentColor\" fill-rule=\"evenodd\" height=\"1em\" style=\"flex:none;line-height:1\" viewBox=\"0 0 24 24\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z\"></path></svg>", "claude": "<svg aria-hidden=\"true\" focusable=\"false\" fill=\"currentColor\" fill-rule=\"evenodd\" height=\"1em\" style=\"flex:none;line-height:1\" viewBox=\"0 0 24 24\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z\"></path></svg>"};
     function questionVersionButton(question) {
+      if (question.isAiLab) return '<span class="lab-ai-badge" title="AI 연습 문항 · 실제 기출 아님">AI</span>';
       const base = questionVersionBase(question);
       const hasInferred = Boolean(base.inferredVersion?.question);
       if (!hasInferred && !base.originalVersion?.question) return base.generatedBy === 'gpt' ? `<span class="jbl-original-link" data-generated-question="gpt" role="img" aria-label="GPT 제작문항" title="GPT 제작문항 · 실제 기출 아님">${questionVersionIcons.gpt}</span>` : '';
@@ -2768,6 +2777,7 @@ SOFTWARE.
     // Read metadata at render time so edits and the latest JBL_DATA feed every view.
     const questionExamProfessor = question => String(question.legacyProfessor || '').trim() || String(question.professor || '').trim();
     const questionExaminerLabel = question => {
+      if (question.isAiLab) return "AI 예상문항";
       const name = questionExamProfessor(question) || '미확인';
       if (name === '미확인') return '출제교수 미확인';
       return `${name} 교수`;
@@ -3805,6 +3815,7 @@ SOFTWARE.
       bindWikiLearning(container, course);
       container.querySelector('.wiki-note')?.setAttribute('data-wiki-document-course', String(course.id));
       container.querySelectorAll('.wiki-note h5[data-wiki-level], .wiki-note h6[data-wiki-level]').forEach(heading => {
+        if(course.isAiLab)return;
         if (heading.querySelector('[data-wiki-heading-edit]')) return;
         const button = document.createElement('button');
         button.type = 'button';
@@ -3816,7 +3827,7 @@ SOFTWARE.
         button.addEventListener('click', () => openWikiSectionEditor(course, button.dataset.wikiHeadingEdit, container));
       });
       bindContentImages(container);
-      bindWikiBookmarks(container, course);
+      if(!course.isAiLab)bindWikiBookmarks(container, course);
       const toc = container.querySelector('.wiki-toc');
       const tocLayout = toc?.closest('.wiki-layout');
       if (toc && tocLayout) {
@@ -4107,6 +4118,11 @@ SOFTWARE.
         if (!enteringNumber) return;
         enteringNumber = false;
         document.removeEventListener('pointerdown',outsideNumber,true);
+        if (key.startsWith('lab:')) {
+          const input=numberInput.value;numberInput.hidden=true;numberButton.hidden=false;numberInput.value=question.globalNumber;
+          if(!cancel && container.isConnected && !PredictionLab.jump(input))alert('AI 01–20 중 이동할 번호를 입력해 주세요.');
+          return;
+        }
         const value = canonicalJblNumber(numberInput.value);
         numberInput.hidden = true;
         numberButton.hidden = false;
@@ -4190,7 +4206,7 @@ SOFTWARE.
         if(complete)window.CardiovascularQuickMode?.schedule(()=>{
           const viewer=studyQuestionViewer();
           if(!viewer||viewer.key!==key||viewerState(key).editing||viewer.questions[viewerState(key).index]?.id!==question.id)return;
-          const nav=questionExplanationState.active ? questionExplanationState.nav : contextLinkState.active ? contextLinkState.nav : document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav]');
+          const nav=questionExplanationState.active ? questionExplanationState.nav : contextLinkState.active ? contextLinkState.nav : document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav], #prediction-lab-view:not([hidden]) [data-lab-nav]');
           const next=nav?.querySelector('[data-jbl-next],[data-context-question-next]');
           if(next&&!next.disabled&&next.getAttribute('aria-disabled')!=='true')next.click();
         },correct);
@@ -4198,6 +4214,7 @@ SOFTWARE.
       bindQuestionStudyStatus(container,question.id);
       container.querySelector('[data-jbl-favorite]')?.addEventListener('click', () => {
         if (question.isOriginalVersion) return;
+        if(question.isAiLab){PredictionLab.toggleFavorite(question.id);rerender();return;}
         const base = questionVersionBase(question);
         if (questionIsFavorite(question)) {jblFavorites.delete(base.id);jblFavorites.delete(base.id+'::inferred');}
         else jblFavorites.add(base.id);
@@ -4319,7 +4336,7 @@ SOFTWARE.
       (state.feedbackHidden ||= {})[question.id] = !shown;
       rerender();
       if (restoreFocus) {
-        const nav = questionExplanationState.active ? questionExplanationState.nav : contextLinkState.active ? contextLinkState.nav : document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav]');
+        const nav = questionExplanationState.active ? questionExplanationState.nav : contextLinkState.active ? contextLinkState.nav : document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav], #prediction-lab-view:not([hidden]) [data-lab-nav]');
         nav?.querySelector('[data-jbl-answer]')?.focus({preventScroll:true});
       }
     }
@@ -4344,7 +4361,7 @@ SOFTWARE.
       rerender();
       if (shown) openQuestionExplanationSplit(state, question, rerender);
       if (restoreFocus) {
-        const nav = questionExplanationState.active ? questionExplanationState.nav : contextLinkState.active ? contextLinkState.nav : document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav]');
+        const nav = questionExplanationState.active ? questionExplanationState.nav : contextLinkState.active ? contextLinkState.nav : document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav], #prediction-lab-view:not([hidden]) [data-lab-nav]');
         nav?.querySelector('[data-jbl-explanation]')?.focus({preventScroll:true});
       }
     }
@@ -4360,7 +4377,7 @@ SOFTWARE.
       if (!viewer) return;
       if (questionExplanationState.active) closeQuestionExplanationSplit(false);
       const state = viewerState(viewer.key), question = viewer.questions[state.index];
-      if (!question || question.studyKind==='wiki' || question.isOriginalVersion || question.isInferredVersion) return;
+      if (!question || question.isAiLab || question.studyKind==='wiki' || question.isOriginalVersion || question.isInferredVersion) return;
       state.editing = state.editing === question.id ? null : question.id;
       viewer.rerender();
     }
@@ -4394,6 +4411,7 @@ SOFTWARE.
     }
 
     function scrollCurrentQuestionToTop(key) {
+      if(key.startsWith("lab:")){PredictionLab.scrollTop();return;}
       requestAnimationFrame(() => {
         const standalone = key === 'jbl-all';
         const scope = document.querySelector(standalone ? '#jbl-standalone' : '#content-panel');
@@ -6546,6 +6564,10 @@ SOFTWARE.
       setMainMenuOpen(false);
       let hash = location.hash;
       try { hash=decodeURIComponent(hash); } catch (_) {}
+      if (hash === "#prediction-lab" || hash.startsWith("#prediction-lab/")) {
+        showView("prediction-lab",false);
+        window.PredictionLab.render(document.querySelector("#prediction-lab-root"),hash);return;
+      }
       const pathologyRoute = hash.match(/^#(?:ecg|pathology)(?:-([EP]\d+))?$/i);
       if (pathologyRoute) {
         showView('pathology', false);
@@ -6607,6 +6629,8 @@ SOFTWARE.
     }
 
     function activeQuestionViewer() {
+      const lab=document.querySelector("#prediction-lab-view:not([hidden]) [data-lab-question-root]");
+      if(lab?.questionViewer)return viewerWithQuestionVersions(lab.questionViewer);
       if (!document.querySelector('#jbl-view').hidden) {
         return viewerWithQuestionVersions({ questions:currentStandaloneQuestions(), key:'jbl-all', rerender:renderJblStandalone });
       }
@@ -6786,7 +6810,7 @@ SOFTWARE.
     let wrongAnswers = readStudyStorage(wrongAnswerStorageKey, {});
     if (!wrongAnswers || typeof wrongAnswers !== 'object' || Array.isArray(wrongAnswers)) wrongAnswers = {};
     function quickQuestionContext(){
-      const host=document.querySelector('#jbl-view:not([hidden]) [data-jbl-root], #detail-view:not([hidden]) .lecture-j-pane:not([hidden]) [data-jbl-course-root]');
+      const host=document.querySelector('#jbl-view:not([hidden]) [data-jbl-root], #detail-view:not([hidden]) .lecture-j-pane:not([hidden]) [data-jbl-course-root], #prediction-lab-view:not([hidden]) [data-lab-question-root]');
       const viewer=questionExplanationState.active?questionExplanationState.viewer:contextLinkState.active?contextLinkState.body?.querySelector('[data-context-question-root]')?.questionViewer:host?.questionViewer;
       if(!viewer)return null;
       const course=lectureStudyCourseForKey(viewer.key);if(course&&lectureStudyState(course).view==='wiki')return null;
@@ -6796,7 +6820,7 @@ SOFTWARE.
       const stillCurrent=()=>{const v=studyQuestionViewer();return v?.key===viewer.key&&v.questions[viewerState(v.key).index]?.id===id;};
       return {key,paused:Boolean(state.editing||questionExplanationState.active||state.explanationShown?.[id]),
         reveal:()=>{if(!stillCurrent())return;markQuestionPeeked(state,question);state.answerShown[id]=true;(state.feedbackHidden||={})[id]=false;if(state.choiceEffectsHidden)delete state.choiceEffectsHidden[id];viewer.rerender();},
-        next:()=>{if(!stillCurrent())return;const nav=contextLinkState.active?contextLinkState.nav:document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav]');const next=nav?.querySelector('[data-jbl-next],[data-context-question-next]');if(next&&!next.disabled&&next.getAttribute('aria-disabled')!=='true')next.click();}
+        next:()=>{if(!stillCurrent())return;const nav=contextLinkState.active?contextLinkState.nav:document.querySelector('#jbl-view:not([hidden]) .jbl-bottom-inner, #detail-view:not([hidden]) [data-course-j-nav], #prediction-lab-view:not([hidden]) [data-lab-nav]');const next=nav?.querySelector('[data-jbl-next],[data-context-question-next]');if(next&&!next.disabled&&next.getAttribute('aria-disabled')!=='true')next.click();}
       };
     }
     window.CardiovascularStudy = {
@@ -6806,10 +6830,10 @@ SOFTWARE.
       wikiTools:studyWikiTools,
       toggleWiki:toggleStudyWiki,
       editWiki:editStudyWiki,
-      questionTools:()=>{const viewer=studyQuestionViewer();const state=viewer&&viewerState(viewer.key);const current=viewer?.questions[state?.index];return {available:Boolean(current&&current.studyKind!=='wiki'&&!current.isOriginalVersion&&!current.isInferredVersion),editing:Boolean(state?.editing)};},
+      questionTools:()=>{const viewer=studyQuestionViewer();const state=viewer&&viewerState(viewer.key);const current=viewer?.questions[state?.index];return {available:Boolean(current&&!current.isAiLab&&current.studyKind!=='wiki'&&!current.isOriginalVersion&&!current.isInferredVersion),editing:Boolean(state?.editing)};},
       editQuestion:editStudyQuestion,
       questionFilterContext:()=>{
-        if(isUpdatedJblView())return null; // The release sequence stays in course order.
+        if(isUpdatedJblView() || location.hash.startsWith('#prediction-lab'))return null; // These collections own their filters.
         const viewer=activeQuestionViewer();
         if(!viewer)return null;
         const state=viewerState(viewer.key);

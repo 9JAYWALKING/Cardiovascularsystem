@@ -2155,6 +2155,7 @@ SOFTWARE.
 <script src="./acs-learning-data.js?v=acs-cases-20261119"></script>
 <script src="./pad-learning-data.js?v=sfa-20261120"></script>
 <script src="./surgery-learning-data.js?v=surgery-20261120"></script>
+<script src="./case-learning-data.js?v=cases52-20261124" data-ecg-prefix="cases52-"></script>
 <script src="./intervention-learning-data.js?v=intervention51-20261124" data-ecg-prefix="intervention51-"></script>
 <script src="./rehab-learning-data.js?v=rehab50-20261123"></script>
 <script src="./pediatric-advanced-learning.js?v=pediatric-jpg-20261119"></script>
@@ -2167,15 +2168,15 @@ SOFTWARE.
 <script src="./congenital-learning.js?v=44-46-20261119"></script>
 <script src="./tachy-learning.js?v=tachy22-23-20261111"></script>
 <script src="./wiki-learning.js?v=wiki-order-20261118"></script>
-<script id="lecture-note-data" src="./lecture-notes.js?v=intervention51-20261124"></script>
+<script id="lecture-note-data" src="./lecture-notes.js?v=cases52-20261124"></script>
 <script src="./site-config.js?v=exam-20261126"></script>
 <script src="./question-id.js?v=20261111-chd-j"></script>
 <script src="./course-data.js?v=20261123-lecture51"></script>
-<script src="./schedule-advice-data.js?v=first-assignment-20261120"></script>
+<script src="./schedule-advice-data.js?v=cases52-20261124"></script>
 <script src="./schedule-advice.js?v=first-assignment-20261120"></script>
-<script id="jbl-data-script" src="./jbl-data.js?v=intervention51-20261124"></script>
+<script id="jbl-data-script" src="./jbl-data.js?v=cases52-20261124"></script>
 <script src="./question-migrations.js?v=j15051-photo-20261123"></script>
-<script id="jbl-concept-data" src="./jbl-concepts.js?v=intervention51-20261124"></script>
+<script id="jbl-concept-data" src="./jbl-concepts.js?v=cases52-20261124"></script>
 <script src="./lecture-study.js?v=stable-study-filter-20261124"></script>
 <script src="./question-updates-data.js?v=j15051-photo-20261123"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
@@ -4473,18 +4474,18 @@ SOFTWARE.
       clone.querySelector('#jbl-standalone')?.replaceChildren();
       clone.querySelector('#jbl-image-modal')?.classList.remove('show');
       clone.querySelector('#jbl-image-modal img')?.removeAttribute('src');
-      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=intervention51-20261124"]');
+      const dataScript = clone.querySelector('#jbl-data-script, script[src="./J/jbl-data.js"], script[src="./jbl-data.js?v=cases52-20261124"]');
       const payload = JSON.stringify(window.JBL_DATA).replace(/</g, '\\u003c');
       dataScript.removeAttribute('id');
       dataScript.setAttribute('src', './jbl-data.js');
       dataScript.textContent = '';
-      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=intervention51-20261124"]');
+      const noteDataScript = clone.querySelector('#lecture-note-data, script[src="./lecture-notes.js?v=cases52-20261124"]');
       const notePayload = JSON.stringify(lectureNoteSources).replace(/</g, '\\u003c');
       noteDataScript.removeAttribute('id');
       noteDataScript.setAttribute('src', './lecture-notes.js');
       noteDataScript.textContent = '';
-      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=intervention51-20261124"]');
-      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=intervention51-20261124'); conceptDataScript.textContent=''; }
+      const conceptDataScript = clone.querySelector('#jbl-concept-data, script[src="./jbl-concepts.js?v=cases52-20261124"]');
+      if (conceptDataScript) { conceptDataScript.setAttribute('src','./jbl-concepts.js?v=cases52-20261124'); conceptDataScript.textContent=''; }
       downloadCurrentFile('index.html', `<!DOCTYPE html>\n${clone.outerHTML}`, 'text/html;charset=utf-8', 0);
       downloadCurrentFile('jbl-data.js', `window.JBL_DATA = ${payload};\n`, 'text/javascript;charset=utf-8', 180);
       downloadCurrentFile('jbl-data.json', JSON.stringify(window.JBL_DATA, null, 2), 'application/json;charset=utf-8', 270);

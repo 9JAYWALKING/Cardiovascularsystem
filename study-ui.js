@@ -502,9 +502,11 @@
     });
     dialog.querySelector('[data-center-gestures]').addEventListener('click',()=>window.CardiovascularGestures.setEnabled(!window.CardiovascularGestures.isEnabled()));
     const statusFilters=dialog.querySelector('.study-status-filters');
-    if(statusFilters)statusFilters.insertAdjacentHTML('beforeend',resetButtonHTML());
-    else dialog.querySelector('.study-center-controls').insertAdjacentHTML('afterend',`<div class="study-reset-standalone">${resetButtonHTML()}</div>`);
-    dialog.querySelector('[data-center-reset]').onclick=openReset;
+    if(isJ || questionFilters?.mode==='j' || question.resetAvailable){
+      if(statusFilters)statusFilters.insertAdjacentHTML('beforeend',resetButtonHTML());
+      else dialog.querySelector('.study-center-controls').insertAdjacentHTML('afterend',`<div class="study-reset-standalone">${resetButtonHTML()}</div>`);
+      dialog.querySelector('[data-center-reset]').onclick=openReset;
+    }
     if(statusFilters && chapterFilter)statusFilters.insertAdjacentHTML('beforebegin',chapterFilter);
     dialog.querySelector('[data-center-chapter]')?.addEventListener('change',event=>{
       app.selectQuestionChapter(event.target.value);

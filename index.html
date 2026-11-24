@@ -6850,7 +6850,7 @@ SOFTWARE.
       wikiTools:studyWikiTools,
       toggleWiki:toggleStudyWiki,
       editWiki:editStudyWiki,
-      questionTools:()=>{const viewer=studyQuestionViewer();const state=viewer&&viewerState(viewer.key);const current=viewer?.questions[state?.index];return {available:Boolean(current&&!current.isAiLab&&current.studyKind!=='wiki'&&!current.isOriginalVersion&&!current.isInferredVersion),editing:Boolean(state?.editing)};},
+      questionTools:()=>{const viewer=studyQuestionViewer();const state=viewer&&viewerState(viewer.key);const current=viewer?.questions[state?.index];return {resetAvailable:Boolean(current&&current.studyKind!=='wiki'),available:Boolean(current&&!current.isAiLab&&current.studyKind!=='wiki'&&!current.isOriginalVersion&&!current.isInferredVersion),editing:Boolean(state?.editing)};},
       editQuestion:editStudyQuestion,
       questionFilterContext:()=>{
         if(isUpdatedJblView() || location.hash.startsWith('#prediction-lab'))return null; // These collections own their filters.
@@ -6902,7 +6902,7 @@ SOFTWARE.
     routeFromHash();
 </script>
 <script src="./study-reset.js?v=20261125"></script>
-<script src="./study-ui.js?v=question-reset-20261125"></script>
+<script src="./study-ui.js?v=question-reset-j-only-20261125"></script>
 <script src="./study-responsive.js?v=starter-20261106"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
 <script src="./resp-exam-menu.js?v=stable-random-v3"></script>

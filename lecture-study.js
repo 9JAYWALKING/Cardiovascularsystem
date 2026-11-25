@@ -278,6 +278,7 @@ function lectureStudyQuestions(course) {
   const questions = stableStudyFilterBatch(state,candidates,question =>
     (!statuses.length && !filters.favoritesOnly) || statuses.includes(questionListStudyStatus(question)) ||
     (filters.favoritesOnly && questionIsFavorite(question)),`j:${course.id}:${lectureStudyState(course).chapter||''}`);
+  if(state.professorOrderEnabled)return CardioPracticeRules.byProfessor(questions,courses,[course.id],(a,b)=>compareJblNumbers(a.globalNumber,b.globalNumber));
   if (!state.randomEnabled) return questions;
   return stableRandomQuestions(state,questions,jblQuestions.filter(q=>lectureStudyIncludesQuestion(q,course)),
     JSON.stringify([filters,lectureStudyState(course).chapter]));
@@ -645,7 +646,7 @@ function closeQuestionExplanationSplit(restoreFocus = true, conceal = true, rere
   if (rerender) viewer.rerender();
   if (restoreFocus) {
     const nav = viewer.key.startsWith('context-link-question-') ? contextLinkState.nav
-      : document.querySelector(viewer.key==='jbl-all' ? '#jbl-standalone .jbl-bottom-inner' : '[data-course-j-nav]');
+      : document.querySelector(['jbl-all','practice-feedback'].includes(viewer.key) ? '#jbl-standalone .jbl-bottom-inner' : '[data-course-j-nav]');
     nav?.querySelector('[data-jbl-explanation]')?.focus({preventScroll:true});
   }
 }
@@ -725,7 +726,7 @@ function handleQuestionExplanationShortcut(event) {
     let nav;
     if (root.hasAttribute('data-explanation-question-root')) nav = questionExplanationState.nav;
     else if (viewer.key.startsWith('context-link-question-')) nav = contextLinkState.nav;
-    else if (viewer.key === 'jbl-all') nav = root.closest('#jbl-standalone')?.querySelector('.jbl-bottom-inner');
+    else if (['jbl-all','practice-feedback'].includes(viewer.key)) nav = root.closest('#jbl-standalone')?.querySelector('.jbl-bottom-inner');
     else nav = root.closest('.lecture-j-pane')?.querySelector('[data-course-j-nav]');
     return nav ? {root, viewer, state, question, nav, id:viewer.key+':'+question.id} : null;
   }

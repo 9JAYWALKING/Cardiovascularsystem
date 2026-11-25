@@ -2069,6 +2069,8 @@ SOFTWARE.
   <link rel="stylesheet" href="./odap2019-reading.css?v=20261113">
 <link rel="stylesheet" href="./schedule-advice.css?v=first-assignment-20261120">
 <link rel="stylesheet" href="./prediction-lab.css?v=20261124-lecture-header">
+<link rel="stylesheet" href="./study-practice.css?v=20261125-delete">
+<link rel="stylesheet" href="./study-practice-exam.css?v=20261125-native">
 </head>
 <body class="">
 <div id="site-loading-screen" role="status" aria-live="polite" aria-label="페이지를 준비하고 있습니다">
@@ -2179,7 +2181,10 @@ SOFTWARE.
 <script id="jbl-data-script" src="./jbl-data.js?v=kang-pre2019-20261124"></script>
 <script src="./question-migrations.js?v=j15051-photo-20261123"></script>
 <script id="jbl-concept-data" src="./jbl-concepts.js?v=kang-pre2019-20261124"></script>
-<script src="./lecture-study.js?v=stable-study-filter-20261124"></script>
+<script src="./study-practice-core.js?v=20261125"></script>
+<script src="./study-practice-store.js?v=20261125-delete"></script>
+<script src="./study-practice.js?v=20261125-delete"></script>
+<script src="./lecture-study.js?v=practice-attempts-20261125"></script>
 <script src="./question-updates-data.js?v=j15051-photo-20261123"></script>
 <script src="./question-updates.js?v=ecg-review-20261115"></script>
   <script src="./wiki-image-annotations.js"></script>
@@ -2268,6 +2273,7 @@ SOFTWARE.
       (state.attempts[question.id] ||= {}).peeked = true;
     }
     function recordQuestionAttempt(state, question, answerIndices) {
+      if(window.CardiovascularPractice?.reviewReadOnly(state))return;
       if (question.isOriginalVersion) return; // Archived trials never affect the current question's record.
       state.attempts ||= {};
       const attempt = state.attempts[question.id] ||= {};
@@ -2405,7 +2411,7 @@ SOFTWARE.
           <button class="study-app" type="button" data-quick-route="#kmle"><span class="study-app-icon app-kmle" aria-hidden="true"></span><h3>국시 순환기계</h3></button>
           <button class="study-app" type="button" data-quick-route="#ecg"><span class="study-app-icon app-pathology" aria-hidden="true"></span><h3>ECG 땡시</h3><span class="study-app-caption">40문항 · 파형 판독</span></button>
           <button class="study-app" type="button" data-quick-wrong><span class="study-app-icon app-wrong" aria-hidden="true">✏️</span><h3>오답 복습</h3><span class="study-app-caption">${wrongQuestionIds().length}문항</span></button>
-          <button class="study-app" type="button" data-resp-exams><span class="study-app-icon app-exam" aria-hidden="true">⏱️</span><h3>실전처럼 풀기</h3><span class="study-app-caption">준비 중</span></button>
+          <button class="study-app" type="button" data-resp-exams><span class="study-app-icon app-exam" aria-hidden="true">⏱️</span><h3>실전처럼 풀기</h3><span class="study-app-caption">필터로 고른 문항 연습 · 기록</span></button>
           <button class="study-app" type="button" data-quick-route="#prediction-lab"><span class="study-app-icon app-mock" aria-hidden="true">📝</span><h3>예상문항연구소</h3><span class="study-app-caption">AI 문항 · Wiki · JBL</span></button>
         </div>
         <button class="study-help-entry" data-study-tutorial-open><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v15M12 5C8 3 5 3 2 4v15c3-1 6-1 10 1 4-2 7-2 10-1V4c-3-1-6-1-10 1"/></svg><span><strong>처음이라면 · 사이트 사용법</strong><small>기본 사용 연습 · 제스처 연습 · 기능 찾아보기</small></span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
@@ -2589,6 +2595,7 @@ SOFTWARE.
       return parentId ? jblQuestions.find(item => item.id === parentId) || question : question;
     }
     function questionForViewer(question, state) {
+      if(window.CardiovascularPractice?.reviewReadOnly(state))return question;
       if (!question || question.studyKind === 'wiki') return question;
       const base = questionVersionBase(question);
       const selected = state?.questionVersions?.[base.id];
@@ -2669,9 +2676,19 @@ SOFTWARE.
     const randomSessionStorageKey='cardiovascular-random-sessions-v1';
     let savedRandomSessions={};
     try {savedRandomSessions=JSON.parse(localStorage.getItem(randomSessionStorageKey)||'{}')||{};} catch(_){}
+    let professorOrderPreference=false;
+    try{professorOrderPreference=localStorage.getItem('cardiovascular-professor-order-v1')==='true';}catch(_){}
+    function setProfessorOrder(enabled){
+      professorOrderPreference=enabled;
+      try{localStorage.setItem('cardiovascular-professor-order-v1',String(enabled));}catch(_){}
+      for(const state of Object.values(jblViewerStates)){
+        state.professorOrderEnabled=enabled;
+        if(enabled){state.randomEnabled=false;state.lectureOrderEnabled=false;state.index=0;clearJblRandomOrder(state);}
+      }
+    }
     const viewerState = key => (jblViewerStates[key] ||= {
       index:0,selected:{},answerShown:{},explanationShown:{},editing:null,
-      ...(savedRandomSessions[key]||{}),_randomKey:key
+      ...(savedRandomSessions[key]||{}),...(professorOrderPreference?{professorOrderEnabled:true,randomEnabled:false,randomOrder:[],randomSession:null}:{}),_randomKey:key
     });
     function persistRandomSessions(){
       for(const [key,state] of Object.entries(jblViewerStates)){
@@ -2842,6 +2859,7 @@ SOFTWARE.
         return linked ? jblQuestionsByNumber() : [];
       }
       const filtered = filteredJblQuestions();
+      if (state.professorOrderEnabled) return CardioPracticeRules.byProfessor(filtered,courses,jblFilterValues(state.filters.lectureId),(a,b)=>compareJblNumbers(a.globalNumber,b.globalNumber));
       if (state.lectureOrderEnabled) return jblQuestionsByLecture(filtered, state.filters.lectureId);
       if(state.randomEnabled)return stableRandomQuestions(state,filtered,jblQuestions,jblFilterSignature(state.filters));
       return filtered.sort(compareJblStudyQuestions);
@@ -4050,7 +4068,7 @@ SOFTWARE.
       if (question.studyKind==='wiki') return question.group?.updateSummary ? updatedQuestionCardMarkup(question) : lectureJblWikiCardMarkup(question);
       const original = Boolean(question.isOriginalVersion);
       const originalButton = questionVersionButton(question);
-      const statusMarkup = original
+      const statusMarkup = window.CardiovascularPractice?.reviewReadOnly(state) ? window.CardiovascularPractice.statusMarkup(question) : original
         ? '<span class="study-answer-status is-unanswered" title="수정 전 원본 · 풀이 기록 저장 안 함"><span data-study-status-symbol aria-hidden="true"></span></span>'
         : questionStudyStatusMarkup(question.id);
       const wikiCourse = byId(question.lectureIds?.[0]) || emptyRenderCourse;
@@ -4094,7 +4112,7 @@ SOFTWARE.
       const lectureEditor = isEditing ? `<div class="jbl-editor-field full"><label>강의 분류 · 여러 강의를 함께 선택할 수 있습니다.</label><details class="jbl-lecture-picker" data-jbl-edit-lecture-picker><summary>${escapeHtml(questionCourseText(question) || '강의를 선택하세요')}</summary><div class="jbl-lecture-options">${questionEditableCourses().map(course => `<label class="jbl-lecture-option"><input type="checkbox" value="${course.id}" data-jbl-edit-lecture ${questionBelongsToCourse(question, course.id) ? 'checked' : ''} /><span>${escapeHtml(contentCourseText(course))} · ${escapeHtml(course.professor)} 교수</span></label>`).join('')}</div></details><p class="jbl-editor-validation" data-jbl-edit-lecture-error hidden>강의를 하나 이상 선택하세요.</p></div>` : '';
       const editor = isEditing ? `<section class="jbl-editor jbl-question-editor" aria-label="문제 수정"><div class="jbl-editor-grid">${lectureEditor}<div class="jbl-editor-field full"><label for="jbl-edit-question-${escapeHtml(question.id)}">문제 발문</label><textarea id="jbl-edit-question-${escapeHtml(question.id)}" data-jbl-edit-question>${escapeHtml(question.question)}</textarea></div><div class="jbl-editor-field full"><label for="jbl-edit-passage-${escapeHtml(question.id)}">제시문 · ㄱ/ㄴ/ㄷ/ㄹ, I/II/III 등</label><textarea id="jbl-edit-passage-${escapeHtml(question.id)}" data-jbl-edit-passage>${escapeHtml(question.passage || '')}</textarea></div><div class="jbl-editor-field full"><label for="jbl-edit-choices-${escapeHtml(question.id)}">선지 · 한 줄에 하나씩 입력</label><textarea id="jbl-edit-choices-${escapeHtml(question.id)}" data-jbl-edit-choices>${escapeHtml(question.choices.join('\n'))}</textarea></div><div class="jbl-editor-field"><label for="jbl-edit-indices-${escapeHtml(question.id)}">정답 번호 · 복수 정답은 쉼표로 구분</label><input id="jbl-edit-indices-${escapeHtml(question.id)}" data-jbl-edit-indices type="text" inputmode="numeric" value="${escapeHtml(answerIndices.join(', '))}" placeholder="예: 2 또는 2, 4" /></div><div class="jbl-editor-field"><label for="jbl-edit-label-${escapeHtml(question.id)}">정답 표시</label><input id="jbl-edit-label-${escapeHtml(question.id)}" data-jbl-edit-label type="text" value="${escapeHtml(question.answerLabel)}" /></div><div class="jbl-editor-field full"><label for="jbl-edit-explanation-${escapeHtml(question.id)}">해설</label><textarea id="jbl-edit-explanation-${escapeHtml(question.id)}" data-jbl-edit-explanation>${escapeHtml(question.explanation)}</textarea></div></div><p class="jbl-editor-help">강의 분류·발문·제시문·선지·정답·해설을 한 번에 수정합니다. Wiki와 같은 문법 및 {{123}} 형식의 문항 링크를 사용할 수 있습니다.</p>${wikiSyntaxHelpMarkup()}<div class="jbl-editor-actions"><button class="jbl-btn jbl-btn-sub" type="button" data-jbl-edit-cancel>취소</button><button class="jbl-btn jbl-btn-primary" type="button" data-jbl-edit-apply>수정 반영</button></div></section>` : '';
       return `<article class="jbl-card" data-jbl-question="${escapeHtml(question.id)}">
-        <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">${escapeHtml(questionExaminerLabel(question))}</span><div class="jbl-source">${escapeHtml(question.source)}${question.classificationStatus === 'pending-source' ? ' · 출처 강의 확인 중' : ''}</div></div><div class="jbl-meta-right">${statusMarkup}<button class="jbl-qid" type="button" data-jbl-number-button aria-label="${escapeHtml(question.displayId)} · 번호 입력하여 이동" title="번호를 입력하여 이동" ${state.editing ? 'disabled' : ''}>${escapeHtml(question.displayId)}</button><input class="jbl-number-input" data-jbl-number-input type="text" inputmode="text" enterkeyhint="go" autocomplete="off" aria-label="이동할 J 고유번호" value="${question.globalNumber}" hidden /><button class="jbl-favorite ${questionIsFavorite(question) ? 'active' : ''}" type="button" data-jbl-favorite ${original ? 'disabled title="즐겨찾기는 변형 문항에서 관리합니다"' : ''} aria-label="${questionIsFavorite(question) ? '즐겨찾기 해제' : '즐겨찾기 추가'}" aria-pressed="${questionIsFavorite(question)}">${questionIsFavorite(question) ? '★' : '☆'}</button></div></div><h2 class="jbl-title">${originalButton}${renderJblInline(question.question)}</h2></header>
+        <header class="jbl-card-head"><div class="jbl-meta"><div class="jbl-author-source"><span class="jbl-prof">${escapeHtml(questionExaminerLabel(question))}</span><div class="jbl-source">${escapeHtml(question.source)}${question.classificationStatus === 'pending-source' ? ' · 출처 강의 확인 중' : ''}</div></div><div class="jbl-meta-right">${statusMarkup}<button class="jbl-qid" type="button" data-jbl-number-button aria-label="${escapeHtml(question.displayId)} · 번호 입력하여 이동" title="번호를 입력하여 이동" ${state.editing ? 'disabled' : ''}>${escapeHtml(question.displayId)}</button><input class="jbl-number-input" data-jbl-number-input type="text" inputmode="text" enterkeyhint="go" autocomplete="off" aria-label="이동할 J 고유번호" value="${question.globalNumber}" hidden /><button class="jbl-favorite ${questionIsFavorite(question) ? 'active' : ''}" type="button" data-jbl-favorite ${original && !window.CardiovascularPractice?.reviewReadOnly(state) ? 'disabled title="즐겨찾기는 변형 문항에서 관리합니다"' : ''} aria-label="${questionIsFavorite(question) ? '즐겨찾기 해제' : '즐겨찾기 추가'}" aria-pressed="${questionIsFavorite(question)}">${questionIsFavorite(question) ? '★' : '☆'}</button></div></div><h2 class="jbl-title">${originalButton}${renderJblInline(question.question)}</h2></header>
         <div class="jbl-card-body">${passage}${images}${choices}${learningSummary}${revealAnswer && (!question.choices.length || !answerIndices.length) && !state.explanationShown[question.id] ? `<div class="jbl-answer-box" data-jbl-answer-only role="status">${renderJblWikiFragment(question.answerLabel?.trim() || (answerIndices.length ? '정답: '+answerIndices.join(', ')+'번' : '등록된 정답이 없습니다.'), question, 'answer-only')}</div>` : ''}${editor}</div>
       </article>`;
     }
@@ -4103,10 +4121,11 @@ SOFTWARE.
       const state = viewerState(key);
       const question = questions[state.index];
       if (!question) return;
+      if(window.CardiovascularPractice?.reviewReadOnly(state))container.querySelectorAll('[data-jbl-choice],[data-jbl-version-toggle],[data-jbl-number-button]').forEach(button=>button.disabled=true);
       if (question.studyKind==='wiki') { if(question.group?.updateSummary)bindUpdatedQuestionCard(container);else bindLectureJblWikiCard(container,question);return; }
       container.querySelector('[data-jbl-version-toggle]')?.addEventListener('click', event => {
         event.preventDefault();event.stopPropagation();
-        toggleQuestionVersion(container,question,state,rerender);
+        if(!window.CardiovascularPractice?.reviewReadOnly(state))toggleQuestionVersion(container,question,state,rerender);
       });
       const numberButton = container.querySelector('[data-jbl-number-button]');
       const numberInput = container.querySelector('[data-jbl-number-input]');
@@ -4181,7 +4200,7 @@ SOFTWARE.
       });
       bindWikiDocument(container, byId(question.lectureIds?.[0]) || emptyRenderCourse);
       container.querySelectorAll('[data-jbl-choice]').forEach(button => button.addEventListener('click', event => {
-        if (event.target.closest('a')) return;
+        if (event.target.closest('a') || window.CardiovascularPractice?.reviewReadOnly(state)) return;
         const choiceNumber = Number(button.dataset.jblChoice);
         const answerIndices = Array.isArray(question.answerIndices) && question.answerIndices.length ? question.answerIndices : (question.answerIndex ? [question.answerIndex] : []);
         if (state.answerShown[question.id] || state.explanationShown[question.id]) markQuestionPeeked(state, question);
@@ -4212,9 +4231,9 @@ SOFTWARE.
           if(next&&!next.disabled&&next.getAttribute('aria-disabled')!=='true')next.click();
         },correct);
       }));
-      bindQuestionStudyStatus(container,question.id);
+      if(!window.CardiovascularPractice?.reviewReadOnly(state))bindQuestionStudyStatus(container,question.id);
       container.querySelector('[data-jbl-favorite]')?.addEventListener('click', () => {
-        if (question.isOriginalVersion) return;
+        if (question.isOriginalVersion && !window.CardiovascularPractice?.reviewReadOnly(state)) return;
         if(question.isAiLab){PredictionLab.toggleFavorite(question.id);rerender();return;}
         const base = questionVersionBase(question);
         if (questionIsFavorite(question)) {jblFavorites.delete(base.id);jblFavorites.delete(base.id+'::inferred');}
@@ -4374,6 +4393,7 @@ SOFTWARE.
     }
 
     function editStudyQuestion() {
+      if(window.CardiovascularPractice?.active())return;
       const viewer = studyQuestionViewer();
       if (!viewer) return;
       if (questionExplanationState.active) closeQuestionExplanationSplit(false);
@@ -4414,7 +4434,7 @@ SOFTWARE.
     function scrollCurrentQuestionToTop(key) {
       if(key.startsWith("lab:")){PredictionLab.scrollTop();return;}
       requestAnimationFrame(() => {
-        const standalone = key === 'jbl-all';
+        const standalone = key === 'jbl-all' || key === 'practice-feedback';
         const scope = document.querySelector(standalone ? '#jbl-standalone' : '#content-panel');
         const lecturePane = !standalone && scope?.querySelector('[data-course-j-host]');
         if (lecturePane) { scrollLectureStudyQuestion(lecturePane); return; }
@@ -4538,6 +4558,7 @@ SOFTWARE.
     }
 
     function renderJblStandalone() {
+      if(window.CardiovascularPractice?.active()){window.CardiovascularPractice.render();return;}
       if (isUpdatedJblView()) return renderUpdatedQuestions();
       const target = document.querySelector('#jbl-standalone');
       const key = 'jbl-all';
@@ -6566,6 +6587,8 @@ SOFTWARE.
       setMainMenuOpen(false);
       let hash = location.hash;
       try { hash=decodeURIComponent(hash); } catch (_) {}
+      window.CardiovascularPractice?.route();
+      if(hash==='#jbl-practice'){showView('jbl',false);window.CardiovascularPractice.render();return;}
       if (hash === "#prediction-lab" || hash.startsWith("#prediction-lab/")) {
         showView("prediction-lab",false);
         window.PredictionLab.render(document.querySelector("#prediction-lab-root"),hash);return;
@@ -6631,6 +6654,7 @@ SOFTWARE.
     }
 
     function activeQuestionViewer() {
+      if(window.CardiovascularPractice?.active())return window.CardiovascularPractice.viewer();
       const lab=document.querySelector("#prediction-lab-view:not([hidden]) [data-lab-question-root]");
       if(lab?.questionViewer)return viewerWithQuestionVersions(lab.questionViewer);
       if (!document.querySelector('#jbl-view').hidden) {
@@ -6830,6 +6854,7 @@ SOFTWARE.
       window.scrollTo({...scroll,behavior:'instant'});
     });
     function quickQuestionContext(){
+      if(window.CardiovascularPractice?.active())return null;
       const host=document.querySelector('#jbl-view:not([hidden]) [data-jbl-root], #detail-view:not([hidden]) .lecture-j-pane:not([hidden]) [data-jbl-course-root], #prediction-lab-view:not([hidden]) [data-lab-question-root]');
       const viewer=questionExplanationState.active?questionExplanationState.viewer:contextLinkState.active?contextLinkState.body?.querySelector('[data-context-question-root]')?.questionViewer:host?.questionViewer;
       if(!viewer)return null;
@@ -6850,16 +6875,20 @@ SOFTWARE.
       wikiTools:studyWikiTools,
       toggleWiki:toggleStudyWiki,
       editWiki:editStudyWiki,
-      questionTools:()=>{const viewer=studyQuestionViewer();const state=viewer&&viewerState(viewer.key);const current=viewer?.questions[state?.index];return {resetAvailable:Boolean(current&&current.studyKind!=='wiki'),available:Boolean(current&&!current.isAiLab&&current.studyKind!=='wiki'&&!current.isOriginalVersion&&!current.isInferredVersion),editing:Boolean(state?.editing)};},
+      questionTools:()=>{if(window.CardiovascularPractice?.active())return {resetAvailable:false,available:false,editing:false};const viewer=studyQuestionViewer();const state=viewer&&viewerState(viewer.key);const current=viewer?.questions[state?.index];return {resetAvailable:Boolean(current&&current.studyKind!=='wiki'),available:Boolean(current&&!current.isAiLab&&current.studyKind!=='wiki'&&!current.isOriginalVersion&&!current.isInferredVersion),editing:Boolean(state?.editing)};},
       editQuestion:editStudyQuestion,
       questionFilterContext:()=>{
+        if(window.CardiovascularPractice?.active()){
+          if(window.CardiovascularPractice.locked())return null;
+          const state=standaloneState();return {standalone:true,course:false,mode:'j',filters:{...state.filters},randomEnabled:!!state.randomEnabled,lectureOrderEnabled:!!state.lectureOrderEnabled,professorOrderEnabled:!!state.professorOrderEnabled,chapters:[],chapter:'',total:currentStandaloneQuestions().length};
+        }
         if(isUpdatedJblView() || location.hash.startsWith('#prediction-lab'))return null; // These collections own their filters.
         const viewer=activeQuestionViewer();
         if(!viewer)return null;
         const state=viewerState(viewer.key);
         const course=lectureStudyCourseForKey(viewer.key),jbl=Boolean(course&&lectureStudyState(course).view==='jbl');
         const chapters=course ? (jbl ? lectureJblGroups(course) : lectureStudyChapters(course).filter(item=>item.numbers.length)) : [];
-        return {course:Boolean(course),standalone:viewer.key==='jbl-all',mode:jbl?'jbl':'j',filters:{...(state.filters||{})},randomEnabled:Boolean(!state.linkedQuestionNumber&&(state.randomEnabled||state.randomOrder?.length)),lectureOrderEnabled:Boolean(!state.linkedQuestionNumber&&state.lectureOrderEnabled),
+        return {course:Boolean(course),standalone:viewer.key==='jbl-all',mode:jbl?'jbl':'j',professorOrderEnabled:!!state.professorOrderEnabled,filters:{...(state.filters||{})},randomEnabled:Boolean(!state.linkedQuestionNumber&&(state.randomEnabled||state.randomOrder?.length)),lectureOrderEnabled:Boolean(!state.linkedQuestionNumber&&state.lectureOrderEnabled),
           chapter:course?(jbl?lectureStudyState(course).jblChapter||'':lectureStudyState(course).chapter):'',
           chapters:chapters.map(item=>({slug:item.slug,heading:(item.unlinked?'미연결 · ':'')+item.heading,count:item.numbers.length})),
           total:course?(jbl?chapters.length:jblQuestions.filter(question=>lectureStudyIncludesQuestion(question,course)).length):0};
@@ -6872,11 +6901,15 @@ SOFTWARE.
         const state=viewerState(viewer.key);if(!state.randomEnabled){state.index=0;clearJblRandomOrder(state);}viewer.rerender();
       },
       filterQuestions:values=>{
+        if(window.CardiovascularPractice?.active()){if(!window.CardiovascularPractice.locked())window.CardiovascularStudy.filter(values);return;}
         const viewer=activeQuestionViewer();if(!viewer)return;
         if(viewer.key==='jbl-all'){window.CardiovascularStudy.filter(values);return;}
         const state=viewerState(viewer.key);updateQuestionFilters(state,values);viewer.rerender();
       },
       randomQuestions:()=>{
+        if(window.CardiovascularPractice?.locked())return;
+        setProfessorOrder(false);
+        if(window.CardiovascularPractice?.active()){window.CardiovascularStudy.random();return;}
         const viewer=activeQuestionViewer();if(!viewer)return;
         if(viewer.key==='jbl-all'){window.CardiovascularStudy.random();return;}
         const state=viewerState(viewer.key);state.randomEnabled=!state.randomEnabled;state.index=0;
@@ -6887,11 +6920,20 @@ SOFTWARE.
         years:[...new Set(jblQuestions.map(q=>q.year))].sort((a,b)=>b-a),
         professors:[...new Set(jblQuestions.map(questionExamProfessor).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko')),
         filters:{...standaloneState().filters}, randomEnabled:Boolean(standaloneState().randomEnabled || standaloneState().randomOrder.length), wrongCount:wrongQuestionIds().length}),
-      filter:values=>{updateQuestionFilters(standaloneState(),values);renderJblStandalone();},
+      filter:values=>{if(window.CardiovascularPractice?.locked())return;updateQuestionFilters(standaloneState(),values);renderJblStandalone();},
       jump:value=>{const field=document.querySelector('#jbl-jump');if(field){field.value=value;document.querySelector('[data-jbl-jump]')?.click();}},
-      random:()=>{const state=standaloneState();state.randomEnabled=!(state.randomEnabled || state.randomOrder.length);if(state.randomEnabled)state.lectureOrderEnabled=false;state.linkedQuestionNumber=null;state.index=0;clearJblRandomOrder(state);renderJblStandalone();},
+      random:()=>{if(window.CardiovascularPractice?.locked())return;setProfessorOrder(false);const state=standaloneState();state.randomEnabled=!(state.randomEnabled || state.randomOrder.length);if(state.randomEnabled)state.lectureOrderEnabled=false;state.linkedQuestionNumber=null;state.index=0;clearJblRandomOrder(state);renderJblStandalone();},
+      toggleProfessorOrder:()=>{
+        if(window.CardiovascularPractice?.locked())return;
+        const viewer=activeQuestionViewer();
+        setProfessorOrder(!professorOrderPreference);
+        standaloneState().linkedQuestionNumber=null;
+        if(window.CardiovascularPractice?.active())renderJblStandalone();else viewer?.rerender();
+      },
       toggleLectureOrder:()=>{
-        if(activeQuestionViewer()?.key!=='jbl-all')return;
+        if(window.CardiovascularPractice?.locked())return;
+        if(!window.CardiovascularPractice?.active()&&activeQuestionViewer()?.key!=='jbl-all')return;
+        setProfessorOrder(false);
         const state=standaloneState();
         state.lectureOrderEnabled=Boolean(state.linkedQuestionNumber)||!state.lectureOrderEnabled;
         state.randomEnabled=false;state.linkedQuestionNumber=null;state.index=0;
@@ -6902,9 +6944,9 @@ SOFTWARE.
     routeFromHash();
 </script>
 <script src="./study-reset.js?v=20261125"></script>
-<script src="./study-ui.js?v=question-reset-j-only-20261125"></script>
+<script src="./study-ui.js?v=practice-attempts-20261125"></script>
 <script src="./study-responsive.js?v=starter-20261106"></script>
 <script src="./study-tutorial.js?v=20261105-webapp"></script>
-<script src="./resp-exam-menu.js?v=stable-random-v3"></script>
+<script src="./resp-exam-menu.js?v=practice-attempts-20261125"></script>
 <script src="./resp-exam-bridge.js"></script>
 </body></html>

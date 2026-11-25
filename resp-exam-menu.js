@@ -1,6 +1,7 @@
 document.addEventListener('click', event => {
   const trigger=event.target.closest('[data-resp-exams], [data-resp-mocks]');
   if(!trigger)return;
+  if(trigger.hasAttribute('data-resp-exams')&&window.CardiovascularPractice){window.CardiovascularPractice.launch();return;}
   const mock=trigger.hasAttribute('data-resp-mocks');
   const list=window.SITE_CONFIG?.[mock?'mocks':'exams'] || [];
   const dialog=document.createElement('dialog');
